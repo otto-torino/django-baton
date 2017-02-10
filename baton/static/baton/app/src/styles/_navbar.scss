@@ -1,0 +1,89 @@
+// scss-lint:disable IdSelector NestingDepth PlaceholderInExtend
+#header {
+  @extend .navbar;
+  @extend .navbar-inverse;
+  @extend .navbar-toggleable-sm;
+
+  background: $navbar-bg;
+  border-bottom: 1px solid $navbar-border-color;
+  color: $navbar-color;
+
+  strong {
+    color: $navbar-color;
+    padding-left: 0;
+
+    &::before {
+      content: '\f007';
+      display: inline-block;
+      font-family: 'FontAwesome';
+      margin-right: 5px;
+    }
+  }
+
+  a {
+    color: $navbar-link-color;
+
+    &:hover {
+      color: $navbar-link-color-hover;
+    }
+
+    &.dropdown-item {
+      color: $navbar-dropdown-link-color;
+    }
+  }
+
+  #user-tools {
+    @extend .d-inline-flex;
+
+    > a {
+      @extend .navbar-text;
+      order: 2;
+    }
+
+    .dropdown-menu {
+      left: 0;
+
+      @include media-breakpoint-up(md) {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  .nav-toggle span {
+    background: $navbar-toggle-bar-color;
+  }
+
+  .nav-menu.is-active {
+    background: $navbar-mobile-pane-bg;
+  }
+}
+
+#branding {
+  // @extend .nav-left;
+  @extend .navbar-brand;
+  @extend .mr-auto;
+  display: inline-block;
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+#site-name {
+  // @extend .nav-item;
+}
+
+#user-tools {
+  // @extend .nav-right;
+  // @extend .nav-menu;
+
+  a {
+    // @extend .nav-item;
+  }
+
+  strong {
+    // @extend .button;
+    // @extend .is-primary;
+  }
+}

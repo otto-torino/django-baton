@@ -1,0 +1,171 @@
+//scss-lint:disable PlaceholderInExtend NestingDepth ImportantRule SelectorDepth
+
+.menu-open .sidebar-menu {
+  left: 0;
+}
+
+.sidebar-menu {
+  background: $menu-bg;
+  color: $menu-color;
+  height: 100%;
+  left: -100%;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  @include media-breakpoint-up(md) {
+    height: auto;
+    left: 0;
+    position: static;
+    width: auto;
+  }
+
+  h1 {
+    @extend .clearfix;
+    background: $menu-mobile-title-bg;
+    border-bottom: 5px solid $menu-mobile-title-border-color;
+    color: $menu-mobile-title-color;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    padding: 10px 16px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 12;
+
+    @include media-breakpoint-up(md) {
+      background: $menu-title-bg;
+      position: static;
+
+      i {
+        display: none;
+      }
+    }
+
+    i {
+      cursor: pointer;
+      float: right;
+      font-weight: normal;
+      margin-right: 10px;
+    }
+  }
+
+  .depth-0,
+  .depth-1 {
+    background: $menu-bg;
+    height: 100%;
+    left: 0;
+    list-style-type: none;
+    overflow: auto;
+    padding: 0;
+    padding-top: 52px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+
+    @include media-breakpoint-up(md) {
+      height: auto;
+      padding-top: 0;
+      position: static;
+    }
+
+    li {
+      padding: 0;
+
+      a,
+      span {
+        padding: 10px 20px;
+      }
+    }
+
+    a,
+    span {
+      color: $menu-link-color;
+      display: block;
+
+      &:hover {
+        color: $menu-link-hover-color;
+      }
+
+      &.has-children {
+        @extend .clearfix;
+
+        &::after {
+          @extend %font-awesome;
+          content: '\f105';
+          float: right;
+        }
+      }
+
+      i {
+        display: inline-block;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .depth-0 {
+    > li:not(.title) {
+      &:hover {
+        background: $menu-li-hover-bg;
+      }
+    }
+
+    .title {
+      color: $menu-voice-title-color !important;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  .depth-1 {
+    display: block;
+    margin-left: -100%;
+    transition: margin-left .0s linear;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+      margin-left: 0;
+    }
+  }
+
+
+  .open {
+    @include media-breakpoint-up(md) {
+      .has-children {
+        background: $menu-selected-bg;
+
+        &::after {
+          content: '\f107' !important;
+        }
+      }
+
+      ul,
+      li {
+        background: $menu-selected-sub-bg !important;
+      }
+    }
+
+    > .depth-1 {
+      display: block;
+    }
+
+    .depth-1 {
+      margin-left: 0;
+      z-index: 10;
+    }
+  }
+
+  .nav-back {
+    background: $menu-mobile-back-bg;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
+}

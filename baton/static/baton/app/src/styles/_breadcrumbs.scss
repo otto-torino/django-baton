@@ -1,0 +1,17 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth
+.breadcrumbs {
+  @extend .p-3;
+  background: $breadcrumbs-bg;
+  border-bottom: 1px solid $breadcrumbs-border-color;
+  word-spacing: 5px;
+
+  a {
+    &:first-child {
+      &::before {
+        @extend %font-awesome;
+        @extend .mr-1;
+        content: '\f015';
+      }
+    }
+  }
+}

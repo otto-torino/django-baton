@@ -1,0 +1,23 @@
+// scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
+.login {
+  #container {
+    @extend .p-3;
+    max-width: 100%;
+    min-width: auto;
+
+    .navbar-toggler {
+      display: none !important;
+    }
+
+    .submit-row {
+      padding: 10px 0;
+      text-align: center;
+
+      input {
+        @extend .btn;
+        @extend .btn-secondary;
+        display: inline-block;
+      }
+    }
+  }
+}

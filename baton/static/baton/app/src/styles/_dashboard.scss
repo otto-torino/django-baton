@@ -1,0 +1,123 @@
+// scss-lint:disable PlaceholderInExtend IdSelector SelectorDepth NestingDepth ImportantRule
+.dashboard {
+
+  #content {
+    background: $dashboard-bg;
+  }
+
+  #content-main {
+    @include make-row();
+    float: left;
+    margin-left: 0 !important;
+    padding: 16px 0;
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      margin-left: -15px;
+      width: 75%;
+    }
+
+    > p {
+      @extend .pl-3;
+      @extend .pr-3;
+    }
+
+    > .module {
+      @include make-col-ready();
+      @include make-col(12);
+
+      @include media-breakpoint-up(lg) {
+        @include make-col(6);
+      }
+
+      @media(min-width: 1600px) {
+        @include make-col(4);
+      }
+    }
+
+    table {
+      @extend .table;
+      background: $dashboard-module-bg;
+      border: 1px solid $dashboard-module-border-color;
+
+      tbody {
+        font-size: .9rem;
+      }
+
+      th {
+        width: 100%;
+      }
+
+      td {
+        white-space: nowrap;
+      }
+
+    }
+  }
+
+  #content-related {
+    float: right;
+    padding: 0 15px;
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 25px;
+      width: 23%;
+    }
+
+    h2 {
+      font-size: $h2-size;
+    }
+
+    h3 {
+      font-size: $h3-size;
+    }
+
+    > div {
+      @extend .p-3;
+      @extend .mt-3;
+
+      background: $dashboard-module-bg;
+      border: 1px solid $dashboard-module-border-color;
+    }
+
+    .actionlist {
+      font-size: .9rem;
+    }
+  }
+
+  caption {
+    @extend .pl-2;
+    @extend .pr-2;
+    background: $dashboard-caption-bg;
+    border: 1px solid $dashboard-module-border-color;
+    caption-side: top;
+
+    a {
+      color: $dashboard-caption-color;
+    }
+  }
+
+  .addlink,
+  .changelink {
+    &::before {
+      @extend %font-awesome;
+      @extend .mr-1;
+      color: $dashboard-icon-color;
+      white-space: nowrap;
+    }
+  }
+
+  .addlink {
+    &::before {
+      content: '\f067';
+    }
+  }
+
+  .changelink {
+    &::before {
+      content: '\f040';
+    }
+  }
+
+}

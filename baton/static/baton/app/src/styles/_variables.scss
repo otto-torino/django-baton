@@ -1,0 +1,108 @@
+// bootstrap
+$primary: #ff7043;
+$brand-primary: darken($primary, 25%);
+$font-family-sans-serif: 'Dosis', sans-serif !default;
+
+// fonts
+$h1-size: 1.6rem;
+$h2-size: 1.4rem;
+$h3-size: 1.2rem;
+
+// navbar
+$navbar-bg: #37474f;
+$navbar-link-color: #fff;
+$navbar-dropdown-link-color: #000;
+$navbar-link-color-hover: #ff7043;
+$navbar-color: #fff;
+$navbar-toggle-bar-color: #ff7043;
+$navbar-mobile-pane-bg: #263238;
+$navbar-border-color: rgba(255, 255, 255, .2);
+
+// footer
+$footer-bg: #b3c4cd;
+$footer-link-color: #37474f;
+$footer-link-color-hover: $brand-primary;
+$footer-color: #333;
+$footer-border-color: #fff;
+
+// menu
+$menu-bg: #263238;
+$menu-color: #fff;
+$menu-link-color: #ccc;
+$menu-link-hover-color: #fff;
+$menu-li-hover-bg: darken($menu-bg, 5%);
+$menu-mobile-title-bg: #37474f;
+$menu-mobile-title-color: #fff;
+$menu-mobile-title-border-color: rgba(255, 255, 255, .2);
+$menu-mobile-back-bg: darken($menu-bg, 5%);
+$menu-selected-bg: $brand-primary;
+$menu-selected-sub-bg: lighten($menu-bg, 5%);
+$menu-title-bg: darken($menu-mobile-title-bg, 5%);
+$menu-voice-title-color: #aaa;
+
+// dashboard
+$dashboard-bg: #f5f5f5;
+$dashboard-title-bg: #fff;
+$dashboard-title-border-color: #ccc;
+$dashboard-module-bg: #fff;
+$dashboard-module-border-color: #ccc;
+$dashboard-caption-bg: #fff;
+$dashboard-caption-color: #000;
+$dashboard-icon-color: #f90;
+
+// breadcrumbs
+$breadcrumbs-bg: #fcfcfc;
+$breadcrumbs-border-color: #bbb;
+
+// content
+$content-bg: #f5f5f5;
+
+// changelist
+$changelist-bg: #fff;
+$changelist-border-color: #ccc;
+$toolbar-bg: lighten($navbar-mobile-pane-bg, 75%);
+$toolbar-btn-bg: #fff;
+$sort-icon-color: #999;
+$filters-bg: #fafafa;
+$filters-title-bg: #263238;
+$filters-title-color: #fff;
+$filter-selected-border-color: $primary;
+
+// changeform
+$changeform-bg: #fff;
+$changeform-border-color: #ccc;
+$collapse-title-bg: #fafafa;
+$collapse-title-border-color: #ccc;
+$state-danger-bg: #f2dede;
+$field-row-error-bg: lighten($state-danger-bg, 5%);
+$fieldset-title-bg: lighten($primary, 30%);
+$inline-related-title-bg: #fafafa;
+$inline-related-title-border-color: #eee;
+$inline-related-title-border-top-color: #eee;
+
+// form components
+$selector-item-border-color: #ccc;
+$selector-available-title-bg: #fafafa;
+$selector-chosen-title-bg: lighten($primary, 30%);
+$selector-chooser-bg: #eee;
+
+// changehistory
+$changehistory-bg: #fff;
+$changehistory-border-color: #ccc;
+
+// passwordchange
+$passwordchange-bg: #fff;
+$passwordchange-border-color: #ccc;
+
+// pagination
+$pag-bg: #fff;
+$pag-hover-bg: #eee;
+$pag-border-color: #eee;
+$pag-color: #000;
+$pag-selected-bg: #455a64;
+$pag-selected-color: #fff;
+$pag-selected-border-color: #455a64;
+
+// delete confirmation
+$delete-confirmation-bg: #fff;
+$delete-confirmation-border-color: #ccc;

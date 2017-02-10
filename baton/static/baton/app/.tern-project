@@ -1,0 +1,13 @@
+{
+  "libs": [
+    "browser",
+    "ecma5",
+    "ecma6"
+  ],
+  "plugins": {
+    "node": { },
+    "modules": {  },
+    "complete_strings": {},
+    "es_modules": {}
+  }
+}

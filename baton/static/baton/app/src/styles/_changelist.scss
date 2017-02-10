@@ -1,0 +1,180 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+.change-list {
+  #content-main {
+    @extend .container-fluid;
+  }
+
+  .object-tools {
+    .addlink {
+      &::before {
+        content: '\f067';
+      }
+    }
+  }
+
+  #changelist {
+    border: 1px solid $changelist-border-color;
+    clear: both;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #toolbar {
+    @extend .mb-0;
+    @extend .p-3;
+    @include make-col(12);
+    background: $toolbar-bg;
+    order: 1;
+  }
+
+  #changelist-search {
+
+    label,
+    input {
+      display: inline-block !important;
+    }
+
+    label {
+      @extend .pr-2;
+      text-align: right;
+    }
+
+    input[type=text] {
+      @extend .form-control;
+      max-width: 160px;
+    }
+
+    input[type=submit] {
+      @extend .btn;
+      @extend .ml-2;
+      background: $toolbar-btn-bg;
+      max-width: 100px;
+    }
+  }
+
+  #changelist-filter {
+    @include make-col(12);
+    background: $filters-bg;
+    order: 3;
+
+    @include media-breakpoint-up(lg) {
+      @include make-col(2);
+    }
+
+    h2 {
+      background: $filters-title-bg;
+      color: $filters-title-color;
+      font-size: $h2-size;
+      padding: .5rem 1rem;
+    }
+
+    h3 {
+      font-size: $h3-size;
+      padding: 0 1rem;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 15px;
+
+      .selected {
+        border-left: 5px solid $filter-selected-border-color;
+        margin-left: -15px;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  #changelist-form {
+    @extend .p-3;
+    @include make-col(12);
+    background: $changelist-bg;
+    order: 2;
+
+    @include media-breakpoint-up(lg) {
+      @include make-col(10);
+    }
+
+    .actions {
+      label {
+        @extend .pr-2;
+        @include make-col(8);
+      }
+
+      select {
+        @extend .custom-select;
+      }
+
+      button {
+        @extend .btn;
+        @extend .ml-2;
+      }
+
+      .all,
+      .question,
+      .clear {
+        display: none;
+      }
+    }
+  }
+
+  .results {
+    @extend .mt-2;
+    @extend .table-responsive;
+    background: $changelist-bg;
+
+    table {
+      @extend .table;
+      @extend .table-bordered;
+
+      .action-checkbox-column {
+        width: 20px;
+
+        .text {
+          padding-right: 0;
+        }
+      }
+
+      th,
+      td {
+        padding: .5rem;
+      }
+    }
+
+    .sortoptions {
+      float: right;
+    }
+
+    th .text {
+      padding-right: 44px;
+    }
+
+    .sorted .sortoptions a {
+      background: url('/static/admin/img/sorting-icons.svg') 0 0 no-repeat;
+      background-size: 14px auto;
+      display: inline-block;
+      height: 14px;
+      position: relative;
+      width: 14px;
+
+      &.sortremove::after {
+        color: $sort-icon-color;
+        content: '\\';
+        font-size: 18px;
+        font-weight: 200;
+        left: 3px;
+        position: absolute;
+        top: -6px;
+      }
+
+      &.descending {
+        background-position: 0 -56px;
+        top: 1px;
+      }
+
+      &.ascending {
+        background-position: 0 -42px;
+      }
+    }
+  }
+}

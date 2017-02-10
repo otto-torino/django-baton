@@ -1,0 +1,24 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+.delete-confirmation-content {
+  @extend .m-3;
+  @extend .p-3;
+  background: $delete-confirmation-bg;
+  border: 1px solid $delete-confirmation-border-color;
+
+  form {
+    input[type=submit] {
+      @extend .btn;
+      @extend.btn-danger;
+    }
+
+    .cancel-link {
+      @extend .btn;
+      @extend.btn-success;
+
+      &::before {
+        @extend %font-awesome;
+        content: '\f0e2';
+      }
+    }
+  }
+}

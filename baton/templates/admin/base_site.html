@@ -1,0 +1,32 @@
+{% extends "admin/base.html" %}
+{% load static baton_tags %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrahead %}
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,700" rel="stylesheet">
+    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
+    <!-- <script src="http://localhost:8080/dist/baton.min.js"></script> -->
+    <script>
+        (function ($, undefined) {
+            $(window).on('load', function () {
+                Baton.init({
+                    api: {
+                        app_list: '{% url 'baton-app-list-json' %}'
+                    }
+                });
+            })
+        })(jQuery, undefined)
+    </script>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer %}
+    {% footer %}
+{% endblock %}

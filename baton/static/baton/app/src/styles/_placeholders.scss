@@ -1,0 +1,429 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+%font-awesome {
+  display: inline-block;
+  font-family: 'FontAwesome';
+  margin-right: 5px;
+}
+
+%admin-form {
+  @extend .p-3;
+  @extend .mt-3;
+  background: $changeform-bg;
+  border: 1px solid $changeform-border-color;
+  clear: both;
+  overflow: auto;
+
+  h3 {
+    font-size: $h3-size;
+  }
+
+  .form-row {
+    @extend .form-group;
+
+    &.errors {
+      background: $field-row-error-bg;
+
+      .errorlist {
+        @extend .pt-2;
+      }
+    }
+
+    > div {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      &.checkbox-row {
+        input {
+          margin-top: 5px;
+          order: 2;
+        }
+
+        label {
+          order: 1;
+        }
+
+        .help {
+          order: 3;
+        }
+      }
+    }
+
+    .datetime {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+
+      input {
+        margin: 0 0 0 10px;
+      }
+
+      .date-icon {
+        &::before {
+          @extend %font-awesome;
+          content: '\f073';
+        }
+      }
+
+      .clock-icon {
+        &::before {
+          @extend %font-awesome;
+          content: '\f017';
+        }
+      }
+
+      a + a {
+        @extend .mr-3;
+      }
+
+      .datetimeshortcuts {
+        white-space: nowrap;
+      }
+    }
+
+    // selector
+    .related-widget-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+
+      + p {
+        flex-basis: 100%;
+      }
+
+      .selector {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: no-wrap;
+
+        .help-icon {
+          background: url('/static/admin/img/icon-unknown.svg') 0 0 no-repeat;
+          cursor: help;
+          display: inline-block;
+          height: 13px;
+          margin: -2px 0 0 2px;
+          vertical-align: middle;
+          width: 13px;
+        }
+      }
+
+      .selector-filter {
+        align-items: center;
+        border-left: 1px solid $selector-item-border-color;
+        border-right: 1px solid $selector-item-border-color;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+        padding: 5px;
+
+        label {
+          margin-bottom: 0;
+          padding-right: 2px !important;
+        }
+
+        .search-label-icon {
+          background: url('/static/admin/img/search.svg') 0 0 no-repeat;
+          cursor: help;
+          display: inline-block;
+          height: 18px;
+          margin-top: 5px;
+          width: 18px;
+        }
+
+        input {
+          padding: 5px;
+        }
+      }
+
+      .selector-available,
+      .selector-chosen {
+        text-align: center;
+        width: 330px;
+
+        h2 {
+          @extend .p-2;
+          background: $selector-available-title-bg;
+          border-left: 1px solid $selector-item-border-color;
+          border-right: 1px solid $selector-item-border-color;
+          border-top: 1px solid $selector-item-border-color;
+          font-size: 1rem;
+          margin-bottom: 0;
+        }
+
+        select {
+          border-radius: 0;
+          min-height: 200px;
+          width: 100%;
+        }
+      }
+
+      .selector-chosen {
+        h2 {
+          background: $selector-chosen-title-bg;
+        }
+      }
+
+      .selector-chooseall,
+      .selector-clearall {
+        @extend .btn;
+        @extend .btn-secondary;
+        display: inline-block;
+        margin: 5px auto;
+
+        &:not(.active) {
+          @extend .text-muted;
+        }
+      }
+
+      .selector-chooser {
+        align-self: center;
+        background-color: $selector-chooser-bg;
+        border-radius: 10px;
+        display: inline-block;
+        float: left;
+        margin: 0 15px;
+        padding: 0;
+        width: 22px;
+
+        li {
+          list-style-type: none;
+          margin: 0;
+          padding: 3px;
+        }
+
+        .selector-add {
+          background: url('/static/admin/img/selector-icons.svg') 0 -96px no-repeat;
+        }
+
+        .selector-remove {
+          background: url('/static/admin/img/selector-icons.svg') 0 -64px no-repeat;
+        }
+
+        .selector-add,
+        .selector-remove {
+          cursor: default;
+          display: block;
+          height: 16px;
+          opacity: .3;
+          overflow: hidden;
+          text-indent: -3000px;
+          width: 16px;
+
+          &.active {
+            opacity: 1;
+          }
+        }
+      }
+
+      .add-related {
+        margin-left: 15px;
+        margin-right: 15px;
+        order: 2;
+      }
+    }
+
+    .add-related {
+      vertical-align: top;
+    }
+
+    .related-lookup {
+      &::before {
+        @extend %font-awesome;
+        content: '\f002';
+        margin-left: 5px;
+      }
+    }
+  }
+
+  label {
+    @extend .pr-3;
+    flex-basis: 100%;
+    text-align: left;
+
+    @include media-breakpoint-up(sm) {
+      flex-basis: 20%;
+      text-align: right;
+    }
+
+    @include media-breakpoint-up(lg) {
+      flex-basis: 10%;
+      text-align: right;
+    }
+  }
+
+  .required {
+    font-weight: bold;
+  }
+
+  input[type=text],
+  input[type=number],
+  input[type=email],
+  input[type=date],
+  select[multiple] {
+    @extend .form-control;
+    width: auto;
+  }
+
+  textarea {
+    @extend .form-control;
+    resize: both;
+    width: auto;
+  }
+
+  select[multiple] {
+    display: inline-block;
+  }
+
+  select:not([multiple]) {
+    @extend .custom-select;
+  }
+
+  .help {
+    @extend .form-text;
+    @extend .text-muted;
+    @extend .ml-3;
+  }
+
+  .collapse {
+    display: block;
+
+    h2 {
+      @extend .p-2;
+      background: $collapse-title-bg;
+      border: 1px solid $collapse-title-border-color;
+      font-size: $h2-size;
+    }
+  }
+
+  .collapsed * {
+    display: none;
+  }
+
+  .collapsed h2 {
+    display: block;
+
+    a {
+      display: inline;
+    }
+  }
+
+  .submit-row {
+    align-items: center;
+    display: flex;
+    flex-basis: baseline;
+    flex-direction: column;
+    margin-top: 15px;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row-reverse;
+    }
+
+    input[type=submit] {
+      @extend .btn;
+      @extend .btn-success;
+      @extend .ml-1;
+      margin-bottom: 15px;
+      margin-left: auto;
+      order: 1;
+      width: 200px;
+
+      @include media-breakpoint-up(md) {
+        margin-bottom: 0;
+      }
+    }
+
+    .deletelink-box {
+      margin-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+      order: 2;
+
+      @include media-breakpoint-up(md) {
+        margin-left: 0;
+      }
+
+      .deletelink {
+        @extend .btn;
+        @extend .btn-danger;
+        width: 200px;
+
+        @include media-breakpoint-up(md) {
+          width: auto;
+        }
+
+        &::before {
+          @extend %font-awesome;
+          content: '\f014';
+        }
+      }
+    }
+  }
+
+  .errornote {
+    @extend .alert;
+    @extend .alert-danger;
+    font-weight: bold;
+  }
+
+  // stacked
+
+  fieldset > h2 {
+    background: $fieldset-title-bg;
+    font-size: $h2-size;
+    margin-bottom: 0;
+    padding: 5px 10px;
+
+    + .form-row {
+      margin-top: 15px;
+    }
+  }
+
+  .inline-related {
+    h3 {
+      @extend .clearfix;
+      background: $inline-related-title-bg;
+      border-bottom: 1px solid $inline-related-title-border-color;
+      border-top: 5px solid $inline-related-title-border-top-color;
+      font-size: 1.1rem;
+      padding: 3px 10px;
+    }
+
+    > .module {
+      @extend .table-responsive;
+    }
+
+    table {
+      @extend .table;
+      @extend .table-bordered;
+
+      .original {
+        display: none;
+      }
+    }
+  }
+
+  .add-row {
+    a {
+      @extend .btn;
+      @extend .btn-secondary;
+
+      &::before {
+        @extend %font-awesome;
+        content: '\f067';
+      }
+    }
+  }
+
+  .inline-deletelink {
+    @extend .btn;
+    @extend .btn-warning;
+    float: right;
+    margin-right: 15px;
+
+    &::before {
+      @extend %font-awesome;
+      content: '\f00d';
+    }
+  }
+}

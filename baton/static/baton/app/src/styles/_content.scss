@@ -1,0 +1,50 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth
+#content {
+  background: $content-bg;
+  padding-left: 0;
+  padding-right: 0;
+
+  > h1 {
+    @extend .mb-0;
+    @extend .p-3;
+    background: $dashboard-title-bg;
+    border-bottom: 1px solid $dashboard-title-border-color;
+    font-size: 1.6rem;
+  }
+
+  .object-tools {
+    @extend .pl-0;
+    @extend .m-2;
+    float: right;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+    }
+
+    a {
+      @extend .btn;
+      @extend .btn-secondary;
+
+      &::before {
+        @extend %font-awesome;
+      }
+    }
+  }
+}
+
+.messagelist {
+  list-style-type: none;
+  padding: 0;
+
+  .success {
+    @extend .alert;
+    @extend .alert-success;
+    @extend .pl-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: '\f00c';
+    }
+  }
+}

@@ -1,0 +1,37 @@
+// scss-lint:disable PlaceholderInExtend
+.paginator {
+  span,
+  a:not(.showall) {
+    background: $pag-bg;
+    border: 1px solid $pag-border-color;
+    color: $pag-color;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 40px;
+
+    &:hover {
+      background: $pag-hover-bg;
+    }
+  }
+
+  .end {
+    @extend .mr-3;
+  }
+
+  .this-page {
+    background: $pag-selected-bg;
+    color: $pag-selected-color;
+
+    &:hover {
+      background: $pag-selected-bg;
+    }
+  }
+
+  .showall {
+    @extend .btn;
+    @extend .btn-outline-primary;
+    margin-top: -5px;
+  }
+}

@@ -1,0 +1,23 @@
+{% load i18n %}
+<div id="footer" class="site-footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 text-center">
+                <p>
+                    <a href="{{ support_href }}"><i class="fa fa-question-circle"></i> {% trans 'Support'%}</a>
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+                <p>
+                    {{ copyright }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+                <p>
+                    {{ site_title }}<br />
+                    {% blocktrans %}Developed by {{ powered_by }}{% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

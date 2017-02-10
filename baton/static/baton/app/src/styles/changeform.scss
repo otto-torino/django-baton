@@ -1,0 +1,29 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+.change-form {
+  #content-main {
+    @extend .container-fluid;
+
+    > form {
+      @extend %admin-form;
+    }
+  }
+
+  .object-tools {
+    @extend .pl-0;
+    @extend .m-2;
+    float: right;
+    list-style-type: none;
+
+    .historylink {
+      &::before {
+        content: '\f017';
+      }
+    }
+
+    .viewsitelink {
+      &::before {
+        content: '\f26c';
+      }
+    }
+  }
+}
