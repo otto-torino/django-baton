@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include baton/static *
+recursive-include baton/templates *
