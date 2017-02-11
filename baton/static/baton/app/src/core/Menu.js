@@ -78,7 +78,7 @@ let Menu = {
           let subLi = $('<li />')
           if (active) {
             subLi.addClass('active')
-            li.addClass('open')
+            li.addClass('with-active')
           }
           $('<a />', {
             href: model.url

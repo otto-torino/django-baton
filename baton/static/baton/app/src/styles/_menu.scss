@@ -168,21 +168,49 @@
     }
   }
 
-  .active {
-    background: $menu-li-hover-bg;
-    position: relative;
+  .with-active {
+    @include media-breakpoint-up(md) {
+      .has-children {
+        background: $menu-selected-bg;
 
-    &::after {
-      border-bottom: 20px solid transparent;
-      border-right: 20px solid $menu-active-bg;
-      border-top: 20px solid transparent;
-      content: '';
-      display: inline-block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 0;
+        &::after {
+          content: '\f107' !important;
+        }
+      }
+
+      ul,
+      li {
+        background: $menu-selected-sub-bg !important;
+      }
+
+      > .depth-1 {
+        display: block;
+      }
+
+      .depth-1 {
+        margin-left: 0;
+        z-index: 10;
+      }
+    }
+  }
+
+  .active {
+    @include media-breakpoint-up(md) {
+      background: $menu-li-hover-bg;
+      position: relative;
+
+      &::after {
+        border-bottom: 20px solid transparent;
+        border-right: 20px solid $menu-active-bg;
+        border-top: 20px solid transparent;
+        content: '';
+        display: inline-block;
+        height: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+      }
     }
   }
 }
