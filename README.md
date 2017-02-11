@@ -32,7 +32,7 @@ A custom menu is provided, the menu is rendered through js, and data are fetched
 
 Until version 0.1.0 will be released, you can pip install the repo master branch
 
-    pip install https://github.com/otto-torino/django-baton/archive/master.zip
+    pip install git+https://github.com/otto-torino/django-baton
 
 or clone the repo inside your project
 
@@ -48,7 +48,14 @@ Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
         'baton.autodiscover',
     )
 
-### Why?
+And add baton to your `urls.py`:
+
+    urlpatterns = [
+        # ...
+        url(r'^baton/', include('baton.urls')),
+    ]
+
+### Why two installed apps?
 
 Well, the first `baton` has to be placed before the `django.contrib.admin` app, because it overrides 3 templates and resets all css.
 The `baton.autodiscover` entry is needed as the last installed app in order to register all applications for the admin.
@@ -129,8 +136,8 @@ You can specify free voices, youmust define an _url_ and if you want some visibi
 
 It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern js app which resides in `baton/static/baton/app`.
 
-You just need to change the sass variables values (and you can overwrite also bootstrap variables), re-compile, get the compiled js file, place it in the static folder of your main app, and place your main app
-before __baton__ in the `INSTALLED_APPS`.
+You just need to change the sass variables values (and you can overwrite also bootstrap variables), re-compile, get the compiled js file, place it in the static folder of your main app,
+and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
 So:
 
@@ -139,6 +146,7 @@ So:
     $ npm install
     $ vim src/styles/_variables.scss
     $ npm run compile
+    $ cp dist/baton.min.js ROOTAPP/static/baton/app/dist/
 
 If you want to test live your changes it's easy, just start the webpack dev server:
 

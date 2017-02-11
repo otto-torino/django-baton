@@ -7,7 +7,6 @@ let Menu = {
    * Adds a sidebar menu to the document
    */
   init: function (config) {
-    this.pathnameRexp = new RegExp(location.pathname)
     this.appListUrl = config.api.app_list
     this.fixNodes()
     this.fetchData()
@@ -52,7 +51,11 @@ let Menu = {
     let self = this
     let mainUl = $('<ul/>', { 'class': 'depth-0' }).appendTo(self.menu)
     data.forEach((voice, index) => {
-      let active = voice.url ? this.pathnameRexp.test(voice.url) : false
+      let active = false
+      if (voice.url) {
+        let pathRexp = new RegExp(voice.url)
+        active = pathRexp.test(location.pathname)
+      }
       let li = $('<li />', { 'class': 'top-level ' + voice.type + (active ? ' active' : '') })
       let a = $('<' + (voice.url ? 'a' : 'span') + ' />', {
         href: voice.url || '#'
@@ -67,7 +70,11 @@ let Menu = {
         a.addClass('has-children')
 
         voice.children.forEach((model, i) => {
-          let active = model.url ? this.pathnameRexp.test(model.url) : false
+          let active = false
+          if (model.url) {
+            let pathRexp = new RegExp(model.url)
+            active = pathRexp.test(location.pathname)
+          }
           let subLi = $('<li />')
           if (active) {
             subLi.addClass('active')
