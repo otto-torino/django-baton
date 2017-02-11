@@ -3,7 +3,7 @@
 A cool, modern and responsive django admin application, based on bootstrap 4-alpha6
 
 ![Screenshot](screenshots/mobile_mix.jpg)
-![Screenshot](screenshots/changelist_user_lg.jpg)
+![Screenshot](screenshots/changelist_user-lg.jpg)
 
 ## Features
 
