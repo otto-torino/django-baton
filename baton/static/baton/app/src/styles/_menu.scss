@@ -168,4 +168,21 @@
     }
   }
 
+  .active {
+    background: $menu-li-hover-bg;
+    position: relative;
+
+    &::after {
+      border-bottom: 20px solid transparent;
+      border-right: 20px solid $menu-active-bg;
+      border-top: 20px solid transparent;
+      content: '';
+      display: inline-block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 0;
+    }
+  }
 }

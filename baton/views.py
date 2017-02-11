@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.contrib.admin import site
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
 from django.core.exceptions import ImproperlyConfigured
 from django.views import View
 
@@ -44,6 +43,8 @@ class GetAppListJsonView(View):
             voice = self.get_title_voice(item)
         elif item.get('type') == 'app':
             voice = self.get_app_voice(item)
+        elif item.get('type') == 'model':
+            voice = self.get_app_model_voice(item)
         elif item.get('type') == 'free':
             voice = self.get_free_voice(item)
         if voice:
@@ -117,6 +118,19 @@ class GetAppListJsonView(View):
             }
         return None
 
+    def get_app_model_voice(self, app_model_item):
+        """ App Model voice
+            Returns the js menu compatible voice dict if the user
+            can see it, None otherwise
+        """
+        if app_model_item.get('name', None) is None:
+            raise ImproperlyConfigured('Model menu voices must have a name key') # noqa
+
+        if app_model_item.get('app', None) is None:
+            raise ImproperlyConfigured('Model menu voices must have an app key') # noqa
+
+        return self.get_model_voice(app_model_item.get('app'), app_model_item)
+
     def get_model_voice(self, app, model_item):
         """ Model voice
             Returns the js menu compatible voice dict if the user
@@ -129,6 +143,7 @@ class GetAppListJsonView(View):
             return {
                 'type': 'model',
                 'label': model_item.get('label', ''),
+                'icon': model_item.get('icon', None),
                 'url': self.apps_dict[app]['models'][model_item.get('name')]['admin_url'], # noqa
             }
 
@@ -183,9 +198,7 @@ class GetAppListJsonView(View):
         """ When no custom menu is defined in settings
             Retrieves a js menu ready dict from the django admin app list
         """
-        voices = [
-            {'type': 'title', 'label': _('main')},
-        ]
+        voices = []
         for app in self.app_list:
             children = []
             for model in app.get('models', []):

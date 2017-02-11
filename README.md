@@ -1,10 +1,12 @@
 # django-baton
 
-A cool responsive django admin app based on bootstrap 4-alpha6
+A cool, modern and responsive django admin application, based on bootstrap 4-alpha6
 
 ![Screenshot](screenshots/index_lg.jpg)
 
 ## Features
+
+Tested with django 1.10.5
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through css, and when an help is needed, js is armed. It doesn't require any other python package.
@@ -15,14 +17,14 @@ At the moment __baton__ defines only 3 custom templates:
 - `admin/delete_confirmation.html`, needed because of a bug (IMO) in the template, in particular the `extra_head` block does not contain the parent content, hence it must be overridden;
 - `admin/delete_selected_confirmation.html`, same as above.
 
-Baton is based on the coolest frontend technologies:
+Baton is based on the following frontend technologies:
 
 - bootstrap 4-alpha6
 - FontAwesome 4.7.0
 
 Flexbox is used here and there to accomplish responsiveness. jQuery is used for DOM manipulations.
 
-All js, fonts and css are compiled and produce a single js file which is included in the base_site template.
+All js, fonts and css are compiled, and produce a single js file which is included in the base_site template.
 
 A custom menu is provided, the menu is rendered through js, and data are fetched in json format through ajax request.
 
@@ -84,7 +86,7 @@ The configuration dictionary must be defined inside your settings:
                 )
             },
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
-            { 'type': 'app', 'label': 'Pages', 'name': 'flatpages' },
+            { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
         )
     }
@@ -96,7 +98,7 @@ Let's see the `MENU` configuration in detail.
 
 ### MENU
 
-Currently three kind of voices are supported: _title_, _app_ and _free_.
+Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
 
 First of all, if you don't define a MENU key in the configuration dictionary, the default MENU is shown.
 If you define a MENU key, then the custom menu is built and shown.
@@ -105,7 +107,7 @@ If you define a MENU key, then the custom menu is built and shown.
 
 Like __MAIN__ and __CONTENTS__ in the screenshot, it represents a menu section. You should set a label and optionally an apps or perms key, used for visualization purposes.
 
-If the title voice should act as a section title for a group of apps, youd want to specify these apps, because if the user can't operate over them, then the voice is not shown.
+If the title voice should act as a section title for a group of apps, you'd want to specify these apps, because if the user can't operate over them, then the voice is not shown.
 At the same time you can define some perms (OR condition), something like:
 
     { 'type': 'title', 'label': 'main', 'perms': ('auth.add_user', ) },
@@ -114,6 +116,10 @@ At the same time you can define some perms (OR condition), something like:
 
 You must specify the _type_ and _name_ keys, optionally an icon key (you can use FontAwesome classes which are included by default) and a _models_ key.
 If you don't define the _models_ key then the default app models are listed under your app, otherwise only the specified models are listed (in the order you provide).
+
+#### Model
+
+You must specify the _type_, _name_ and _app_ keys, optionally an icon key (you can use FontAwesome classes which are included by default).
 
 #### Free
 
@@ -144,18 +150,17 @@ And the inside the `base_site.html` template uncomment make these changes:
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
     <script src="http://localhost:8080/dist/baton.min.js"></script>
 
-Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'see your changes.
+Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
 
 ## State of art
 
 This application is currently in development. It is not suitable for production. I wrote every single css rule from scratch, testing it with my often used applications.
 Probably some widgets are still not styled, some admin features too. But if you use it and report styling problems in the issues page I will proceed faster to a definitive 0.1.0 release.
 
-Also this application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with old IE versions.
+Also this application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with older IE versions.
 
 ## TODO
 
-- detect active menu voice (js)
 - write tests
 - integrate [django-otto-admin](https://github.com/otto-torino/django-otto-admin), or better, integrate a google analytics index page
 - improve documentation (readthedocs)

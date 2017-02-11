@@ -8,6 +8,9 @@ $h1-size: 1.6rem;
 $h2-size: 1.4rem;
 $h3-size: 1.2rem;
 
+// utils
+$transparent: transparent;
+
 // navbar
 $navbar-bg: #37474f;
 $navbar-link-color: #fff;
@@ -39,6 +42,7 @@ $menu-selected-bg: $brand-primary;
 $menu-selected-sub-bg: lighten($menu-bg, 5%);
 $menu-title-bg: darken($menu-mobile-title-bg, 5%);
 $menu-voice-title-color: #aaa;
+$menu-active-bg: #f5f5f5;
 
 // dashboard
 $dashboard-bg: #f5f5f5;
