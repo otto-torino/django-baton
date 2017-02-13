@@ -71,9 +71,13 @@ Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
         'baton.autodiscover',
     )
 
-And add baton to your `urls.py`:
+Replace django.contrib.admin in your project urls, and add baton urls:
+
+    # from django.contrib import admin
+    from baton.autodiscover import admin
 
     urlpatterns = [
+        url(r'^admin/', include(admin.site.urls)),
         # ...
         url(r'^baton/', include('baton.urls')),
     ]
