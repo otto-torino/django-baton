@@ -7,6 +7,7 @@ import Footer from 'core/Footer'
 import Menu from 'core/Menu'
 import ActionResult from 'core/ActionResult'
 import PasswordChange from 'core/PasswordChange'
+import Analytics from 'core/Analytics'
 
 window.Baton = {
   init: function (config) {
@@ -35,6 +36,7 @@ window.Baton = {
     } else if (location.pathname === '/admin/password_change/done/') {
       return 'password_change_success'
     }
-  }
+  },
+  Analytics: Analytics
 }
 window.jQuery = jQuery

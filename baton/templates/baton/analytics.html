@@ -1,0 +1,110 @@
+{% load i18n %}
+<script>
+    (function(w,d,s,g,js,fs){
+        g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+        js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+        js.src='https://apis.google.com/js/platform.js';
+        fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+    }(window,document,'script'));
+</script>
+<!-- Include the ActiveUsers component script. -->
+<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
+<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
+
+<div class="container-fluid container-analytics">
+    <h4>Google Analytics <span class="btn btn-default" id="active-users-container"></span></h4>
+    <!-- this is just to make the view selector work, no need to display it -->
+    <div id="view-selector-container" style="display: none"></div>
+
+    <p>
+        <select id="analytics-timedelta" class="custom-select">
+            <option value="15daysAgo">{% trans 'last 15 days' %}</option>
+            <option value="30daysAgo">{% trans 'last month' %}</option>
+            <option value="90daysAgo">{% trans 'last three months' %}</option>
+            <option value="365daysAgo">{% trans 'last year' %}</option>
+        </select>
+    </p>
+
+    <div class="row" style="margin: 20px 0;">
+        <div class="col-lg-6">
+            <section class="panel">
+                <h1>{% trans 'Traffic' %}</h1>
+                <h2>{% trans 'Sessions and Users' %}</h2>
+                <div class="chart-container" id="chart-1-container"></div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="panel">
+                <h1>{% trans 'Popular' %}</h1>
+                <h2>{% trans 'Page views' %}</h2>
+                <div class="chart-container" id="chart-2-container"></div>
+            </section>
+        </div>
+    </div>
+    <div class="row" style="margin: 20px 0;">
+        <div class="col-lg-6">
+            <section class="panel">
+                <h1>{% trans 'Browsers' %}</h1>
+                <h2>{% trans 'Top used' %}</h2>
+                <div class="chart-container" id="chart-3-container"></div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="panel">
+                <h1>{% trans 'Acquisition' %}</h1>
+                <h2>{% trans 'Referral Traffic' %}</h2>
+                <div class="chart-container" id="chart-4-container"></div>
+            </section>
+        </div>
+    </div>
+    <div class="row" style="margin: 20px 0;">
+        <div class="col-lg-6">
+            <section class="panel">
+                <h1>{% trans 'Audience' %}</h1>
+                <h2>{% trans 'Countries' %}</h2>
+                <div class="chart-container" id="chart-5-container"></div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="panel">
+                <h1>{% trans 'Social' %}</h1>
+                <h2>{% trans 'Interactions' %}</h2>
+                <div class="chart-container" id="chart-6-container"></div>
+            </section>
+        </div>
+    </div>
+
+
+    <script>
+        var analytics = new Baton.Analytics(
+            gapi,
+            '{{ token }}',
+            '{{ view_id }}',
+            {
+                viewSelector: 'view-selector-container',
+                activeUsers: 'active-users-container',
+                traffic: 'chart-1-container',
+                popular: 'chart-2-container',
+                browsers: 'chart-3-container',
+                acquisition: 'chart-4-container',
+                audience: 'chart-5-container',
+                social: 'chart-6-container'
+            }
+        );
+        var addEvent = function(elem, event, fn) {
+            if (elem.addEventListener) {
+                elem.addEventListener(event, fn, false);
+            } else {
+                elem.attachEvent("on" + event, function() {
+                    // set the this pointer same as addEventListener when fn is called
+                    return(fn.call(elem, window.event));   
+                });
+            }
+        }
+        var timedeltaDropdown = document.getElementById('analytics-timedelta')
+        analytics.init(timedeltaDropdown.options[timedeltaDropdown.selectedIndex].value);
+        addEvent(timedeltaDropdown, 'change', function () {
+            analytics.run(timedeltaDropdown.options[timedeltaDropdown.selectedIndex].value);
+        })
+    </script>
+</div>

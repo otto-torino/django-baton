@@ -1,0 +1,19 @@
+$white: #fff;
+
+.container-analytics {
+  width: 100%;
+
+  h1 {
+    font-size: $h1-size;
+  }
+
+  h2 {
+    font-size: $h2-size;
+  }
+
+  .chart-container {
+    background: $chart-bg;
+    border: 1px solid $chart-border-color;
+    padding: 15px;
+  }
+}

@@ -20,6 +20,8 @@ setup(
     author_email='abidibo@gmail.com',
     install_requires=[
         'Django',
+        'google-api-python-client',
+        'oauth2client==1.5.2',
     ],
     classifiers=[
         'Environment :: Web Environment',

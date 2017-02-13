@@ -2,15 +2,37 @@
 
 A cool, modern and responsive django admin application, based on bootstrap 4-alpha6
 
-![Screenshot](screenshots/mobile_mix.jpg)
-![Screenshot](screenshots/changelist_user-lg.jpg)
+![Screenshot](screenshots/index-analytics-lg.jpg)
 
-## Features
+## Table of contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Configuration](#configuration)
+    - [Menu](#configuration-menu)
+    - [Analytics](#configuration-analytics)
+- [Customization](#customization)
+- [State of art](#state-of-art)
+- [TODO](#todo)
+- [Screenshots](#screenshots)
+
+## <a name="features"></a>Features
 
 Tested with django 1.10.5
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
-Everything is styled through css, and when an help is needed, js is armed. It doesn't require any other python package.
+Everything is styled through css, and when an help is needed, js is armed.
+
+- Based on bootstrap 4-alpha6 and FontAwesome
+- Fully responsive
+- Custom and flexible sidebar menu
+- Optional index page filled with google analytics widgets
+- Customization available recompiling the js app provided
+
+It requires the following python packages in order to manage the google analytics index:
+
+- google-api-python-client
+- oauth2client==1.5.2
 
 At the moment __baton__ defines only 3 custom templates:
 
@@ -29,7 +51,7 @@ All js, fonts and css are compiled, and produce a single js file which is includ
 
 A custom menu is provided, the menu is rendered through js, and data are fetched in json format through ajax request.
 
-## Installation
+## <a name="installation"></a>Installation
 
 Until version 0.1.0 will be released, you can pip install the repo master branch
 
@@ -64,7 +86,7 @@ I decided to create a custom `AdminSite` class, in order to allow the customizat
 better than customizing this vars overwriting the orignal templates. The problem is that when creating a custom AdminSite, you should register manually all the apps. I didn't like
 this, so I wrote this `autodiscover` module, which automatically registers all the apps already registered with the django default AdminSite. In order to do this, all the apps must be already registered, so it comes as the last installed app.
 
-## Configuration
+## <a name="configuration"></a>Configuration
 
 The configuration dictionary must be defined inside your settings:
 
@@ -96,15 +118,19 @@ The configuration dictionary must be defined inside your settings:
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-        )
+        ),
+        'ANALYTICS': {
+            'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+            'VIEW_ID': '12345678',
+        }
     }
 
 - `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include also img tags, and link for example.
 - `SUPPORT_HREF` is the content of an href attribute, then you can use also a `mailto:info@blabla.com`
 
-Let's see the `MENU` configuration in detail.
+Let's see the `MENU` and `ANALYTICS` configurations in detail.
 
-### MENU
+### <a name="configuration-menu"></a>MENU
 
 Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
 
@@ -133,11 +159,28 @@ You must specify the _type_, _name_ and _app_ keys, optionally an icon key (you 
 
 You can specify free voices, youmust define an _url_ and if you want some visibility permissions (OR clause)
 
-## Customization
+### <a name="configuration-analytics"></a>ANALYTICS
+
+You can create a cool index page displaying some statistics widgets consuming the google analytics api, just by defining the `ANALYTICS` setting.
+
+It requires two keys:
+
+- `CREDENTIALS`: it is the path to the credentials json file
+- `VIEW_ID`: id of the view from which display data
+
+#### How to generate a credentials json file
+
+Follow the steps in the Google Identity Platform documentation to [create a service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount) from the [Google Developer Console](https://console.developers.google.com/).
+
+Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
+
+Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
+
+## <a name="customization"></a>Customization
 
 It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern js app which resides in `baton/static/baton/app`.
 
-You just need to change the sass variables values (and you can overwrite also bootstrap variables), re-compile, get the compiled js file, place it in the static folder of your main app,
+You just need to change the [sass variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) (and you can overwrite also bootstrap variables), re-compile, get the compiled js file, place it in the static folder of your main app,
 and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
 So:
@@ -161,16 +204,20 @@ And the inside the `base_site.html` template uncomment make these changes:
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
 
-## State of art
+## <a name="state-of-art"></a>State of art
 
 This application is currently in development. It is not suitable for production. I wrote every single css rule from scratch, testing it with my often used applications.
 Probably some widgets are still not styled, some admin features too. But if you use it and report styling problems in the issues page I will proceed faster to a definitive 0.1.0 release.
 
 Also this application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with older IE versions.
 
-## TODO
+## <a name="todo"></a>TODO
 
 - write tests
-- integrate [django-otto-admin](https://github.com/otto-torino/django-otto-admin), or better, integrate a google analytics index page
 - improve documentation (readthedocs)
+
+## <a name="screenshots"></a>Screenshots
+
+![Screenshot](screenshots/mobile_mix.jpg)
+![Screenshot](screenshots/changelist_user-lg.jpg)
 

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.utils.html import mark_safe
+from django.utils.translation import ugettext as _
 
 default_config = {
     'SITE_HEADER': 'Baton',
     'SITE_TITLE': 'Baton',
-    'INDEX_TITLE': 'Site administration',
+    'INDEX_TITLE': _('Site administration'),
     'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
     'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
     'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',

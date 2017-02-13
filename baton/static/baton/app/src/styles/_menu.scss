@@ -200,15 +200,15 @@
       position: relative;
 
       &::after {
-        border-bottom: 20px solid transparent;
-        border-right: 20px solid $menu-active-bg;
-        border-top: 20px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid $menu-active-bg;
+        border-top: 10px solid transparent;
         content: '';
         display: inline-block;
         height: 0;
         position: absolute;
         right: 0;
-        top: 0;
+        top: 14px;
         width: 0;
       }
     }
