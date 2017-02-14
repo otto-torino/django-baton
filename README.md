@@ -186,14 +186,13 @@ Add the service account as a user in Google Analytics. The service account you c
 
 ## <a name="form-tabs"></a>Form tabs
 
-How I loved django-suit form tabs!
+How much I loved django-suit form tabs? Too much.
 
-So this was a feature I couldn't leave without. Let's see how to define tabs in your admin forms (everyting is done through js, no templatetags, no templates overriden):
+So, this was a feature I couldn't live without. Let's see how to define tabs in your admin forms (everyting is done through js, no templatetags, no templates overriden):
 
     class AttributeInline(admin.StackedInline):
         model = Attribute
         extra = 1
-
 
     class FeatureInline(admin.StackedInline):
         model = Feature
@@ -213,7 +212,7 @@ So this was a feature I couldn't leave without. Let's see how to define tabs in 
             ('Content', {
                 'fields': ('text', ),
                 'classes': ('tab-fs-content', ),
-                'description': 'This is a description text'
+                'description': 'This is another description text'
 
             }),
         )
@@ -221,7 +220,7 @@ So this was a feature I couldn't leave without. Let's see how to define tabs in 
 As you can see these are the rules:
 
 - Inline classes remain the same, no action needed
-- In the main fieldset define a `baton-tabs-init` class which enables tabs
+- In the first fieldset define a `baton-tabs-init` class which enables tabs
 - For every InLine you want to put in a separate tab, add a class `baton-tab-inline-MODELNAME`
 - For every fieldset you want to put in a separate tab, add a class `baton-tab-fs-CUSTOMNAME`, and add a class `tab-fs-CUSTOMNAME` on the fieldset
 - Tabs order respects the defined classes order
