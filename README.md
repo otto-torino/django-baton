@@ -11,8 +11,10 @@ A cool, modern and responsive django admin application, based on bootstrap 4-alp
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
+- [Form Tabs](#form-tabs)
 - [Customization](#customization)
 - [State of art](#state-of-art)
+- [Known Issues](#known-issues)
 - [TODO](#todo)
 - [Screenshots](#screenshots)
 
@@ -26,8 +28,10 @@ Everything is styled through css, and when an help is needed, js is armed.
 - Based on bootstrap 4-alpha6 and FontAwesome
 - Fully responsive
 - Custom and flexible sidebar menu
+- Form tabs out of the box
 - Optional index page filled with google analytics widgets
 - Customization available recompiling the js app provided
+- it translations provided
 
 It requires the following python packages in order to manage the google analytics index:
 
@@ -180,6 +184,53 @@ Once the service account is created, you can click the Generate New JSON Key but
 
 Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
 
+## <a name="form-tabs"></a>Form tabs
+
+How I loved django-suit form tabs!
+
+So this was a feature I couldn't leave without. Let's see how to define tabs in your admin forms (everyting is done through js, no templatetags, no templates overriden):
+
+    class AttributeInline(admin.StackedInline):
+        model = Attribute
+        extra = 1
+
+
+    class FeatureInline(admin.StackedInline):
+        model = Feature
+        extra = 1
+
+    class ItemAdmin(admin.ModelAdmin):
+        list_display = ('label', )
+        inlines = [AttributeInline, FeatureInline, ]
+
+        fieldsets = (
+            ('Main', {
+                'fields': ('label', ),
+                'classes': ('baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-inline-feature', 'baton-tab-fs-content',  ),
+                'description': 'This is a description text'
+
+            }),
+            ('Content', {
+                'fields': ('text', ),
+                'classes': ('tab-fs-content', ),
+                'description': 'This is a description text'
+
+            }),
+        )
+
+As you can see these are the rules:
+
+- Inline classes remain the same, no action needed
+- In the main fieldset define a `baton-tabs-init` class which enables tabs
+- For every InLine you want to put in a separate tab, add a class `baton-tab-inline-MODELNAME`
+- For every fieldset you want to put in a separate tab, add a class `baton-tab-fs-CUSTOMNAME`, and add a class `tab-fs-CUSTOMNAME` on the fieldset
+- Tabs order respects the defined classes order
+
+Other features:
+
+- when some field has an error, the first tab containing errors is opened automatically
+- you can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`
+
 ## <a name="customization"></a>Customization
 
 It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern js app which resides in `baton/static/baton/app`.
@@ -215,6 +266,24 @@ Probably some widgets are still not styled, some admin features too. But if you 
 
 Also this application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with older IE versions.
 
+## <a name="known-issues"></a>Known Issues
+
+Some issues which are known, and may or may not be fixed in the future.
+
+### Wrap multiple fields in the same line in fieldsets
+
+It is possible in django to wrap multiple fields in the same line, when defining a fieldset:
+
+    {
+        'fields': (('first_name', 'last_name'), 'address', 'city', 'state'),
+    }
+
+putting `first_name` and `last_name` in their own tuple will fire this behaviour.
+
+This feature is not supported in django-baton, because field-rows are not supposed to be inline.
+
+I think I won't fix this, I prefer using other approaches in these situations, like for example write a custom widget.
+
 ## <a name="todo"></a>TODO
 
 - write tests
@@ -224,4 +293,5 @@ Also this application is meant for use with modern browsers, targeting all recen
 
 ![Screenshot](screenshots/mobile_mix.jpg)
 ![Screenshot](screenshots/changelist_user-lg.jpg)
+![Screenshot](screenshots/tabs-lg.jpg)
 

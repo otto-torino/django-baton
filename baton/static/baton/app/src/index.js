@@ -8,11 +8,13 @@ import Menu from 'core/Menu'
 import ActionResult from 'core/ActionResult'
 import PasswordChange from 'core/PasswordChange'
 import Analytics from 'core/Analytics'
+import Tabs from 'core/Tabs'
 
 window.Baton = {
   init: function (config) {
     console.info('Baton:', 'init')
     let page = this.page()
+
     Navbar.init()
     if (page !== 'login' && !/_popup/.test(location.search)) {
       Menu.init(config)
@@ -25,6 +27,11 @@ window.Baton = {
     Footer.init({
       remove: /_popup/.test(location.search)
     })
+
+    // tabs
+    if (page === 'add_form' || page === 'change_form') {
+      Tabs.init()
+    }
   },
   page: function () {
     if (location.pathname === '/admin/') {
@@ -37,6 +44,10 @@ window.Baton = {
       return 'password_change'
     } else if (location.pathname === '/admin/password_change/done/') {
       return 'password_change_success'
+    } else if (/\/add\//.test(location.pathname)) {
+      return 'add_form'
+    } else if (/\/change\//.test(location.pathname)) {
+      return 'change_form'
     }
   },
   Analytics: Analytics

@@ -366,7 +366,15 @@
     font-weight: bold;
   }
 
-  // stacked
+
+  // fieldsets
+
+  fieldset .description {
+    @extend .pb-3;
+    @extend .pt-3;
+  }
+
+  // inline
 
   fieldset > h2 {
     background: $fieldset-title-bg;
@@ -382,6 +390,7 @@
   .inline-related {
     h3 {
       @extend .clearfix;
+      @extend .mt-2;
       background: $inline-related-title-bg;
       border-bottom: 1px solid $inline-related-title-border-color;
       border-top: 5px solid $inline-related-title-border-top-color;
@@ -404,6 +413,8 @@
   }
 
   .add-row {
+    @extend .mb-2;
+
     a {
       @extend .btn;
       @extend .btn-secondary;
