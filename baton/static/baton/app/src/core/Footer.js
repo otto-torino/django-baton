@@ -6,8 +6,11 @@ let Footer = {
    *
    * Moves the footer inside the main external container
    */
-  init: function () {
+  init: function (opts) {
     $('#footer').appendTo('#content')
+    if (opts.remove) {
+      $('#footer').remove()
+    }
   }
 }
 

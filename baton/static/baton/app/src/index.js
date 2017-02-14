@@ -22,7 +22,9 @@ window.Baton = {
     } else if (page === 'password_change') {
       PasswordChange.init()
     }
-    Footer.init()
+    Footer.init({
+      remove: /_popup/.test(location.search)
+    })
   },
   page: function () {
     if (location.pathname === '/admin/') {
