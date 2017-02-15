@@ -251,7 +251,7 @@ If you want to test live your changes it's easy, just start the webpack dev serv
     $ cd django-baton/baton/static/baton/app/
     $ npm run dev
 
-And the inside the `base_site.html` template uncomment make these changes:
+And the inside the `base_site.html` template make these changes:
 
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
     <script src="http://localhost:8080/dist/baton.min.js"></script>
