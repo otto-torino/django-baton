@@ -2,6 +2,8 @@
 
 A cool, modern and responsive django admin application, based on bootstrap 4-alpha6.
 
+Documentation: [readthedocs](http://django-baton.readthedocs.io/)
+
 ![Screenshot](screenshots/index-analytics-lg.jpg)
 
 ## Table of contents
@@ -286,7 +288,6 @@ I think I won't fix this, I prefer using other approaches in these situations, l
 ## <a name="todo"></a>TODO
 
 - write tests
-- improve documentation (readthedocs)
 
 ## <a name="screenshots"></a>Screenshots
 
