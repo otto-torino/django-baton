@@ -1,6 +1,6 @@
 # django-baton
 
-A cool, modern and responsive django admin application, based on bootstrap 4-alpha6
+A cool, modern and responsive django admin application, based on bootstrap 4-alpha6.
 
 ![Screenshot](screenshots/index-analytics-lg.jpg)
 
@@ -133,7 +133,7 @@ The configuration dictionary must be defined inside your settings:
         }
     }
 
-- `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include also img tags, and link for example.
+- `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include also img tags and links, for example.
 - `SUPPORT_HREF` is the content of an href attribute, then you can use also a `mailto:info@blabla.com`
 
 Let's see the `MENU` and `ANALYTICS` configurations in detail.
@@ -165,7 +165,7 @@ You must specify the _type_, _name_ and _app_ keys, optionally an icon key (you 
 
 #### Free
 
-You can specify free voices, youmust define an _url_ and if you want some visibility permissions (OR clause)
+You can specify free voices, you must define an _url_ and if you want some visibility permissions (OR clause)
 
 ### <a name="configuration-analytics"></a>ANALYTICS
 
