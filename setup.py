@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-baton',
-    version='0.1.0-rc1',
+    version='0.1.0-alpha',
     packages=['baton', 'baton.autodiscover', 'baton.templatetags'],
     include_package_data=True,
     license='MIT License',
