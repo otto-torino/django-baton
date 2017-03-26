@@ -50,6 +50,20 @@
       }
     }
 
+    .date-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f073';
+      }
+    }
+
+    .clock-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f017';
+      }
+    }
+
     .datetime {
       align-items: flex-start;
       display: flex;
@@ -57,20 +71,6 @@
 
       input {
         margin: 0 0 0 10px;
-      }
-
-      .date-icon {
-        &::before {
-          @extend %font-awesome;
-          content: '\f073';
-        }
-      }
-
-      .clock-icon {
-        &::before {
-          @extend %font-awesome;
-          content: '\f017';
-        }
       }
 
       a + a {
