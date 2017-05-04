@@ -32,6 +32,8 @@ window.Baton = {
     if (page === 'add_form' || page === 'change_form') {
       Tabs.init()
     }
+    console.info('Baton:', 'ready')
+    document.body.className += ' baton-ready'
   },
   page: function () {
     if (location.pathname === '/admin/') {

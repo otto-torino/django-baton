@@ -196,7 +196,7 @@
 
   .active {
     @include media-breakpoint-up(md) {
-      background: $menu-li-hover-bg !important;
+      background: $menu-active-voice-bg !important;
       position: relative;
 
       &::after {

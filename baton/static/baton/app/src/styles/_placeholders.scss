@@ -88,7 +88,8 @@
       flex-direction: row;
       flex-grow: 1;
 
-      + p {
+      + p,
+      + .help /* django 1.11 */ {
         flex-basis: 100%;
       }
 
@@ -227,6 +228,10 @@
       vertical-align: top;
     }
 
+    .change-related {
+      margin-left: 1rem;
+    }
+
     .related-lookup {
       &::before {
         @extend %font-awesome;
@@ -283,6 +288,11 @@
     @extend .form-text;
     @extend .text-muted;
     @extend .ml-3;
+  }
+
+  img.help {
+    display: inline-block;
+    margin-left: 0 !important;
   }
 
   .collapse {
@@ -394,12 +404,21 @@
       background: $inline-related-title-bg;
       border-bottom: 1px solid $inline-related-title-border-color;
       border-top: 5px solid $inline-related-title-border-top-color;
+      display: flex;
       font-size: 1.1rem;
       padding: 3px 10px;
+
+      > .delete {
+        margin-left: auto;
+      }
     }
 
     > .module {
       @extend .table-responsive;
+    }
+
+    .empty-form {
+      display: none; // inline extra param
     }
 
     table {

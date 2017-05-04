@@ -40,7 +40,11 @@ let Tabs = {
     this.tabsEl.forEach((el) => {
       let domEl
       if (/^inline-/.test(el)) {
-        domEl = $('#' + el.substring(7) + '_set-group').attr('data-baton-tab', el)
+        if ($('#' + el.substring(7) + '_set-group').length) { // no related_name
+          domEl = $('#' + el.substring(7) + '_set-group').attr('data-baton-tab', el)
+        } else {
+          domEl = $('#' + el.substring(7) + '-group').attr('data-baton-tab', el)
+        }
       } else {
         domEl = $('.tab-' + el).attr('data-baton-tab', el)
       }

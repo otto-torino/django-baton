@@ -41,7 +41,7 @@ Rules
 
 - Inline classes remain the same, no action needed
 - In the first fieldset define a ``baton-tabs-init`` class which enables tabs
-- For every ``InLine`` you want to put in a separate tab, add a class ``baton-tab-inline-MODELNAME``
+- For every ``InLine`` you want to put in a separate tab, add a class ``baton-tab-inline-MODELNAME`` or ``baton-tab-inline-RELATEDNAME`` if you've specified a related_name to the foreign key
 - For every fieldset you want to put in a separate tab, add a class ``baton-tab-fs-CUSTOMNAME``, and add a class ``tab-fs-CUSTOMNAME`` on the fieldset
 - Tabs order respects the defined classes order
 

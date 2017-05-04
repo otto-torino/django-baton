@@ -189,7 +189,7 @@ class GetAppListJsonView(View):
             given by django admin, it lists only the apps
             and models the user can view
         """
-        if model in self.apps_dict[app]['models']:
+        if self.apps_dict.get(app, False) and model in self.apps_dict[app]['models']:
             return True
 
         return False
