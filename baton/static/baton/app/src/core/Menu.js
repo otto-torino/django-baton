@@ -93,9 +93,12 @@ let Menu = {
       evt.preventDefault()
       let self = this
       let p = $(this).parent()
+      let depth0 = $('.depth-0')
+      let depth1 = p.children('ul')
       if (p.hasClass('open')) {
         p.removeClass('open')
-        p.children('ul').children('.nav-back').remove()
+        depth1.children('.nav-back').remove()
+        depth0.css('overflow', 'auto')
       } else {
         if (p.hasClass('top-level')) {
           $('.top-level').removeClass('open')
@@ -107,7 +110,9 @@ let Menu = {
         back.on('click', function () {
           $(self).trigger('click')
         })
-        p.children('ul').prepend(back)
+        depth1.prepend(back)
+        depth0.css('overflow', 'hidden')
+        depth0.scrollTop(0) // return to top
       }
     })
   }
