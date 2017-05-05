@@ -9,6 +9,7 @@ import ActionResult from 'core/ActionResult'
 import PasswordChange from 'core/PasswordChange'
 import Analytics from 'core/Analytics'
 import Tabs from 'core/Tabs'
+import ChangeList from 'core/ChangeList'
 
 window.Baton = {
   init: function (config) {
@@ -23,6 +24,9 @@ window.Baton = {
       ActionResult.init()
     } else if (page === 'password_change') {
       PasswordChange.init()
+    }
+    if (page === 'changelist') {
+      ChangeList.init()
     }
     Footer.init({
       remove: /_popup/.test(location.search)
@@ -50,6 +54,8 @@ window.Baton = {
       return 'add_form'
     } else if (/\/change\//.test(location.pathname)) {
       return 'change_form'
+    } else if (document.getElementById('changelist')) {
+      return 'changelist'
     }
   },
   Analytics: Analytics

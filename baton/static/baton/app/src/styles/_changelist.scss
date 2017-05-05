@@ -17,6 +17,7 @@
     clear: both;
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden;
   }
 
   #toolbar {
@@ -52,13 +53,27 @@
     }
   }
 
+  .changelist-filter-toggler {
+    cursor: pointer;
+    font-size: 2rem;
+    position: absolute;
+    right: 10px;
+
+    &.active {
+      color: $primary;
+    }
+  }
+
   #changelist-filter {
     @include make-col(12);
     background: $filters-bg;
     order: 3;
+    transition: all .2s linear;
 
     @include media-breakpoint-up(lg) {
-      @include make-col(2);
+      @include make-col(0);
+      max-height: 200px;
+      overflow: hidden;
     }
 
     h2 {
@@ -85,14 +100,32 @@
     }
   }
 
+  // show filters
+  &.changelist-filter-active {
+    #changelist-filter {
+      @include media-breakpoint-up(lg) {
+        @include make-col(2);
+        max-height: auto;
+      }
+    }
+
+    #changelist-form {
+      @include media-breakpoint-up(lg) {
+        @include make-col(10);
+      }
+    }
+  }
+
   #changelist-form {
     @extend .p-3;
     @include make-col(12);
     background: $changelist-bg;
     order: 2;
+    position: relative; // filter icon
+    transition: all .2s linear;
 
     @include media-breakpoint-up(lg) {
-      @include make-col(10);
+      @include make-col(12);
     }
 
     .actions {
