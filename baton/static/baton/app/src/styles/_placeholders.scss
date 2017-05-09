@@ -398,6 +398,11 @@
   }
 
   .inline-related {
+    &.empty-form, // stacked inline
+    .empty-form { // tabular
+      display: none; // inline extra param
+    }
+
     h3 {
       @extend .clearfix;
       @extend .mt-2;
@@ -416,10 +421,6 @@
 
     > .module {
       @extend .table-responsive;
-    }
-
-    .empty-form {
-      display: none; // inline extra param
     }
 
     table {
