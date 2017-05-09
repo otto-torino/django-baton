@@ -18,6 +18,11 @@
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
+
+    // no object tools
+    &:first-child {
+      margin-top: 1rem;
+    }
   }
 
   #toolbar {
