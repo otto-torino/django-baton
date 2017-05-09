@@ -43,7 +43,7 @@ It requires the following python packages in order to manage the google analytic
 At the moment __baton__ defines only 3 custom templates:
 
 - `admin/base_site.html`, needed in order to inject the js application (which includes also css and graphics, compiled with [webpack](https://webpack.github.io/));
-- `admin/delete_confirmation.html`, needed because of a bug (IMO) in the template, in particular the `extra_head` block does not contain the parent content, hence it must be overridden;
+- `admin/delete_confirmation.html`, needed because of a bug (IMO) in the template, in particular the `extra_head` block does not contain the parent content, hence it must be overridden (FIXED IN django 1.11, remains until baton will support django 1.10);
 - `admin/delete_selected_confirmation.html`, same as above.
 
 Baton is based on the following frontend technologies:

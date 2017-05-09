@@ -12,8 +12,10 @@ import Tabs from 'core/Tabs'
 import ChangeList from 'core/ChangeList'
 
 window.Baton = {
+  intialized: false,
   init: function (config) {
     console.info('Baton:', 'init')
+    this.initialized = true
     let page = this.page()
 
     Navbar.init()
