@@ -1,4 +1,4 @@
-// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule SelectorFormat
 %font-awesome {
   display: inline-block;
   font-family: 'FontAwesome';
@@ -408,7 +408,8 @@
       font-size: 1.1rem;
       padding: 3px 10px;
 
-      > .delete {
+      > .delete,
+      > .inline_label + span {
         margin-left: auto;
       }
     }
