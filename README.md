@@ -59,9 +59,9 @@ A custom menu is provided, the menu is rendered through js, and data are fetched
 
 ## <a name="installation"></a>Installation
 
-Until version 0.1.0 will be released, you can pip install the repo master branch
+Install the last stable release
 
-    pip install git+https://github.com/otto-torino/django-baton
+    pip install django-baton
 
 or clone the repo inside your project
 
