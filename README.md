@@ -22,7 +22,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ## <a name="features"></a>Features
 
-Tested with django 1.10.5
+Tested with django 1.10.5 and 1.11.1
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through css, and when an help is needed, js is armed.
