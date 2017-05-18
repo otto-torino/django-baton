@@ -15,7 +15,6 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
     - [Analytics](#configuration-analytics)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
-- [State of art](#state-of-art)
 - [Known Issues](#known-issues)
 - [TODO](#todo)
 - [Screenshots](#screenshots)
@@ -260,16 +259,11 @@ And the inside the `base_site.html` template make these changes:
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
 
-## <a name="state-of-art"></a>State of art
-
-This application is currently in development. It is not suitable for production. I wrote every single css rule from scratch, testing it with my often used applications.
-Probably some widgets are still not styled, some admin features too. But if you use it and report styling problems in the issues page I will proceed faster to a definitive 0.1.0 release.
-
-Also this application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with older IE versions.
-
 ## <a name="known-issues"></a>Known Issues
 
 Some issues which are known, and may or may not be fixed in the future.
+
+This application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with older IE versions.
 
 ### Wrap multiple fields in the same line in fieldsets
 
