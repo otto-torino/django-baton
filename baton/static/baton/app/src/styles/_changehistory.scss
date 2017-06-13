@@ -1,5 +1,5 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
-body[class=""] #content-main > .module {
+body[class=" baton-ready"] #content-main > .module {
   @extend .p-3;
   @extend .table-responsive;
   background: $changehistory-bg;
