@@ -14,7 +14,7 @@ class BatonAdminSite(AdminSite):
         super(BatonAdminSite, self).__init__(*args, **kwargs)
         self._registry.update(site._registry)
         for model in site._registry:
-            self.unregister(model)
-            self.register(model, type(site._registry[model]))
+            self.unregister([model])
+            self.register([model], type(site._registry[model]))
 
 site = BatonAdminSite() # noqa
