@@ -8,3 +8,4 @@ baton/static/baton/app/node_modules
 build/
 dist/
 django_baton.egg-info/
+.ropeproject
