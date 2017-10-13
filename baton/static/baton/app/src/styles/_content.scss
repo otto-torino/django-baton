@@ -47,4 +47,15 @@
       content: '\f00c';
     }
   }
+
+  .info {
+    @extend .alert;
+    @extend .alert-info;
+    @extend .pl-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: '\f05a';
+    }
+  }
 }
