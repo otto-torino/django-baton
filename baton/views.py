@@ -98,7 +98,7 @@ class GetAppListJsonView(View):
         if self.check_apps_permission([item.get('name', None)]):
             children = []
             if item.get('models', None) is None:
-                for name, model in self.apps_dict[item.get('name')]['models'].iteritems(): # noqa
+                for name, model in self.apps_dict[item.get('name')]['models'].items(): # noqa
                     children.append({
                         'type': 'model',
                         'label': model.get('name', ''),
