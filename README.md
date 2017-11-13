@@ -106,6 +106,7 @@ The configuration dictionary must be defined inside your settings:
         'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
         'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+        'CONFIRM_UNSAVED_CHANGES': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -136,6 +137,9 @@ The configuration dictionary must be defined inside your settings:
 
 - `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include also img tags and links, for example.
 - `SUPPORT_HREF` is the content of an href attribute, then you can use also a `mailto:info@blabla.com`
+- `CONFIRM_UNSAVED_CHANGES`: if set to `True` a confirmation modal appears when leaving a change form or add form with unsaved changes.
+The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
+Default value is `True`.
 
 Let's see the `MENU` and `ANALYTICS` configurations in detail.
 
