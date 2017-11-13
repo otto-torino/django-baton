@@ -9,6 +9,11 @@ from ..config import get_config
 register = template.Library()
 
 
+@register.simple_tag
+def baton_config(key):
+    return get_config(key)
+
+
 @register.inclusion_tag('baton/analytics.html', takes_context=True)
 def analytics(context, next=None):
 

@@ -11,11 +11,10 @@ const webpackConfig = {
     ],
     extensions: ['', '.js']
   },
-  /*
+  // let the loaders be found when parsing resources in all paths
   resolveLoader: {
     root: path.join(__dirname, 'node_modules')
   },
-  */
   // library entry point
   entry: './src/index.js',
   output: {

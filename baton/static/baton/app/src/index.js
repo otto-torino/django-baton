@@ -10,6 +10,7 @@ import PasswordChange from 'core/PasswordChange'
 import Analytics from 'core/Analytics'
 import Tabs from 'core/Tabs'
 import ChangeList from 'core/ChangeList'
+import ChangeForm from 'core/ChangeForm'
 
 window.Baton = {
   intialized: false,
@@ -26,9 +27,10 @@ window.Baton = {
       ActionResult.init()
     } else if (page === 'password_change') {
       PasswordChange.init()
-    }
-    if (page === 'changelist') {
+    } else if (page === 'changelist') {
       ChangeList.init()
+    } else if (page === 'add_form' || page === 'change_form') {
+      ChangeForm.init({ confirmUnsavedChanges: config.confirmUnsavedChanges })
     }
     Footer.init({
       remove: /_popup/.test(location.search)
