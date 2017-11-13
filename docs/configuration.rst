@@ -15,6 +15,7 @@ This is an example of configuration::
         'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
         'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+        'CONFIRM_UNSAVED_CHANGES': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -91,6 +92,15 @@ A powered by information included in the right part of the footer, under the ``S
 **Default**: '<a href="https://www.otto.to.it">Otto srl</a>'
 
 .. important:: ``POWERED_BY`` is marked as safe, so you can include img tags or links
+
+Confirm unsaved changes
+-----------------------
+
+Alert the user when it is leaving a change or add form page with unsaved changes
+
+**Default**: True
+
+.. important:: The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
 
 Menu
 ----
