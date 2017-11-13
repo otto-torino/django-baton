@@ -96,11 +96,11 @@ A powered by information included in the right part of the footer, under the ``S
 Confirm unsaved changes
 -----------------------
 
-Alert the user when it is leaving a change or add form page with unsaved changes
+Alert the user when he's leaving a change or add form page without saving changes
 
 **Default**: True
 
-.. important:: The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
+.. important:: The check for a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
 
 Menu
 ----
