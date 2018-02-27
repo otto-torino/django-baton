@@ -13,6 +13,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
+- [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
 - [Known Issues](#known-issues)
@@ -29,6 +30,7 @@ Everything is styled through css, and when an help is needed, js is armed.
 - Based on bootstrap 4-alpha6 and FontAwesome
 - Fully responsive
 - Custom and flexible sidebar menu
+- Text input filters facility
 - Form tabs out of the box
 - Optional index page filled with google analytics widgets
 - Customization available recompiling the js app provided
@@ -189,11 +191,55 @@ Once the service account is created, you can click the Generate New JSON Key but
 
 Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
 
+## <a name="text-input-filters"></a>Text Input Filters
+
+Taken from this [medium article](https://medium.com/@hakibenita/how-to-add-a-text-filter-to-django-admin-5d1db93772d8)
+
+Baton defines a custom InputFilter class that you can use to create text input filters and use them as any other `list_filters`, for example
+
+``` python
+
+# your app admin
+
+from baton.admin import InputFilter
+
+class IdFilter(InputFilter):
+    parameter_name = 'id'
+    title = 'id'
+ 
+    def queryset(self, request, queryset):
+        if self.value() is not None:
+            search_term = self.value()
+            return queryset.filter(
+                id=search_term
+            )
+
+
+class MyModelAdmin(admin.ModelAdmin):
+    list_filters = (
+        'my_field',
+        IdFilter,
+        'my_other_field',
+    )
+
+```
+
 ## <a name="form-tabs"></a>Form tabs
 
-How much I loved django-suit form tabs? Too much.
+How much I loved django-suit form tabs? Too much. So, this was a feature I couldn't live without.
 
-So, this was a feature I couldn't live without. Let's see how to define tabs in your admin forms (everyting is done through js, no templatetags, no templates overriden):
+There are three types of tabs:
+
+- **fieldset tab**: a tab containing a fieldset
+- **inline tab**: a tab containing an inline
+- **group tab**: a tab which can contain fieldsets and inlines in the order you specify
+
+Tabs' titles are retrieved automatically, for fieldset and inline tabs are the fieldset title and the inline related verbose name plural.
+For group tabs the first title is taken (either of an inline or fieldset section).
+
+Using group tabs you can mix inlines with fields, just by splitting fields into fieldsets and arranging them in your preferred order.
+
+Let's see how to define tabs in your admin forms (everyting is done through js, no templatetags, no templates overriden):
 
     class AttributeInline(admin.StackedInline):
         model = Attribute
@@ -204,19 +250,25 @@ So, this was a feature I couldn't live without. Let's see how to define tabs in 
         extra = 1
 
     class ItemAdmin(admin.ModelAdmin):
-        list_display = ('label', )
+        list_display = ('label', 'description', 'main_feature', )
         inlines = [AttributeInline, FeatureInline, ]
 
         fieldsets = (
             ('Main', {
                 'fields': ('label', ),
-                'classes': ('baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-inline-feature', 'baton-tab-fs-content',  ),
+                'classes': ('baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
                 'description': 'This is a description text'
 
             }),
             ('Content', {
                 'fields': ('text', ),
                 'classes': ('tab-fs-content', ),
+                'description': 'This is another description text'
+
+            }),
+            ('Tech', {
+                'fields': ('main_feature', ),
+                'classes': ('tab-fs-tech', ),
                 'description': 'This is another description text'
 
             }),
@@ -228,12 +280,13 @@ As you can see these are the rules:
 - In the first fieldset define a `baton-tabs-init` class which enables tabs
 - For every InLine you want to put in a separate tab, add a class `baton-tab-inline-MODELNAME` or `baton-tab-inline-RELATEDNAME` if you've specified a related name in the model foreign key field
 - For every fieldset you want to put in a separate tab, add a class `baton-tab-fs-CUSTOMNAME`, and add a class `tab-fs-CUSTOMNAME` on the fieldset
+- For every group you want to put in a separate tab, add a class `baton-tab-group-ITEMS`, where items can be inlines (`inline-RELATEDNAME`) and/or fieldsets (`fs-CUSTOMNAME`) separated by a double hypen `--`. Also add a class `tab-fs-CUSTOMNAME` on the fieldset items.
 - Tabs order respects the defined classes order
 
 Other features:
 
 - when some field has an error, the first tab containing errors is opened automatically
-- you can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`
+- you can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
 
 ## <a name="customization"></a>Customization
 

@@ -39,14 +39,24 @@ let Tabs = {
 
     this.tabsEl.forEach((el) => {
       let domEl
-      if (/^inline-/.test(el)) {
-        if ($('#' + el.substring(7) + '_set-group').length) { // no related_name
-          domEl = $('#' + el.substring(7) + '_set-group').attr('data-baton-tab', el)
-        } else {
-          domEl = $('#' + el.substring(7) + '-group').attr('data-baton-tab', el)
-        }
+      if (/^group-/.test(el)) {
+        console.log(el)
+        domEl = $('<div />').attr('data-baton-tab', el)
+        let items = el.substr(6).split('--')
+        items.forEach((item) => {
+          let e
+          if (/^inline-/.test(item)) {
+            e = this.createInlineEl(item)
+          } else {
+            e = this.createFieldsetEl(item)
+          }
+          console.log(e)
+          domEl.append(e)
+        })
+      } else if (/^inline-/.test(el)) {
+        domEl = this.createInlineEl(el, true)
       } else {
-        domEl = $('.tab-' + el).attr('data-baton-tab', el)
+        domEl = this.createFieldsetEl(el, true)
       }
       this.domTabsEl.push(domEl)
       $('<li />', { 'class': 'nav-item' })
@@ -54,11 +64,30 @@ let Tabs = {
           'class': 'nav-link',
           'data-toggle': 'tab',
           href: '#' + el
-        }).text(domEl.find('h2:first-child').hide().text()))
+        }).text(domEl.find('h2:first-child').first().hide().text()))
         .appendTo(this.nav)
     })
 
     this.main.before(this.nav)
+  },
+  createInlineEl: function (el, setDataTab = false) {
+    let domEl
+    if ($('#' + el.substring(7) + '_set-group').length) { // no related_name
+      domEl = $('#' + el.substring(7) + '_set-group')
+    } else {
+      domEl = $('#' + el.substring(7) + '-group')
+    }
+    if (setDataTab) {
+      domEl.attr('data-baton-tab', el)
+    }
+    return domEl
+  },
+  createFieldsetEl: function (el, setDataTab = false) {
+    let domEl = $('.tab-' + el)
+    if (setDataTab) {
+      domEl.attr('data-baton-tab', el)
+    }
+    return domEl
   },
   createPanes: function () {
     let self = this
@@ -85,7 +114,10 @@ let Tabs = {
 
     for (let i = 0, len = els.length; i < len; i++) {
       let el = els[i]
+      console.log('ERRORS', el)
+      console.log('ERRORS', el.find('.form-row.errors'))
       if (el.find('.form-row.errors').length) {
+        console.log('ERROR CLICK', this.nav.find('a[href="#' + el.attr('data-baton-tab') + '"]'))
         this.nav.find('a[href="#' + el.attr('data-baton-tab') + '"]').trigger('click')
         break
       }

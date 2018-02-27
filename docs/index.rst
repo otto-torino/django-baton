@@ -18,6 +18,7 @@ Features
 - Based on bootstrap 4-alpha6 and FontAwesome
 - Fully responsive
 - Custom and flexible sidebar menu
+- Text input filters facility
 - Configurable form tabs
 - Optional index page filled with google analytics widgets
 - Full customization available recompiling the provided js app
@@ -31,6 +32,7 @@ Getting started
 
    installation
    configuration
+   text_input_filters
    form_tabs
 
 Advanced customization
