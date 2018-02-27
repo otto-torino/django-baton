@@ -13,6 +13,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
+- [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
 - [Known Issues](#known-issues)
@@ -29,6 +30,7 @@ Everything is styled through css, and when an help is needed, js is armed.
 - Based on bootstrap 4-alpha6 and FontAwesome
 - Fully responsive
 - Custom and flexible sidebar menu
+- Text input filters facility
 - Form tabs out of the box
 - Optional index page filled with google analytics widgets
 - Customization available recompiling the js app provided
@@ -188,6 +190,39 @@ Follow the steps in the Google Identity Platform documentation to [create a serv
 Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
 
 Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
+
+## <a name="text-input-filters"></a>Text Input Filters
+
+Taken from this [medium article](https://medium.com/@hakibenita/how-to-add-a-text-filter-to-django-admin-5d1db93772d8)
+
+Baton defines a custom InputFilter class that you can use to create text input filters and use them as any other `list_filters`, for example
+
+``` python
+
+# your app admin
+
+from baton.admin import InputFilter
+
+class IdFilter(InputFilter):
+    parameter_name = 'id'
+    title = 'id'
+ 
+    def queryset(self, request, queryset):
+        if self.value() is not None:
+            search_term = self.value()
+            return queryset.filter(
+                id=search_term
+            )
+
+
+class MyModelAdmin(admin.ModelAdmin):
+    list_filters = (
+        'my_field',
+        IdFilter,
+        'my_other_field',
+    )
+
+```
 
 ## <a name="form-tabs"></a>Form tabs
 
