@@ -31,6 +31,28 @@ Using pip
         url(r'^baton/', include('baton.urls')),
     ]
 
+
+Django 2
+--------
+
+Steps 1 and 2 remain the same.
+
+Step 3:
+
+    from baton.autodiscover import admin
+    from django.urls import path, include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('baton/', include('baton.urls')),
+
+    ]
+
+.. important:: If you get a "__No crypto library available__" when using the google analytics index, then install this package:
+
+    $ pip install PyOpenSSL
+
+
 Why two installed apps?
 ^^^^^^^^^^^^^^^^^^^^^^^
 
