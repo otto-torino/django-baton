@@ -89,6 +89,23 @@ Replace django.contrib.admin in your project urls, and add baton urls:
         url(r'^baton/', include('baton.urls')),
     ]
 
+### Django 2
+
+The first two steps are the same, but in your project urls you should now use path:
+
+    from baton.autodiscover import admin
+    from django.urls import path, include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('baton/', include('baton.urls')),
+
+    ]
+
+If you get a "__No crypto library available__" when using the google analytics index, then install this package:
+
+    $ pip install PyOpenSSL
+
 ### Why two installed apps?
 
 Well, the first `baton` has to be placed before the `django.contrib.admin` app, because it overrides 3 templates and resets all css.

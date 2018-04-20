@@ -14,7 +14,7 @@ Everything is done with css (sass and bootstrap mixins), and when the markup nee
 Features
 --------
 
-- Tested with django 1.10.5 and 1.11.1
+- Tested with django 1.10.5, 1.11.1, 2.0
 - Based on bootstrap 4-alpha6 and FontAwesome
 - Fully responsive
 - Custom and flexible sidebar menu
