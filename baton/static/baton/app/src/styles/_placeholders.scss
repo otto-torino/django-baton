@@ -406,16 +406,23 @@
     h3 {
       @extend .clearfix;
       @extend .mt-2;
+      align-items: center;
       background: $inline-related-title-bg;
       border-bottom: 1px solid $inline-related-title-border-color;
       border-top: 5px solid $inline-related-title-border-top-color;
       display: flex;
       font-size: 1.1rem;
-      padding: 3px 10px;
+      padding: 8px 10px;
 
       > .delete,
       > .inline_label + span {
         margin-left: auto;
+      }
+
+      > .delete {
+        label {
+          margin-bottom: 0;
+        }
       }
     }
 
@@ -428,7 +435,50 @@
       @extend .table-bordered;
 
       .original {
-        display: none;
+        padding: 0;
+        position: relative;
+        width: 0;
+
+        p {
+          align-items: center;
+          background: $inline-tabular-original-bg;
+          border-bottom: 1px solid $inline-tabular-original-border-color;
+          display: flex;
+          font-size: .9rem;
+          flex-direction: row;
+          left: 14px;
+          padding: 0 4px;
+          position: absolute;
+          top: 8px;
+          white-space: nowrap;
+
+          .inlinechangelink {
+            position: relative;
+            right: -4px;
+          }
+        }
+      }
+
+      .has_original .original + td {
+        padding-top: 44px;
+      }
+    }
+
+    .inlinechangelink {
+      background: $inline-changelink-bg;
+      font-size: .9rem;
+      margin-left: 8px;
+      padding: 2px 4px;
+
+      &::before {
+        content: '\f040';
+        font-family: 'FontAwesome';
+        margin-right: 4px;
+      }
+
+      &:hover {
+        background: darken($inline-changelink-bg, 10%);
+        text-decoration: none;
       }
     }
   }
