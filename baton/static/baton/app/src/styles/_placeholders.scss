@@ -284,6 +284,17 @@
     @extend .custom-select;
   }
 
+  .radiolist {
+    list-style-type: none;
+    padding-left: 0;
+
+    &.inline {
+      li {
+        display: inline-block;
+      }
+    }
+  }
+
   .help {
     @extend .form-text;
     @extend .text-muted;
