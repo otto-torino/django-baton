@@ -437,6 +437,15 @@
       }
     }
 
+    // datetime fields should not be blocks because are followed by the calendar icon
+    .vDateField {
+      display: inline-block;
+    }
+
+    .errorlist {
+      background: $field-row-error-bg;
+    }
+
     > .module {
       @extend .table-responsive;
     }
