@@ -58,4 +58,26 @@
       content: '\f05a';
     }
   }
+
+  .warning {
+    @extend .alert;
+    @extend .alert-warning;
+    @extend .pl-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: '\f12a';
+    }
+  }
+
+  .error {
+    @extend .alert;
+    @extend .alert-danger;
+    @extend .pl-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: '\f071';
+    }
+  }
 }
