@@ -55,6 +55,10 @@
       @extend .ml-2;
       background: $toolbar-btn-bg;
       max-width: 100px;
+
+      &:hover {
+        background: $toolbar-btn-hover-bg;
+      }
     }
   }
 

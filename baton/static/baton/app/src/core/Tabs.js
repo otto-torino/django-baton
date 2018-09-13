@@ -114,10 +114,7 @@ let Tabs = {
 
     for (let i = 0, len = els.length; i < len; i++) {
       let el = els[i]
-      console.log('ERRORS', el)
-      console.log('ERRORS', el.find('.form-row.errors'))
-      if (el.find('.form-row.errors').length) {
-        console.log('ERROR CLICK', this.nav.find('a[href="#' + el.attr('data-baton-tab') + '"]'))
+      if (el.find('.form-row.errors, .errorlist').length) {
         this.nav.find('a[href="#' + el.attr('data-baton-tab') + '"]').trigger('click')
         break
       }
