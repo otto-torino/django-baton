@@ -10,13 +10,15 @@
     <!-- <script src="http://localhost:8080/dist/baton.min.js"></script> -->
     <script>
         {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
+        {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
         (function ($, undefined) {
             $(window).on('load', function () {
                 Baton.init({
                     api: {
                         app_list: '{% url 'baton-app-list-json' %}'
                     },
-                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %}
+                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %},
+                    showMultipartUploading: {% if show_multipart_uploading %}true{% else%}false{% endif %}
                 });
             })
         })(jQuery, undefined)

@@ -30,7 +30,10 @@ window.Baton = {
     } else if (page === 'changelist') {
       ChangeList.init()
     } else if (page === 'add_form' || page === 'change_form') {
-      ChangeForm.init({ confirmUnsavedChanges: config.confirmUnsavedChanges })
+      ChangeForm.init({
+        confirmUnsavedChanges: config.confirmUnsavedChanges,
+        showMultipartUploading: config.showMultipartUploading
+      })
     }
     Footer.init({
       remove: /_popup/.test(location.search)

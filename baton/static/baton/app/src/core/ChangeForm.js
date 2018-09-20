@@ -6,14 +6,19 @@ let ChangeForm = {
    * ChangeForm component
    *
    * Alert unsaved changes stuff
+   * Display loading spinner if multipart
    */
   init: function (opts) {
+    console.log('DIOFFA', opts)
     if (opts.confirmUnsavedChanges) {
       this.formSubmitting = false
       this.form = $('#content-main form')
       this.initData = this.form.serialize()
       this.t = new Translator($('html').attr('lang'))
       this.activate()
+    }
+    if (opts.showMultipartUploading) {
+      this.spinner()
     }
   },
   activate: function () {
@@ -30,6 +35,28 @@ let ChangeForm = {
     let confirmationMessage = this.t.get('unsavedChangesAlert');
     (e || window.event).returnValue = confirmationMessage // Gecko + IE
     return confirmationMessage // Gecko + Webkit, Safari, Chrome etc.
+  },
+  spinner: function () {
+    if (this.form.attr('enctype') === 'multipart/form-data') {
+      this.form.on('submit', () => this.showSpinner())
+    }
+  },
+  showSpinner: function () {
+    let run = false
+    let inputFiles = $('input[type=file]')
+    inputFiles.each(function (index, input) {
+      if (input.files.length !== 0) {
+        run = true
+      }
+    })
+    if (run) {
+      let overlay = $('<div />', {'class': 'spinner-overlay'}).appendTo(document.body)
+      let spinner = $('<i />', {'class': 'fa fa-circle-o-notch fa-spin fa-3x fa-fw'})
+      $('<div />').append(
+        $('<p />').text(this.t.get('uploading')),
+        spinner
+      ).appendTo(overlay)
+    }
   }
 }
 
