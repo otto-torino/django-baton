@@ -2,6 +2,10 @@ export const messages = {
   unsavedChangesAlert: {
     en: 'You have some unsaved changes.',
     it: 'Alcune modifiche non sono state salvate.'
+  },
+  uploading: {
+    en: 'Uploading...',
+    it: 'Uploading...'
   }
 }
 
