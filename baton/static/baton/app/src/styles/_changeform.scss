@@ -27,3 +27,25 @@
     }
   }
 }
+
+.spinner-overlay {
+  align-items: center;
+  background: $spinner-overlay-bg;
+  bottom: 0;
+  color: $spinner-overlay-fg;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  p {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}

@@ -16,6 +16,7 @@ This is an example of configuration::
         'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
         'CONFIRM_UNSAVED_CHANGES': True,
+        'SHOW_MULTIPART_UPLOADING': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -101,6 +102,13 @@ Alert the user when he's leaving a change or add form page without saving change
 **Default**: True
 
 .. important:: The check for a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
+
+Show multipart uploading
+-----------------------
+
+Show an overlay with a spinner when a ``multipart/form-data`` form is submitted
+
+**Default**: True
 
 Menu
 ----
