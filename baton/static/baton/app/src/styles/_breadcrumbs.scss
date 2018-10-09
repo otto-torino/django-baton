@@ -2,7 +2,8 @@
 .breadcrumbs {
   @extend .p-3;
   background: $breadcrumbs-bg;
-  border-bottom: 1px solid $breadcrumbs-border-color;
+  border-bottom: 2px solid $breadcrumbs-border-color;
+  line-height: 1.9;
   word-spacing: 5px;
 
   a {

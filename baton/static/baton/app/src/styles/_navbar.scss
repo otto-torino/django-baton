@@ -1,11 +1,11 @@
 // scss-lint:disable IdSelector NestingDepth PlaceholderInExtend
 #header {
   @extend .navbar;
-  @extend .navbar-inverse;
-  @extend .navbar-toggleable-sm;
+  @extend .navbar-dark;
+  @extend .bg-dark;
+  @extend .navbar-expand-md;
 
   background: $navbar-bg;
-  border-bottom: 1px solid $navbar-border-color;
   color: $navbar-color;
 
   strong {

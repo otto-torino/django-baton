@@ -25,11 +25,11 @@
   h1 {
     @extend .clearfix;
     background: $menu-mobile-title-bg;
-    border-bottom: 5px solid $menu-mobile-title-border-color;
+    border-bottom: 2px solid $menu-mobile-title-border-color;
     color: $menu-mobile-title-color;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 0;
-    padding: 10px 16px;
+    padding: 1rem 16px;
     position: absolute;
     top: 0;
     width: 100%;
@@ -74,6 +74,7 @@
     }
 
     li {
+      border-bottom: 1px solid $menu-li-border-color;
       padding: 0;
 
       a,
@@ -86,6 +87,7 @@
     span {
       color: $menu-link-color;
       display: block;
+      outline: 0;
 
       &:hover {
         color: $menu-link-hover-color;
@@ -130,6 +132,10 @@
     @include media-breakpoint-up(md) {
       display: none;
       margin-left: 0;
+
+      li {
+        padding-left: 10px;
+      }
     }
   }
 
@@ -194,22 +200,14 @@
     }
   }
 
-  .active {
+  .active:not(.with-active) {
     @include media-breakpoint-up(md) {
       background: $menu-active-voice-bg !important;
+      border-left: 5px solid $menu-active-voice-border-color;
       position: relative;
 
-      &::after {
-        border-bottom: 10px solid transparent;
-        border-right: 10px solid $menu-active-bg;
-        border-top: 10px solid transparent;
-        content: '';
-        display: inline-block;
-        height: 0;
-        position: absolute;
-        right: 0;
-        top: 14px;
-        width: 0;
+      a {
+        margin-left: -5px;
       }
     }
   }

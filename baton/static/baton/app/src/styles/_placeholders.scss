@@ -31,6 +31,7 @@
     > div {
       align-items: flex-start;
       display: flex;
+      flex: 1;
       flex-direction: row;
       flex-wrap: wrap;
 
@@ -168,7 +169,7 @@
       .selector-chooseall,
       .selector-clearall {
         @extend .btn;
-        @extend .btn-secondary;
+        @extend .btn-light;
         display: inline-block;
         margin: 5px auto;
 
