@@ -283,6 +283,10 @@
 
   select:not([multiple]) {
     @extend .custom-select;
+    -moz-appearance: none;
+    text-indent: .01px;
+    text-overflow: '';
+    width: auto !important;
   }
 
   .radiolist {
@@ -300,6 +304,7 @@
     @extend .form-text;
     @extend .text-muted;
     @extend .ml-3;
+    font-style: italic;
   }
 
   img.help {
@@ -397,6 +402,10 @@
   }
 
   // inline
+  fieldset .form-row {
+    margin-left: 0;
+    margin-right: 0;
+  }
 
   fieldset > h2 {
     background: $fieldset-title-bg;
@@ -454,6 +463,10 @@
     table {
       @extend .table;
       @extend .table-bordered;
+
+      .form-row {
+        display: table-row;
+      }
 
       .original {
         padding: 0;
