@@ -32,7 +32,7 @@ $menu-bg: #263238;
 $menu-color: #fff;
 $menu-link-color: #ccc;
 $menu-link-hover-color: #fff;
-$menu-li-hover-bg: darken($menu-bg, 5%);
+$menu-li-hover-bg: darken($menu-bg, 2%);
 $menu-li-border-color: #444;
 $menu-active-voice-bg: darken($primary, 10%);
 $menu-active-voice-border-color: #f5f5f5;
@@ -44,7 +44,8 @@ $menu-selected-bg: lighten($menu-bg, 10%);
 $menu-has-active-bg: lighten($menu-bg, 10%);
 $menu-selected-sub-bg: lighten($menu-bg, 5%);
 $menu-title-bg: darken($menu-mobile-title-bg, 5%);
-$menu-voice-title-color: #aaa;
+$menu-voice-title-color: $base;
+$menu-voice-title-bg: darken($menu-bg, 5%);
 $menu-active-bg: #f5f5f5;
 
 // dashboard

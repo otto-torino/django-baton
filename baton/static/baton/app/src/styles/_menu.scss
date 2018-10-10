@@ -118,9 +118,13 @@
     }
 
     .title {
-      color: $menu-voice-title-color !important;
+      background: $menu-voice-title-bg !important;
       font-weight: bold;
       text-transform: uppercase;
+
+      > span {
+        color: $menu-voice-title-color !important;
+      }
     }
   }
 
