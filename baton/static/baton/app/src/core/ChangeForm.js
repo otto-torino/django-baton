@@ -9,7 +9,6 @@ let ChangeForm = {
    * Display loading spinner if multipart
    */
   init: function (opts) {
-    console.log('DIOFFA', opts)
     if (opts.confirmUnsavedChanges) {
       this.formSubmitting = false
       this.form = $('#content-main form')
