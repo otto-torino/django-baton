@@ -421,7 +421,7 @@
   .inline-related {
     &.empty-form, // stacked inline
     .empty-form { // tabular
-      display: none; // inline extra param
+      display: none !important; // inline extra param
     }
 
     h3 {
