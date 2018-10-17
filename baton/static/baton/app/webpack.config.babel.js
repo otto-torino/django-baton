@@ -31,10 +31,7 @@ webpackConfig.plugins = [
   new webpack.ProvidePlugin({
     jQuery: 'jquery',
     $: 'jquery',
-    jquery: 'jquery',
-    'window.Tether': 'tether',
-    Tether: 'tether',
-    tether: 'tether'
+    jquery: 'jquery'
   })
 ]
 
@@ -55,10 +52,10 @@ webpackConfig.module.loaders.push({
 // css loaders
 webpackConfig.module.loaders.push({
   test: /\.scss/,
-  loader: 'style!css!sass'
+  loader: 'style!css!postcss!sass'
 }, {
   test: /\.sass/,
-  loader: 'style!css!sass'
+  loader: 'style!css!postcss!sass'
 })
 
 // File loaders
