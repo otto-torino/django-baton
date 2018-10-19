@@ -6,6 +6,10 @@ export const messages = {
   uploading: {
     en: 'Uploading...',
     it: 'Uploading...'
+  },
+  filter: {
+    en: 'Filter',
+    it: 'Filtra'
   }
 }
 
