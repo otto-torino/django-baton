@@ -116,8 +116,7 @@
 
 .calendarbox .calendarnav-previous, .calendarbox .calendarnav-next {
     display: block;
-    position: absolute;
-    top: 8px;
+    margin: 6px;
     width: 15px;
     height: 15px;
     text-indent: -9999px;
@@ -125,8 +124,8 @@
 }
 
 .calendarnav-previous {
-    left: 10px;
     background: url(/static/admin/img/calendar-icons.svg) 0 0 no-repeat;
+    float: left;
 }
 
 .calendarbox .calendarnav-previous:focus,
@@ -137,6 +136,7 @@
 .calendarnav-next {
     right: 10px;
     background: url(/static/admin/img/calendar-icons.svg) 0 -30px no-repeat;
+    float: right;
 }
 
 .calendarbox .calendarnav-next:focus,
