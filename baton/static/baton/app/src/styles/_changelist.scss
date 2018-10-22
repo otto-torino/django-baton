@@ -63,15 +63,25 @@
   }
 
   .changelist-filter-toggler {
-    color: $filter-toggler-color !important;
+    color: transparent !important;
     cursor: pointer;
     font-size: 1rem;
     position: absolute;
     right: 16px;
     top: 33px;
+    width: 37px;
 
     &.active {
-      color: $primary;
+      background: $primary;
+    }
+
+    .fa {
+      color: $filter-toggler-color !important;
+    }
+
+    @include media-breakpoint-up(sm) {
+      color: $filter-toggler-color !important;
+      width: auto;
     }
   }
 
