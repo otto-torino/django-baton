@@ -1,7 +1,8 @@
 // bootstrap
-$primary: #ff7043;
-$brand-primary: darken($primary, 25%);
+$base: #ff7043;
+$primary: darken($base, 25%);
 $font-family-sans-serif: 'Dosis', sans-serif !default;
+
 
 // fonts
 $h1-size: 1.6rem;
@@ -17,14 +18,12 @@ $navbar-link-color: #fff;
 $navbar-dropdown-link-color: #000;
 $navbar-link-color-hover: #ff7043;
 $navbar-color: #fff;
-$navbar-toggle-bar-color: #ff7043;
 $navbar-mobile-pane-bg: #263238;
-$navbar-border-color: rgba(255, 255, 255, .2);
 
 // footer
 $footer-bg: #b3c4cd;
 $footer-link-color: #37474f;
-$footer-link-color-hover: $brand-primary;
+$footer-link-color-hover: $primary;
 $footer-color: #333;
 $footer-border-color: #fff;
 
@@ -33,17 +32,20 @@ $menu-bg: #263238;
 $menu-color: #fff;
 $menu-link-color: #ccc;
 $menu-link-hover-color: #fff;
-$menu-li-hover-bg: darken($menu-bg, 5%);
-$menu-active-voice-bg: lighten($menu-bg, 20%);
+$menu-li-hover-bg: darken($menu-bg, 2%);
+$menu-li-border-color: #444;
+$menu-active-voice-bg: darken($primary, 10%);
+$menu-active-voice-border-color: #f5f5f5;
 $menu-mobile-title-bg: #37474f;
 $menu-mobile-title-color: #fff;
 $menu-mobile-title-border-color: rgba(255, 255, 255, .2);
 $menu-mobile-back-bg: darken($menu-bg, 5%);
-$menu-selected-bg: darken($brand-primary, 10%);
-$menu-has-active-bg: darken($brand-primary, 10%);
+$menu-selected-bg: lighten($menu-bg, 10%);
+$menu-has-active-bg: lighten($menu-bg, 10%);
 $menu-selected-sub-bg: lighten($menu-bg, 5%);
 $menu-title-bg: darken($menu-mobile-title-bg, 5%);
-$menu-voice-title-color: #aaa;
+$menu-voice-title-color: $base;
+$menu-voice-title-bg: darken($menu-bg, 5%);
 $menu-active-bg: #f5f5f5;
 
 // dashboard
@@ -52,7 +54,7 @@ $dashboard-title-bg: #fff;
 $dashboard-title-border-color: #ccc;
 $dashboard-module-bg: #fff;
 $dashboard-module-border-color: #ccc;
-$dashboard-caption-bg: #fff;
+$dashboard-caption-bg: #f6f6f6;
 $dashboard-caption-color: #000;
 $dashboard-icon-color: #f90;
 
@@ -70,10 +72,11 @@ $toolbar-bg: lighten($navbar-mobile-pane-bg, 75%);
 $toolbar-btn-bg: #fff;
 $toolbar-btn-hover-bg: #fafafa;
 $sort-icon-color: #999;
+$filter-toggler-color: #fff;
 $filters-bg: #fafafa;
 $filters-title-bg: #263238;
 $filters-title-color: #fff;
-$filter-selected-border-color: $primary;
+$filter-selected-border-color: $base;
 $rl-head-bg: #f0f0f0;
 $rl-head-color: inherit;
 $rl-tr-odd-bg: #fafafa;
@@ -89,7 +92,7 @@ $collapse-title-bg: #fafafa;
 $collapse-title-border-color: #ccc;
 $state-danger-bg: #f2dede;
 $field-row-error-bg: lighten($state-danger-bg, 5%);
-$fieldset-title-bg: lighten($primary, 30%);
+$fieldset-title-bg: lighten($base, 30%);
 $inline-related-title-bg: #fafafa;
 $inline-related-title-border-color: #eee;
 $inline-related-title-border-top-color: #eee;
@@ -104,7 +107,7 @@ $spinner-overlay-fg: #000;
 // form components
 $selector-item-border-color: #ccc;
 $selector-available-title-bg: #fafafa;
-$selector-chosen-title-bg: lighten($primary, 30%);
+$selector-chosen-title-bg: lighten($base, 30%);
 $selector-chooser-bg: #eee;
 
 // changehistory

@@ -1,11 +1,12 @@
 // scss-lint:disable IdSelector NestingDepth PlaceholderInExtend
 #header {
   @extend .navbar;
-  @extend .navbar-inverse;
-  @extend .navbar-toggleable-sm;
+  @extend .navbar-dark;
+  @extend .bg-dark;
+  @extend .navbar-expand-md;
 
+  align-items: center;
   background: $navbar-bg;
-  border-bottom: 1px solid $navbar-border-color;
   color: $navbar-color;
 
   strong {
@@ -50,8 +51,9 @@
     }
   }
 
-  .nav-toggle span {
-    background: $navbar-toggle-bar-color;
+  .navbar-toggler {
+    border-width: 0 !important;
+    margin-right: 5px;
   }
 
   .nav-menu.is-active {
@@ -64,6 +66,7 @@
   @extend .navbar-brand;
   @extend .mr-auto;
   display: inline-block;
+  padding-bottom: 0;
 
   h1 {
     font-size: 1.4rem;

@@ -34,4 +34,10 @@
     @extend .btn-outline-primary;
     margin-top: -5px;
   }
+
+  input {
+    @extend .btn;
+    @extend .btn-success;
+    margin-top: -4px;
+  }
 }

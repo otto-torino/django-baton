@@ -1,6 +1,6 @@
 {
   "name": "baton",
-  "version": "0.1.2",
+  "version": "1.3.0",
   "description": "Django Baton App",
   "main": "index.js",
   "scripts": {
@@ -11,20 +11,22 @@
   "author": "abidibo",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^9.2.1",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap": "4.1.3",
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "node-sass": "^4.5.0",
+    "popper.js": "^1.14.4",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
-    "tether": "^1.4.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0"
   },
