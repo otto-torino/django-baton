@@ -8,5 +8,20 @@ body[class=" baton-ready"] #content-main > .module {
   #change-history {
     @extend .table;
     @extend .table-bordered;
+
+    thead > tr {
+      background: $rl-head-bg;
+      color: $rl-head-color;
+    }
+
+    tbody tr:nth-child(2n + 1) {
+      background: $rl-tr-odd-bg;
+      color: $rl-tr-odd-color;
+    }
+
+    td,
+    th {
+      padding: .3rem;
+    }
   }
 }

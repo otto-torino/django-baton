@@ -63,13 +63,25 @@
   }
 
   .changelist-filter-toggler {
+    color: transparent !important;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1rem;
     position: absolute;
-    right: 10px;
+    right: 16px;
+    top: 33px;
+    width: 37px;
 
     &.active {
-      color: $primary;
+      background: $primary;
+    }
+
+    .fa {
+      color: $filter-toggler-color !important;
+    }
+
+    @include media-breakpoint-up(sm) {
+      color: $filter-toggler-color !important;
+      width: auto;
     }
   }
 
@@ -145,11 +157,17 @@
 
       select {
         @extend .custom-select;
+        @extend .custom-select-sm;
+        -moz-appearance: none;
+        text-indent: .01px;
+        text-overflow: '';
       }
 
       button {
         @extend .btn;
+        @extend .btn-sm;
         @extend .ml-2;
+        @extend .mr-2;
       }
 
       .all,
@@ -194,7 +212,7 @@
 
       th,
       td {
-        padding: .5rem;
+        padding: .3rem;
       }
     }
 
