@@ -47,15 +47,15 @@ window.Baton = {
     document.body.className += ' baton-ready'
   },
   page: function () {
-    if (location.pathname === '/admin/') {
+    if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
       return 'dashboard'
-    } else if (location.pathname === '/admin/login/') {
+    } else if (/^(\/[a-z]{2})?\/admin\/login\/$/.test(location.pathname)) {
       return 'login'
-    } else if (location.pathname === '/admin/logout/') {
+    } else if (/^(\/[a-z]{2})?\/admin\/logout\/$/.test(location.pathname)) {
       return 'logout'
-    } else if (location.pathname === '/admin/password_change/') {
+    } else if (/^(\/[a-z]{2})?\/admin\/password_change\/$/.test(location.pathname)) {
       return 'password_change'
-    } else if (location.pathname === '/admin/password_change/done/') {
+    } else if (/^(\/[a-z]{2})?\/admin\/password_change\/done\/$/.test(location.pathname)) {
       return 'password_change_success'
     } else if (/\/add\//.test(location.pathname)) {
       return 'add_form'
