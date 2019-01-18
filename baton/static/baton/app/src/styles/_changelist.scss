@@ -155,14 +155,6 @@
         @include make-col(8);
       }
 
-      select {
-        @extend .custom-select;
-        @extend .custom-select-sm;
-        -moz-appearance: none;
-        text-indent: .01px;
-        text-overflow: '';
-      }
-
       button {
         @extend .btn;
         @extend .btn-sm;
@@ -175,6 +167,14 @@
       .clear {
         display: none;
       }
+    }
+
+    select {
+      @extend .custom-select;
+      @extend .custom-select-sm;
+      -moz-appearance: none;
+      text-indent: .01px;
+      text-overflow: '';
     }
   }
 
