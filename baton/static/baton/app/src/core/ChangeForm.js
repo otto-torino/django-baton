@@ -9,12 +9,16 @@ let ChangeForm = {
    * Display loading spinner if multipart
    */
   init: function (opts) {
+    this.form = $('#content-main form')
     if (opts.confirmUnsavedChanges) {
       this.formSubmitting = false
-      this.form = $('#content-main form')
-      this.initData = this.form.serialize()
       this.t = new Translator($('html').attr('lang'))
-      this.activate()
+      var self = this
+      // wait for django SelectFilter to do its job
+      setTimeout(function () {
+        self.initData = self.serializeData()
+        self.activate()
+      }, 500)
     }
     if (opts.showMultipartUploading) {
       this.spinner()
@@ -24,8 +28,22 @@ let ChangeForm = {
     this.form.on('submit', () => (this.formSubmitting = true))
     $(window).on('beforeunload', this.alertDirty.bind(this))
   },
+  serializeData: function () {
+    // form serialize does not detect filter_horizontal controllers because
+    // in that case options are not selected, just added to the list of options,
+    // and jquery form serialize only serializes values which are set!
+    let data = this.form.serialize()
+    $('select.filtered[multiple][id$=_to]').each(function (k, select) {
+      let optionsValues = []
+      $(select).children('option').each(function (kk, option) {
+        optionsValues.push($(option).attr('value'))
+      })
+      data += `&${jQuery(select).attr('name')}=${optionsValues.sort().join(',')}`
+    })
+    return data
+  },
   isDirty: function () {
-    return this.form.serialize() !== this.initData
+    return this.serializeData() !== this.initData
   },
   alertDirty: function (e) {
     if (this.formSubmitting || !this.isDirty()) {
