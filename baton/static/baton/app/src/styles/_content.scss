@@ -1,9 +1,15 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth
 #content {
   background: $content-bg;
+  margin-right: 0 !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-top: 0 !important;
+
+  @include media-breakpoint-down(md) {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
 
   > h1 {
     @extend .mb-0;

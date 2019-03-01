@@ -365,6 +365,7 @@
       margin-left: auto;
       margin-right: auto;
       order: 2;
+      text-align: center;
 
       @include media-breakpoint-up(md) {
         margin-left: 0;
