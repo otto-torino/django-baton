@@ -8,6 +8,7 @@
   align-items: center;
   background: $navbar-bg;
   color: $navbar-color;
+  flex-direction: row !important;
 
   strong {
     color: $navbar-color;
@@ -42,8 +43,6 @@
     }
 
     .dropdown-menu {
-      left: 0;
-
       @include media-breakpoint-up(md) {
         left: auto;
         right: 0;

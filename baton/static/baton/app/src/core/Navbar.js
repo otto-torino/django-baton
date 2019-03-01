@@ -24,7 +24,7 @@ let Navbar = {
       }).remove()
     // dropdown
     let dropdown = $('<div/>', { 'class': 'dropdown' }).appendTo($('#user-tools'))
-    let dropdownMenu = $('<div/>', { 'class': 'dropdown-menu' }).appendTo(dropdown)
+    let dropdownMenu = $('<div/>', { 'class': 'dropdown-menu dropdown-menu-right' }).appendTo(dropdown)
     $('#user-tools strong')
       .addClass('dropdown-toggle btn btn-default')
       .attr('data-toggle', 'dropdown')
