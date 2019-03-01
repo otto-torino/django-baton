@@ -15,7 +15,7 @@
   width: 100%;
   z-index: 100;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     height: auto;
     left: 0;
     position: static;
@@ -35,7 +35,7 @@
     width: 100%;
     z-index: 12;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       background: $menu-title-bg;
       position: static;
 
@@ -67,7 +67,7 @@
     z-index: 10;
 
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       height: auto;
       padding-top: 0;
       position: static;
@@ -133,7 +133,7 @@
     margin-left: -100%;
     transition: margin-left .0s linear;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       display: none;
       margin-left: 0;
 
@@ -145,7 +145,7 @@
 
 
   .open {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       .has-children {
         background: $menu-selected-bg;
 
@@ -173,13 +173,13 @@
   .nav-back {
     background: $menu-mobile-back-bg;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       display: none;
     }
   }
 
   .with-active {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       .has-children {
         background: $menu-has-active-bg;
 
@@ -205,7 +205,7 @@
   }
 
   .active:not(.with-active) {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       background: $menu-active-voice-bg !important;
       border-left: 5px solid $menu-active-voice-border-color;
       position: relative;
