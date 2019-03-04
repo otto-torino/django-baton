@@ -19,5 +19,19 @@
         display: inline-block;
       }
     }
+
+    form {
+      padding: 1rem;
+    }
+
+    input[type='text'],
+    input[type='password'] {
+      @extend .form-control;
+    }
+
+    .form-row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
   }
 }
