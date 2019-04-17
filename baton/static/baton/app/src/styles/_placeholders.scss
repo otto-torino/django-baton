@@ -247,7 +247,7 @@
     flex-basis: 100%;
     text-align: left;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       flex-basis: 20%;
       text-align: right;
     }
@@ -542,5 +542,9 @@
       @extend %font-awesome;
       content: '\f00d';
     }
+  }
+
+  .wrapped-fields-container > * {
+      flex-grow: 0 !important;
   }
 }

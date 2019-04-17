@@ -18,8 +18,6 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
-- [Known Issues](#known-issues)
-- [TODO](#todo)
 - [Screenshots](#screenshots)
 
 ## <a name="features"></a>Features
@@ -336,30 +334,6 @@ And the inside the `base_site.html` template make these changes:
     <script src="http://localhost:8080/dist/baton.min.js"></script>
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
-
-## <a name="known-issues"></a>Known Issues
-
-Some issues which are known, and may or may not be fixed in the future.
-
-This application is meant for use with modern browsers, targeting all recent versions of chrome, firefox an IE. Surely it will cause graphic disasters with older IE versions.
-
-### Wrap multiple fields in the same line in fieldsets
-
-It is possible in django to wrap multiple fields in the same line, when defining a fieldset:
-
-    {
-        'fields': (('first_name', 'last_name'), 'address', 'city', 'state'),
-    }
-
-putting `first_name` and `last_name` in their own tuple will fire this behaviour.
-
-This feature is not supported in django-baton, because field-rows are not supposed to be inline.
-
-I think I won't fix this, I prefer using other approaches in these situations, like for example write a custom widget.
-
-## <a name="todo"></a>TODO
-
-- write tests
 
 ## <a name="screenshots"></a>Screenshots
 
