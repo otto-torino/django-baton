@@ -1,7 +1,7 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule SelectorFormat
 %font-awesome {
   display: inline-block;
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome\ 5 Free';
   margin-right: 5px;
 }
 
@@ -71,7 +71,11 @@
       flex-direction: row;
 
       input {
-        margin: 0 0 0 10px;
+        margin: 0 10px;
+      }
+
+      br {
+        display: none;
       }
 
       a + a {
@@ -307,6 +311,10 @@
     font-style: italic;
   }
 
+  div.help {
+    color: $help-text-color !important;
+  }
+
   img.help {
     display: inline-block;
     margin-left: 0 !important;
@@ -382,7 +390,7 @@
 
         &::before {
           @extend %font-awesome;
-          content: '\f014';
+          content: '\f2ed';
         }
       }
     }
@@ -507,7 +515,7 @@
 
       &::before {
         content: '\f040';
-        font-family: 'FontAwesome';
+        font-family: 'Font Awesome\ 5 Free';
         margin-right: 4px;
       }
 

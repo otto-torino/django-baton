@@ -22,12 +22,12 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ## <a name="features"></a>Features
 
-Tested with django 1.10.5, 1.11.1 and 2.0
+Tested with django 1.10.5, 1.11.1, 2.0, 2.1 and 2.2
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through css, and when an help is needed, js is armed.
 
-- Based on bootstrap 4.3.1 and FontAwesome 4.7
+- Based on bootstrap 4.3.1 and FontAwesome Free 5.8.1
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters facility
@@ -50,7 +50,7 @@ At the moment __baton__ defines only 3 custom templates:
 Baton is based on the following frontend technologies:
 
 - bootstrap 4.3.1
-- FontAwesome 4.7.0
+- FontAwesome 5.8.1 (solid and brands)
 
 Flexbox is used here and there to accomplish responsiveness. jQuery is used for DOM manipulations.
 

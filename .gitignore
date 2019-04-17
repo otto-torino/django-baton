@@ -6,7 +6,7 @@ docs/_templates
 baton/static/baton/app/npm-debug.log
 baton/static/baton/app/node_modules
 build/
-dist/
+/dist/
 tags
 django_baton.egg-info/
 .ropeproject

@@ -11,6 +11,7 @@
   "author": "abidibo",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "autoprefixer": "^9.2.1",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
@@ -20,7 +21,6 @@
     "bootstrap": "^4.3.1",
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.0",
-    "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "node-sass": "^4.5.0",
     "popper.js": "^1.14.4",
