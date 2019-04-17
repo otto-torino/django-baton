@@ -63,26 +63,30 @@
   }
 
   .changelist-filter-toggler {
-    color: transparent !important;
+    align-items: center;
+    color: $filter-toggler-color !important;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
     font-size: 1rem;
+    min-height: 39px;
     position: absolute;
     right: 16px;
-    top: 33px;
-    width: 37px;
+    top: 32px;
 
     &.active {
       background: $primary;
     }
 
-    .fa {
-      color: $filter-toggler-color !important;
+    > span {
+      display: none;
+
+      @include media-breakpoint-up(sm) {
+        display: inline-block;
+        margin-left: .5rem;
+      }
     }
 
-    @include media-breakpoint-up(sm) {
-      color: $filter-toggler-color !important;
-      width: auto;
-    }
   }
 
   #changelist-filter {
@@ -158,6 +162,7 @@
       button {
         @extend .btn;
         @extend .btn-sm;
+        @extend .btn-light;
         @extend .ml-2;
         @extend .mr-2;
       }

@@ -8,7 +8,7 @@ The Baton js app
 
 The js app which **baton** provides is a modern js app, written using es2015 and stage-0 code features, which are then transpiled to a code browsers can understand using `babel <https://babeljs.io/>`_ and `webpack <https://webpack.github.io/>`_.
 
-All css are written using sass on top of bootstrap 4.1.3, and transpiled with babel so that the final output is a single js file ready to be included in the html template.
+All css are written using sass on top of bootstrap 4.3.1, and transpiled with babel so that the final output is a single js file ready to be included in the html template.
 
 The app entry point is `index.js <https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/index.js>`_, where the only variable attached to the window object ``Baton`` is defined.
 

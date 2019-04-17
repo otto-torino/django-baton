@@ -23,7 +23,7 @@ let ChangeList = {
         'btn btn-info changelist-filter-toggler' +
         (_activeFilters ? ' active' : '')
     })
-      .html('<i class="fa fa-filter"></i> ' + this.t.get('filter'))
+      .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
       .click(() => {
         $(document.body).toggleClass('changelist-filter-active')
         if (parseInt(this._filtersDiv.css('max-width')) === 100) {
