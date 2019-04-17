@@ -23,6 +23,7 @@ let ChangeForm = {
     if (opts.showMultipartUploading) {
       this.spinner()
     }
+    this.fixWrappedFields()
   },
   activate: function () {
     this.form.on('submit', () => (this.formSubmitting = true))
@@ -74,6 +75,10 @@ let ChangeForm = {
         spinner
       ).appendTo(overlay)
     }
+  },
+  fixWrappedFields: function () {
+    this.form.find('.form-row > .fieldBox').wrapAll('<div class="wrapped-fields-container" />')
+    this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
   }
 }
 

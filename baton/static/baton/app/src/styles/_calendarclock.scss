@@ -16,6 +16,13 @@
 
 .clockbox {
     width: auto;
+
+    h2 {
+      background: $clockbox-title-bg;
+      border-bottom: 1px solid $clockbox-title-border-color;
+      font-size: 1rem;
+      padding: .5rem 1rem;
+    }
 }
 
 .calendar {
