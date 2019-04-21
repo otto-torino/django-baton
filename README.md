@@ -338,6 +338,20 @@ Now while you make your changes to the js app (css included), webpack will updat
 ## <a name="screenshots"></a>Screenshots
 
 ![Screenshot](screenshots/mobile_mix.jpg)
+
+![Screenshot](screenshots/more1.png)
+
 ![Screenshot](screenshots/changelist_user-lg.jpg)
+
 ![Screenshot](screenshots/tabs-lg.jpg)
+
+![Screenshot](screenshots/more2.png)
+
+![Screenshot](screenshots/more3.png)
+
+![Screenshot](screenshots/more4.png)
+
+![Screenshot](screenshots/more5.png)
+
+![Screenshot](screenshots/more6.png)
 
