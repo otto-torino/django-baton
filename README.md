@@ -18,6 +18,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
+- [Contributing](#contributing)
 - [Screenshots](#screenshots)
 
 ## <a name="features"></a>Features
@@ -334,6 +335,10 @@ And the inside the `base_site.html` template make these changes:
     <script src="http://localhost:8080/dist/baton.min.js"></script>
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
+
+## <a name="contributing"></a>Contributing
+
+I'll soon add more stuff here, but at the moment what is really important, is to follow the eslint rules specified in the `.eslintrc` file (https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/.eslintrc) for the js part, and be compliant with the standard sasslint rules for the sass part. I follow PEP8 standard for the few lines of python code.
 
 ## <a name="screenshots"></a>Screenshots
 
