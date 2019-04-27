@@ -15,6 +15,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
+- [Signals](#signals)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
@@ -210,6 +211,41 @@ Follow the steps in the Google Identity Platform documentation to [create a serv
 Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
 
 Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
+
+## <a name="signals"></a>Signals
+
+Baton provides a dispatcher that can be used to register function that will be called when some events occurr.
+At this moment Baton emits four types of events:
+
+- `onNavbarReady`: dispatched when the navbar is fully rendered
+- `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieves async)
+- `onMenuError`: dispatched if the request sent to retrieve menu contents fails
+- `onReady`: dispatched when Baton js has finished its sync job
+
+In order to use them just override the baton `admin/base_site.html` template and register your listeners **before** calling `Baton.init`, i.e.
+
+    <!-- ... ->
+    <script>
+        {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
+        {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
+        (function ($, undefined) {
+            $(window).on('load', function () {
+                // init listeners
+                Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
+                Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
+                Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
+                // end listeners
+                Baton.init({
+                    api: {
+                        app_list: '{% url 'baton-app-list-json' %}'
+                    },
+                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %},
+                    showMultipartUploading: {% if show_multipart_uploading %}true{% else%}false{% endif %}
+                });
+            })
+        })(jQuery, undefined)
+    </script>
+    <!-- ... ->
 
 ## <a name="text-input-filters"></a>Text Input Filters
 

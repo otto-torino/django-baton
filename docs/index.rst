@@ -32,6 +32,7 @@ Getting started
 
    installation
    configuration
+   signals
    text_input_filters
    form_tabs
 
