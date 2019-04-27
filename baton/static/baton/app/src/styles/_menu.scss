@@ -119,11 +119,11 @@
 
     .title {
       background: $menu-voice-title-bg !important;
-      font-weight: bold;
-      text-transform: uppercase;
 
       > span {
         color: $menu-voice-title-color !important;
+        font-weight: bold;
+        text-transform: uppercase;
       }
     }
   }

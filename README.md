@@ -150,6 +150,10 @@ The configuration dictionary must be defined inside your settings:
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+            { 'type': 'free', 'label': 'My parent voice', 'children': [
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+                { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+            ] },
         ),
         'ANALYTICS': {
             'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
@@ -169,6 +173,11 @@ Let's see the `MENU` and `ANALYTICS` configurations in detail.
 ### <a name="configuration-menu"></a>MENU
 
 Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
+
+Title and free voices can have children, children follow the following rules:
+
+- children voices icons are ignored
+- children voices children are ignored (do not place an app voice as child)
 
 First of all, if you don't define a MENU key in the configuration dictionary, the default MENU is shown.
 If you define a MENU key, then the custom menu is built and shown.

@@ -61,10 +61,17 @@ class GetAppListJsonView(View):
         elif item.get('apps', None):
             view = self.check_apps_permission(item.get('apps', []))
         if view:
+            children_items = item.get('children', [])
+            children = []
+            if len(children_items):
+                for citem in children_items:
+                    self.add_voice(children, citem)
+
             return {
                 'type': 'title',
                 'label': item.get('label', ''),
-                'icon': item.get('icon', None)
+                'icon': item.get('icon', None),
+                'children': children,
             }
         return None
 
@@ -80,11 +87,17 @@ class GetAppListJsonView(View):
             view = self.check_apps_permission(item.get('apps', []))
 
         if view:
+            children_items = item.get('children', [])
+            children = []
+            if len(children_items):
+                for citem in children_items:
+                    self.add_voice(children, citem)
             return {
                 'type': 'free',
                 'label': item.get('label', ''),
                 'icon': item.get('icon', None),
-                'url': item.get('url', None)
+                'url': item.get('url', None),
+                'children': children,
             }
         return None
 
