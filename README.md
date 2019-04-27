@@ -224,7 +224,7 @@ At this moment Baton emits four types of events:
 
 In order to use them just override the baton `admin/base_site.html` template and register your listeners **before** calling `Baton.init`, i.e.
 
-    <!-- ... ->
+    <!-- ... -->
     <script>
         {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
         {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
@@ -245,7 +245,7 @@ In order to use them just override the baton `admin/base_site.html` template and
             })
         })(jQuery, undefined)
     </script>
-    <!-- ... ->
+    <!-- ... -->
 
 ## <a name="text-input-filters"></a>Text Input Filters
 
