@@ -10,8 +10,8 @@ let Tabs = {
       this.main.attr('data-baton-tab', 'main')
       this.createNav()
       this.createPanes()
-      this.showErrors()
       this.checkHash()
+      this.showErrors()
     }
   },
   shouldRun: function () {
@@ -34,7 +34,9 @@ let Tabs = {
         'class': 'nav-link active',
         'data-toggle': 'tab',
         href: '#main'
-      }).text(this.main.children('h2').hide().text()))
+      }).text(this.main.children('h2').hide().text()).on('click', function () {
+        location.hash = $(this).attr('href')
+      }))
       .appendTo(this.nav)
 
     this.tabsEl.forEach((el) => {
@@ -64,11 +66,18 @@ let Tabs = {
           'class': 'nav-link',
           'data-toggle': 'tab',
           href: '#' + el
-        }).text(domEl.find('h2:first-child').first().hide().text()))
+        }).text(domEl.find('h2:first-child').first().hide().text()).on('click', function () {
+          location.hash = $(this).attr('href')
+        }))
         .appendTo(this.nav)
     })
 
     this.main.before(this.nav)
+
+    // do not preserve hash if pressing save and add another
+    $('input[name="_addanother"]').on('click', function () {
+      location.hash = ''
+    })
   },
   createInlineEl: function (el, setDataTab = false) {
     let domEl

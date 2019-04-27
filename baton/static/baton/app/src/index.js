@@ -2,6 +2,7 @@
 import 'bootstrap/dist/js/bootstrap'
 import './styles/baton.scss'
 
+import Dispatcher from 'js-event-dispatcher/dist/EventDispatcher'
 import Navbar from 'core/Navbar'
 import Footer from 'core/Footer'
 import Menu from 'core/Menu'
@@ -20,8 +21,9 @@ window.Baton = {
     let page = this.page()
 
     Navbar.init()
+    Dispatcher.emit('onNavbarReady')
     if (page !== 'login' && !/_popup/.test(location.search)) {
-      Menu.init(config)
+      Menu.init(config, Dispatcher)
     }
     if (page === 'logout' || page === 'password_change_success') {
       ActionResult.init()
@@ -45,6 +47,7 @@ window.Baton = {
     }
     console.info('Baton:', 'ready')
     document.body.className += ' baton-ready'
+    Dispatcher.emit('onReady')
   },
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
@@ -65,6 +68,7 @@ window.Baton = {
       return 'changelist'
     }
   },
-  Analytics: Analytics
+  Analytics: Analytics,
+  Dispatcher: Dispatcher
 }
 window.jQuery = jQuery
