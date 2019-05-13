@@ -5,3 +5,12 @@
 .filter-files-container .filter-search-wrapper {
     width: auto !important;
 }
+
+.filebrowser {
+  .paginator {
+    span {
+      border: 0 !important;
+      width: auto !important;
+    }
+  }
+}

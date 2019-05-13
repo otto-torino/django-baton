@@ -12,6 +12,7 @@ import Analytics from 'core/Analytics'
 import Tabs from 'core/Tabs'
 import ChangeList from 'core/ChangeList'
 import ChangeForm from 'core/ChangeForm'
+import Filer from 'core/Filer'
 
 window.Baton = {
   intialized: false,
@@ -36,6 +37,8 @@ window.Baton = {
         confirmUnsavedChanges: config.confirmUnsavedChanges,
         showMultipartUploading: config.showMultipartUploading
       })
+    } else if (page === 'filer') {
+      Filer.init()
     }
     Footer.init({
       remove: /_popup/.test(location.search)
@@ -66,6 +69,8 @@ window.Baton = {
       return 'change_form'
     } else if (document.getElementById('changelist')) {
       return 'changelist'
+    } else if (/\/filer\//.test(location.pathname)) {
+      return 'filer'
     }
   },
   Analytics: Analytics,
