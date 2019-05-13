@@ -70,7 +70,7 @@ let ChangeForm = {
     })
     if (run) {
       let overlay = $('<div />', {'class': 'spinner-overlay'}).appendTo(document.body)
-      let spinner = $('<i />', {'class': 'fa fa-circle-o-notch fa-spin fa-3x fa-fw'})
+      let spinner = $('<i />', {'class': 'fa fa-spinner fa-spin fa-3x fa-fw'})
       $('<div />').append(
         $('<p />').text(this.t.get('uploading')),
         spinner
