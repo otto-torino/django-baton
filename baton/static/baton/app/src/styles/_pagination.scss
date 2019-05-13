@@ -1,5 +1,7 @@
 // scss-lint:disable PlaceholderInExtend
 .paginator {
+  @extend .clearfix;
+
   span,
   a:not(.showall) {
     background: $pag-bg;
@@ -38,6 +40,7 @@
   input {
     @extend .btn;
     @extend .btn-success;
+    float: right;
     margin-top: -4px;
   }
 }
