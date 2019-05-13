@@ -15,6 +15,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
+- [Signals](#signals)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
 - [Customization](#customization)
@@ -33,6 +34,7 @@ Everything is styled through css, and when an help is needed, js is armed.
 - Custom and flexible sidebar menu
 - Text input filters facility
 - Form tabs out of the box
+- Lazy load of current uploaded images
 - Optional index page filled with google analytics widgets
 - Customization available recompiling the js app provided
 - it translations provided
@@ -149,6 +151,10 @@ The configuration dictionary must be defined inside your settings:
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+            { 'type': 'free', 'label': 'My parent voice', 'children': [
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+                { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+            ] },
         ),
         'ANALYTICS': {
             'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
@@ -168,6 +174,11 @@ Let's see the `MENU` and `ANALYTICS` configurations in detail.
 ### <a name="configuration-menu"></a>MENU
 
 Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
+
+Title and free voices can have children, children follow the following rules:
+
+- children voices icons are ignored
+- children voices children are ignored (do not place an app voice as child)
 
 First of all, if you don't define a MENU key in the configuration dictionary, the default MENU is shown.
 If you define a MENU key, then the custom menu is built and shown.
@@ -210,6 +221,41 @@ Follow the steps in the Google Identity Platform documentation to [create a serv
 Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
 
 Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
+
+## <a name="signals"></a>Signals
+
+Baton provides a dispatcher that can be used to register function that will be called when some events occurr.
+At this moment Baton emits four types of events:
+
+- `onNavbarReady`: dispatched when the navbar is fully rendered
+- `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieves async)
+- `onMenuError`: dispatched if the request sent to retrieve menu contents fails
+- `onReady`: dispatched when Baton js has finished its sync job
+
+In order to use them just override the baton `admin/base_site.html` template and register your listeners **before** calling `Baton.init`, i.e.
+
+    <!-- ... -->
+    <script>
+        {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
+        {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
+        (function ($, undefined) {
+            $(window).on('load', function () {
+                // init listeners
+                Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
+                Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
+                Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
+                // end listeners
+                Baton.init({
+                    api: {
+                        app_list: '{% url 'baton-app-list-json' %}'
+                    },
+                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %},
+                    showMultipartUploading: {% if show_multipart_uploading %}true{% else%}false{% endif %}
+                });
+            })
+        })(jQuery, undefined)
+    </script>
+    <!-- ... -->
 
 ## <a name="text-input-filters"></a>Text Input Filters
 

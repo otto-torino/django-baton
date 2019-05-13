@@ -96,6 +96,15 @@
       + p,
       + .help /* django 1.11 */ {
         flex-basis: 100%;
+        margin-left: 0 !important;
+
+        @include media-breakpoint-up(md) {
+          margin-left: 20% !important;
+        }
+
+        @include media-breakpoint-up(lg) {
+          margin-left: 10% !important;
+        }
       }
 
       .selector {
@@ -473,11 +482,27 @@
       @extend .table;
       @extend .table-bordered;
 
+      th {
+        background: $inline-related-title-bg;
+        font-weight: normal !important;
+
+        &.required {
+          font-weight: bold !important;
+        }
+
+        .help-tooltip {
+          height: 15px;
+          margin-top: -3px;
+          width: 15px;
+        }
+      }
+
       .form-row {
         display: table-row;
       }
 
       .original {
+        border-right: 0px;
         padding: 0;
         position: relative;
         width: 0;
@@ -499,6 +524,11 @@
             position: relative;
             right: -4px;
           }
+        }
+
+        & + td,
+        & + th {
+          border-left: 0px;
         }
       }
 

@@ -1,5 +1,9 @@
 // scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
 .login {
+  #content {
+    padding-top: 1px !important;
+  }
+
   #container {
     @extend .p-3;
     max-width: 100%;
@@ -32,6 +36,13 @@
     .form-row {
       margin-left: 0 !important;
       margin-right: 0 !important;
+    }
+
+    .errornote {
+      @extend .alert;
+      @extend .alert-warning;
+      margin: 1rem 1rem 0;
+      padding: .5rem;
     }
   }
 }

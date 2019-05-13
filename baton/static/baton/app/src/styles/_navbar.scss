@@ -6,7 +6,7 @@
   @extend .navbar-expand-lg;
 
   align-items: center;
-  background: $navbar-bg;
+  background: $navbar-bg !important;
   color: $navbar-color;
   flex-direction: row !important;
 
@@ -17,7 +17,7 @@
     &::before {
       content: '\f007';
       display: inline-block;
-      font-family: 'FontAwesome';
+      font-family: 'Font Awesome\ 5 Free';
       margin-right: 5px;
     }
   }

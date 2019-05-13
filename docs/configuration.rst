@@ -38,6 +38,10 @@ This is an example of configuration::
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+            { 'type': 'free', 'label': 'My parent voice', 'children': [
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+                { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+            ] },
         ),
         'ANALYTICS': {
             'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
@@ -126,6 +130,11 @@ When defining a custom menu you can use 4 different kinds of voices:
 - model
 - free
 
+Title and free voices can have children. Children follow these rules:
+
+- children icons are ignored
+- children children are ignored (do not place an app voice as child)
+
 Title
 ^^^^^
 
@@ -138,6 +147,8 @@ If the title voice should act as a section title for a group of apps, you'd want
 or ::
 
     { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
+
+It accepts children voices.
 
 App
 ^^^
@@ -190,6 +201,13 @@ In such case you must define an ``url`` and if you want some visibility permissi
 or :: 
     
     { 'type': 'free', 'label': 'Add page', 'url': '/admin/flatpages/flatpage/add/', 'perms': ('flatpages.add_flatpage', ) },
+
+It accepts children voices ::
+
+    { 'type': 'free', 'label': 'My parent voice', 'children': [
+        { 'type': 'free', 'label': 'Docs', 'url': 'http://www.mydocssite.com' },
+        { 'type': 'free', 'label': 'Photos', 'url': 'http://www.myphotossite.com' },
+    ] },
 
 Analytics
 ---------

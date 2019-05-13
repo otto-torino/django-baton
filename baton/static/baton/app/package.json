@@ -1,6 +1,6 @@
 {
   "name": "baton",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Django Baton App",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.0",
     "jquery": "^3.1.1",
+    "js-event-dispatcher": "^0.1.0",
     "node-sass": "^4.5.0",
     "popper.js": "^1.14.4",
     "postcss-loader": "^3.0.0",

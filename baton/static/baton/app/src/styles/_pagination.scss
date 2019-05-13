@@ -1,5 +1,10 @@
 // scss-lint:disable PlaceholderInExtend
 .paginator {
+  @extend .clearfix;
+  overflow: auto;
+  padding-top: .5rem;
+  white-space: nowrap;
+
   span,
   a:not(.showall) {
     background: $pag-bg;
@@ -8,6 +13,7 @@
     display: inline-block;
     height: 40px;
     line-height: 40px;
+    padding: 0 !important;
     text-align: center;
     width: 40px;
 
@@ -39,5 +45,10 @@
     @extend .btn;
     @extend .btn-success;
     margin-top: -4px;
+
+    @include media-breakpoint-up(md) {
+      float: right;
+      margin-top: 0;
+    }
   }
 }

@@ -20,6 +20,7 @@ Features
 - Custom and flexible sidebar menu
 - Text input filters facility
 - Configurable form tabs
+- Lazy load of current uploaded images
 - Optional index page filled with google analytics widgets
 - Full customization available recompiling the provided js app
 - it translations
@@ -32,6 +33,7 @@ Getting started
 
    installation
    configuration
+   signals
    text_input_filters
    form_tabs
 

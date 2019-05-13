@@ -2,6 +2,7 @@
 import 'bootstrap/dist/js/bootstrap'
 import './styles/baton.scss'
 
+import Dispatcher from 'js-event-dispatcher/dist/EventDispatcher'
 import Navbar from 'core/Navbar'
 import Footer from 'core/Footer'
 import Menu from 'core/Menu'
@@ -11,6 +12,7 @@ import Analytics from 'core/Analytics'
 import Tabs from 'core/Tabs'
 import ChangeList from 'core/ChangeList'
 import ChangeForm from 'core/ChangeForm'
+import Filer from 'core/Filer'
 
 window.Baton = {
   intialized: false,
@@ -20,8 +22,9 @@ window.Baton = {
     let page = this.page()
 
     Navbar.init()
+    Dispatcher.emit('onNavbarReady')
     if (page !== 'login' && !/_popup/.test(location.search)) {
-      Menu.init(config)
+      Menu.init(config, Dispatcher)
     }
     if (page === 'logout' || page === 'password_change_success') {
       ActionResult.init()
@@ -34,6 +37,8 @@ window.Baton = {
         confirmUnsavedChanges: config.confirmUnsavedChanges,
         showMultipartUploading: config.showMultipartUploading
       })
+    } else if (page === 'filer') {
+      Filer.init()
     }
     Footer.init({
       remove: /_popup/.test(location.search)
@@ -45,6 +50,7 @@ window.Baton = {
     }
     console.info('Baton:', 'ready')
     document.body.className += ' baton-ready'
+    Dispatcher.emit('onReady')
   },
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
@@ -63,8 +69,11 @@ window.Baton = {
       return 'change_form'
     } else if (document.getElementById('changelist')) {
       return 'changelist'
+    } else if (/\/filer\//.test(location.pathname)) {
+      return 'filer'
     }
   },
-  Analytics: Analytics
+  Analytics: Analytics,
+  Dispatcher: Dispatcher
 }
 window.jQuery = jQuery

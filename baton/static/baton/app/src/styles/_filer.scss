@@ -1,3 +1,16 @@
 .filter-files-field.js-filter-files {
   width: 170px;
 }
+
+.filter-files-container .filter-search-wrapper {
+    width: auto !important;
+}
+
+.filebrowser {
+  .paginator {
+    span {
+      border: 0 !important;
+      width: auto !important;
+    }
+  }
+}
