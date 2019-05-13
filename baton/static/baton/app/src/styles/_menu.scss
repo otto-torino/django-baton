@@ -147,8 +147,6 @@
   .open {
     @include media-breakpoint-up(lg) {
       .has-children {
-        background: $menu-selected-bg;
-
         &::after {
           content: '\f107' !important;
         }
@@ -181,8 +179,6 @@
   .with-active {
     @include media-breakpoint-up(lg) {
       .has-children {
-        background: $menu-has-active-bg;
-
         &::after {
           content: '\f107' !important;
         }
