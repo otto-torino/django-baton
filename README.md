@@ -34,6 +34,7 @@ Everything is styled through css, and when an help is needed, js is armed.
 - Custom and flexible sidebar menu
 - Text input filters facility
 - Form tabs out of the box
+- Lazy load of current uploaded images
 - Optional index page filled with google analytics widgets
 - Customization available recompiling the js app provided
 - it translations provided

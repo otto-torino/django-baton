@@ -24,6 +24,7 @@ let ChangeForm = {
       this.spinner()
     }
     this.fixWrappedFields()
+    this.lazyLoadImages()
   },
   activate: function () {
     this.form.on('submit', () => (this.formSubmitting = true))
@@ -79,6 +80,25 @@ let ChangeForm = {
   fixWrappedFields: function () {
     this.form.find('.form-row > .fieldBox').wrapAll('<div class="wrapped-fields-container" />')
     this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
+  },
+  lazyLoadImages: function () {
+    $('.file-upload').each(function (index, p) {
+      let cur = $(p).find('a')
+      if (cur.length) {
+        let url = cur.attr('href')
+        let ext = url.split('.').pop()
+        if (['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif', 'tif'].indexOf(ext) !== -1) {
+          let spinner = $('<i />', {'class': 'fa fa-spinner fa-spin fa-2x fa-fw'}).css('color', '#aaa')
+          let preview = $('<div />', {'class': 'py-2'}).append(spinner)
+          $(p).prepend(preview)
+          let image = new Image()
+          image.onload = function () {
+            spinner.replaceWith($(image).addClass('baton-image-preview'))
+          }
+          image.src = url
+        }
+      }
+    })
   }
 }
 
