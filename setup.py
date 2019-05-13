@@ -15,6 +15,7 @@ setup(
     license='MIT License',
     description='A cool, modern and responsive django admin application',
     long_description=README,
+    long_description_content_type='text/markdown',
     url='http://github.com/otto-torino/django-baton',
     author='abidibo',
     author_email='abidibo@gmail.com',
