@@ -6,7 +6,7 @@
   @extend .navbar-expand-lg;
 
   align-items: center;
-  background: $navbar-bg;
+  background: $navbar-bg !important;
   color: $navbar-color;
   flex-direction: row !important;
 
