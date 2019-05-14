@@ -4,7 +4,8 @@ let Tabs = {
   /**
    * Tabs component
    */
-  init: function () {
+  init: function (Dispatcher) {
+    this.Dispatcher = Dispatcher
     if (this.shouldRun()) {
       console.info('Baton:', 'generating tabs')
       this.main.attr('data-baton-tab', 'main')
@@ -12,6 +13,7 @@ let Tabs = {
       this.createPanes()
       this.checkHash()
       this.showErrors()
+      this.Dispatcher.emit('onTabsReady')
     }
   },
   shouldRun: function () {

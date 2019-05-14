@@ -294,12 +294,24 @@
     display: inline-block;
   }
 
-  select:not([multiple]) {
+  select:not([multiple]):not(.admin-autocomplete) {
     @extend .custom-select;
-    -moz-appearance: none;
     text-indent: .01px;
     text-overflow: '';
-    width: auto !important;
+    width: auto;
+  }
+
+  // automcomplete
+  .select2-container--admin-autocomplete .select2-selection--single .select2-selection__arrow {
+    height: 34px;
+  }
+
+  .select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered {
+    line-height: 36px;
+  }
+
+  .select2-container .select2-selection--single {
+    height: 36px;
   }
 
   .radiolist {

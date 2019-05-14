@@ -24,7 +24,9 @@ let ChangeForm = {
       this.spinner()
     }
     this.fixWrappedFields()
-    this.lazyLoadImages()
+    if (opts.enableImagesPreview) {
+      this.lazyLoadImages()
+    }
   },
   activate: function () {
     this.form.on('submit', () => (this.formSubmitting = true))
@@ -94,6 +96,9 @@ let ChangeForm = {
           let image = new Image()
           image.onload = function () {
             spinner.replaceWith($(image).addClass('baton-image-preview'))
+          }
+          image.onerror = function () {
+            preview.remove()
           }
           image.src = url
         }

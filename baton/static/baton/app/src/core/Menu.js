@@ -83,9 +83,13 @@ let Menu = {
             subLi.addClass('active')
             li.addClass('with-active')
           }
-          $('<a />', {
+          let a = $('<a />', {
             href: model.url
           }).text(model.label).appendTo(subLi)
+          // icon
+          if (model.icon) {
+            $('<i />', { 'class': model.icon }).prependTo(a)
+          }
           subLi.appendTo(subUl)
         })
       }

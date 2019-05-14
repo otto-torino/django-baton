@@ -17,6 +17,7 @@ This is an example of configuration::
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
+        'ENABLE_IMAGES_PREVIEW': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -39,7 +40,7 @@ This is an example of configuration::
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
             { 'type': 'free', 'label': 'My parent voice', 'children': [
-                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'fa fa-gavel' },
                 { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
             ] },
         ),
@@ -114,6 +115,13 @@ Show an overlay with a spinner when a ``multipart/form-data`` form is submitted
 
 **Default**: True
 
+Enable images preview
+-----------------------
+
+Displays a preview above all input file fields which contain images. You can control how the preview is displayed overriding the class ``.baton-image-preview``. By default previews are 100px height and with a box shadow on over event
+
+**Default**: True
+
 Menu
 ----
 
@@ -132,7 +140,6 @@ When defining a custom menu you can use 4 different kinds of voices:
 
 Title and free voices can have children. Children follow these rules:
 
-- children icons are ignored
 - children children are ignored (do not place an app voice as child)
 
 Title
@@ -220,6 +227,8 @@ In order to activate it you need to create a service account and link it to your
 
 - ``CREDENTIALS``: path to the credentials json file
 - ``VIEW_ID``: id of the analytics view which serves the data
+
+You can add contents before and after the analytics dashboard by extending the ``baton/analytics.html`` template and filling the ``baton_before_analytics`` and ``baton_after_analytics`` blocks.
 
 How to generate a credentials json file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

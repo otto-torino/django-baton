@@ -130,6 +130,7 @@ The configuration dictionary must be defined inside your settings:
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
+        'ENABLE_IMAGES_PREVIEW': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -168,6 +169,7 @@ The configuration dictionary must be defined inside your settings:
 The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
 Default value is `True`.
 - `SHOW_MULTIPART_UPLOADING`: if set to `True` an overlay with a spinner appears when submitting a `multipart/form-data` form.
+- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed overriding the class `.baton-image-preview`. By default previews are 100px height and with a box shadow on over event.
 
 Let's see the `MENU` and `ANALYTICS` configurations in detail.
 
@@ -177,7 +179,6 @@ Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
 
 Title and free voices can have children, children follow the following rules:
 
-- children voices icons are ignored
 - children voices children are ignored (do not place an app voice as child)
 
 First of all, if you don't define a MENU key in the configuration dictionary, the default MENU is shown.
@@ -214,6 +215,8 @@ It requires two keys:
 - `CREDENTIALS`: it is the path to the credentials json file
 - `VIEW_ID`: id of the view from which display data
 
+You can add contents before and after the analytics dashboard by extending the `baton/analytics.html` template and filling the `baton_before_analytics` and `baton_after_analytics` blocks.
+
 #### How to generate a credentials json file
 
 Follow the steps in the Google Identity Platform documentation to [create a service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount) from the [Google Developer Console](https://console.developers.google.com/).
@@ -229,6 +232,7 @@ At this moment Baton emits four types of events:
 
 - `onNavbarReady`: dispatched when the navbar is fully rendered
 - `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieves async)
+- `onTabsReady`: dispatched when the changeform tabs are fully rendered
 - `onMenuError`: dispatched if the request sent to retrieve menu contents fails
 - `onReady`: dispatched when Baton js has finished its sync job
 
