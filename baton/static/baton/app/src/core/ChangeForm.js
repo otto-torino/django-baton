@@ -95,6 +95,9 @@ let ChangeForm = {
           image.onload = function () {
             spinner.replaceWith($(image).addClass('baton-image-preview'))
           }
+          image.onerror = function () {
+            preview.remove()
+          }
           image.src = url
         }
       }
