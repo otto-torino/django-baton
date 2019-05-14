@@ -46,7 +46,7 @@ window.Baton = {
 
     // tabs
     if (page === 'add_form' || page === 'change_form') {
-      Tabs.init()
+      Tabs.init(Dispatcher)
     }
     console.info('Baton:', 'ready')
     document.body.className += ' baton-ready'
