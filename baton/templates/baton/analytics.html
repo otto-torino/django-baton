@@ -12,6 +12,7 @@
 <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
 
 <div class="container-fluid container-analytics">
+    {% block baton_before_analytics %}{% endblock baton_before_analytics %}
     <h4 class="d-flex justify-content-between">
       Google Analytics
       <span class="btn btn-info" id="active-users-container"></span>
@@ -76,6 +77,7 @@
             </section>
         </div>
     </div>
+    {% block baton_after_analytics %}{% endblock baton_after_analytics %}
 
 
     <script>

@@ -215,6 +215,8 @@ It requires two keys:
 - `CREDENTIALS`: it is the path to the credentials json file
 - `VIEW_ID`: id of the view from which display data
 
+You can add contents before and after the analytics dashboard by extending the `baton/analytics.html` template and filling the `baton_before_analytics` and `baton_after_analytics` blocks.
+
 #### How to generate a credentials json file
 
 Follow the steps in the Google Identity Platform documentation to [create a service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount) from the [Google Developer Console](https://console.developers.google.com/).

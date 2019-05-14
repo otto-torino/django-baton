@@ -228,6 +228,8 @@ In order to activate it you need to create a service account and link it to your
 - ``CREDENTIALS``: path to the credentials json file
 - ``VIEW_ID``: id of the analytics view which serves the data
 
+You can add contents before and after the analytics dashboard by extending the ``baton/analytics.html`` template and filling the ``baton_before_analytics`` and ``baton_after_analytics`` blocks.
+
 How to generate a credentials json file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
