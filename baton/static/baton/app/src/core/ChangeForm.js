@@ -24,7 +24,9 @@ let ChangeForm = {
       this.spinner()
     }
     this.fixWrappedFields()
-    this.lazyLoadImages()
+    if (opts.enableImagesPreview) {
+      this.lazyLoadImages()
+    }
   },
   activate: function () {
     this.form.on('submit', () => (this.formSubmitting = true))

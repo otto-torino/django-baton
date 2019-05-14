@@ -33,10 +33,7 @@ window.Baton = {
     } else if (page === 'changelist') {
       ChangeList.init()
     } else if (page === 'add_form' || page === 'change_form') {
-      ChangeForm.init({
-        confirmUnsavedChanges: config.confirmUnsavedChanges,
-        showMultipartUploading: config.showMultipartUploading
-      })
+      ChangeForm.init(config)
     } else if (page === 'filer') {
       Filer.init()
     }

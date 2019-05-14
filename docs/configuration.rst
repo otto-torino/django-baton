@@ -17,6 +17,7 @@ This is an example of configuration::
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
+        'ENABLE_IMAGES_PREVIEW': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -111,6 +112,13 @@ Show multipart uploading
 -----------------------
 
 Show an overlay with a spinner when a ``multipart/form-data`` form is submitted
+
+**Default**: True
+
+Enable images preview
+-----------------------
+
+Displays a preview above all input file fields which contain images. You can control how the preview is displayed overriding the class ``.baton-image-preview``. By default previews are 100px height and with a box shadow on over event
 
 **Default**: True
 

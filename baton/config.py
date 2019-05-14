@@ -12,6 +12,7 @@ default_config = {
     'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
+    'ENABLE_IMAGES_PREVIEW': True,
 }
 
 

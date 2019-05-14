@@ -130,6 +130,7 @@ The configuration dictionary must be defined inside your settings:
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
+        'ENABLE_IMAGES_PREVIEW': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -168,6 +169,7 @@ The configuration dictionary must be defined inside your settings:
 The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
 Default value is `True`.
 - `SHOW_MULTIPART_UPLOADING`: if set to `True` an overlay with a spinner appears when submitting a `multipart/form-data` form.
+- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed overriding the class `.baton-image-preview`. By default previews are 100px height and with a box shadow on over event.
 
 Let's see the `MENU` and `ANALYTICS` configurations in detail.
 
