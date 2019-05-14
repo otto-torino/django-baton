@@ -40,7 +40,7 @@ This is an example of configuration::
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
             { 'type': 'free', 'label': 'My parent voice', 'children': [
-                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'fa fa-gavel' },
                 { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
             ] },
         ),
@@ -140,7 +140,6 @@ When defining a custom menu you can use 4 different kinds of voices:
 
 Title and free voices can have children. Children follow these rules:
 
-- children icons are ignored
 - children children are ignored (do not place an app voice as child)
 
 Title

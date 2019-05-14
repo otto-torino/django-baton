@@ -179,7 +179,6 @@ Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
 
 Title and free voices can have children, children follow the following rules:
 
-- children voices icons are ignored
 - children voices children are ignored (do not place an app voice as child)
 
 First of all, if you don't define a MENU key in the configuration dictionary, the default MENU is shown.

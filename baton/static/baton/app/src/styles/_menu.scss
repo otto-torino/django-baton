@@ -143,6 +143,12 @@
     }
   }
 
+  .title > .depth-1 li {
+    @include media-breakpoint-up(lg) {
+      padding-left: 0;
+    }
+  }
+
 
   .open {
     @include media-breakpoint-up(lg) {
