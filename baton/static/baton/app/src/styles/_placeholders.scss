@@ -93,8 +93,7 @@
       flex-direction: row;
       flex-grow: 1;
 
-      + p,
-      + .help /* django 1.11 */ {
+      + p /* django 1.11 */ {
         flex-basis: 100%;
         margin-left: 0 !important;
 
@@ -329,7 +328,21 @@
     @extend .form-text;
     @extend .text-muted;
     @extend .ml-3;
-    font-style: italic;
+    flex-basis: 100% !important;
+    font-size: .9rem;
+    margin-left: 0 !important;
+
+    @include media-breakpoint-up(md) {
+      margin-left: 20% !important;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-left: 10% !important;
+    }
+
+    > ul {
+      padding-left: 1.2rem;
+    }
   }
 
   div.help {
