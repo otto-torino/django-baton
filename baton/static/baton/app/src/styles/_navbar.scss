@@ -27,6 +27,7 @@
 
     &:hover {
       color: $navbar-link-color-hover;
+      text-decoration: none;
     }
 
     &.dropdown-item {
