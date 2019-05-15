@@ -101,6 +101,7 @@
   }
 
   .addlink,
+  .viewlink,
   .changelink {
     &::before {
       @extend %font-awesome;
@@ -119,6 +120,12 @@
   .changelink {
     &::before {
       content: '\f304';
+    }
+  }
+
+  .viewlink {
+    &::before {
+      content: '\f26c';
     }
   }
 
