@@ -62,6 +62,14 @@
     }
   }
 
+  .action-counter {
+    display: block;
+
+    @include media-breakpoint-up(sm) {
+      display: inline;
+    }
+  }
+
   .changelist-filter-toggler {
     align-items: center;
     color: $filter-toggler-color !important;
