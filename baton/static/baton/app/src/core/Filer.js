@@ -18,7 +18,11 @@ let Filer = {
     let copyBtns = $('.action-button .fa-link')
     copyBtns.on('click', function (evt) {
       evt.preventDefault()
-      copyTextToClipboard($(this).parent('.action-button').next('.action-button').attr('href'))
+      var link = $(this).parent('.action-button').attr('href')
+      if (!link) {
+        link = $(this).parent('.action-button').next('.action-button').attr('href')
+      }
+      copyTextToClipboard(link)
     })
   }
 }
