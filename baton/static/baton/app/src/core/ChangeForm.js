@@ -80,7 +80,9 @@ let ChangeForm = {
     }
   },
   fixWrappedFields: function () {
-    this.form.find('.form-row > .fieldBox').wrapAll('<div class="wrapped-fields-container" />')
+    this.form.find('.form-row').each(function (index, row) {
+      $(row).children('.fieldBox').wrapAll('<div class="wrapped-fields-container" />')
+    })
     this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
   },
   lazyLoadImages: function () {
