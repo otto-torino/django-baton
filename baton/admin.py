@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class InputFilter(admin.SimpleListFilter):
     template = 'admin/input_filter.html'
 
@@ -9,7 +10,7 @@ class InputFilter(admin.SimpleListFilter):
 
     def choices(self, changelist):
         # Grab only the "all" option.
-        all_choice = next(super().choices(changelist))
+        all_choice = next(super(InputFilter, self).choices(changelist))
         all_choice['query_parts'] = (
             (k, v)
             for k, v in changelist.get_filters_params().items()
