@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 class InputFilter(admin.SimpleListFilter):
     template = 'admin/input_filter.html'
 
