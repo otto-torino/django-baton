@@ -46,7 +46,6 @@ You can also perform live development, in this case:
     {% extends "admin/base_site.html" %}
     {% block extrahead %}
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,700" rel="stylesheet">
         <script src="http://localhost:8080/dist/baton.min.js"></script>
         <script>
             (function ($, undefined) {
@@ -54,7 +53,8 @@ You can also perform live development, in this case:
                     Baton.init({
                         api: {
                             app_list: '{% url 'baton-app-list-json' %}'
-                        }
+                        },
+                        confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %}
                     });
                 })
             })(jQuery, undefined)
