@@ -45,11 +45,39 @@
         display: none;
       }
     }
+
     .xfull {
       overflow: auto;
 
       .toplinks {
         white-space: nowrap;
+      }
+    }
+
+    .date-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f073';
+      }
+    }
+
+    .clock-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f017';
+      }
+    }
+
+    #result_list {
+      input[type=text],
+      input[type=number],
+      input[type=email],
+      input[type=date] {
+        @extend .form-control;
+        display: inline;
+        height: 28px;
+        margin: 2px 0;
+        width: auto;
       }
     }
   }
