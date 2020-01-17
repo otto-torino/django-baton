@@ -23,6 +23,63 @@
     &:first-child {
       margin-top: 1rem;
     }
+
+    .toplinks {
+      margin-bottom: 0;
+      padding-left: 0;
+
+      li {
+        background: rgba(0, 0, 0, .1);
+        display: inline-block;
+        padding: .2rem 1rem;
+
+        &.date-back {
+          background: $base;
+          a {
+            color: $white;
+          }
+        }
+      }
+
+      + br {
+        display: none;
+      }
+    }
+
+    .xfull {
+      overflow: auto;
+
+      .toplinks {
+        white-space: nowrap;
+      }
+    }
+
+    .date-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f073';
+      }
+    }
+
+    .clock-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f017';
+      }
+    }
+
+    #result_list {
+      input[type=text],
+      input[type=number],
+      input[type=email],
+      input[type=date] {
+        @extend .form-control;
+        display: inline;
+        height: 28px;
+        margin: 2px 0;
+        width: auto;
+      }
+    }
   }
 
   #toolbar {
