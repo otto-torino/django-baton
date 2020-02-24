@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { copyTextToClipboard } from 'core/Utils'
+import { copyTextToClipboard } from './Utils'
 
 let Filer = {
   /**
