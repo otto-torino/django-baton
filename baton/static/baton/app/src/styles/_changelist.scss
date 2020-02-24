@@ -131,16 +131,24 @@
     align-items: center;
     color: $filter-toggler-color !important;
     cursor: pointer;
-    display: flex;
-    flex-direction: row;
+    display: inline;
+    float: right;
     font-size: 1rem;
+    margin-bottom: 1rem;
     min-height: 39px;
-    position: absolute;
-    right: 16px;
-    top: 32px;
 
     &.active {
       background: $primary;
+    }
+
+    &.with-actions {
+      display: flex;
+      flex-direction: row;
+      float: none;
+      margin-bottom: 0;
+      position: absolute;
+      right: 16px;
+      top: 32px;
     }
 
     > span {

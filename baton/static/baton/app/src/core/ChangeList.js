@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import Translator from 'core/i18n'
+import Translator from './i18n'
 
 let ChangeList = {
   /**
@@ -17,11 +17,13 @@ let ChangeList = {
   activate: function () {
     // filters active?
     let _activeFilters = /__[^=]+=/.test(location.search)
+    // actions ?
+    let _activeActions = $('#changelist-form > .actions').length !== 0
     let _changelistForm = $('#changelist-form')
     let _filtersToggler = $('<a />', {
       class:
         'btn btn-info changelist-filter-toggler' +
-        (_activeFilters ? ' active' : '')
+        (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : '')
     })
       .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
       .click(() => {
