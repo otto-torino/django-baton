@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import Translator from 'core/i18n'
+import Translator from './i18n'
 
 let ChangeList = {
   /**

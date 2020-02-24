@@ -1,4 +1,4 @@
-import Translator from 'core/i18n'
+import Translator from './i18n'
 
 export function copyTextToClipboard (text) {
   let t = new Translator($('html').attr('lang'))
