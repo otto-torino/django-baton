@@ -54,11 +54,7 @@ let Menu = {
     let self = this
     let mainUl = $('<ul/>', { 'class': 'depth-0' }).appendTo(self.menu)
     data.forEach((voice, index) => {
-      let active = false
-      if (voice.url) {
-        let pathRexp = new RegExp(voice.url)
-        active = pathRexp.test(location.pathname)
-      }
+      let active = (location.pathname == voice.url)
       let li = $('<li />', { 'class': 'top-level ' + voice.type + (active ? ' active' : '') })
       let a = $('<' + (voice.url ? 'a' : 'span') + ' />', {
         href: voice.url || '#'
