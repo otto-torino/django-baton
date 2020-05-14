@@ -2,7 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
-A cool, modern and responsive django admin application based on bootstrap 4.3.1
+A cool, modern and responsive django admin application based on bootstrap 4.5.0
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
@@ -52,7 +52,7 @@ At the moment __baton__ defines only 3 custom templates:
 
 Baton is based on the following frontend technologies:
 
-- bootstrap 4.3.1
+- bootstrap 4.5.0
 - FontAwesome 5.8.1 (solid and brands)
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
