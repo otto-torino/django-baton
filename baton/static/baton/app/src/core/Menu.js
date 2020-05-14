@@ -55,16 +55,12 @@ let Menu = {
     let mainUl = $('<ul/>', { 'class': 'depth-0' }).appendTo(self.menu)
     data.forEach((voice, index) => {
       let active = false
-      if (voice.type === 'free') {
-        active = (location.pathname === voice.url)
-      } else {
-        if (voice.url) {
-          let pathRexp = new RegExp(voice.url)
-          active = pathRexp.test(location.pathname)
-        }
+      if (voice.url) {
+        let pathRexp = new RegExp(voice.url)
+        active = pathRexp.test(location.pathname)
       }
       let li = $('<li />', {
-        'class': 'top-level ' + voice.type + (voice.default_open ? ' default-open' : '') + (active ? ' active' : '')
+        'class': 'top-level ' + voice.type + (voice.defaultOpen ? ' default-open' : '') + (active ? ' active' : '')
       })
       let a = $('<' + (voice.url ? 'a' : 'span') + ' />', {
         href: voice.url || '#'
