@@ -24,12 +24,12 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ## <a name="features"></a>Features
 
-Tested with Django 1.10.5, 1.11.1, 2.0, 2.1 and 2.2.
+Tested with Django >= 1.10.5
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on bootstrap 4.3.1 and FontAwesome Free 5.8.1
+- Based on bootstrap 4.5.0 and FontAwesome Free 5.8.1
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters facility
