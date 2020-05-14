@@ -71,6 +71,7 @@ class GetAppListJsonView(View):
                 'type': 'title',
                 'label': item.get('label', ''),
                 'icon': item.get('icon', None),
+                'defaultOpen': item.get('default_open', False),
                 'children': children,
             }
         return None
