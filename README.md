@@ -151,7 +151,7 @@ The configuration dictionary must be defined inside your settings:
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-            { 'type': 'free', 'label': 'My parent voice', 'children': [
+            { 'type': 'free', 'label': 'My parent voice', 'default_open': True, children': [
                 { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
                 { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
             ] },
@@ -180,6 +180,8 @@ Title and free voices can have children, which follow the following rules:
 
 - children voices' children are ignored (do not place an app voice as a child)
 
+Voices with children (title, app, free) can specify a `default_open` key to expand the submenu by default.
+
 If you don't define a MENU key in the configuration dictionary, the default MENU is shown.
 
 #### Title
@@ -191,9 +193,11 @@ You can also define some perms (OR condition), like this:
 
     { 'type': 'title', 'label': 'main', 'perms': ('auth.add_user', ) },
 
+Free voices can have children and so you can specify the _default_open_ key.
+
 #### App
 
-You must specify the _type_ and _name_ keys. Optionally, an icon key (you can use FontAwesome classes which are included by default) and a _models_ key.
+You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use FontAwesome classes which are included by default), a _default_open_ key and a _models_ key.
 If you don't define the _models_ key, the default app models are listed under your app.
 
 #### Model
@@ -202,7 +206,7 @@ You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
 
 #### Free
 
-You can specify free voices. You must define a _url_ and if you want some visibility permissions (OR clause)
+You can specify free voices. You must define a _url_ and if you want some visibility permissions (OR clause). Free voices can have children and so you can specify the _default_open_ key.
 
 ### <a name="configuration-analytics"></a>ANALYTICS
 
