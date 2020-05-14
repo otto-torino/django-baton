@@ -1,79 +1,89 @@
 import webpack from 'webpack'
 import path from 'path'
+import svgToMiniDataURI from 'mini-svg-data-uri'
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const webpackConfig = {
-  // this is needed to resolve imports from the js root
-  resolve: {
-    // always import from root (src and node_modules)
-    root: [
-      'src',
-      'node_modules'
-    ],
-    extensions: ['', '.js']
-  },
-  // let the loaders be found when parsing resources in all paths
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
-  },
-  // library entry point
-  entry: './src/index.js',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/dist',
-    filename: 'baton.min.js',
-  },
-  // this for creating source maps
-  devtool: 'source-map'
-}
+module.exports = env => {
+  const webpackConfig = {
+    mode: 'production',
+    // this is needed to resolve imports from the js root
+    resolve: {
+      // always import from root (src and node_modules)
+      modules: [
+        path.join(__dirname, 'src'),
+        'node_modules'
+      ],
+      extensions: ['.js']
+    },
+    // library entry point
+    entry: './src/index.js',
+    output: {
+      path: path.join(__dirname, 'dist'),
+      publicPath: '/dist',
+      filename: 'baton.min.js',
+    },
+    // this for creating source maps
+    devtool: 'source-map'
+  }
 
-webpackConfig.plugins = [
-  new webpack.optimize.UglifyJsPlugin({minimize: true}),
-  new webpack.ProvidePlugin({
-    jQuery: 'jquery',
-    $: 'jquery',
-    jquery: 'jquery'
+  webpackConfig.plugins = [
+    new BundleAnalyzerPlugin(),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery'
+    })
+  ]
+
+  webpackConfig.module = {
+    rules: []
+  }
+
+  // js loaders
+  webpackConfig.module.rules.push({
+    test: /\.(js)$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader',
+    query: {
+      presets: ['@babel/preset-env']
+    }
   })
-]
 
-webpackConfig.module = {
-  loaders: []
+  // css loaders
+  webpackConfig.module.rules.push({
+    test: /\.scss/,
+    loader: 'style-loader!css-loader!postcss-loader!sass-loader'
+  }, {
+    test: /\.sass/,
+    loader: 'style-loader!css-loader!postcss-loader!sass-loader'
+  })
+
+  // File loaders
+  webpackConfig.module.rules.push(
+    {
+      test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif)(\?\S*)?$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: env.NODE_ENV === 'development' ? 5e6 : 1e4,
+          publicPath: '/static/baton/app/dist/',
+        }
+      }
+    },
+    {
+      test: /\.svg$/i,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: env.NODE_ENV === 'development' ? 5e6 : 1e4,
+            publicPath: '/static/baton/app/dist/',
+            generator: (content) => svgToMiniDataURI(content.toString()),
+          },
+        },
+      ],
+    },
+  )
+
+  return webpackConfig
 }
-
-// js loaders
-webpackConfig.module.loaders.push({
-  test: /\.(js)$/,
-  exclude: /node_modules/,
-  loader: 'babel-loader',
-  query: {
-    presets: ['es2015', 'stage-0']
-  }
-})
-
-// css loaders
-webpackConfig.module.loaders.push({
-  test: /\.scss/,
-  loader: 'style!css!postcss!sass'
-}, {
-  test: /\.sass/,
-  loader: 'style!css!postcss!sass'
-})
-
-// File loaders
-webpackConfig.module.loaders.push(
-  {
-    test: /\.svg(\?.*)?$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
-  },
-  /*
-  {
-    test: /\.(png|jpg)$/,
-    loader: 'url?limit=8192'
-  },
-  */
-  {
-    test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-    loader: 'url?limit=100000&name=[name].[ext]'
-  }
-)
-
-export default webpackConfig

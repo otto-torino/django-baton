@@ -25,6 +25,7 @@ This is an example of configuration::
                 'name': 'auth',
                 'label': 'Authentication',
                 'icon': 'fa fa-lock',
+                'default_open': True,
                 'models': (
                     {
                         'name': 'user',
@@ -142,6 +143,8 @@ Title and free voices can have children. Children follow these rules:
 
 - children children are ignored (do not place an app voice as child)
 
+Voices with children can specify a ``default_open`` option, used to expand the submenu by default.
+
 Title
 ^^^^^
 
@@ -155,14 +158,14 @@ or ::
 
     { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
 
-It accepts children voices.
+It accepts children voices, though you can specify the ``default_open`` key.
 
 App
 ^^^
 
 In order to add an application with all its models to the menu, you need an `app` menu voice.
 
-You must specify the ``type`` and ``name`` keys, optionally an ``icon`` key (you can use FontAwesome classes which are included by default) and a ``models`` key.
+You must specify the ``type`` and ``name`` keys, optionally an ``icon`` key (you can use FontAwesome classes which are included by default), a ``default_open`` key and a ``models`` key.
 
 .. important:: If you don't define the models key then the default app models are listed under your app, otherwise only the specified models are listed (in the order you provide).
 
@@ -215,6 +218,8 @@ It accepts children voices ::
         { 'type': 'free', 'label': 'Docs', 'url': 'http://www.mydocssite.com' },
         { 'type': 'free', 'label': 'Photos', 'url': 'http://www.myphotossite.com' },
     ] },
+
+Since free voices can have children you can specify the ``default_open`` key.
 
 Analytics
 ---------

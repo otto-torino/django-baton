@@ -55,11 +55,17 @@ let Menu = {
     let mainUl = $('<ul/>', { 'class': 'depth-0' }).appendTo(self.menu)
     data.forEach((voice, index) => {
       let active = false
-      if (voice.url) {
-        let pathRexp = new RegExp(voice.url)
-        active = pathRexp.test(location.pathname)
+      if (voice.type === 'free') {
+        active = (location.pathname === voice.url)
+      } else {
+        if (voice.url) {
+          let pathRexp = new RegExp(voice.url)
+          active = pathRexp.test(location.pathname)
+        }
       }
-      let li = $('<li />', { 'class': 'top-level ' + voice.type + (active ? ' active' : '') })
+      let li = $('<li />', {
+        'class': 'top-level ' + voice.type + (voice.defaultOpen ? ' default-open' : '') + (active ? ' active' : '')
+      })
       let a = $('<' + (voice.url ? 'a' : 'span') + ' />', {
         href: voice.url || '#'
       }).text(voice.label).appendTo(li)
@@ -102,8 +108,8 @@ let Menu = {
       let p = $(this).parent()
       let depth0 = $('.depth-0')
       let depth1 = p.children('ul')
-      if (p.hasClass('open')) {
-        p.removeClass('open')
+      if ((p.hasClass('open')) || (p.hasClass('default-open'))) {
+        p.removeClass('open default-open')
         depth1.children('.nav-back').remove()
         depth0.css('overflow', 'auto')
       } else {

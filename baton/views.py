@@ -71,6 +71,7 @@ class GetAppListJsonView(View):
                 'type': 'title',
                 'label': item.get('label', ''),
                 'icon': item.get('icon', None),
+                'defaultOpen': item.get('default_open', False),
                 'children': children,
             }
         return None
@@ -97,6 +98,7 @@ class GetAppListJsonView(View):
                 'label': item.get('label', ''),
                 'icon': item.get('icon', None),
                 'url': item.get('url', None),
+                'defaultOpen': item.get('default_open', False),
                 'children': children,
             }
         return None
@@ -127,6 +129,7 @@ class GetAppListJsonView(View):
                 'type': 'app',
                 'label': item.get('label', ''),
                 'icon': item.get('icon', None),
+                'defaultOpen': item.get('default_open', False),
                 'children': children
             }
         return None

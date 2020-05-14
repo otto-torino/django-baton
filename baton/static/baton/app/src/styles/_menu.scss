@@ -150,7 +150,8 @@
   }
 
 
-  .open {
+  .open,
+  .default-open {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
