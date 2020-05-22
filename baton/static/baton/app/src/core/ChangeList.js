@@ -10,6 +10,7 @@ let ChangeList = {
   init: function (opts) {
     this._filtersDiv = $('#changelist-filter')
     this.t = new Translator($('html').attr('lang'))
+    this.openInModal = opts.openFiltersInModal
     if (this._filtersDiv.length) {
       this.activate()
     }
@@ -26,16 +27,45 @@ let ChangeList = {
         (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : '')
     })
       .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
-      .click(() => {
-        $(document.body).toggleClass('changelist-filter-active')
-        if (parseInt(this._filtersDiv.css('max-width')) === 100) {
-          $('html,body').animate({ scrollTop: this._filtersDiv.offset().top })
-        }
-      })
+
+    if (this.openInModal) {
+      $('#changelist-filter').prop('id', 'changelist-filter-modal')
+      this.modal = this.createModal()
+      _filtersToggler
+        .click(() => {
+          this.modal.modal('toggle')
+        })
+    } else {
+      _filtersToggler
+        .click(() => {
+          $(document.body).toggleClass('changelist-filter-active')
+          if (parseInt(this._filtersDiv.css('max-width')) === 100) {
+            $('html,body').animate({ scrollTop: this._filtersDiv.offset().top })
+          }
+        })
+    }
     _changelistForm.prepend(_filtersToggler)
     if (/_popup=1/.test(location.href)) {
       $('#changelist-form .results').css('padding-top', '78px')
     }
+  },
+  createModal: function () {
+    let modal = $('<div />', { 'class': 'modal' })
+    let modalContent = `
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">${this.t.get('close')}</button>
+    </div>
+  </div>
+</div>
+    `
+    modal.html(modalContent)
+    modal.find('.modal-content').prepend($('#changelist-filter-modal'))
+    console.log(modal.find('#changelist-filter-modal > h2'), 'DIO')
+    let title = modal.find('#changelist-filter-modal > h2')
+    modal.find('.modal-content').prepend(title.addClass('modal-header').css('margin-bottom', 0))
+    return modal
   }
 }
 

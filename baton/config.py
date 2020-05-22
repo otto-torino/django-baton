@@ -13,6 +13,7 @@ default_config = {
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
+    'OPEN_FILTERS_IN_MODAL': False,
 }
 
 

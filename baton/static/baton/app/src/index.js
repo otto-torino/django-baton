@@ -31,7 +31,7 @@ window.Baton = {
     } else if (page === 'password_change') {
       PasswordChange.init()
     } else if (page === 'changelist') {
-      ChangeList.init()
+      ChangeList.init(config)
     } else if (page === 'add_form' || page === 'change_form') {
       ChangeForm.init(config)
     } else if (page === 'filer') {
