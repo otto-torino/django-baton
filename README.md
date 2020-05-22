@@ -38,6 +38,7 @@ Everything is styled through CSS and when required, JS is used.
 - Text input filters facility
 - Form tabs out of the box
 - Lazy loading of uploaded images
+- Optional display of changelist filters in a modal
 - Optional index page filled with google analytics widgets
 - Customization available for recompiling the js app provided
 - IT translations provided
