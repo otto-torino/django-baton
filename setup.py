@@ -24,6 +24,7 @@ setup(
         'oauth2client==1.5.2',
     ],
     classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
