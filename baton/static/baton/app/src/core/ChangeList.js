@@ -10,7 +10,7 @@ let ChangeList = {
   init: function (opts) {
     this._filtersDiv = $('#changelist-filter')
     this.t = new Translator($('html').attr('lang'))
-    this.openInModal = opts.openFiltersInModal
+    this.filtersInModal = opts.changelistFiltersInModal
     if (this._filtersDiv.length) {
       this.activate()
     }
@@ -28,7 +28,7 @@ let ChangeList = {
     })
       .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
 
-    if (this.openInModal) {
+    if (this.filtersInModal) {
       $('#changelist-filter').prop('id', 'changelist-filter-modal')
       this.modal = this.createModal()
       _filtersToggler
