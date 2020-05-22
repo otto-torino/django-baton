@@ -132,7 +132,7 @@ The configuration dictionary must be defined inside your settings:
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
         'ENABLE_IMAGES_PREVIEW': True,
-        'OPEN_FILTERS_IN_MODAL': True,
+        'CHANGELIST_FILTERS_IN_MODAL': True,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
