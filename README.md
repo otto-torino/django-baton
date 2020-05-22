@@ -1,8 +1,9 @@
 # django-baton
 
-[![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 ![Version](https://img.shields.io/github/v/tag/otto-torino/django-baton?label=version)
+![Build status](https://travis-ci.org/otto-torino/django-baton.svg?branch=master)
 ![License](https://img.shields.io/pypi/l/django-baton)
+[![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
 A cool, modern and responsive django admin application based on bootstrap 4.5.0
 
