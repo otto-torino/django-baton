@@ -214,6 +214,19 @@
     }
   }
 
+  #changelist-filter-modal {
+    @extend .modal-body;
+    @extend #changelist-filter;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    order: 0 !important;
+
+    select {
+      margin-left: 0 !important;
+      width: auto !important;
+    }
+  }
+
   #changelist-form {
     @extend .p-3;
     @include make-col(12);

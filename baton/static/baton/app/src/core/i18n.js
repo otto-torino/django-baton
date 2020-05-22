@@ -11,6 +11,10 @@ export const messages = {
     en: 'Filter',
     it: 'Filtra'
   },
+  close: {
+    en: 'Close',
+    it: 'Chiudi'
+  },
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
     it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter'
