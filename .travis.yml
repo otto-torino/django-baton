@@ -14,5 +14,5 @@ script:
   - cd testapp/app && python manage.py test
 branches:
   only:
-    - feature/unit-tests
+    - master
 sudo: false
