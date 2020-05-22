@@ -27,13 +27,18 @@ module.exports = env => {
   }
 
   webpackConfig.plugins = [
-    new BundleAnalyzerPlugin(),
     new webpack.ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery',
       jquery: 'jquery'
     })
   ]
+
+  if (env.NODE_ENV === 'development') {
+    webpackConfig.plugins.push(
+      new BundleAnalyzerPlugin(),
+    )
+  }
 
   webpackConfig.module = {
     rules: []
