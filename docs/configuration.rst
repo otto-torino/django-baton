@@ -123,6 +123,13 @@ Displays a preview above all input file fields which contain images. You can con
 
 **Default**: True
 
+Changelist filters in modal
+-----------------------
+
+If set to ``True`` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is ``False`` and the changelist filters appears from the right side of the changelist table.
+
+**Default**: False
+
 Menu
 ----
 
