@@ -1,0 +1,18 @@
+# Config file for automatic testing at travis-ci.org
+language: python
+python:
+  - 3.6
+env:
+  - DJANGO_VERSION='Django>=2.2,<3.0'
+  - DJANGO_VERSION='Django>=3.0,<3.1'
+install:
+  - pip install --upgrade pip
+  - pip install $DJANGO_VERSION --upgrade
+  - django-admin.py --version
+  - pip install -r testapp/requirements.txt
+script:
+  - cd testapp/app && python manage.py test
+branches:
+  only:
+    - feature/unit-tests
+sudo: false
