@@ -1,5 +1,5 @@
-from django.test import TestCase
 from baton.config import default_config, get_config
+from django.test import TestCase
 
 
 class TestBatonConfig(TestCase):
@@ -19,10 +19,8 @@ class TestBatonConfig(TestCase):
         self.assertEqual(get_config('SHOW_MULTIPART_UPLOADING'), True)
         self.assertEqual(get_config('ENABLE_IMAGES_PREVIEW'), True)
         self.assertEqual(get_config('CHANGELIST_FILTERS_IN_MODAL'), True)
-        self.assertEqual(len(get_config('MENU')), 4)
+        self.assertEqual(len(get_config('MENU')), 5)
         self.assertEqual(get_config('MENU')[0]['type'], 'title')
         self.assertEqual(get_config('SUPPORT_HREF'), 'mailto:mail@otto.to.it')
         self.assertEqual(get_config('POWERED_BY'), 'Otto srl')
         self.assertEqual(get_config('COPYRIGHT'), 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>')
-        self.assertEqual(get_config('ANALYTICS')['VIEW_ID'], '12345678')
-

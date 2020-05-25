@@ -60,7 +60,7 @@ class TestBatonViews(TestCase):
         data = json.loads(response.content)
         self.assertEqual(len(data), 4)
         self.assertEqual(data[0].get('type'), 'title')
-        self.assertEqual(data[0].get('label'), 'main')
+        self.assertEqual(data[0].get('label'), 'System')
         self.assertEqual(data[0].get('icon'), None)
         self.assertEqual(data[0].get('defaultOpen'), False)
         self.assertEqual(len(data[0].get('children')), 0)
@@ -69,7 +69,7 @@ class TestBatonViews(TestCase):
         self.assertEqual(len(data[1].get('children')), 2)
         self.assertEqual(data[1].get('children')[0].get('label'), 'Users')
         self.assertEqual(data[1].get('children')[1].get('label'), 'Groups')
-        self.assertEqual(data[2].get('label'), 'A section')
+        self.assertEqual(data[2].get('label'), 'Auth tools')
         self.assertEqual(data[3].get('type'), 'free')
 
         with self.settings(BATON={}):  # dft menu
@@ -90,7 +90,7 @@ class TestBatonViews(TestCase):
         data = json.loads(response.content)
         self.assertEqual(len(data), 1)  # no permissions
         self.assertEqual(data[0].get('type'), 'free')
-        self.assertEqual(data[0].get('label'), 'My parent voice')
+        self.assertEqual(data[0].get('label'), 'Utils')
 
         p = Permission.objects.filter(codename='change_user')[0]
         self.staff.user_permissions.add(p)

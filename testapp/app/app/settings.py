@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'news',
     'baton.autodiscover',
 ]
 
@@ -115,7 +116,7 @@ BATON = {
     'MENU': (
         {
             'type': 'title',
-            'label': 'main',
+            'label': 'System',
             'apps': ('auth', )
         },
         {
@@ -136,40 +137,49 @@ BATON = {
         },
         {
             'type': 'title',
-            'label': 'A section',
+            'label': 'News',
+            'apps': ('news', ),
+            'default_open': True,
+            'children': [
+                {
+                    'type': 'model',
+                    'label': 'News',
+                    'name': 'category',
+                    'app': 'news'
+                },
+                {
+                    'type': 'model',
+                    'label': 'News',
+                    'name': 'news',
+                    'app': 'news'
+                },
+            ]
+        },
+        {
+            'type': 'title',
+            'label': 'Auth tools',
             'apps': ('auth', ),
             'children': [
                 {
                     'type': 'free',
-                    'label': 'Custom Link',
-                    'url': 'http://www.google.it',
-                    'perms': ('flatpages.add_flatpage', 'auth.change_user')
+                    'label': 'Password generator',
+                    'url': 'https://passwordsgenerator.net/'
                 },
             ]
         },
         {
             'type': 'free',
-            'label': 'My parent voice',
+            'label': 'Utils',
             'default_open': True,
             'children': [
                 {
-                    'type': 'model',
-                    'label': 'A Model',
-                    'name': 'mymodelname',
-                    'app': 'myapp'
-                },
-                {
                     'type': 'free',
-                    'label': 'Another custom link',
+                    'label': 'Google search',
                     'url': 'http://www.google.it'
                 },
             ]
         },
     ),
-    'ANALYTICS': {
-        'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-        'VIEW_ID': '12345678',
-    }
 }
 
 # Internationalization
