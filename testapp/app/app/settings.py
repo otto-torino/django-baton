@@ -102,12 +102,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 BATON = {
-    'SITE_HEADER': 'Baton',
-    'SITE_TITLE': 'Baton',
+    'SITE_HEADER': 'Baton Test App',
+    'SITE_TITLE': 'Baton Test App',
     'INDEX_TITLE': 'Baton administration',
-    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-    'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>',  # noqa
-    'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+    'SUPPORT_HREF': 'mailto:mail@otto.to.it',
+    'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>',  # noqa
+    'POWERED_BY': 'Otto srl',
     'CONFIRM_UNSAVED_CHANGES': False,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
