@@ -117,7 +117,7 @@ BATON = {
         {
             'type': 'title',
             'label': 'System',
-            'apps': ('auth', )
+            'apps': ('auth', ),
         },
         {
             'type': 'app',
@@ -143,7 +143,7 @@ BATON = {
             'children': [
                 {
                     'type': 'model',
-                    'label': 'News',
+                    'label': 'Categories',
                     'name': 'category',
                     'app': 'news'
                 },
@@ -157,21 +157,14 @@ BATON = {
         },
         {
             'type': 'title',
-            'label': 'Auth tools',
-            'apps': ('auth', ),
+            'label': 'Tools',
             'children': [
                 {
                     'type': 'free',
                     'label': 'Password generator',
-                    'url': 'https://passwordsgenerator.net/'
+                    'url': 'https://passwordsgenerator.net/',
+                    'perms': ('auth.add_user', 'auth.change_user')
                 },
-            ]
-        },
-        {
-            'type': 'free',
-            'label': 'Utils',
-            'default_open': True,
-            'children': [
                 {
                     'type': 'free',
                     'label': 'Google search',
