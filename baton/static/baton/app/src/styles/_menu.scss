@@ -150,8 +150,7 @@
   }
 
 
-  .open,
-  .default-open {
+  .open {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
@@ -172,6 +171,30 @@
     .depth-1 {
       margin-left: 0;
       z-index: 10;
+    }
+  }
+
+  .default-open {
+    @include media-breakpoint-up(lg) {
+      .has-children {
+        &::after {
+          content: '\f107' !important;
+        }
+      }
+
+      ul,
+      li {
+        background: $menu-selected-sub-bg !important;
+      }
+
+      > .depth-1 {
+        display: block;
+      }
+
+      .depth-1 {
+        margin-left: 0;
+        z-index: 10;
+      }
     }
   }
 

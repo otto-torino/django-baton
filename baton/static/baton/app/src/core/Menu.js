@@ -18,7 +18,7 @@ let Menu = {
     $('#footer').before(container)
     let row = $('<div/>', { 'class': 'row' })
       .appendTo(container)
-    this.menu = $('<nav/>', { 'class': 'col-md-3 col-lg-2 sidebar-menu' })
+    this.menu = $('<nav/>', { 'class': 'col-lg-2 sidebar-menu' })
       .appendTo(row)
     $('#content').addClass('col-md-9 col-lg-10')
       .prepend($('.breadcrumbs'))
@@ -108,7 +108,7 @@ let Menu = {
       let p = $(this).parent()
       let depth0 = $('.depth-0')
       let depth1 = p.children('ul')
-      if ((p.hasClass('open')) || (p.hasClass('default-open'))) {
+      if ((p.hasClass('open')) || (p.hasClass('default-open') && !$('body').hasClass('menu-open'))) {
         p.removeClass('open default-open')
         depth1.children('.nav-back').remove()
         depth0.css('overflow', 'auto')
