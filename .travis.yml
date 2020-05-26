@@ -9,6 +9,7 @@ addons:
 install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
+  - pip install oauth2client
   - django-admin.py --version
   - pip install selenium
 before_script:
