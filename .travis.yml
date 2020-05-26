@@ -13,7 +13,7 @@ install:
   - pip install selenium
 before_script:
   - export PATH=$PATH:/usr/lib/chromium-browser/
-  - cd testapp/app && python manage.py runserver &
+  - cd testapp/app && python manage.py runserver
   - sleep 3
 env:
   global:
