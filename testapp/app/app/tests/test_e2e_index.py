@@ -85,3 +85,12 @@ class TestBatonIndex(TestCase):
         modules = self.driver.find_elements_by_css_selector(
             "#content-main .module")
         self.assertEqual(len(modules), 2)
+
+    def test_footer(self):
+        # Wait until baton is ready
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+
+        links = self.driver.find_elements_by_css_selector(
+            "#site-footer .col-sm-4 p")
+        self.assertEqual(len(links), 3)
