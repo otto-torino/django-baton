@@ -1,4 +1,4 @@
-import os
+import time
 
 from django.test import TestCase
 from dotenv import load_dotenv
@@ -11,7 +11,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 load_dotenv()
-
 
 
 class TestBatonLogin(TestCase):
@@ -27,12 +26,29 @@ class TestBatonLogin(TestCase):
 
     def test_form(self):
         self.driver.get('http://localhost:8000/admin')
-        header_field = self.driver.find_element_by_id("header")
-         # wait for page to load
+        # wait for page to load
         try:
             element_present = EC.presence_of_element_located(
                 (By.ID, 'header'))
             WebDriverWait(self.driver, 10).until(element_present)
         except TimeoutException:
             print("Timed out waiting for page to load")
+
+        time.sleep(1)
+        header_field = self.driver.find_element_by_id("header")
+        print(header_field.text)
         self.assertEqual(header_field.text, 'Baton Test App')
+
+        username_field = self.driver.find_element_by_id("id_username")
+        password_field = self.driver.find_element_by_id("id_password")
+        button = self.driver.find_element_by_css_selector('input[type=submit]')
+        self.assertEqual(password_field.is_displayed(), True)
+        self.assertEqual(username_field.is_displayed(), True)
+        self.assertEqual(button.is_displayed(), True)
+
+        username_field.send_keys('admin')
+        time.sleep(1)
+        password_field.send_keys('admin')
+        time.sleep(1)
+        button.click()
+        self.assertEqual(self.driver.current_url, 'http://localhost:8000/admin/')
