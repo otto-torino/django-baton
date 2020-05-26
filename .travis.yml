@@ -15,7 +15,6 @@ install:
   - pip install selenium
 before_script:
   - export PATH=$PATH:/usr/lib/chromium-browser/
-  - google-chrome-stable --no-sandbox --headless --remote-debugging-port=9222 &
   - cd testapp/app && python manage.py runserver &
   - sleep 3
 env:
