@@ -18,7 +18,7 @@ let Menu = {
     $('#footer').before(container)
     let row = $('<div/>', { 'class': 'row' })
       .appendTo(container)
-    this.menu = $('<nav/>', { 'class': 'col-md-3 col-lg-2 sidebar-menu' })
+    this.menu = $('<nav/>', { 'class': 'col-lg-2 sidebar-menu' })
       .appendTo(row)
     $('#content').addClass('col-md-9 col-lg-10')
       .prepend($('.breadcrumbs'))
