@@ -11,9 +11,6 @@ def main():
         os.path.dirname(os.path.realpath(__file__)), '..', '..')
     sys.path.append(dir_path)
 
-    from django.conf import settings
-    print(settings.BATON)
-
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
