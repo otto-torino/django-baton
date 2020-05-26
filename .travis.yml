@@ -9,6 +9,9 @@ install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
   - django-admin.py --version
+  - pip install selenium
+before_script:
+  - cd testapp/app && python manage.py runserver &
 script:
   - cd testapp/app && python manage.py test
 branches:
