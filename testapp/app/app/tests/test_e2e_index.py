@@ -2,10 +2,9 @@ import time
 
 from django.test import TestCase
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -19,11 +18,11 @@ class TestBatonIndex(TestCase):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        print('INIT DRIVER')
         self.driver = webdriver.Chrome(
             ChromeDriverManager().install(),
             options=chrome_options,
         )
+        self.driver.set_window_size(1920, 1080)
         self.driver.implicitly_wait(10)
         self.login()
 
