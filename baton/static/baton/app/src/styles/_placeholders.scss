@@ -110,7 +110,34 @@
       .selector {
         display: flex;
         flex-direction: row;
-        flex-wrap: no-wrap;
+        flex-wrap: nowrap;
+
+        &.stacked {
+          flex-direction: column;
+
+          .selector-chooser {
+            display: flex;
+            flex-direction: row;
+            margin: 15px 0;
+            width: auto;
+
+            .selector-add {
+              background: url('/static/admin/img/selector-icons.svg') 0 -32px no-repeat; // 46
+
+              &.active {
+                background: url('/static/admin/img/selector-icons.svg') 0 -48px no-repeat; // 46
+              }
+            }
+
+            .selector-remove {
+              background: url('/static/admin/img/selector-icons.svg') 0 0 no-repeat; // 46
+
+              &.active {
+                background: url('/static/admin/img/selector-icons.svg') 0 -16px no-repeat; // 46
+              }
+            }
+          }
+        }
 
         .help-icon {
           background: url('/static/admin/img/icon-unknown.svg') 0 0 no-repeat;
@@ -208,11 +235,11 @@
         }
 
         .selector-add {
-          background: url('/static/admin/img/selector-icons.svg') 0 -96px no-repeat;
+          background: url('/static/admin/img/selector-icons.svg') 0 -112px no-repeat;
         }
 
         .selector-remove {
-          background: url('/static/admin/img/selector-icons.svg') 0 -64px no-repeat;
+          background: url('/static/admin/img/selector-icons.svg') 0 -80px no-repeat;
         }
 
         .selector-add,
