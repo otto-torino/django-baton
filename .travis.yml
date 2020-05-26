@@ -2,10 +2,6 @@
 language: python
 python:
   - 3.6
-addons:
-  apt:
-    packages:
-      - chromium-chromedriver
 install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
@@ -15,15 +11,12 @@ install:
   - django-admin.py --version
   - pip install selenium
 before_script:
-  - export PATH=$PATH:/usr/lib/chromium-browser/
   - cd testapp/app && python manage.py runserver &
   - sleep 3
 env:
   global:
     - DJANGO_VERSION='Django>=2.2,<3.0'
     - DJANGO_VERSION='Django>=3.0,<3.1'
-    - CHROME_DRIVER_PATH='/usr/lib/chromium-browser/chromedriver'
-    - TRAVIS_CI='1'
 script:
   - cd testapp/app && python manage.py test
 branches:

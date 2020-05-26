@@ -1,7 +1,6 @@
 import time
 
 from django.test import TestCase
-from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.chrome.options import Options
@@ -9,8 +8,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-
-load_dotenv()
 
 
 class TestBatonLogin(TestCase):
