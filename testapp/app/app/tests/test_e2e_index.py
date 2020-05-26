@@ -92,5 +92,12 @@ class TestBatonIndex(TestCase):
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
 
         links = self.driver.find_elements_by_css_selector(
-            "#site-footer .col-sm-4 p")
+            "#footer .col-sm-4 p")
         self.assertEqual(len(links), 3)
+        # support
+        self.assertEqual(links[0].find_element_by_css_selector('a').get_attribute('href'), 'mailto:mail@otto.to.it')
+        self.assertEqual(links[0].get_attribute('innerText').strip(), 'Support')
+        # copyright
+        self.assertEqual(links[1].get_attribute('innerText').strip(), 'copyright © 2020 Otto srl')
+        # powered by
+        self.assertEqual(links[2].get_attribute('innerText').strip(), 'Baton Test App\nDeveloped by Otto srl')
