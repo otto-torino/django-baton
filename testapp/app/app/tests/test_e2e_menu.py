@@ -1,14 +1,15 @@
 import time
-
 from django.test import TestCase
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 from .utils import element_has_css_class
+
+import os
+os.environ['WDM_LOG_LEVEL'] = '0'
 
 
 class TestBatonMenu(TestCase):
@@ -25,6 +26,9 @@ class TestBatonMenu(TestCase):
         self.driver.set_window_size(1920, 1080)
         self.driver.implicitly_wait(10)
         self.login()
+
+    def tearDown(self):
+        self.driver.quit()
 
     def login(self):
         self.driver.get('http://localhost:8000/admin')

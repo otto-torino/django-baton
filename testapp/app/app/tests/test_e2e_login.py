@@ -9,6 +9,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
+import os
+os.environ['WDM_LOG_LEVEL'] = '0'
+
 
 class TestBatonLogin(TestCase):
     def setUp(self):
@@ -20,6 +23,9 @@ class TestBatonLogin(TestCase):
         self.driver = webdriver.Chrome(
             ChromeDriverManager().install(),
             options=chrome_options,)
+
+    def tearDown(self):
+        self.driver.quit()
 
     def test_form(self):
         self.driver.get('http://localhost:8000/admin')

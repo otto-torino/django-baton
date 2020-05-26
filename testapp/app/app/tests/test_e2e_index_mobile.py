@@ -2,7 +2,6 @@ import time
 
 from django.test import TestCase
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,8 +9,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from .utils import element_has_css_class
 
+import os
+os.environ['WDM_LOG_LEVEL'] = '0'
 
-class TestBatonIndex(TestCase):
+
+class TestBatonIndexMobile(TestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -25,6 +27,9 @@ class TestBatonIndex(TestCase):
         self.driver.set_window_size(480, 600)
         self.driver.implicitly_wait(10)
         self.login()
+
+    def tearDown(self):
+        self.driver.quit()
 
     def login(self):
         self.driver.get('http://localhost:8000/admin')
@@ -42,6 +47,7 @@ class TestBatonIndex(TestCase):
         # Wait until baton is ready
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+        time.sleep(1)
 
         # toggler
         toggler = self.driver.find_element_by_css_selector(".navbar-toggler")

@@ -10,6 +10,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from .utils import element_has_css_class
 
+import os
+os.environ['WDM_LOG_LEVEL'] = '0'
+
 
 class TestBatonIndex(TestCase):
     def setUp(self):
@@ -25,6 +28,9 @@ class TestBatonIndex(TestCase):
         self.driver.set_window_size(1920, 1080)
         self.driver.implicitly_wait(10)
         self.login()
+
+    def tearDown(self):
+        self.driver.quit()
 
     def login(self):
         self.driver.get('http://localhost:8000/admin')
@@ -70,6 +76,8 @@ class TestBatonIndex(TestCase):
         # Wait until baton is ready
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+
+        time.sleep(1)
 
         # page title
         page_title = self.driver.find_element_by_css_selector(
