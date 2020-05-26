@@ -2,16 +2,25 @@
 language: python
 python:
   - 3.6
-env:
-  - DJANGO_VERSION='Django>=2.2,<3.0'
-  - DJANGO_VERSION='Django>=3.0,<3.1'
 install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
+  - pip install oauth2client==1.5.2
+  - pip install webdriver-manager
+  - pip install python-dotenv
   - django-admin.py --version
+  - pip install selenium
+before_script:
+  - cd testapp/app && python manage.py runserver &
+  - sleep 3
+env:
+  global:
+    - DJANGO_VERSION='Django>=2.2,<3.0'
+    - DJANGO_VERSION='Django>=3.0,<3.1'
 script:
   - cd testapp/app && python manage.py test
 branches:
   only:
     - master
+    - feature/e2e-tests
 sudo: false
