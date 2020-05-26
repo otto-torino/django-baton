@@ -33,7 +33,6 @@ class TestBatonLogin(TestCase):
 
         time.sleep(1)
         header_field = self.driver.find_element_by_id("header")
-        print(header_field.text)
         self.assertEqual(header_field.text, 'Baton Test App')
 
         username_field = self.driver.find_element_by_id("id_username")
