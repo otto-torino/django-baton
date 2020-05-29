@@ -17,7 +17,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 class TestBatonInputFilter(TestCase):
     def setUp(self):
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--disable-dev-shm-usage')
