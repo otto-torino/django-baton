@@ -364,7 +364,9 @@
   }
 
   input[type=text]:not([size]) {
-    min-width: 240px;
+    @include media-breakpoint-up(md) {
+      min-width: 240px;
+    }
   }
 
   textarea {
@@ -372,6 +374,18 @@
     resize: both;
 
     @include media-breakpoint-up(md) {
+      width: auto;
+    }
+  }
+
+  .tabular.inline-related {
+    input[type=text],
+    input[type=number],
+    input[type=email],
+    input[type=date],
+    textarea,
+    select {
+      min-width: auto !important;
       width: auto;
     }
   }
