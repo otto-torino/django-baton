@@ -3,6 +3,7 @@
 docs/_build
 docs/_static
 docs/_templates
+node_modules
 baton/static/baton/app/npm-debug.log
 baton/static/baton/app/node_modules
 build/
