@@ -20,6 +20,7 @@ class News(models.Model):
         related_name='news',
     )
     date = models.DateField('date')
+    datetime = models.DateTimeField('datetime', blank=True, null=True)
     title = models.CharField('title', max_length=50)
     content = models.TextField('content')
     share = models.BooleanField(default=False)
