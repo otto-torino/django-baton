@@ -11,6 +11,8 @@ $h3-size: 1.2rem;
 
 // utils
 $transparent: transparent;
+$warning-fg: darken(#ffc107, 10%);
+$danger-fg: #dc3545;
 
 // navbar
 $navbar-bg: #37474f;
@@ -89,7 +91,8 @@ $changeform-border-color: #ccc;
 $collapse-title-bg: #fafafa;
 $collapse-title-border-color: #ccc;
 $state-danger-bg: #f2dede;
-$field-row-error-bg: lighten($state-danger-bg, 5%);
+$field-bg: #f9f9f9;
+$field-row-error-bg: $state-danger-bg;
 $fieldset-title-bg: lighten($base, 30%);
 $inline-related-title-bg: #fafafa;
 $inline-related-title-border-color: #eee;

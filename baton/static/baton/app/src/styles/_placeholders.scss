@@ -19,13 +19,23 @@
 
   .form-row {
     @extend .form-group;
+    background: $field-bg;
+    margin-bottom: .5rem;
+    padding: 1rem .5rem;
 
     &.errors {
       background: $field-row-error-bg;
 
       .errorlist {
         @extend .pt-2;
+        padding-left: 1.2rem;
         width: 100%;
+
+        li {
+          color: $danger-fg !important;
+          font-weight: bold;
+          text-decoration: underline;
+        }
       }
     }
 
@@ -70,13 +80,11 @@
       align-items: flex-start;
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
+      margin: 0;
 
       input {
         margin: 0 10px;
-      }
-
-      br {
-        display: none;
       }
 
       a + a {
@@ -84,7 +92,44 @@
       }
 
       .datetimeshortcuts {
+        align-self: center;
         white-space: nowrap;
+      }
+
+      .timezonewarning {
+        margin-left: 0 !important;
+        white-space: nowrap;
+        width: 0;
+      }
+    }
+
+    .datetimeshortcuts {
+      align-self: center;
+
+      + .newline,
+      + br {
+        content: '';
+        display: block;
+        height: .5rem;
+        width: 100%;
+      }
+    }
+
+    .timezonewarning {
+      @extend .py-0;
+
+      align-self: center;
+      color: $warning-fg;
+      display: block;
+      margin: .2rem 0;
+      padding-left: 1px;
+
+      @include media-breakpoint-up(md) {
+        margin-left: 20%;
+      }
+
+      @include media-breakpoint-up(lg) {
+        margin-left: 10%;
       }
     }
 
@@ -308,13 +353,27 @@
   input[type=date],
   select[multiple] {
     @extend .form-control;
-    width: auto;
+
+    @include media-breakpoint-up(md) {
+      width: auto;
+    }
+  }
+
+  input[type=text][size] {
+    width: auto !important;
+  }
+
+  input[type=text]:not([size]) {
+    min-width: 240px;
   }
 
   textarea {
     @extend .form-control;
     resize: both;
-    width: auto;
+
+    @include media-breakpoint-up(md) {
+      width: auto;
+    }
   }
 
   select[multiple] {
@@ -325,7 +384,10 @@
     @extend .custom-select;
     text-indent: .01px;
     text-overflow: '';
-    width: auto;
+
+    @include media-breakpoint-up(md) {
+      width: auto;
+    }
   }
 
   // automcomplete
@@ -361,8 +423,9 @@
     @extend .text-muted;
     @extend .ml-3;
     flex-basis: 100% !important;
-    font-size: .9rem;
     margin-left: 0 !important;
+    margin-top: .5rem;
+    padding-left: 1px;
 
     @include media-breakpoint-up(md) {
       margin-left: 20% !important;
