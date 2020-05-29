@@ -20,9 +20,9 @@ class News(models.Model):
         related_name='news',
     )
     date = models.DateField('date')
-    datetime = models.DateTimeField('datetime', blank=True, null=True)
-    title = models.CharField('title', max_length=50)
-    content = models.TextField('content')
+    datetime = models.DateTimeField('datetime', blank=True, null=True, help_text='insert date')
+    title = models.CharField('title', max_length=50, help_text='please insert a cool title')
+    content = models.TextField('content', help_text='html is supported')
     share = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     attachments_summary = models.TextField('attachments summary', blank=True)

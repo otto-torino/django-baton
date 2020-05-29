@@ -25,7 +25,7 @@ class AttachmentsInline(admin.TabularInline):
     extra = 1
 
 
-class VideosInline(admin.TabularInline):
+class VideosInline(admin.StackedInline):
     model = Video
     extra = 1
 
