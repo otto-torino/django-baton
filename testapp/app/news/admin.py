@@ -1,5 +1,18 @@
 from django.contrib import admin
+from baton.admin import InputFilter
 from .models import News, Category, Attachment, Video
+
+
+class TitleFilter(InputFilter):
+    parameter_name = 'title'
+    title = 'title'
+
+    def queryset(self, request, queryset):
+        if self.value() is not None:
+            search_term = self.value()
+            return queryset.filter(
+                title__icontains=search_term
+            )
 
 
 @admin.register(Category)
@@ -20,7 +33,8 @@ class VideosInline(admin.TabularInline):
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'category', 'published', )
-    inlines = [AttachmentsInline, VideosInline ]
+    list_filter = (TitleFilter, )
+    inlines = [AttachmentsInline, VideosInline]
 
     fieldsets = (
         ('Main', {
