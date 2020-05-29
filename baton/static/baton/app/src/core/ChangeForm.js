@@ -9,11 +9,11 @@ let ChangeForm = {
    * Display loading spinner if multipart
    */
   init: function (opts) {
+    var self = this
     this.form = $('#content-main form')
     if (opts.confirmUnsavedChanges) {
       this.formSubmitting = false
       this.t = new Translator($('html').attr('lang'))
-      var self = this
       // wait for django SelectFilter to do its job
       setTimeout(function () {
         self.initData = self.serializeData()
@@ -23,6 +23,10 @@ let ChangeForm = {
     if (opts.showMultipartUploading) {
       this.spinner()
     }
+    self.fixNewlines()
+    setTimeout(function () {
+      self.fixNewlines() // js inserted ones
+    }, 50)
     this.fixWrappedFields()
     if (opts.enableImagesPreview) {
       this.lazyLoadImages()
@@ -84,6 +88,10 @@ let ChangeForm = {
       $(row).children('.fieldBox').wrapAll('<div class="wrapped-fields-container" />')
     })
     this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
+  },
+  fixNewlines: function () {
+    console.log('called')
+    $('.form-row br').replaceWith('<span class="newline"></span>')
   },
   lazyLoadImages: function () {
     $('.file-upload').each(function (index, p) {
