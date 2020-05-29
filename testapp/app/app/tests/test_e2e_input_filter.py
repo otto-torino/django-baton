@@ -1,15 +1,16 @@
+import os
 import time
+
 from django.test import TestCase
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 from .utils import element_has_css_class
 
-import os
 os.environ['WDM_LOG_LEVEL'] = '0'
 
 
@@ -48,12 +49,16 @@ class TestBatonInputFilter(TestCase):
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
         time.sleep(2)
-        rows = self.driver.find_elements_by_css_selector('#result_list tbody tr')
+        rows = self.driver.find_elements_by_css_selector(
+            '#result_list tbody tr')
         self.assertEqual(len(rows), 3)
-        filter_button = self.driver.find_element_by_css_selector('.changelist-filter-toggler')
+        filter_button = self.driver.find_element_by_css_selector(
+            '.changelist-filter-toggler')
         filter_button.click()
-        input = self.driver.find_element_by_css_selector('#changelist-filter-modal input')
+        input = self.driver.find_element_by_css_selector(
+            '#changelist-filter-modal input')
         input.send_keys('super')
         input.send_keys(Keys.RETURN)
-        rows = self.driver.find_elements_by_css_selector('#result_list tbody tr')
+        rows = self.driver.find_elements_by_css_selector(
+            '#result_list tbody tr')
         self.assertEqual(len(rows), 2)
