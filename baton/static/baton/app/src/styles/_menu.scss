@@ -4,6 +4,23 @@
   left: 0;
 }
 
+body:not(.menu-mobile) {
+  @include media-breakpoint-up(lg) {
+    .sidebar-menu {
+      height: auto;
+      left: 0;
+      position: static;
+      width: auto;
+
+      h1 {
+        i {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
 .sidebar-menu {
   background: $menu-bg;
   color: $menu-color;
@@ -14,13 +31,6 @@
   top: 0;
   width: 100%;
   z-index: 100;
-
-  @include media-breakpoint-up(lg) {
-    height: auto;
-    left: 0;
-    position: static;
-    width: auto;
-  }
 
   h1 {
     @extend .clearfix;
@@ -38,10 +48,6 @@
     @include media-breakpoint-up(lg) {
       background: $menu-title-bg;
       position: static;
-
-      i {
-        display: none;
-      }
     }
 
     i {
@@ -49,6 +55,7 @@
       float: right;
       font-weight: normal;
       margin-right: 10px;
+      margin-top: 5px;
     }
   }
 

@@ -18,6 +18,7 @@ This is an example of configuration::
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
         'ENABLE_IMAGES_PREVIEW': True,
+        'MENU_ALWAYS_COLLAPSED': False,
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -127,6 +128,13 @@ Changelist filters in modal
 -----------------------
 
 If set to ``True`` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is ``False`` and the changelist filters appears from the right side of the changelist table.
+
+**Default**: False
+
+Menu always collapsed
+-----------------------
+
+If set to ``True`` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 
 **Default**: False
 

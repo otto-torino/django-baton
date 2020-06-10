@@ -6,10 +6,14 @@ let Navbar = {
    *
    * Adds a menu toggler for mobile and does some styling
    */
-  init: function () {
+  init: function (config) {
+    this.menuAlwaysCollapsed = config.menuAlwaysCollapsed
     this.fixNodes()
   },
   fixNodes: function () {
+    if (!this.menuAlwaysCollapsed) {
+      $('#header').addClass('expand')
+    }
     // insert burger
     $('#branding').before(
       $('<button/>', {
