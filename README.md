@@ -137,6 +137,7 @@ The configuration dictionary must be defined inside your settings:
         'ENABLE_IMAGES_PREVIEW': True,
         'CHANGELIST_FILTERS_IN_MODAL': True,
         'MENU_ALWAYS_COLLAPSED': False,
+        'MENU_TITLE': 'Menu',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -178,6 +179,7 @@ Default value is `True`.
 - `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews have 100px height and with a box shadow (on "hover").
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
+- `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 
 `MENU` and `ANALYTICS` configurations in detail:
 

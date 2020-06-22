@@ -19,6 +19,7 @@ This is an example of configuration::
         'SHOW_MULTIPART_UPLOADING': True,
         'ENABLE_IMAGES_PREVIEW': True,
         'MENU_ALWAYS_COLLAPSED': False,
+        'MENU_TITLE': 'Menu',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -137,6 +138,13 @@ Menu always collapsed
 If set to ``True`` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 
 **Default**: False
+
+Menu title
+-----------------------
+
+The menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
+
+**Default**: _('Menu')
 
 Menu
 ----

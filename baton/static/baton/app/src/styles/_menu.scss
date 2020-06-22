@@ -48,6 +48,10 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       background: $menu-title-bg;
       position: static;
+
+      &.empty-text {
+        display: none;
+      }
     }
 
     i {
