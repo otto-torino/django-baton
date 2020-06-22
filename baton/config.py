@@ -7,6 +7,7 @@ default_config = {
     'SITE_TITLE': 'Baton',
     'SITE_HEADER': '<img src="%sbaton/img/logo.png" />' % settings.STATIC_URL,
     'INDEX_TITLE': _('Site administration'),
+    'MENU_TITLE': _('Menu'),
     'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
     'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
     'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
@@ -14,6 +15,7 @@ default_config = {
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': False,
+    'MENU_ALWAYS_COLLAPSED': False,
 }
 
 

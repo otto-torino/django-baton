@@ -31,6 +31,7 @@ let ChangeForm = {
     if (opts.enableImagesPreview) {
       this.lazyLoadImages()
     }
+    this.activateEntryCollapsing()
   },
   activate: function () {
     this.form.on('submit', () => (this.formSubmitting = true))
@@ -90,7 +91,6 @@ let ChangeForm = {
     this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
   },
   fixNewlines: function () {
-    console.log('called')
     $('.form-row br').replaceWith('<span class="newline"></span>')
   },
   lazyLoadImages: function () {
@@ -114,6 +114,21 @@ let ChangeForm = {
         }
       }
     })
+  },
+  activateEntryCollapsing: function () {
+    $('.collapse-entry h3')
+      .addClass('entry-collapsed entry-collapse-full-toggler')
+      .append('<span />') // just to have the toggler right aligned
+      .append('<span class="entry-collapse-toggler" />')
+    $('.collapse-entry')
+      .click(function (e) {
+        let target = $(e.target)
+        if (target.hasClass('entry-collapse-full-toggler')) {
+          target.toggleClass('entry-collapsed')
+        } else if (target.hasClass('entry-collapse-toggler')) {
+          target.parent('h3').toggleClass('entry-collapsed')
+        }
+      })
   }
 }
 
