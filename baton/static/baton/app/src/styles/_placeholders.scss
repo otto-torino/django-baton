@@ -714,6 +714,7 @@
     @extend .btn-warning;
     float: right;
     margin-right: 15px;
+    white-space: nowrap;
 
     &::before {
       @extend %font-awesome;
