@@ -16,6 +16,12 @@ body:not(.menu-mobile) {
         i {
           display: none !important;
         }
+
+        @include media-breakpoint-up(lg) {
+          &.empty-text {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -48,10 +54,6 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       background: $menu-title-bg;
       position: static;
-
-      &.empty-text {
-        display: none;
-      }
     }
 
     i {

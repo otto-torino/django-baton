@@ -118,6 +118,7 @@ let ChangeForm = {
   activateEntryCollapsing: function () {
     $('.collapse-entry h3')
       .addClass('entry-collapsed entry-collapse-full-toggler')
+      .append('<span />') // just to have the toggler right aligned
       .append('<span class="entry-collapse-toggler" />')
     $('.collapse-entry')
       .click(function (e) {
