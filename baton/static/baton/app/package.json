@@ -1,6 +1,6 @@
 {
   "name": "baton",
-  "version": "1.7.4",
+  "version": "1.8.2",
   "description": "Django Baton App",
   "main": "index.js",
   "scripts": {
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
-    "eslint": "^3.13.1",
+    "eslint": "^4.18.2",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-flow-vars": "^0.5.0",

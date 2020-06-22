@@ -1,4 +1,15 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth
+
+@include media-breakpoint-up(lg) {
+  .menu-mobile {
+    #content {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+  }
+}
+
 #content {
   background: $content-bg;
   margin-right: 0 !important;

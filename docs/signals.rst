@@ -16,6 +16,10 @@ In order to use them just override the baton `admin/base_site.html` template and
     <script>
         {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
         {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
+        {% baton_config 'ENABLE_IMAGES_PREVIEW' as enable_images_preview %}
+        {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
+        {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
+        {% baton_config 'MENU_TITLE' as menu_title %}
         (function ($, undefined) {
             $(window).on('load', function () {
                 // init listeners
@@ -27,8 +31,12 @@ In order to use them just override the baton `admin/base_site.html` template and
                     api: {
                         app_list: '{% url 'baton-app-list-json' %}'
                     },
-                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %},
-                    showMultipartUploading: {% if show_multipart_uploading %}true{% else%}false{% endif %}
+                    confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
+                    showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
+                    enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
+                    changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
+                    menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
+                    menuTitle: '{{ menu_title|escapejs }}'
                 });
             })
         })(jQuery, undefined)

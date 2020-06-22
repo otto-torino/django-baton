@@ -3,7 +3,10 @@
   @extend .navbar;
   @extend .navbar-dark;
   @extend .bg-dark;
-  @extend .navbar-expand-lg;
+
+  &.expand {
+    @extend .navbar-expand-lg;
+  }
 
   align-items: center;
   background: $navbar-bg !important;

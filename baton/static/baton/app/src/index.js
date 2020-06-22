@@ -21,7 +21,7 @@ window.Baton = {
     this.initialized = true
     let page = this.page()
 
-    Navbar.init()
+    Navbar.init(config)
     Dispatcher.emit('onNavbarReady')
     if (page !== 'login' && !/_popup/.test(location.search)) {
       Menu.init(config, Dispatcher)
@@ -47,6 +47,9 @@ window.Baton = {
     }
     console.info('Baton:', 'ready')
     document.body.className += ' baton-ready'
+    if (config.menuAlwaysCollapsed) {
+      document.body.className += ' menu-mobile'
+    }
     Dispatcher.emit('onReady')
   },
   page: function () {
