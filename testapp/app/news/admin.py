@@ -39,7 +39,7 @@ class NewsAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Main', {
             'fields': ('category', 'date', 'datetime', 'title', 'content', ),
-            'classes': ('order-1', 'baton-tabs-init', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos'),
+            'classes': ('baton-tabs-init', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos'),
             'description': 'This is a description text'
 
         }),
