@@ -388,6 +388,10 @@
       min-width: auto !important;
       width: auto;
     }
+
+    .inline-deletelink {
+      float: none !important;
+    }
   }
 
   select[multiple] {
@@ -710,6 +714,7 @@
     @extend .btn-warning;
     float: right;
     margin-right: 15px;
+    white-space: nowrap;
 
     &::before {
       @extend %font-awesome;
