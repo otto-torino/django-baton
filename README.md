@@ -21,6 +21,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Signals](#signals)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
+- [Collapsable stacked inlines entries](#collapsable-stackedinline)
 - [Customization](#customization)
 - [Tests](#tests)
 - [Contributing](#contributing)
@@ -38,6 +39,7 @@ Everything is styled through CSS and when required, JS is used.
 - Custom and flexible sidebar menu
 - Text input filters facility
 - Form tabs out of the box
+- Collapsable stacke inline entries
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
 - Optional index page filled with google analytics widgets
@@ -255,6 +257,10 @@ To use these, just override the baton `admin/base_site.html` template and regist
     <script>
         {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
         {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
+        {% baton_config 'ENABLE_IMAGES_PREVIEW' as enable_images_preview %}
+        {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
+        {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
+        {% baton_config 'MENU_TITLE' as menu_title %}
         (function ($, undefined) {
             $(window).on('load', function () {
                 // init listeners
@@ -266,8 +272,12 @@ To use these, just override the baton `admin/base_site.html` template and regist
                     api: {
                         app_list: '{% url 'baton-app-list-json' %}'
                     },
-                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %},
-                    showMultipartUploading: {% if show_multipart_uploading %}true{% else%}false{% endif %}
+                    confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
+                    showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
+                    enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
+                    changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
+                    menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
+                    menuTitle: '{{ menu_title|escapejs }}'
                 });
             })
         })(jQuery, undefined)
@@ -371,6 +381,19 @@ Other features:
 
 - When a field has an error, the first tab containing errors is opened automatically
 - You can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
+
+## <a name="collapsable-stackedinline"></a>Collapsable stacked inlines entries
+
+![Screenshot](docs/images/collapsable_stackedinline.png)
+
+Baton lets you collapse single stacked inline entries, just add a `collapse-entry` class to the inline, with or without the entire collapse class:
+
+```
+class VideosInline(admin.StackedInline):
+    model = Video
+    extra = 1
+    classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+```
 
 ## <a name="customization"></a>Customization
 
