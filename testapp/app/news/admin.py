@@ -24,10 +24,10 @@ class AttachmentsInline(admin.TabularInline):
     model = Attachment
     extra = 1
 
-
 class VideosInline(admin.StackedInline):
     model = Video
     extra = 1
+    classes = ('collapse-entry', )
 
 
 @admin.register(News)

@@ -34,6 +34,32 @@
       box-shadow: 0 0 10px #aaa;
     }
   }
+
+  .collapse-entry {
+    h3 {
+      .entry-collapse-toggler {
+        &::before {
+          color: $collapse-entry-icon-color;
+          content: '\f070';
+          cursor: pointer;
+          font-family: 'Font Awesome\ 5 Free';
+        }
+      }
+
+      &.entry-collapsed {
+        + fieldset {
+          display: none !important;
+        }
+
+        .entry-collapse-toggler {
+          &::before {
+            content: '\f06e';
+            font-family: 'Font Awesome\ 5 Free';
+          }
+        }
+      }
+    }
+  }
 }
 
 .spinner-overlay {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-12 16:50+0100\n"
+"POT-Creation-Date: 2020-06-22 09:11+0200\n"
 "PO-Revision-Date: 2017-02-12 17:00+0100\n"
 "Last-Translator: Stefano Contini <abidibo@gmail.com>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -22,75 +22,88 @@ msgstr ""
 msgid "Site administration"
 msgstr "Amministrazione sito"
 
+#: config.py:10
+msgid "Menu"
+msgstr "Menu"
+
 #: templates/admin/base_site.html:4
 msgid "Django site admin"
 msgstr "Amministrazione sito django"
 
-#: templates/admin/base_site.html:26
+#: templates/admin/base_site.html:34
 msgid "Django administration"
 msgstr "Amministrazione django"
 
-#: templates/baton/analytics.html:21
+#: templates/admin/input_filter.html:3
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "Per %(filter_title)s"
+
+#: templates/admin/input_filter.html:18
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: templates/baton/analytics.html:25
 msgid "last 15 days"
 msgstr "ultimi 15 giorni"
 
-#: templates/baton/analytics.html:22
+#: templates/baton/analytics.html:26
 msgid "last month"
 msgstr "ultimo mese"
 
-#: templates/baton/analytics.html:23
+#: templates/baton/analytics.html:27
 msgid "last three months"
 msgstr "ultimi tre mesi"
 
-#: templates/baton/analytics.html:24
+#: templates/baton/analytics.html:28
 msgid "last year"
 msgstr "ultimo anno"
 
-#: templates/baton/analytics.html:31
+#: templates/baton/analytics.html:35
 msgid "Traffic"
 msgstr "Traffico"
 
-#: templates/baton/analytics.html:32
+#: templates/baton/analytics.html:36
 msgid "Sessions and Users"
 msgstr "Sessioni e utenti"
 
-#: templates/baton/analytics.html:38
+#: templates/baton/analytics.html:42
 msgid "Popular"
 msgstr "Popolare"
 
-#: templates/baton/analytics.html:39
+#: templates/baton/analytics.html:43
 msgid "Page views"
 msgstr "Visualizzazioni di pagina"
 
-#: templates/baton/analytics.html:47
+#: templates/baton/analytics.html:51
 msgid "Browsers"
 msgstr "Browser"
 
-#: templates/baton/analytics.html:48
+#: templates/baton/analytics.html:52
 msgid "Top used"
 msgstr "Più utilizzati"
 
-#: templates/baton/analytics.html:54
+#: templates/baton/analytics.html:58
 msgid "Acquisition"
 msgstr "Acquisizione"
 
-#: templates/baton/analytics.html:55
+#: templates/baton/analytics.html:59
 msgid "Referral Traffic"
 msgstr "Traffico da ricerca"
 
-#: templates/baton/analytics.html:63
+#: templates/baton/analytics.html:67
 msgid "Audience"
 msgstr "Visitatori"
 
-#: templates/baton/analytics.html:64
+#: templates/baton/analytics.html:68
 msgid "Countries"
 msgstr "Paesi"
 
-#: templates/baton/analytics.html:70
+#: templates/baton/analytics.html:74
 msgid "Social"
 msgstr "Social"
 
-#: templates/baton/analytics.html:71
+#: templates/baton/analytics.html:75
 msgid "Interactions"
 msgstr "Interazioni"
 

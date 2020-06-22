@@ -9,6 +9,7 @@ let Menu = {
   init: function (config, Dispatcher) {
     this.Dispatcher = Dispatcher
     this.appListUrl = config.api.app_list
+    this.menuTitle = config.menuTitle
     this.fixNodes()
     this.fetchData()
     this.setHeight()
@@ -25,7 +26,7 @@ let Menu = {
       .appendTo(row)
 
     $('#content > h1').after($('.messagelist'))
-    let title = $('<h1 />').text('Menu')
+    let title = $('<h1 />', { 'class': this.menuTitle === '' ? 'empty-text' : '' }).text(this.menuTitle ? this.menuTitle : 'Menu')
     $('<i/>', { 'class': 'fa fa-times' })
       .click(() => { $(document.body).removeClass('menu-open') })
       .appendTo(title)

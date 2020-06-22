@@ -21,6 +21,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Signals](#signals)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
+- [Collapsable stacked inlines entries](#collapsable-stackedinline)
 - [Customization](#customization)
 - [Tests](#tests)
 - [Contributing](#contributing)
@@ -38,6 +39,7 @@ Everything is styled through CSS and when required, JS is used.
 - Custom and flexible sidebar menu
 - Text input filters facility
 - Form tabs out of the box
+- Collapsable stacke inline entries
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
 - Optional index page filled with google analytics widgets
@@ -137,6 +139,7 @@ The configuration dictionary must be defined inside your settings:
         'ENABLE_IMAGES_PREVIEW': True,
         'CHANGELIST_FILTERS_IN_MODAL': True,
         'MENU_ALWAYS_COLLAPSED': False,
+        'MENU_TITLE': 'Menu',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -178,6 +181,7 @@ Default value is `True`.
 - `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews have 100px height and with a box shadow (on "hover").
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
+- `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 
 `MENU` and `ANALYTICS` configurations in detail:
 
@@ -253,6 +257,10 @@ To use these, just override the baton `admin/base_site.html` template and regist
     <script>
         {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
         {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
+        {% baton_config 'ENABLE_IMAGES_PREVIEW' as enable_images_preview %}
+        {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
+        {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
+        {% baton_config 'MENU_TITLE' as menu_title %}
         (function ($, undefined) {
             $(window).on('load', function () {
                 // init listeners
@@ -264,8 +272,12 @@ To use these, just override the baton `admin/base_site.html` template and regist
                     api: {
                         app_list: '{% url 'baton-app-list-json' %}'
                     },
-                    confirmUnsavedChanges: {% if confirm_unsaved_changes %}true{% else%}false{% endif %},
-                    showMultipartUploading: {% if show_multipart_uploading %}true{% else%}false{% endif %}
+                    confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
+                    showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
+                    enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
+                    changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
+                    menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
+                    menuTitle: '{{ menu_title|escapejs }}'
                 });
             })
         })(jQuery, undefined)
@@ -337,7 +349,7 @@ Let's see how to define tabs in your admin forms (everything is done through js,
         fieldsets = (
             ('Main', {
                 'fields': ('label', ),
-                'classes': ('baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
+                'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
                 'description': 'This is a description text'
 
             }),
@@ -359,6 +371,7 @@ As you can see these are the rules:
 
 - Inline classes remain the same, no action needed
 - On the first fieldset, define a `baton-tabs-init` class which enables tabs
+- On the first fieldset, you can add an `order-[NUMBER]` class, which will be used to determined in which position to place the first fieldset. The order starts from 0, and if omitted, the first fieldset has order 0. If you assign for example the class `order-2` to the first fieldset, then the first fieldset will be the third tab, while all other tabs will respect the order of declaration.
 - For every inline you want to put in a separate tab, add a class `baton-tab-inline-MODELNAME` or `baton-tab-inline-RELATEDNAME` if you've specified a related name in the model foreign key field
 - For every fieldset you want to put in a separate tab, add a class `baton-tab-fs-CUSTOMNAME`, and add a class `tab-fs-CUSTOMNAME` on the fieldset
 - For every group you want to put in a separate tab, add a class `baton-tab-group-ITEMS`, where items can be inlines (`inline-RELATEDNAME`) and/or fieldsets (`fs-CUSTOMNAME`) separated by a double hypen `--`. Also add a class `tab-fs-CUSTOMNAME` on the fieldset items.
@@ -368,6 +381,19 @@ Other features:
 
 - When a field has an error, the first tab containing errors is opened automatically
 - You can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
+
+## <a name="collapsable-stackedinline"></a>Collapsable stacked inlines entries
+
+![Screenshot](docs/images/collapsable_stackedinline.png)
+
+Baton lets you collapse single stacked inline entries, just add a `collapse-entry` class to the inline, with or without the entire collapse class:
+
+```
+class VideosInline(admin.StackedInline):
+    model = Video
+    extra = 1
+    classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+```
 
 ## <a name="customization"></a>Customization
 
