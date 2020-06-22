@@ -161,7 +161,7 @@ The configuration dictionary must be defined inside your settings:
             { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-            { 'type': 'free', 'label': 'My parent voice', 'default_open': True, children': [
+            { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
                 { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
                 { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
             ] },
