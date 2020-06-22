@@ -388,6 +388,10 @@
       min-width: auto !important;
       width: auto;
     }
+
+    .inline-deletelink {
+      float: none !important;
+    }
   }
 
   select[multiple] {
