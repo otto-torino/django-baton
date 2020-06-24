@@ -61,8 +61,33 @@
         .entry-collapse-toggler {
           &::before {
             content: '\f06e';
-            font-family: 'Font Awesome\ 5 Free';
           }
+        }
+      }
+    }
+  }
+
+  .last-related {
+    h3 {
+      .entry-collapse-toggler {
+        &::before {
+          content: '\f06e';
+        }
+      }
+
+      + fieldset {
+        display: none !important;
+      }
+
+      &.entry-collapsed {
+        .entry-collapse-toggler {
+          &::before {
+            content: '\f070';
+          }
+        }
+
+        + fieldset {
+          display: block !important;
         }
       }
     }
