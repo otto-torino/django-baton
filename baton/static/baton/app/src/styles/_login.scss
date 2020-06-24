@@ -1,4 +1,8 @@
 // scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
+body.login {
+  padding-top: 1px;
+}
+
 .login {
   #content {
     padding-top: 1px !important;
