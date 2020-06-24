@@ -80,4 +80,4 @@ class TestBatonMenuMobile(TestCase):
         self.assertEqual(root_voices[0].get_attribute('innerText'), 'SYSTEM')
         self.assertEqual(root_voices[0].is_displayed(), True)
         self.assertEqual('title' in root_voices[0].get_attribute('class').split(), True)
-        self.assertEqual(len(root_voices), 4)
+        self.assertEqual(len(root_voices), 6)

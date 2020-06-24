@@ -54,7 +54,7 @@ class TestBatonMenu(TestCase):
         # system title voice
         self.assertEqual(root_voices[0].get_attribute('innerText'), 'SYSTEM')
         self.assertEqual('title' in root_voices[0].get_attribute('class').split(), True)
-        self.assertEqual(len(root_voices), 4)
+        self.assertEqual(len(root_voices), 6)
 
         # authentication app voice
         self.assertEqual('app' in root_voices[1].get_attribute('class').split(), True)
@@ -74,19 +74,19 @@ class TestBatonMenu(TestCase):
         self.assertEqual(auth_children[1].find_element_by_tag_name('a').get_attribute('innerText'), 'Groups')
 
         # news menu title volice
-        self.assertEqual(root_voices[2].find_element_by_css_selector('span.has-children').get_attribute('innerText'), 'NEWS')
-        self.assertEqual('title' in root_voices[2].get_attribute('class').split(), True)
-        self.assertEqual('default-open' in root_voices[2].get_attribute('class').split(), True)
-        news_children = root_voices[2].find_elements_by_css_selector('.depth-1 li')
+        self.assertEqual(root_voices[4].find_element_by_css_selector('span.has-children').get_attribute('innerText'), 'NEWS')
+        self.assertEqual('title' in root_voices[4].get_attribute('class').split(), True)
+        self.assertEqual('default-open' in root_voices[4].get_attribute('class').split(), True)
+        news_children = root_voices[4].find_elements_by_css_selector('.depth-1 li')
         self.assertEqual(len(news_children), 2)
         self.assertEqual(news_children[0].is_displayed(), True)
         self.assertEqual(news_children[0].find_element_by_tag_name('a').get_attribute('href'), 'http://localhost:8000/admin/news/category/')
         self.assertEqual(news_children[1].is_displayed(), True)
         self.assertEqual(news_children[1].find_element_by_tag_name('a').get_attribute('href'), 'http://localhost:8000/admin/news/news/')
         # hide subvoices after click
-        root_voices[2].find_element_by_css_selector('span').click()
+        root_voices[4].find_element_by_css_selector('span').click()
         self.assertEqual(news_children[0].is_displayed(), False)
         self.assertEqual(news_children[1].is_displayed(), False)
 
         # tools voice
-        self.assertEqual(root_voices[3].find_element_by_css_selector('span.has-children').get_attribute('innerText'), 'TOOLS')
+        self.assertEqual(root_voices[5].find_element_by_css_selector('span.has-children').get_attribute('innerText'), 'TOOLS')

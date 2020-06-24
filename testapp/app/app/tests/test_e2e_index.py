@@ -91,7 +91,7 @@ class TestBatonIndex(TestCase):
 
         modules = self.driver.find_elements_by_css_selector(
             "#content-main .module")
-        self.assertEqual(len(modules), 2)
+        self.assertEqual(len(modules), 3)
 
     def test_footer(self):
         # Wait until baton is ready
