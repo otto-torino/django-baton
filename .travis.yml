@@ -8,6 +8,7 @@ install:
   - pip install oauth2client==1.5.2
   - pip install webdriver-manager
   - pip install python-dotenv
+  - pip install django-filer
   - django-admin.py --version
   - pip install selenium
 before_script:
