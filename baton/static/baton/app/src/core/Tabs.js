@@ -21,7 +21,7 @@ let Tabs = {
     return this.main.length === 1
   },
   createNav: function () {
-    let mainOrder = 0
+    this.mainOrder = 0
     this.tabsEl = []
     this.domTabsEl = []
     let classes = this.main.attr('class')
@@ -30,17 +30,17 @@ let Tabs = {
         this.tabsEl.push(cl.substring(10))
       }
       if (/order-/.test(cl)) {
-        mainOrder = parseInt(cl.replace('order-', ''))
+        this.mainOrder = parseInt(cl.replace('order-', ''))
       }
     })
 
-    let currentOrder = mainOrder ? 0 : mainOrder + 1
+    let currentOrder = this.mainOrder ? 0 : this.mainOrder + 1
 
     this.nav = $('<ul />', { 'class': 'nav nav-tabs' })
     $('<li />', { 'class': 'nav-item' })
-      .css('order', mainOrder)
+      .css('order', this.mainOrder)
       .append($('<a />', {
-        'class': 'nav-link' + (mainOrder === 0 ? ' active' : ''),
+        'class': 'nav-link' + (this.mainOrder === 0 ? ' active' : ''),
         'data-toggle': 'tab',
         href: '#main'
       }).text(this.main.children('h2').hide().text()).on('click', function () {
@@ -79,7 +79,7 @@ let Tabs = {
         }))
         .appendTo(this.nav)
       currentOrder += 1
-      if (currentOrder === mainOrder) {
+      if (currentOrder === this.mainOrder) {
         currentOrder += 1
       }
     })
@@ -114,7 +114,7 @@ let Tabs = {
     let self = this
     this.tabContent = $('<div />', { 'class': 'tab-content' })
     this.tabMain = $('<div />', {
-      'class': 'tab-pane active',
+      'class': 'tab-pane' + (this.mainOrder === 0 ? ' active' : ''),
       'id': 'main'
     }).appendTo(this.tabContent)
     this.main.parent().children(':not(.nav-tabs):not(.submit-row):not(.errornote)').each((index, el) => {
@@ -122,12 +122,18 @@ let Tabs = {
     })
     this.nav.after(this.tabContent)
 
+    let currentOrder = this.mainOrder ? 0 : this.mainOrder + 1
+
     this.domTabsEl.forEach((el, index) => {
       let tabPane = $('<div />', {
-        'class': 'tab-pane',
+        'class': 'tab-pane' + (currentOrder === 0 ? ' active' : ''),
         'id': self.tabsEl[index]
       }).appendTo(this.tabContent)
       el.appendTo(tabPane)
+      currentOrder += 1
+      if (currentOrder === this.mainOrder) {
+        currentOrder += 1
+      }
     })
   },
   showErrors: function () {
