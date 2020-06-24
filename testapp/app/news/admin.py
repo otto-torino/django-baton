@@ -37,9 +37,15 @@ class NewsAdmin(admin.ModelAdmin):
     inlines = [AttachmentsInline, VideosInline]
 
     fieldsets = (
+        ('Dates', {
+            'fields': ('date', 'datetime', ),
+            'classes': ('order-1', 'baton-tabs-init', 'baton-tab-fs-main', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos'),
+            'description': 'This is a description text'
+
+        }),
         ('Main', {
-            'fields': ('category', 'date', 'datetime', 'title', 'content', ),
-            'classes': ('baton-tabs-init', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos'),
+            'fields': ('category', 'title', 'content', ),
+            'classes': ('tab-fs-main', ),
             'description': 'This is a description text'
 
         }),

@@ -5,7 +5,6 @@ from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -53,21 +52,28 @@ class TestBatonInputFilter(TestCase):
         # tabs number
         tabs_li = self.driver.find_elements_by_css_selector(
             '.nav-tabs .nav-item')
-        self.assertEqual(len(tabs_li), 4)
-        self.assertEqual(tabs_li[0].get_attribute('innerText'), 'Main')
-        self.assertEqual(tabs_li[1].get_attribute('innerText'), 'Flags')
-        self.assertEqual(tabs_li[2].get_attribute('innerText'), 'Attachments')
-        self.assertEqual(tabs_li[3].get_attribute('innerText'), 'Videos')
+        self.assertEqual(len(tabs_li), 5)
+        self.assertEqual(tabs_li[0].get_attribute('innerText'), 'Dates')
+        self.assertEqual(tabs_li[1].get_attribute('innerText'), 'Main')
+        self.assertEqual(tabs_li[2].get_attribute('innerText'), 'Flags')
+        self.assertEqual(tabs_li[3].get_attribute('innerText'), 'Attachments')
+        self.assertEqual(tabs_li[4].get_attribute('innerText'), 'Videos')
+
+        # order
+        input_date = self.driver.find_element_by_id('id_date')
+        self.assertEqual(input_date.is_displayed(), False)
+        tabs_li[0].click()  # change tab flags
+        self.assertEqual(input_date.is_displayed(), True)
 
         # tabs navigation
         input_share = self.driver.find_element_by_id('id_share')
         description_att = self.driver.find_element_by_css_selector('.tab-fs-attachments .description')
         self.assertEqual(input_share.is_displayed(), False)
         self.assertEqual(description_att.is_displayed(), False)
-        tabs_li[1].click()  # change tab flags
+        tabs_li[2].click()  # change tab flags
         self.assertEqual(input_share.is_displayed(), True)
         self.assertEqual(description_att.is_displayed(), False)
-        tabs_li[2].click()  # change tab attachments
+        tabs_li[3].click()  # change tab attachments
         self.assertEqual(input_share.is_displayed(), False)
 
         # fieldset description
