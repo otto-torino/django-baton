@@ -125,8 +125,8 @@ let ChangeForm = {
         let target = $(e.target)
         if (target.hasClass('entry-collapse-full-toggler')) {
           target.toggleClass('entry-collapsed')
-        } else if (target.hasClass('entry-collapse-toggler')) {
-          target.parent('h3').toggleClass('entry-collapsed')
+        } else if (target.parent('.entry-collapse-full-toggler').length > 0) {
+          target.parent('.entry-collapse-full-toggler').toggleClass('entry-collapsed')
         }
       })
   }
