@@ -19,7 +19,7 @@ class TestBatonConfig(TestCase):
         self.assertEqual(get_config('SHOW_MULTIPART_UPLOADING'), True)
         self.assertEqual(get_config('ENABLE_IMAGES_PREVIEW'), True)
         self.assertEqual(get_config('CHANGELIST_FILTERS_IN_MODAL'), True)
-        self.assertEqual(len(get_config('MENU')), 4)
+        self.assertEqual(len(get_config('MENU')), 6)
         self.assertEqual(get_config('MENU')[0]['type'], 'title')
         self.assertEqual(get_config('SUPPORT_HREF'), 'mailto:mail@otto.to.it')
         self.assertEqual(get_config('POWERED_BY'), 'Otto srl')

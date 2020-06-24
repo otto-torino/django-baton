@@ -14,3 +14,32 @@
     }
   }
 }
+
+.search-is-focused .filter-files-container {
+  position: relative;
+}
+
+form .form-row .filer-dropzone.filer-dropzone-mobile .filerFile {
+  display: flex;
+  justify-content: center;
+}
+
+.js-filer-dropzone .insertlinkButton {
+  padding-top: 0 !important;
+}
+
+.form-row .filer-dropzone .filerFile .related-lookup.related-lookup-change {
+  min-width: 36px;
+
+  &::before {
+    content: '' !important;
+  }
+
+  .edit-file {
+    margin-top: -10px;
+  }
+}
+
+form .form-row .filer-dropzone {
+  min-width: 100% !important;
+}

@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_thumbnails',
+    'filer',
+    'mptt',
     'news',
     'baton.autodiscover',
 ]
@@ -138,6 +141,17 @@ BATON = {
         },
         {
             'type': 'title',
+            'label': 'Resources',
+            'apps': ('filer', ),
+        },
+        {
+            'type': 'app',
+            'name': 'filer',
+            'label': 'File explorer',
+            'icon': 'fa fa-file'
+        },
+        {
+            'type': 'title',
             'label': 'News',
             'apps': ('news', ),
             'default_open': True,
@@ -193,3 +207,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,4 +1,5 @@
 from django.db import models
+from filer.fields.image import FilerImageField
 
 
 class Category(models.Model):
@@ -22,6 +23,7 @@ class News(models.Model):
     date = models.DateField('date')
     datetime = models.DateTimeField('datetime', blank=True, null=True, help_text='insert date')
     title = models.CharField('title', max_length=50, help_text='please insert a cool title')
+    image = FilerImageField(null=True, blank=True, on_delete=models.SET_NULL, related_name="news_image")
     content = models.TextField('content', help_text='html is supported')
     share = models.BooleanField(default=False)
     published = models.BooleanField(default=False)

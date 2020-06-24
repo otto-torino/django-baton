@@ -58,7 +58,7 @@ class TestBatonViews(TestCase):
         response = self.client.get(reverse('baton-app-list-json'))
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
-        self.assertEqual(len(data), 4)
+        self.assertEqual(len(data), 6)
         self.assertEqual(data[0].get('type'), 'title')
         self.assertEqual(data[0].get('label'), 'System')
         self.assertEqual(data[0].get('icon'), None)
@@ -68,22 +68,27 @@ class TestBatonViews(TestCase):
         self.assertEqual(len(data[1].get('children')), 2)
         self.assertEqual(data[1].get('children')[0].get('label'), 'Users')
         self.assertEqual(data[1].get('children')[1].get('label'), 'Groups')
-        self.assertEqual(data[2].get('label'), 'News')
-        self.assertEqual(data[2].get('children')[1].get('label'), 'News')
-        self.assertEqual(data[3].get('label'), 'Tools')
-        self.assertEqual(data[3].get('children')[1].get('label'), 'Google search')
+        self.assertEqual(data[3].get('label'), 'File explorer')
+        self.assertEqual(data[3].get('children')[0].get('label'), 'Folders')
+        self.assertEqual(data[3].get('children')[1].get('label'), 'Thumbnail options')
+        self.assertEqual(data[4].get('label'), 'News')
+        self.assertEqual(data[4].get('children')[1].get('label'), 'News')
+        self.assertEqual(data[5].get('label'), 'Tools')
+        self.assertEqual(data[5].get('children')[1].get('label'), 'Google search')
 
         with self.settings(BATON={}):  # dft menu
             response = self.client.get(reverse('baton-app-list-json'))
             self.assertEqual(response.status_code, 200)
             data = json.loads(response.content)
-            self.assertEqual(len(data), 2)
+            self.assertEqual(len(data), 3)
             self.assertEqual(data[0].get('type'), 'app')
             self.assertEqual(data[0].get('label'),
                              'Authentication and Authorization')
             self.assertEqual(data[0].get('children')[0].get('label'), 'Groups')
             self.assertEqual(data[0].get('children')[1].get('label'), 'Users')
             self.assertEqual(data[1].get('label'),
+                             'Filer')
+            self.assertEqual(data[2].get('label'),
                              'News')
 
     def test_call_view_user_staff(self):
