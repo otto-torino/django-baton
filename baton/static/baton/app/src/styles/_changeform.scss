@@ -67,7 +67,7 @@
     }
   }
 
-  .last-related {
+  .last-related { // do not collapse the newly added row
     h3 {
       .entry-collapse-toggler {
         &::before {
