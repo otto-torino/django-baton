@@ -67,3 +67,8 @@ class NewsAdmin(admin.ModelAdmin):
 
         }),
     )
+
+    baton_form_includes = [
+        ('news/admin_datetime_include.html', 'datetime', 'top', ),
+        ('news/admin_content_include.html', 'content', 'above', )
+    ]

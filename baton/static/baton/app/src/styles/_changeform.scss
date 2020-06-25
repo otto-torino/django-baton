@@ -128,3 +128,12 @@
 .tab-content {
   padding-top: 1rem;
 }
+
+.baton-form-include {
+  display: block;
+  min-width: 100%;
+}
+
+.change-form #content-main>form .form-row>div.baton-form-include {
+  display: block;
+}
