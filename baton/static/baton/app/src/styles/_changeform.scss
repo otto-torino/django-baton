@@ -61,8 +61,33 @@
         .entry-collapse-toggler {
           &::before {
             content: '\f06e';
-            font-family: 'Font Awesome\ 5 Free';
           }
+        }
+      }
+    }
+  }
+
+  .last-related { // do not collapse the newly added row
+    h3 {
+      .entry-collapse-toggler {
+        &::before {
+          content: '\f06e';
+        }
+      }
+
+      + fieldset {
+        display: none !important;
+      }
+
+      &.entry-collapsed {
+        .entry-collapse-toggler {
+          &::before {
+            content: '\f070';
+          }
+        }
+
+        + fieldset {
+          display: block !important;
         }
       }
     }
@@ -102,4 +127,13 @@
 
 .tab-content {
   padding-top: 1rem;
+}
+
+.baton-form-include {
+  display: block;
+  min-width: 100%;
+}
+
+.change-form #content-main>form .form-row>div.baton-form-include {
+  display: block;
 }

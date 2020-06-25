@@ -32,6 +32,7 @@ let ChangeForm = {
       this.lazyLoadImages()
     }
     this.activateEntryCollapsing()
+    this.initTemplates()
   },
   activate: function () {
     this.form.on('submit', () => (this.formSubmitting = true))
@@ -125,10 +126,27 @@ let ChangeForm = {
         let target = $(e.target)
         if (target.hasClass('entry-collapse-full-toggler')) {
           target.toggleClass('entry-collapsed')
-        } else if (target.hasClass('entry-collapse-toggler')) {
-          target.parent('h3').toggleClass('entry-collapsed')
+        } else if (target.parent('.entry-collapse-full-toggler').length > 0) {
+          target.parent('.entry-collapse-full-toggler').toggleClass('entry-collapsed')
         }
       })
+  },
+  initTemplates: function () {
+    const positionMap = {
+      above: 'before',
+      below: 'after',
+      top: 'prepend',
+      bottom: 'append'
+    }
+    $('template').each(function (index, template) {
+      let field = $(template).attr('id').replace('template-', '')
+      let position = positionMap[$(template).attr('data-position')]
+      if (position !== undefined) {
+        $('.form-row.field-' + field)[position]($(template).html())
+      } else {
+        console.error('Baton: wrong form include position detected')
+      }
+    })
   }
 }
 

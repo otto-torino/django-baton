@@ -21,6 +21,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 - [Signals](#signals)
 - [Text Input Filters](#text-input-filters)
 - [Form Tabs](#form-tabs)
+- [Form Includes](#form-includes)
 - [Collapsable stacked inlines entries](#collapsable-stackedinline)
 - [Customization](#customization)
 - [Tests](#tests)
@@ -39,6 +40,7 @@ Everything is styled through CSS and when required, JS is used.
 - Custom and flexible sidebar menu
 - Text input filters facility
 - Form tabs out of the box
+- Easy way to include templates in the change form page
 - Collapsable stacke inline entries
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
@@ -51,9 +53,10 @@ The following packages are required to manage the Google Analytics index:
 - google-api-python-client
 - oauth2client==1.5.2
 
-At the moment __baton__ defines only 3 custom templates:
+At the moment __baton__ defines only 4 custom templates:
 
 - `admin/base_site.html`, needed to inject the JS application (which includes css and images, compiled with [webpack](https://webpack.github.io/));
+- `admin/change_form.html`, needed to inject the `baton_form_includes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
 - `admin/delete_confirmation.html`, needed because of a bug (IMO) in the template, in particular the `extra_head` block does not contain the parent content, hence it must be overridden (FIXED IN django 1.11, remains until baton will support django 1.10);
 - `admin/delete_selected_confirmation.html`, same as above.
 
@@ -381,6 +384,37 @@ Other features:
 
 - When a field has an error, the first tab containing errors is opened automatically
 - You can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
+
+## [Form Includes](#form-includes)
+
+Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
+
+```python
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    #...
+    baton_form_includes = [
+        ('news/admin_datetime_include.html', 'datetime', 'top', ),
+        ('news/admin_content_include.html', 'content', 'above', )
+    ]
+```
+
+In this case, Baton will place the content of the `admin_datetime_include.html` template at the top of the datetime field row, and the content of the `admin_content_include.html` above the content field row.
+
+![Baton form includes](docs/images/baton-form-includes.png)
+
+You can specify the following positions:
+
+|Position|Description|
+|:--------|:-----------|
+|`top`| the template is placed inside the form row, at the top|
+|`bottom`| the template is placed inside the form row, at the bottom|
+|`above`| the template is placed above the form row|
+|`below`| the template is placed below the form row|
+
+And, of course, you can access the `{{ original }}` object variable inside your template.
+
+It works seamlessly with the tab facility, if you include content related to a field inside one tab, then the content will be placed in the same tab.
 
 ## <a name="collapsable-stackedinline"></a>Collapsable stacked inlines entries
 

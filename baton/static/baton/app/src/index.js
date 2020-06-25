@@ -2,6 +2,7 @@
 import 'bootstrap/dist/js/bootstrap'
 import './styles/baton.scss'
 
+import Template from './core/Template'
 import Dispatcher from 'js-event-dispatcher/dist/EventDispatcher'
 import Navbar from './core/Navbar'
 import Footer from './core/Footer'
