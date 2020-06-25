@@ -412,6 +412,8 @@ You can specify the following positions:
 |`above`| the template is placed above the form row|
 |`below`| the template is placed below the form row|
 
+And, of course, you can access the `{{ original }}` object variable inside your template.
+
 It works seamlessly with the tab facility, if you include content related to a field inside one tab, then the content will be placed in the same tab.
 
 ## <a name="collapsable-stackedinline"></a>Collapsable stacked inlines entries
