@@ -32,15 +32,14 @@ class Analytics {
       var activeUsers = new gapi.analytics.ext.ActiveUsers({
         container: self.domIds.activeUsers,
         pollingInterval: 5
-      })
+      }).execute()
       /**
        * Create a new ViewSelector2 instance to be rendered inside of an
        * element with the id "view-selector-container".
        */
-      var viewSelector = new gapi.analytics.ext.ViewSelector2({
+      var viewSelector = new gapi.analytics.ViewSelector({
         container: self.domIds.viewSelector,
       })
-      .execute()
       /**
        * Update the activeUsers component, the Chartjs charts, and the dashboard
        * title whenever the user changes the view.
@@ -49,6 +48,7 @@ class Analytics {
         // Start tracking active users for this view.
         activeUsers.set(data).execute()
       })
+      viewSelector.execute()
 
       let baseQuery = {
         'ids': 'ga:' + self.viewId,
