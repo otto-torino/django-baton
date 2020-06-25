@@ -1,7 +1,7 @@
 Form includes
 =========
 
-.. image:: images/baton-form-includes.html
+.. image:: images/baton-form-includes.png
 
 Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template::
 
@@ -17,17 +17,17 @@ In this case, Baton will place the content of the ``admin_datetime_include.html`
 
 You can specify the following positions:
 
-+------------------------------+--------------------------------------+
-| Position                     |  Description                         |
-+==============================+======================================+
-| top | the template is placed inside the form row, at the top        |
-+------------+--------------------------------------------------------+
-| bottom | the template is placed inside the form row, at the bottom  |
-+------------+--------------------------------------------------------+
-| above | the template is placed above the form row                   |
-+------------+--------------------------------------------------------+
-| below | the template is placed below the form row                   |
-+------------+--------------------------------------------------------+
++----------------------------------------+--------------------------------------------------------------------+
+| Position                               |  Description                                                       |
++========================================+====================================================================+
+| top                                    | the template is placed inside the form row, at the top             |
++----------------------------------------+--------------------------------------------------------------------+
+| bottom                                 | the template is placed inside the form row, at the bottom          |
++----------------------------------------+--------------------------------------------------------------------+
+| above                                  | the template is placed above the form row                          |
++----------------------------------------+--------------------------------------------------------------------+
+| below                                  | the template is placed below the form row                          |
++----------------------------------------+--------------------------------------------------------------------+
 
 And, of course, you can access the `{{ original }}` object variable inside your template.
 
