@@ -46,12 +46,19 @@ window.Baton = {
     if (page === 'add_form' || page === 'change_form') {
       Tabs.init(Dispatcher)
     }
+
+    // tooltips
+    this.loadTooltips()
+
     console.info('Baton:', 'ready')
     document.body.className += ' baton-ready'
     if (config.menuAlwaysCollapsed) {
       document.body.className += ' menu-mobile'
     }
     Dispatcher.emit('onReady')
+  },
+  loadTooltips: function () {
+    $('[title]').tooltip()
   },
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
