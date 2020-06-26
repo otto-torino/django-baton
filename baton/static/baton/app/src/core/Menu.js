@@ -13,6 +13,10 @@ let Menu = {
     this.fixNodes()
     this.fetchData()
     this.setHeight()
+    let self = this
+    $(window).on('resize', function () {
+      self.setHeight()
+    })
   },
   fixNodes: function () {
     let container = $('<div/>', { 'class': 'container-fluid' })
