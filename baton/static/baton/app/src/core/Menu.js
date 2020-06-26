@@ -38,13 +38,13 @@ let Menu = {
       self.render(data)
       self.Dispatcher.emit('onMenuReady')
     })
-    .fail(function (err) {
-      console.error(err.responseText)
-      self.menu.remove()
-      $('#content').removeClass('col-md-9').removeClass('col-lg-10')
-        .css('flex-grow', 1)
-      self.Dispatcher.emit('onMenuError')
-    })
+      .fail(function (err) {
+        console.error(err.responseText)
+        self.menu.remove()
+        $('#content').removeClass('col-md-9').removeClass('col-lg-10')
+          .css('flex-grow', 1)
+        self.Dispatcher.emit('onMenuError')
+      })
   },
   setHeight: function () {
     let height = $(window).height() - $('#header').height() - 17 // nav padding and border
