@@ -65,6 +65,7 @@ class Video(models.Model):
     )
     code = models.CharField('video code', max_length=50)
     caption = models.TextField()
+    author_email = models.EmailField(blank=True, null=True)
 
     class Meta:
         verbose_name = "video"

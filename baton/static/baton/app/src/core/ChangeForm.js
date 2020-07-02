@@ -130,6 +130,11 @@ let ChangeForm = {
           target.parent('.entry-collapse-full-toggler').toggleClass('entry-collapsed')
         }
       })
+    $('.form-row.errors').each(function (index, el) {
+      if ($(el).parent('fieldset').prev('h3.entry-collapsed')) {
+        $(el).parent('fieldset').prev('h3.entry-collapsed').removeClass('entry-collapsed')
+      }
+    })
   },
   initTemplates: function () {
     const positionMap = {
