@@ -429,6 +429,15 @@ class VideosInline(admin.StackedInline):
     classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
 ```
 
+And if you want the first entry to be initially expanded, add also the `expand-first` class:
+
+```
+class VideosInline(admin.StackedInline):
+    model = Video
+    extra = 1
+    classes = ('collapse-entry', 'expand-first', )
+```
+
 ## <a name="customization"></a>Customization
 
 It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern JS app which resides in `baton/static/baton/app`.

@@ -10,3 +10,11 @@ Baton lets you collapse single stacked inline entries, just add a `collapse-entr
         model = Video
         extra = 1
         classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+
+
+And if you want the first entry to be initially expanded, add also the `expand-first` class ::
+
+    class VideosInline(admin.StackedInline):
+        model = Video
+        extra = 1
+        classes = ('collapse-entry', 'expand-first', )
