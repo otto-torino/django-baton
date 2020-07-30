@@ -103,12 +103,14 @@ let Menu = {
       )
     }).fail(function (err) {
       console.error(err.responseText)
-      $('<img />', {
-        class: 'gravatar-icon',
-        src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
-          .replace('{hash}', '')
-          .replace('{default}', self.gravatarDefaultImg)
-      })
+      userInfo.find('.spinner-border').replaceWith(
+        $('<img />', {
+          class: 'gravatar-icon',
+          src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
+            .replace('{hash}', '')
+            .replace('{default}', self.gravatarDefaultImg)
+        })
+      )
     })
     let linksContainer = $('<div />', { class: 'user-links' }).appendTo(
       container
