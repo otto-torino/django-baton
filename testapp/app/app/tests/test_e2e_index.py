@@ -54,24 +54,6 @@ class TestBatonIndex(TestCase):
         self.assertEqual(
             site_name.get_attribute('innerHTML'), 'Baton Test App')
 
-        # user dropdown
-        user_dropdown_el = self.driver.find_element_by_css_selector(
-            "#user-tools .dropdown-toggle")
-        user_dropdown_text = user_dropdown_el.text
-        self.assertEqual(user_dropdown_text, 'admin')
-        self.assertEqual(user_dropdown_el.is_displayed(), True)
-
-        # user dropdown menu
-        user_dropdown_menu = self.driver.find_elements_by_css_selector(
-            "#user-tools .dropdown-menu a")
-        self.assertEqual(len(user_dropdown_menu), 3)
-        self.assertEqual(user_dropdown_menu[0].get_attribute('innerHTML'),
-                         'View site')
-        self.assertEqual(user_dropdown_menu[1].get_attribute('innerHTML'),
-                         'Change password')
-        self.assertEqual(user_dropdown_menu[2].get_attribute('innerHTML'),
-                         'Log out')
-
     def test_content(self):
         # Wait until baton is ready
         wait = WebDriverWait(self.driver, 10)

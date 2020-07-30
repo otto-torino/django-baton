@@ -1,7 +1,7 @@
 Form tabs
 =========
 
-.. image:: images/form_tabs.jpg
+.. image:: images/form_tabs.png
 
 Baton provides an easy way to define form tabs in yor change form templates. Everything is done through javascript and you only need to add some classes you your ``ModelAdmin`` fieldsets ::
 

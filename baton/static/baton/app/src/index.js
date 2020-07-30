@@ -21,10 +21,11 @@ window.Baton = {
     console.info('Baton:', 'init')
     this.initialized = true
     let page = this.page()
+    $('body').addClass('page-' + page)
 
     Navbar.init(config)
     Dispatcher.emit('onNavbarReady')
-    if (page !== 'login' && !/_popup/.test(location.search)) {
+    if (page !== 'login' && page !== 'logout' && !/_popup/.test(location.search)) {
       Menu.init(config, Dispatcher)
     }
     if (page === 'logout' || page === 'password_change_success') {

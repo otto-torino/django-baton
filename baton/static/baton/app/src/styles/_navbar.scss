@@ -1,12 +1,22 @@
 // scss-lint:disable IdSelector NestingDepth PlaceholderInExtend
+body:not(.login):not(.page-logout) #header {
+  &.expand {
+    @extend .d-flex;
+    @extend .d-lg-none;
+    @extend .navbar-expand-lg;
+  }
+}
+
+body.page-logout #header {
+  .navbar-toggler {
+    display: none;
+  }
+}
+
 #header {
   @extend .navbar;
   @extend .navbar-dark;
   @extend .bg-dark;
-
-  &.expand {
-    @extend .navbar-expand-lg;
-  }
 
   align-items: center;
   background: $navbar-bg !important;

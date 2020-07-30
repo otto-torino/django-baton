@@ -36,6 +36,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'category', 'published', )
     list_filter = (TitleFilter, )
     inlines = [AttachmentsInline, VideosInline]
+    date_hierarchy = 'date'
 
     fieldsets = (
         ('Dates', {
