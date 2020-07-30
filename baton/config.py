@@ -16,6 +16,7 @@ default_config = {
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': False,
     'MENU_ALWAYS_COLLAPSED': False,
+    'GRAVATAR_DEFAULT_IMG': 'retro',
 }
 
 

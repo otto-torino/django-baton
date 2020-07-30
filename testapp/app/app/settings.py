@@ -117,6 +117,7 @@ BATON = {
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': True,
     'MENU_ALWAYS_COLLAPSED': False,
+    'GRAVATAR_DEFAULT_IMG': 'robohash',
     'MENU': (
         {
             'type': 'title',

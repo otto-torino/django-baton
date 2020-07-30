@@ -16,12 +16,6 @@ body:not(.menu-mobile) {
         i {
           display: none !important;
         }
-
-        @include media-breakpoint-up(lg) {
-          &.empty-text {
-            display: none;
-          }
-        }
       }
     }
   }
@@ -37,6 +31,93 @@ body:not(.menu-mobile) {
   top: 0;
   width: 100%;
   z-index: 100;
+
+  @include media-breakpoint-up(lg) {
+    overflow: auto;
+  }
+
+  #branding {
+    background: $menu-branding-bg;
+    text-align: center;
+    width: 100%;
+
+    > h1 {
+      background: $menu-branding-bg;
+    }
+
+    a {
+      color: $menu-branding-color !important;
+    }
+  }
+
+  .toggle-menu {
+    position: absolute;
+    right: 1rem;
+    top: 1.6rem;
+  }
+
+  #user-tools {
+    display: none;
+  }
+
+  #user-tools-sidebar {
+    padding: 1rem;
+    text-align: center;
+
+    .gravatar-icon {
+      border: 2px solid $gravatar-border-color;
+      border-radius: 50%;
+    }
+
+    .user-info {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      justify-content: center;
+    }
+
+    .user-links {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: .5rem;
+    }
+
+    a {
+      color: $menu-link-color !important;
+
+      &.view-site {
+        &::after {
+          content: '\f108';
+          font-family: 'Font Awesome\ 5 Free';
+        }
+      }
+
+      &.password {
+        &::after {
+          content: '\f084';
+          font-family: 'Font Awesome\ 5 Free';
+        }
+      }
+
+      &.logout {
+        &::after {
+          content: '\f2f5';
+          font-family: 'Font Awesome\ 5 Free';
+          font-size: 1.6rem;
+        }
+      }
+
+      &::after {
+        color: lighten($primary, 20%);
+        font-size: 1.3rem;
+        display: inline-block;
+        margin: 0 .6rem;
+      }
+    }
+  }
 
   h1 {
     @extend .clearfix;

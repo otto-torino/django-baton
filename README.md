@@ -9,7 +9,7 @@ A cool, modern and responsive django admin application based on bootstrap 4.5.0
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
-![Screenshot](screenshots/index-analytics-lg.jpg)
+![Screenshot](screenshots/index-analytics-lg.png)
 
 ## Table of contents
 
@@ -143,6 +143,7 @@ The configuration dictionary must be defined inside your settings:
         'CHANGELIST_FILTERS_IN_MODAL': True,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
+        'GRAVATAR_DEFAULT_IMG': 'retro',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -185,6 +186,7 @@ Default value is `True`.
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
+- `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
 
 `MENU` and `ANALYTICS` configurations in detail:
 
@@ -264,6 +266,7 @@ To use these, just override the baton `admin/base_site.html` template and regist
         {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
         {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
         {% baton_config 'MENU_TITLE' as menu_title %}
+        {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
         (function ($, undefined) {
             $(window).on('load', function () {
                 // init listeners
@@ -273,14 +276,16 @@ To use these, just override the baton `admin/base_site.html` template and regist
                 // end listeners
                 Baton.init({
                     api: {
-                        app_list: '{% url 'baton-app-list-json' %}'
+                        app_list: '{% url 'baton-app-list-json' %}',
+                        gravatar: '{% url 'baton-gravatar-json' %}'
                     },
                     confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
                     showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
                     enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
                     changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
                     menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
-                    menuTitle: '{{ menu_title|escapejs }}'
+                    menuTitle: '{{ menu_title|escapejs }}',
+                    gravatarDefaultImg: '{{ gravatar_default_img }}'
                 });
             })
         })(jQuery, undefined)
@@ -480,9 +485,9 @@ I'll soon add more stuff here but at the moment what is really important is to f
 
 ![Screenshot](screenshots/more1.png)
 
-![Screenshot](screenshots/changelist_user-lg.jpg)
+![Screenshot](screenshots/changelist_user-lg.png)
 
-![Screenshot](screenshots/tabs-lg.jpg)
+![Screenshot](screenshots/tabs-lg.png)
 
 ![Screenshot](screenshots/more2.png)
 

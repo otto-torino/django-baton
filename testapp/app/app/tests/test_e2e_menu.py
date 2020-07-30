@@ -51,6 +51,18 @@ class TestBatonMenu(TestCase):
         self.assertEqual(navbar.is_displayed(), True)
         root_voices = navbar.find_elements_by_css_selector('.depth-0 > li')
 
+        gravatart_icon = self.driver.find_element_by_class_name('gravatar-icon')
+        self.assertEqual(gravatart_icon.is_displayed(), True)
+
+        view_site_link = self.driver.find_element_by_class_name('view-site')
+        self.assertEqual(view_site_link.is_displayed(), True)
+
+        change_password_link = self.driver.find_element_by_class_name('password')
+        self.assertEqual(change_password_link.is_displayed(), True)
+
+        logout_link = self.driver.find_element_by_class_name('logout')
+        self.assertEqual(logout_link.is_displayed(), True)
+
         # system title voice
         self.assertEqual(root_voices[0].get_attribute('innerText'), 'SYSTEM')
         self.assertEqual('title' in root_voices[0].get_attribute('class').split(), True)

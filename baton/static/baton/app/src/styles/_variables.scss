@@ -32,6 +32,8 @@ $footer-border-color: #fff;
 // menu
 $menu-bg: #263238;
 $menu-color: #fff;
+$menu-branding-color: #fff;
+$gravatar-border-color: #fff;
 $menu-link-color: #ccc;
 $menu-link-hover-color: #fff;
 $menu-li-hover-bg: darken($menu-bg, 2%);
@@ -47,6 +49,7 @@ $menu-title-bg: darken($menu-mobile-title-bg, 5%);
 $menu-voice-title-color: $base;
 $menu-voice-title-bg: darken($menu-bg, 5%);
 $menu-active-bg: #f5f5f5;
+$menu-branding-bg: darken($menu-bg, 5%);
 
 // dashboard
 $dashboard-bg: #f5f5f5;

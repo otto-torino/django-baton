@@ -20,6 +20,7 @@ This is an example of configuration::
         'ENABLE_IMAGES_PREVIEW': True,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
+        'GRAVATAR_DEFAULT_IMG': 'retro',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -56,7 +57,7 @@ This is an example of configuration::
 Site header
 -----------
 
-.. image:: images/site_header.jpg
+.. image:: images/site_header.png
 
 **Default**: baton logo
 
@@ -144,12 +145,17 @@ Menu title
 
 The menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 
-**Default**: _('Menu')
+Gravatar default image
+-----------------------
+
+The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs <[http://en.gravatar.com/site/implement/images/>`).
+
+**Default**: 'retro'
 
 Menu
 ----
 
-.. image:: images/menu.jpg
+.. image:: images/menu.png
 
 The sidebar menu is rendered through javascript.
 
