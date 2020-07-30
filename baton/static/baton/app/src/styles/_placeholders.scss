@@ -174,25 +174,25 @@
           width: auto;
 
           .selector-add {
-            background: url('/static/admin/img/selector-icons.svg') 0 -32px no-repeat; // 46
+            background: url('../img/selector-icons.svg') 0 -32px no-repeat; // 46
 
             &.active {
-              background: url('/static/admin/img/selector-icons.svg') 0 -48px no-repeat; // 46
+              background: url('../img/selector-icons.svg') 0 -48px no-repeat; // 46
             }
           }
 
           .selector-remove {
-            background: url('/static/admin/img/selector-icons.svg') 0 0 no-repeat; // 46
+            background: url('../img/selector-icons.svg') 0 0 no-repeat; // 46
 
             &.active {
-              background: url('/static/admin/img/selector-icons.svg') 0 -16px no-repeat; // 46
+              background: url('../img/selector-icons.svg') 0 -16px no-repeat; // 46
             }
           }
         }
       }
 
       .help-icon {
-        background: url('/static/admin/img/icon-unknown.svg') 0 0 no-repeat;
+        background: url('../img/icon-unknown.svg') 0 0 no-repeat;
         cursor: help;
         display: inline-block;
         height: 13px;
@@ -217,7 +217,7 @@
       }
 
       .search-label-icon {
-        background: url('/static/admin/img/search.svg') 0 0 no-repeat;
+        background: url('../img/search.svg') 0 0 no-repeat;
         cursor: help;
         display: inline-block;
         height: 18px;
@@ -287,11 +287,11 @@
       }
 
       .selector-add {
-        background: url('/static/admin/img/selector-icons.svg') 0 -112px no-repeat;
+        background: url('../img/selector-icons.svg') 0 -112px no-repeat;
       }
 
       .selector-remove {
-        background: url('/static/admin/img/selector-icons.svg') 0 -80px no-repeat;
+        background: url('../img/selector-icons.svg') 0 -80px no-repeat;
       }
 
       .selector-add,

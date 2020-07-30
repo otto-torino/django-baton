@@ -14,18 +14,21 @@
         {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
         {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
         {% baton_config 'MENU_TITLE' as menu_title %}
+        {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
         (function ($, undefined) {
             $(window).on('load', function () {
                 Baton.init({
                     api: {
-                        app_list: '{% url 'baton-app-list-json' %}'
+                        app_list: '{% url 'baton-app-list-json' %}',
+                        gravatar: '{% url 'baton-gravatar-json' %}'
                     },
                     confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
                     showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
                     enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
                     changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
                     menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
-                    menuTitle: '{{ menu_title|escapejs }}'
+                    menuTitle: '{{ menu_title|escapejs }}',
+                    gravatarDefaultImg: '{{ gravatar_default_img }}'
                 });
             })
         })(jQuery, undefined)

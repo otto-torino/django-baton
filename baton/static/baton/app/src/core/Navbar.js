@@ -13,6 +13,8 @@ let Navbar = {
   fixNodes: function () {
     if (!this.menuAlwaysCollapsed) {
       $('#header').addClass('expand')
+    } else {
+      $('#header').addClass('menu-always-collapsed')
     }
     // insert burger
     $('#branding').before(

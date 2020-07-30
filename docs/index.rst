@@ -52,14 +52,14 @@ Advanced customization
 Screenshots
 -----------
 
-.. image:: images/screen1.jpg
-.. image:: images/screen2.jpg
-.. image:: images/screen3.jpg
-.. image:: images/screen4.jpg
-.. image:: images/screen5.jpg
-.. image:: images/screen6.jpg
-.. image:: images/screen7.jpg
-.. image:: images/screen8.jpg
+.. image:: images/screen1.png
+.. image:: images/screen2.png
+.. image:: images/screen3.png
+.. image:: images/screen4.png
+.. image:: images/screen5.png
+.. image:: images/screen6.png
+.. image:: images/screen7.png
+.. image:: images/screen8.png
 
 
 

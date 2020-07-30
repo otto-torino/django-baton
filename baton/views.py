@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import hashlib
 from django.http import JsonResponse
 from django.contrib.admin import site
 from django.contrib.admin.views.decorators import staff_member_required
@@ -233,3 +234,17 @@ class GetAppListJsonView(View):
             voices.append(voice)
 
         return voices
+
+
+class GetGravatartUrlJsonView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return JsonResponse({})
+        try:
+            email = request.user.email.lower().strip()
+            hash = hashlib.md5(email.encode())
+            return JsonResponse({"hash": hash.hexdigest()})
+        except Exception:
+            return JsonResponse({})
+
+

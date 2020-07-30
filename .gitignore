@@ -9,6 +9,8 @@ baton/static/baton/app/node_modules
 build/
 /dist/
 tags
+tags.lock
+tags.temp
 django_baton.egg-info/
 .ropeproject
 .virtualenv
