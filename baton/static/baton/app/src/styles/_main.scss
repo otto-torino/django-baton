@@ -25,3 +25,9 @@ textarea {
 .clear {
   clear: both;
 }
+
+// remove django 3.1 sidebar
+#toggle-nav-sidebar,
+#nav-sidebar {
+  display: none !important;
+}
