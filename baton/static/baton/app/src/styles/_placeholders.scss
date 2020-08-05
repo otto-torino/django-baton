@@ -39,6 +39,12 @@
       }
     }
 
+    .newline {
+      display: block;
+      height: .5rem;
+      width: 100%;
+    }
+
     > div {
       align-items: flex-start;
       display: flex;
@@ -358,6 +364,10 @@
     @include media-breakpoint-up(md) {
       width: auto;
     }
+  }
+
+  input[type=url] {
+    display: inline-block !important;
   }
 
   input[type=text][size] {
