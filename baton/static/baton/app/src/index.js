@@ -78,8 +78,12 @@ window.Baton = {
       return 'change_form'
     } else if (document.getElementById('changelist')) {
       return 'changelist'
+    } else if (document.getElementById('change-history')) {
+      return 'changehistory'
     } else if (/\/filer\//.test(location.pathname)) {
       return 'filer'
+    } else {
+      return 'default'
     }
   },
   Analytics: Analytics,

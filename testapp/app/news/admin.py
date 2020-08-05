@@ -46,7 +46,7 @@ class NewsAdmin(admin.ModelAdmin):
 
         }),
         ('Main', {
-            'fields': ('category', 'title', 'image', 'content', ),
+            'fields': ('category', 'title', 'link', 'image', 'content', ),
             'classes': ('tab-fs-main', ),
             'description': 'This is a description text'
 
