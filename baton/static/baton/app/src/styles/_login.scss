@@ -38,6 +38,11 @@ body.login {
 
     form {
       padding: 1rem;
+
+      .input-group-text {
+        justify-content: center;
+        width: 42px;
+      }
     }
 
     input[type='text'],

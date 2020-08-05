@@ -13,6 +13,7 @@ import Analytics from './core/Analytics'
 import Tabs from './core/Tabs'
 import ChangeList from './core/ChangeList'
 import ChangeForm from './core/ChangeForm'
+import Login from './core/Login'
 import Filer from './core/Filer'
 
 window.Baton = {
@@ -28,7 +29,9 @@ window.Baton = {
     if (page !== 'login' && page !== 'logout' && !/_popup/.test(location.search)) {
       Menu.init(config, Dispatcher)
     }
-    if (page === 'logout' || page === 'password_change_success') {
+    if (page === 'login') {
+      Login.init()
+    } else if (page === 'logout' || page === 'password_change_success') {
       ActionResult.init()
     } else if (page === 'password_change') {
       PasswordChange.init()
