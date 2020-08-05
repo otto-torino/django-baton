@@ -67,7 +67,7 @@
     }
   }
 
-  .last-related, // do not collapse the newly added row
+  .collapse-entry .last-related, // do not collapse the newly added row
   .expand-first .inline-related[id$="-0"] {
     h3 {
       .entry-collapse-toggler {
