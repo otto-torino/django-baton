@@ -100,8 +100,63 @@
     }
   }
 
+  .actionlist {
+    border-left: 5px solid #e7e7e7;
+    list-style-type: none;
+    margin-left: .5rem;
+    margin-top: 1.5rem;
+    padding-left: 0;
+    position: relative;
+
+
+    &::after {
+      background-image: linear-gradient(#e7e7e7 50%, rgba(255, 255, 255, 0) 0%);
+      background-position: center;
+      background-repeat: repeat-y;
+      background-size: 5px 13px;
+      bottom: -25px;
+      content: '';
+      height: 25px;
+      left: -5px;
+      position: absolute;
+      width: 5px;
+    }
+
+    li {
+      padding: 1.5rem;
+      padding-top: 0;
+      position: relative;
+
+      &::before {
+        background: $dashboard-icon-color;
+        border-radius: 50%;
+        color: $white !important;
+        display: inline-block;
+        height: 30px;
+        left: -18px;
+        line-height: 30px;
+        position: absolute;
+        text-align: center;
+        width: 30px;
+      }
+
+      &.addlink::before {
+        background: $dashboard-add-bg;
+      }
+
+      &.changelink::before {
+        background: $dashboard-change-bg;
+      }
+
+      &.deletelink::before {
+        background: $dashboard-delete-bg;
+      }
+    }
+  }
+
   .addlink,
   .viewlink,
+  .deletelink,
   .changelink {
     &::before {
       @extend %font-awesome;
@@ -120,6 +175,12 @@
   .changelink {
     &::before {
       content: '\f304';
+    }
+  }
+
+  .deletelink {
+    &::before {
+      content: '\f1f8';
     }
   }
 
