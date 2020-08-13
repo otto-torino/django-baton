@@ -122,7 +122,7 @@ body:not(.menu-mobile) {
   h1 {
     @extend .clearfix;
     background: $menu-mobile-title-bg;
-    border-bottom: 2px solid $menu-mobile-title-border-color;
+    // border-bottom: 2px solid $menu-mobile-title-border-color;
     color: $menu-mobile-title-color;
     font-size: 1.6rem;
     margin-bottom: 0;
@@ -168,7 +168,7 @@ body:not(.menu-mobile) {
     }
 
     li {
-      border-bottom: 1px solid $menu-li-border-color;
+      // border-bottom: 1px solid $menu-li-border-color;
       padding: 0;
 
       a,
@@ -185,6 +185,7 @@ body:not(.menu-mobile) {
 
       &:hover {
         color: $menu-link-hover-color;
+        text-decoration: none;
       }
 
       &.has-children {
