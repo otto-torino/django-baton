@@ -87,7 +87,7 @@ Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
         # ...
         'baton',
         'django.contrib.admin',
-        # ...
+        # ... (Place baton.autodiscover at the very end)
         'baton.autodiscover',
     )
 
