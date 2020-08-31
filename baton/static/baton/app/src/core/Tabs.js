@@ -42,7 +42,7 @@ let Tabs = {
       .append($('<a />', {
         'class': 'nav-link' + (this.mainOrder === 0 ? ' active' : ''),
         'data-toggle': 'tab',
-        href: '#main'
+        href: '#main-tab'
       }).text(this.main.children('h2').hide().text()).on('click', function () {
         location.hash = $(this).attr('href')
       }))
@@ -115,7 +115,7 @@ let Tabs = {
     this.tabContent = $('<div />', { 'class': 'tab-content' })
     this.tabMain = $('<div />', {
       'class': 'tab-pane' + (this.mainOrder === 0 ? ' active' : ''),
-      'id': 'main'
+      'id': 'main-tab'
     }).appendTo(this.tabContent)
     this.main.parent().children(':not(.nav-tabs):not(.submit-row):not(.errornote)').each((index, el) => {
       $(el).appendTo(self.tabMain)
