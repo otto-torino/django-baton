@@ -14,7 +14,7 @@ Using pip
         # ...
         'baton',
         'django.contrib.admin',
-        # ...
+        # ... (place baton.autodiscover at the very end)
         'baton.autodiscover',
     )
 

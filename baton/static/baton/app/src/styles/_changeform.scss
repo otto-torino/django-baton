@@ -139,6 +139,11 @@
   min-width: 100%;
 }
 
+.baton-form-include-right {
+  display: inline !important;
+  min-width: auto !important;
+}
+
 .change-form #content-main>form .form-row>div.baton-form-include {
   display: block;
 }
