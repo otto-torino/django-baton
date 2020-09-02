@@ -416,6 +416,7 @@ You can specify the following positions:
 |`bottom`| the template is placed inside the form row, at the bottom|
 |`above`| the template is placed above the form row|
 |`below`| the template is placed below the form row|
+|`right`| the template is placed inline at the input field right side|
 
 And, of course, you can access the `{{ original }}` object variable inside your template.
 
