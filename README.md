@@ -87,7 +87,7 @@ Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
         # ...
         'baton',
         'django.contrib.admin',
-        # ... (Place baton.autodiscover at the very end)
+        # ... (place baton.autodiscover at the very end)
         'baton.autodiscover',
     )
 
@@ -416,7 +416,7 @@ You can specify the following positions:
 |`bottom`| the template is placed inside the form row, at the bottom|
 |`above`| the template is placed above the form row|
 |`below`| the template is placed below the form row|
-|`right`| the template is placed inline at the right side of the input field|
+|`right`| the template is placed inline at the input field right side|
 
 And, of course, you can access the `{{ original }}` object variable inside your template.
 

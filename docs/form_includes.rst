@@ -28,7 +28,7 @@ You can specify the following positions:
 +----------------------------------------+--------------------------------------------------------------------+
 | below                                  | the template is placed below the form row                          |
 +----------------------------------------+--------------------------------------------------------------------+
-| right                                  | the template is placed inline at the right side of the input field |
+| right                                  | the template is placed inline at the field right side              |
 +----------------------------------------+--------------------------------------------------------------------+
 
 And, of course, you can access the `{{ original }}` object variable inside your template.
