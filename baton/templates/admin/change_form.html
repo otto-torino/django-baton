@@ -3,7 +3,7 @@
 
 {% for template, field, position in adminform.model_admin.baton_form_includes %}
     <template id="template-{{ field }}" data-position="{{ position }}">
-        <div id='template-{{ field }}-container' class="baton-form-include">
+        <div id='template-{{ field }}-container' class="baton-form-include baton-form-include-{{ position }}">
             {% include template %}
         </div>
     </template>

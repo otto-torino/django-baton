@@ -141,13 +141,18 @@ let ChangeForm = {
       above: 'before',
       below: 'after',
       top: 'prepend',
-      bottom: 'append'
+      bottom: 'append',
+      right: 'after'
     }
     $('template').each(function (index, template) {
       let field = $(template).attr('id').replace('template-', '')
       let position = positionMap[$(template).attr('data-position')]
       if (position !== undefined) {
-        $('.form-row.field-' + field)[position]($(template).html())
+        let el = $(template).attr('data-position') === 'right'
+          ? $('.form-row.field-' + field + ' #id_' + field)
+          : $('.form-row.field-' + field)
+        console.log(el)
+        el[position]($(template).html())
       } else {
         console.error('Baton: wrong form include position detected')
       }
