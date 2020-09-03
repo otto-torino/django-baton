@@ -62,7 +62,6 @@ let ChangeList = {
     `
     modal.html(modalContent)
     modal.find('.modal-content').prepend($('#changelist-filter-modal'))
-    console.log(modal.find('#changelist-filter-modal > h2'), 'DIO')
     let title = modal.find('#changelist-filter-modal > h2')
     modal.find('.modal-content').prepend(title.addClass('modal-header').css('margin-bottom', 0))
     return modal
