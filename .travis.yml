@@ -12,7 +12,7 @@ install:
   - django-admin.py --version
   - pip install selenium
 before_script:
-  - cd testapp/app && python manage.py runserver &
+  - cd testapp/app && python manage.py migrate && python manage.py runserver &
   - sleep 3
 env:
   global:
@@ -24,4 +24,5 @@ branches:
   only:
     - master
     - feature/e2e-tests
+    - debug/tests
 sudo: false
