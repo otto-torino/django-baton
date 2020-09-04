@@ -9,6 +9,16 @@ A cool, modern and responsive django admin application based on bootstrap 4.5.0
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
+---
+**Live Demo**
+
+Now you can try django-baton using the new shining live demo!
+Login with user `demo` and password `demo`
+
+[https://django-baton-demo.herokuapp.com/](https://django-baton-demo.herokuapp.com/)
+
+---
+
 ![Screenshot](screenshots/index-analytics-lg.png)
 
 ## Table of contents
@@ -94,18 +104,6 @@ Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
 Replace django.contrib.admin in your project urls, and add baton urls:
 
     # from django.contrib import admin
-    from baton.autodiscover import admin
-
-    urlpatterns = [
-        url(r'^admin/', include(admin.site.urls)),
-        # ...
-        url(r'^baton/', include('baton.urls')),
-    ]
-
-### Django 2
-
-The first two steps are the same, but in your project urls you should use _path_:
-
     from baton.autodiscover import admin
     from django.urls import path, include
 
