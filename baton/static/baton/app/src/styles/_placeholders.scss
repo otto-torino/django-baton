@@ -743,7 +743,51 @@
     }
   }
 
+  .wrapped-fields-container {
+    flex-direction: column !important;
+
+    .datetimeshortcuts {
+      align-self: top;
+    }
+
+    label {
+      flex-basis: auto !important;
+    }
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row !important;
+
+      label {
+        flex-basis: 20% !important;
+        vertical-align: top;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      label {
+        flex-basis: 10% !important;
+      }
+    }
+  }
+
   .wrapped-fields-container > * {
       flex-grow: 0 !important;
+  }
+
+  .wrapped-fields-container .fieldBox {
+    margin-top: 1rem;
+
+    label + *:not(.datetime) {
+      display: inline-block;
+    }
+
+    .help {
+      margin-left: 0 !important;
+    }
+
+    @include media-breakpoint-up(md) {
+      margin-left: 1rem;
+      margin-top: 0;
+    }
   }
 }

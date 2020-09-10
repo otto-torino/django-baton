@@ -89,7 +89,7 @@ let ChangeForm = {
     this.form.find('.form-row').each(function (index, row) {
       $(row).children('.fieldBox').wrapAll('<div class="wrapped-fields-container" />')
     })
-    this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
+    this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
   },
   fixNewlines: function () {
     $('.form-row br').replaceWith('<span class="newline"></span>')
