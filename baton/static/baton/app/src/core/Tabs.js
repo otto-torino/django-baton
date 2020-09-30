@@ -117,9 +117,10 @@ let Tabs = {
       'class': 'tab-pane' + (this.mainOrder === 0 ? ' active' : ''),
       'id': 'main-tab'
     }).appendTo(this.tabContent)
-    this.main.parent().children(':not(.nav-tabs):not(.submit-row):not(.errornote)').each((index, el) => {
-      $(el).appendTo(self.tabMain)
-    })
+    this.main.parent().children(':not(.nav-tabs):not(.submit-row):not(.errornote):not(.tab-fs-none)')
+      .each((index, el) => {
+        $(el).appendTo(self.tabMain)
+      })
     this.nav.after(this.tabContent)
 
     let currentOrder = this.mainOrder ? 0 : this.mainOrder + 1
