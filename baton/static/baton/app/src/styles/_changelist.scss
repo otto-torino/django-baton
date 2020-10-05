@@ -199,6 +199,13 @@
     }
   }
 
+  &.changelist-filter-always-open {
+    #changelist-filter,
+    #changelist-form {
+      transition: none !important;
+    }
+  }
+
   // show filters
   &.changelist-filter-active {
     #changelist-filter {

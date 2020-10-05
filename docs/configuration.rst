@@ -18,6 +18,8 @@ This is an example of configuration::
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
         'ENABLE_IMAGES_PREVIEW': True,
+        'CHANGELIST_FILTERS_IN_MODAL': True,
+        'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
         'GRAVATAR_DEFAULT_IMG': 'retro',
@@ -130,6 +132,13 @@ Changelist filters in modal
 -----------------------
 
 If set to ``True`` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is ``False`` and the changelist filters appears from the right side of the changelist table.
+
+**Default**: False
+
+Changelist filters always open
+-----------------------
+
+if set to ``True`` the changelist filters are opened by default. By default, its value is ``False`` and the changelist filters can be expanded clicking a toggler button. This option is considered only if ``CHANGELIST_FILTERS_IN_MODAL`` is ``False``
 
 **Default**: False
 
