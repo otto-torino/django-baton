@@ -37,8 +37,10 @@
 
   .collapse-entry {
     h3 {
+      cursor: pointer;
+
       .entry-collapse-toggler {
-        margin-left: 0 !important;
+        margin-left: 1rem !important;
         order: 1;
 
         &::before {

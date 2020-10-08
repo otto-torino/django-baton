@@ -8,6 +8,7 @@ let Menu = {
    */
   init: function (config, Dispatcher) {
     this.Dispatcher = Dispatcher
+    this.collapsableUserArea = config.collapsableUserArea
     this.menuTitle = config.menuTitle
     this.appListUrl = config.api.app_list
     this.gravatarUrl = config.api.gravatar
@@ -83,6 +84,13 @@ let Menu = {
   renderUserTools: function () {
     let self = this
     let container = $('<div />', { id: 'user-tools-sidebar' })
+    let expandUserArea = $('<i />', {'class': 'fa fa-angle-down user-area-toggler'}).on('click', function () {
+      $(this).toggleClass('fa-angle-up')
+      container.toggleClass('collapsed')
+    })
+    if (this.collapsableUserArea) {
+      container.addClass('collapsed')
+    }
     container.insertAfter('#user-tools')
     let userInfo = $('<div />', { class: 'user-info' })
       .html(
@@ -93,24 +101,28 @@ let Menu = {
       .appendTo(container)
     // gravatar
     $.getJSON(this.gravatarUrl, function (data) {
-      userInfo.find('.spinner-border').replaceWith(
-        $('<img />', {
-          class: 'gravatar-icon',
-          src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
-            .replace('{hash}', data.hash)
-            .replace('{default}', self.gravatarDefaultImg)
-        })
-      )
+      let img = $('<img />', {
+        class: 'gravatar-icon',
+        src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
+          .replace('{hash}', data.hash)
+          .replace('{default}', self.gravatarDefaultImg)
+      })
+      userInfo.find('.spinner-border').replaceWith(img)
+      if (self.collapsableUserArea) {
+        img.after(expandUserArea)
+      }
     }).fail(function (err) {
       console.error(err.responseText)
-      userInfo.find('.spinner-border').replaceWith(
-        $('<img />', {
-          class: 'gravatar-icon',
-          src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
-            .replace('{hash}', '')
-            .replace('{default}', self.gravatarDefaultImg)
-        })
-      )
+      let img = $('<img />', {
+        class: 'gravatar-icon',
+        src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
+          .replace('{hash}', '')
+          .replace('{default}', self.gravatarDefaultImg)
+      })
+      userInfo.find('.spinner-border').replaceWith(img)
+      if (self.collapsableUserArea) {
+        img.after(expandUserArea)
+      }
     })
     let linksContainer = $('<div />', { class: 'user-links' }).appendTo(
       container

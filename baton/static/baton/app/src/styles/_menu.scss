@@ -62,7 +62,24 @@ body:not(.menu-mobile) {
 
   #user-tools-sidebar {
     padding: 1rem;
+    position: relative;
     text-align: center;
+
+    .user-links {
+      height: 38px;
+      transition: height .2s linear;
+    }
+
+    .user-area-toggler {
+      cursor: pointer;
+    }
+
+    &.collapsed {
+      .user-links,
+      .user-info div {
+        display: none;
+      }
+    }
 
     .gravatar-icon {
       border: 2px solid $gravatar-border-color;

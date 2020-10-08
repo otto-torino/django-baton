@@ -32,6 +32,7 @@ let ChangeForm = {
       this.lazyLoadImages()
     }
     this.activateEntryCollapsing()
+    this.fixExpandFirstErrorCollapsing()
     this.initTemplates()
   },
   activate: function () {
@@ -89,7 +90,7 @@ let ChangeForm = {
     this.form.find('.form-row').each(function (index, row) {
       $(row).children('.fieldBox').wrapAll('<div class="wrapped-fields-container" />')
     })
-    this.form.find('.wrapped-fields-container > .fieldBox').children().unwrap()
+    this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
   },
   fixNewlines: function () {
     $('.form-row br').replaceWith('<span class="newline"></span>')
@@ -133,6 +134,14 @@ let ChangeForm = {
     $('.form-row.errors').each(function (index, el) {
       if ($(el).parent('fieldset').prev('h3.entry-collapsed')) {
         $(el).parent('fieldset').prev('h3.entry-collapsed').removeClass('entry-collapsed')
+      }
+    })
+  },
+  fixExpandFirstErrorCollapsing: function () {
+    $('.expand-first').each(function (index, el) {
+      if ($(el).find('.inline-related[id$=0] .form-row.errors').length) {
+        // inverse logic
+        $(el).find('.inline-related[id$=0] .form-row.errors').parent('fieldset').prev('h3').addClass('entry-collapsed')
       }
     })
   },

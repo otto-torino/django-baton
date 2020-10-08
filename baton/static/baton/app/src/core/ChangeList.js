@@ -11,40 +11,45 @@ let ChangeList = {
     this._filtersDiv = $('#changelist-filter')
     this.t = new Translator($('html').attr('lang'))
     this.filtersInModal = opts.changelistFiltersInModal
+    this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
     if (this._filtersDiv.length) {
       this.activate()
     }
   },
   activate: function () {
-    // filters active?
-    let _activeFilters = /__[^=]+=/.test(location.search)
-    // actions ?
-    let _activeActions = $('#changelist-form > .actions').length !== 0
-    let _changelistForm = $('#changelist-form')
-    let _filtersToggler = $('<a />', {
-      class:
-        'btn btn-info changelist-filter-toggler' +
-        (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : '')
-    })
-      .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
-
-    if (this.filtersInModal) {
-      $('#changelist-filter').prop('id', 'changelist-filter-modal')
-      this.modal = this.createModal()
-      _filtersToggler
-        .click(() => {
-          this.modal.modal('toggle')
-        })
+    if (this.filtersAlwaysOpen) {
+      $(document.body).addClass('changelist-filter-active changelist-filter-always-open')
     } else {
-      _filtersToggler
-        .click(() => {
-          $(document.body).toggleClass('changelist-filter-active')
-          if (parseInt(this._filtersDiv.css('max-width')) === 100) {
-            $('html,body').animate({ scrollTop: this._filtersDiv.offset().top })
-          }
-        })
+      // filters active?
+      let _activeFilters = /__[^=]+=/.test(location.search)
+      // actions ?
+      let _activeActions = $('#changelist-form > .actions').length !== 0
+      let _changelistForm = $('#changelist-form')
+      let _filtersToggler = $('<a />', {
+        class:
+          'btn btn-info changelist-filter-toggler' +
+          (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : '')
+      })
+        .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
+
+      if (this.filtersInModal) {
+        $('#changelist-filter').prop('id', 'changelist-filter-modal')
+        this.modal = this.createModal()
+        _filtersToggler
+          .click(() => {
+            this.modal.modal('toggle')
+          })
+      } else {
+        _filtersToggler
+          .click(() => {
+            $(document.body).toggleClass('changelist-filter-active')
+            if (parseInt(this._filtersDiv.css('max-width')) === 100) {
+              $('html,body').animate({ scrollTop: this._filtersDiv.offset().top })
+            }
+          })
+      }
+      _changelistForm.prepend(_filtersToggler)
     }
-    _changelistForm.prepend(_filtersToggler)
     if (/_popup=1/.test(location.href)) {
       $('#changelist-form .results').css('padding-top', '78px')
     }

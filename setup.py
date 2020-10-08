@@ -7,16 +7,18 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
+REPO_URL = 'http://github.com/otto-torino/django-baton'
+
 setup(
     name='django-baton',
-    version='1.10.12',
+    version='1.11.0',
     packages=['baton', 'baton.autodiscover', 'baton.templatetags'],
     include_package_data=True,
     license='MIT License',
     description='A cool, modern and responsive django admin application',
     long_description=README,
     long_description_content_type='text/markdown',
-    url='http://github.com/otto-torino/django-baton',
+    url=REPO_URL,
     author='abidibo',
     author_email='abidibo@gmail.com',
     install_requires=[
@@ -40,5 +42,11 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Topic :: Software Development',
         'Topic :: Software Development :: User Interfaces',
-    ]
+    ],
+    project_urls={
+        'Documentation': 'https://django-baton.readthedocs.io/en/latest/',
+        'Demo': 'https://django-baton-demo.herokuapp.com/admin',
+        'Source': REPO_URL,
+        'Tracker': f'{REPO_URL}/issues',
+    },
 )
