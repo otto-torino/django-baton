@@ -51,6 +51,7 @@ Rules
 - For every fieldset you want to put in a separate tab, add a class ``baton-tab-fs-CUSTOMNAME``, and add a class ``tab-fs-CUSTOMNAME`` on the fieldset
 - For every group you want to put in a separate tab, add a class ``baton-tab-group-ITEMS``, where items can be inlines (``inline-RELATEDNAME``) and/or fieldsets (``fs-CUSTOMNAME``) separated by a double hypen ``--``. Also add a class ``tab-fs-CUSTOMNAME`` on the fieldset items.
 - Tabs order respects the defined classes order
+- Fieldsets without a specified tab will be added to the main tab. If you want the fieldset to instead display outside of any tabs, add a class ``tab-fs-none`` to the fieldset. The fieldset will then always be visible regardless of the current tab.
 
 Other features:
 
