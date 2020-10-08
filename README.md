@@ -184,6 +184,7 @@ Default value is `True`.
 - `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews have 100px height and with a box shadow (on "hover").
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggler button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
+- `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
@@ -264,6 +265,7 @@ To use these, just override the baton `admin/base_site.html` template and regist
         {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
         {% baton_config 'ENABLE_IMAGES_PREVIEW' as enable_images_preview %}
         {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
+        {% baton_config 'COLLAPSABLE_USER_AREA' as collapsable_user_area %}
         {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
         {% baton_config 'MENU_TITLE' as menu_title %}
         {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
@@ -283,6 +285,7 @@ To use these, just override the baton `admin/base_site.html` template and regist
                     showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
                     enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
                     changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
+                    collapsableUserArea: {{ collapsable_user_area|yesno:"true,false" }},
                     menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
                     menuTitle: '{{ menu_title|escapejs }}',
                     gravatarDefaultImg: '{{ gravatar_default_img }}'
