@@ -80,6 +80,7 @@ class TestBatonIndexMobile(TestCase):
         # Wait until baton is ready
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+        time.sleep(1)
 
         # page title
         page_title = self.driver.find_element_by_css_selector(
