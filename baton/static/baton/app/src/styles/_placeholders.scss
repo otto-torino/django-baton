@@ -28,13 +28,25 @@
 
       .errorlist {
         @extend .pt-2;
-        padding-left: 1.2rem;
+        padding-left: 0;
         width: 100%;
+
+        @include media-breakpoint-up(md) {
+          padding-left: 1.2rem;
+        }
 
         li {
           color: $danger-fg !important;
+          list-style-type: none;
           font-weight: bold;
           text-decoration: underline;
+
+          &::before {
+            @extend %font-awesome;
+            content: '\f12a';
+            display: inline-block;
+            margin-right: .5rem;
+          }
         }
       }
     }
