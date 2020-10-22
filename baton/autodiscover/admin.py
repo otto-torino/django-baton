@@ -9,6 +9,7 @@ class BatonAdminSite(AdminSite):
     index_title = get_config('INDEX_TITLE')
     index_template = 'baton/index.html' if get_config(
         'ANALYTICS') else 'admin/index.html'
+    enable_nav_sidebar = False
 
     def __init__(self, *args, **kwargs):
         """ Registers all apps with BatonAdminSite """
