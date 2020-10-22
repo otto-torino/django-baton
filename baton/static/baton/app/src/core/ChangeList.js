@@ -17,6 +17,9 @@ let ChangeList = {
     }
   },
   activate: function () {
+    if ($('.changelist-form-container').length) { // django >= 3.1
+      $('#changelist-filter').appendTo($('.changelist-form-container'))
+    }
     if (this.filtersAlwaysOpen) {
       $(document.body).addClass('changelist-filter-active changelist-filter-always-open')
     } else {
