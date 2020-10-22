@@ -89,9 +89,18 @@ let ChangeForm = {
   },
   fixWrappedFields: function () {
     this.form.find('.form-row').each(function (index, row) {
-      $(row).children('.fieldBox').wrapAll('<div class="wrapped-fields-container" />')
+      var fieldBoxes = $(row).children('.fieldBox')
+      fieldBoxes.each(function (index, fbox) {
+        if ($(fbox).hasClass('errors')) {
+          $(row).addClass('errors')
+        }
+      })
+      fieldBoxes.wrapAll('<div class="wrapped-fields-container" />')
+      if (fieldBoxes.length) {
+        $(row).addClass('with-wrapped-fields')
+      }
     })
-    this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
+    // this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
   },
   fixNewlines: function () {
     $('.form-row br').replaceWith('<span class="newline"></span>')

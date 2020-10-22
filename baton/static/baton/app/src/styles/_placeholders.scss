@@ -23,6 +23,10 @@
     margin-bottom: .5rem;
     padding: 1rem .5rem;
 
+    &.with-wrapped-fields {
+      background: transparent;
+    }
+
     &.errors {
       background: $field-row-error-bg;
 
@@ -47,6 +51,12 @@
             display: inline-block;
             margin-right: .5rem;
           }
+        }
+      }
+
+      .wrapped-fields-container {
+        .errorlist {
+          padding-left: 0 !important;
         }
       }
     }
@@ -328,7 +338,8 @@
       }
     }
 
-    .add-related {
+    .add-related,
+    .change-related {
       vertical-align: top;
     }
 
@@ -809,9 +820,10 @@
 
   .wrapped-fields-container .fieldBox {
     margin-top: 1rem;
+    width: 100%;
 
-    label + *:not(.datetime) {
-      display: inline-block;
+    label {
+      width: 100%;
     }
 
     .help {
@@ -821,6 +833,15 @@
     @include media-breakpoint-up(md) {
       margin-left: 1rem;
       margin-top: 0;
+      width: auto;
+
+      label {
+        width: auto;
+      }
+
+      label + *:not(.datetime) {
+        display: inline-block;
+      }
     }
   }
 }
