@@ -480,13 +480,6 @@
 
   .collapse {
     display: block;
-
-    h2 {
-      @extend .p-2;
-      background: $collapse-title-bg;
-      border: 1px solid $collapse-title-border-color;
-      font-size: $h2-size;
-    }
   }
 
   .collapsed * {
@@ -576,6 +569,34 @@
   fieldset .description {
     @extend .pb-3;
     @extend .pt-3;
+  }
+
+  fieldset.collapse {
+    cursor: pointer;
+    display: block;
+
+    h2 {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &::after {
+        color: $collapse-entry-icon-color;
+        content: '\f070';
+        display: inline-block;
+        font-family: 'Font Awesome\ 5 Free';
+        font-size: 1.1rem;
+      }
+    }
+
+    &.collapsed {
+      h2 {
+        &::after {
+          content: '\f06e';
+        }
+      }
+    }
   }
 
   // inline

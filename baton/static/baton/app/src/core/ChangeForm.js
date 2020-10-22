@@ -32,6 +32,7 @@ let ChangeForm = {
       this.lazyLoadImages()
     }
     this.activateEntryCollapsing()
+    this.changeFieldsetCollapseStyle()
     this.fixExpandFirstErrorCollapsing()
     this.initTemplates()
   },
@@ -145,6 +146,16 @@ let ChangeForm = {
       }
     })
   },
+  changeFieldsetCollapseStyle: function () {
+    $('fieldset.collapse > h2').each(function (index, title) {
+      let text = $(title).text()
+      setTimeout(function () {
+        $(title).html(text).on('click', function () {
+          $(this).parent('.collapse').toggleClass('collapsed')
+        })
+      }, 100)
+    })
+  },
   initTemplates: function () {
     const positionMap = {
       above: 'before',
@@ -160,7 +171,6 @@ let ChangeForm = {
         let el = $(template).attr('data-position') === 'right'
           ? $('.form-row.field-' + field + ' #id_' + field)
           : $('.form-row.field-' + field)
-        console.log(el)
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong form include position detected')
