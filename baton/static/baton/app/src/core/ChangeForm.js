@@ -32,6 +32,7 @@ let ChangeForm = {
       this.lazyLoadImages()
     }
     this.activateEntryCollapsing()
+    this.changeFieldsetCollapseStyle()
     this.fixExpandFirstErrorCollapsing()
     this.initTemplates()
   },
@@ -88,9 +89,18 @@ let ChangeForm = {
   },
   fixWrappedFields: function () {
     this.form.find('.form-row').each(function (index, row) {
-      $(row).children('.fieldBox').wrapAll('<div class="wrapped-fields-container" />')
+      var fieldBoxes = $(row).children('.fieldBox')
+      fieldBoxes.each(function (index, fbox) {
+        if ($(fbox).hasClass('errors')) {
+          $(row).addClass('errors')
+        }
+      })
+      fieldBoxes.wrapAll('<div class="wrapped-fields-container" />')
+      if (fieldBoxes.length) {
+        $(row).addClass('with-wrapped-fields')
+      }
     })
-    this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
+    // this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
   },
   fixNewlines: function () {
     $('.form-row br').replaceWith('<span class="newline"></span>')
@@ -145,6 +155,16 @@ let ChangeForm = {
       }
     })
   },
+  changeFieldsetCollapseStyle: function () {
+    $('fieldset.collapse > h2').each(function (index, title) {
+      let text = $(title).text()
+      setTimeout(function () {
+        $(title).html(text).on('click', function () {
+          $(this).parent('.collapse').toggleClass('collapsed')
+        })
+      }, 100)
+    })
+  },
   initTemplates: function () {
     const positionMap = {
       above: 'before',
@@ -160,7 +180,6 @@ let ChangeForm = {
         let el = $(template).attr('data-position') === 'right'
           ? $('.form-row.field-' + field + ' #id_' + field)
           : $('.form-row.field-' + field)
-        console.log(el)
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong form include position detected')

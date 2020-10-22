@@ -46,10 +46,14 @@ class NewsAdmin(admin.ModelAdmin):
 
         }),
         ('Main', {
-            'fields': ('category', 'title', 'link', 'image', 'content', ),
+            'fields': (('category', 'title'), 'link', 'content', ),
             'classes': ('tab-fs-main', ),
             'description': 'This is a description text'
 
+        }),
+        ('Media', {
+            'fields': ('image', ),
+            'classes': ('collapse', ),
         }),
         ('Flags', {
             'fields': ('share', 'published', ),

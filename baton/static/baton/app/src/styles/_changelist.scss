@@ -19,6 +19,13 @@
     flex-wrap: wrap;
     overflow: hidden;
 
+    .changelist-form-container { // django 3.1.1
+      display: flex;
+      flex: 0 0 100%;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
     // no object tools
     &:first-child {
       margin-top: 1rem;

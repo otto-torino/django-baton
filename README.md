@@ -40,7 +40,7 @@ Login with user `demo` and password `demo`
 
 ## <a name="features"></a>Features
 
-Tested with Django >= 1.10.5
+Supports Django >= 1.11
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
@@ -60,14 +60,15 @@ Everything is styled through CSS and when required, JS is used.
 
 The following packages are required to manage the Google Analytics index:
 
-- google-api-python-client
-- oauth2client==1.5.2
+- google-auth==1.22.1
+- google-auth-httplib2==0.0.4
+- google-api-python-client==1.5.5
 
 At the moment __baton__ defines only 4 custom templates:
 
 - `admin/base_site.html`, needed to inject the JS application (which includes css and images, compiled with [webpack](https://webpack.github.io/));
 - `admin/change_form.html`, needed to inject the `baton_form_includes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
-- `admin/delete_confirmation.html`, needed because of a bug (IMO) in the template, in particular the `extra_head` block does not contain the parent content, hence it must be overridden (FIXED IN django 1.11, remains until baton will support django 1.10);
+- `admin/delete_confirmation.html`, needed to wrap contents;
 - `admin/delete_selected_confirmation.html`, same as above.
 
 Baton is based on the following frontend technologies:

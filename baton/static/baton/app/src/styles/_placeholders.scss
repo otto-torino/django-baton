@@ -23,18 +23,40 @@
     margin-bottom: .5rem;
     padding: 1rem .5rem;
 
+    &.with-wrapped-fields {
+      background: transparent;
+    }
+
     &.errors {
       background: $field-row-error-bg;
 
       .errorlist {
         @extend .pt-2;
-        padding-left: 1.2rem;
+        padding-left: 0;
         width: 100%;
+
+        @include media-breakpoint-up(md) {
+          padding-left: 1.2rem;
+        }
 
         li {
           color: $danger-fg !important;
+          list-style-type: none;
           font-weight: bold;
           text-decoration: underline;
+
+          &::before {
+            @extend %font-awesome;
+            content: '\f12a';
+            display: inline-block;
+            margin-right: .5rem;
+          }
+        }
+      }
+
+      .wrapped-fields-container {
+        .errorlist {
+          padding-left: 0 !important;
         }
       }
     }
@@ -316,7 +338,8 @@
       }
     }
 
-    .add-related {
+    .add-related,
+    .change-related {
       vertical-align: top;
     }
 
@@ -480,13 +503,6 @@
 
   .collapse {
     display: block;
-
-    h2 {
-      @extend .p-2;
-      background: $collapse-title-bg;
-      border: 1px solid $collapse-title-border-color;
-      font-size: $h2-size;
-    }
   }
 
   .collapsed * {
@@ -576,6 +592,34 @@
   fieldset .description {
     @extend .pb-3;
     @extend .pt-3;
+  }
+
+  fieldset.collapse {
+    cursor: pointer;
+    display: block;
+
+    h2 {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &::after {
+        color: $collapse-entry-icon-color;
+        content: '\f070';
+        display: inline-block;
+        font-family: 'Font Awesome\ 5 Free';
+        font-size: 1.1rem;
+      }
+    }
+
+    &.collapsed {
+      h2 {
+        &::after {
+          content: '\f06e';
+        }
+      }
+    }
   }
 
   // inline
@@ -704,7 +748,7 @@
       padding: 2px 4px;
 
       &::before {
-        content: '\f040';
+        content: '\f304';
         font-family: 'Font Awesome\ 5 Free';
         margin-right: 4px;
       }
@@ -776,9 +820,10 @@
 
   .wrapped-fields-container .fieldBox {
     margin-top: 1rem;
+    width: 100%;
 
-    label + *:not(.datetime) {
-      display: inline-block;
+    label {
+      width: 100%;
     }
 
     .help {
@@ -788,6 +833,15 @@
     @include media-breakpoint-up(md) {
       margin-left: 1rem;
       margin-top: 0;
+      width: auto;
+
+      label {
+        width: auto;
+      }
+
+      label + *:not(.datetime) {
+        display: inline-block;
+      }
     }
   }
 }

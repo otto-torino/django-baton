@@ -11,7 +11,7 @@ REPO_URL = 'http://github.com/otto-torino/django-baton'
 
 setup(
     name='django-baton',
-    version='1.11.0',
+    version='1.12.0',
     packages=['baton', 'baton.autodiscover', 'baton.templatetags'],
     include_package_data=True,
     license='MIT License',
@@ -22,8 +22,9 @@ setup(
     author='abidibo',
     author_email='abidibo@gmail.com',
     install_requires=[
-        'google-api-python-client',
-        'oauth2client==1.5.2',
+        'google-auth==1.22.1',
+        'google-auth-httplib2==0.0.4',
+        'google-api-python-client==1.5.5',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -47,6 +48,6 @@ setup(
         'Documentation': 'https://django-baton.readthedocs.io/en/latest/',
         'Demo': 'https://django-baton-demo.herokuapp.com/admin',
         'Source': REPO_URL,
-        'Tracker': f'{REPO_URL}/issues',
+        'Tracker': REPO_URL + '/issues',
     },
 )
