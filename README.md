@@ -40,7 +40,7 @@ Login with user `demo` and password `demo`
 
 ## <a name="features"></a>Features
 
-Tested with Django >= 1.10.5
+Supports Django >= 1.11
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
