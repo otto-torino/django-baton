@@ -22,9 +22,10 @@ setup(
     author='abidibo',
     author_email='abidibo@gmail.com',
     install_requires=[
-        'google-auth==1.22.1',
-        'google-auth-httplib2==0.0.4',
-        'google-api-python-client==1.5.5',
+        'google-auth',
+        'google-auth-httplib2',
+        'google-api-python-client',
+        'requests',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
