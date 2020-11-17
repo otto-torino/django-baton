@@ -90,6 +90,10 @@ let Tabs = {
     $('input[name="_addanother"]').on('click', function () {
       location.hash = ''
     })
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      $('[title]').tooltip()
+    })
   },
   createInlineEl: function (el, setDataTab = false) {
     let domEl

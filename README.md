@@ -60,9 +60,10 @@ Everything is styled through CSS and when required, JS is used.
 
 The following packages are required to manage the Google Analytics index:
 
-- google-auth==1.22.1
-- google-auth-httplib2==0.0.4
-- google-api-python-client==1.5.5
+- google-auth
+- google-auth-httplib2
+- google-api-python-client
+- requests
 
 At the moment __baton__ defines only 4 custom templates:
 

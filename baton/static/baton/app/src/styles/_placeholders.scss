@@ -595,11 +595,11 @@
   }
 
   fieldset.collapse {
-    cursor: pointer;
     display: block;
 
     h2 {
       align-items: center;
+      cursor: pointer;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -656,10 +656,16 @@
       font-size: 1.1rem;
       padding: 8px 10px;
 
+      .inline_label {
+        margin-right: auto;
+      }
+
+      /* replaced by prev rules, keeping here for reference for a while
       > .delete,
       > .inline_label + span {
         margin-left: auto;
       }
+      */
 
       > .delete {
         label {

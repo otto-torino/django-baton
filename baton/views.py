@@ -26,7 +26,7 @@ class GetAppListJsonView(View):
         self.app_list = site.get_app_list(request)
         self.apps_dict = self.create_app_list_dict()
         # no menu provided
-        items = get_config('MENU')
+        items = self.get_menu(request)
         if not items:
             voices = self.get_default_voices()
         else:
@@ -35,6 +35,9 @@ class GetAppListJsonView(View):
                 self.add_voice(voices, item)
 
         return JsonResponse(voices, safe=False)
+
+    def get_menu(self, request):
+        return get_config('MENU')
 
     def add_voice(self, voices, item):
         """ Adds a voice to the list
