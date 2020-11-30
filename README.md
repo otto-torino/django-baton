@@ -279,7 +279,7 @@ To use these, just override the baton `admin/base_site.html` template and regist
         {% baton_config 'MENU_TITLE' as menu_title %}
         {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
         (function ($, undefined) {
-            $(window).on('load', function () {
+            $(document).ready(function () {
                 // init listeners
                 Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
                 Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })

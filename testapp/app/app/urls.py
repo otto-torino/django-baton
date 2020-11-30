@@ -22,6 +22,7 @@ from django.contrib.staticfiles.views import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('baton/', include('baton.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:

@@ -92,7 +92,7 @@ let Tabs = {
     })
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-      $('[title]').tooltip()
+      $('[title]:not(iframe)').tooltip()
     })
   },
   createInlineEl: function (el, setDataTab = false) {

@@ -57,7 +57,7 @@ You can also perform live development, in this case:
             {% baton_config 'MENU_TITLE' as menu_title %}
             {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
             (function ($, undefined) {
-                $(window).on('load', function () {
+                $(document).ready(function () {
                     Baton.init({
                         api: {
                             app_list: '{% url 'baton-app-list-json' %}',

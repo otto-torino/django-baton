@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'easy_thumbnails',
     'filer',
+    'tinymce',
     'mptt',
     'news',
     'baton.autodiscover',
