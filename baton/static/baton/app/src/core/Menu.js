@@ -205,7 +205,14 @@ let Menu = {
 
         voice.children.forEach((model, i) => {
           let active = false
-          if (model.url) {
+          if (model.type === 'free') {
+            if (model.re) {
+              let re = new RegExp(model.re)
+              active = re.test(location.pathname)
+            } else {
+              active = location.pathname === model.url
+            }
+          } else if (model.url) {
             let pathRexp = new RegExp(model.url)
             active = pathRexp.test(location.pathname)
           }

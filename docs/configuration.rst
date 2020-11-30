@@ -254,8 +254,8 @@ In such case you must define an ``url`` and if you want some visibility permissi
 
     { 'type': 'free', 'label': 'Docs', 'url': 'http://www.mydocssite.com' },
 
-or :: 
-    
+or ::
+
     { 'type': 'free', 'label': 'Add page', 'url': '/admin/flatpages/flatpage/add/', 'perms': ('flatpages.add_flatpage', ) },
 
 It accepts children voices ::
@@ -266,6 +266,16 @@ It accepts children voices ::
     ] },
 
 Since free voices can have children you can specify the ``default_open`` key.
+
+Free voices also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname): ::
+
+    {
+	    'type': 'free',
+        'label': 'Categories',
+        'url': '/admin/news/category/',
+        're': '^/admin/news/category/(\d*)?'
+    }
+
 
 Analytics
 ---------

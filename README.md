@@ -227,7 +227,14 @@ You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
 
 #### Free
 
-You can specify free voices. You must define a _url_ and if you want some visibility permissions (OR clause). Free voices can have children and so you can specify the _default_open_ key.
+You can specify free voices. You must define a _url_ and if you want some visibility permissions (OR clause). Free voices can have children and so you can specify the _default_open_ key. Free voices also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname).
+
+	{
+	    'type': 'free',
+	    'label': 'Categories',
+	    'url': '/admin/news/category/',
+	    're': '^/admin/news/category/(\d*)?'
+	}
 
 ### <a name="configuration-analytics"></a>ANALYTICS
 
