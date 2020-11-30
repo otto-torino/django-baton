@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'easy_thumbnails',
     'filer',
+    'tinymce',
     'mptt',
     'news',
     'baton.autodiscover',
@@ -160,10 +161,10 @@ BATON = {
             'default_open': True,
             'children': [
                 {
-                    'type': 'model',
+                    'type': 'free',
                     'label': 'Categories',
-                    'name': 'category',
-                    'app': 'news'
+                    'url': '/admin/news/category/',
+                    're': '^/admin/news/category/(\d*)?'
                 },
                 {
                     'type': 'model',

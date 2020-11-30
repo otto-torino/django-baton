@@ -52,7 +52,7 @@ window.Baton = {
     }
 
     // tooltips
-    this.loadTooltips()
+    setTimeout(this.loadTooltips, 1000) // wait a bit for tinymce
 
     console.info('Baton:', 'ready')
     document.body.className += ' baton-ready'
@@ -62,7 +62,7 @@ window.Baton = {
     Dispatcher.emit('onReady')
   },
   loadTooltips: function () {
-    $('[title]').tooltip()
+    $('[title]:not(iframe)').tooltip()
   },
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {

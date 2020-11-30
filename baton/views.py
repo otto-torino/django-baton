@@ -102,6 +102,7 @@ class GetAppListJsonView(View):
                 'label': item.get('label', ''),
                 'icon': item.get('icon', None),
                 'url': item.get('url', None),
+                're': item.get('re', None),
                 'defaultOpen': item.get('default_open', False),
                 'children': children,
             }

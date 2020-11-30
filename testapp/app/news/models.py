@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 from filer.fields.image import FilerImageField
 
 
@@ -25,7 +26,7 @@ class News(models.Model):
     title = models.CharField('title', max_length=50, help_text='please insert a cool title')
     link = models.URLField('link', blank=True, null=True)
     image = FilerImageField(null=True, blank=True, on_delete=models.SET_NULL, related_name="news_image")
-    content = models.TextField('content', help_text='html is supported')
+    content = HTMLField(verbose_name='content', help_text='html is supported')
     share = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     attachments_summary = models.TextField('attachments summary', blank=True)
