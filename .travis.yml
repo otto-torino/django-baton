@@ -12,6 +12,7 @@ install:
   - pip install webdriver-manager
   - pip install python-dotenv
   - pip install django-filer
+  - pip install django-tinymce
   - django-admin.py --version
   - pip install selenium
 before_script:
