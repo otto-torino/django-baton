@@ -640,9 +640,15 @@
   }
 
   .inline-related {
+    overflow-x: auto;
+
     &.empty-form, // stacked inline
     .empty-form { // tabular
       display: none !important; // inline extra param
+    }
+
+    textarea {
+      display: inline;
     }
 
     h3 {
@@ -684,7 +690,7 @@
     }
 
     > .module {
-      @extend .table-responsive;
+      // @extend .table-responsive;
       position: relative;
     }
 
