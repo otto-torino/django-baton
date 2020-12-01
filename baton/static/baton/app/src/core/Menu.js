@@ -175,7 +175,12 @@ let Menu = {
     data.forEach((voice, index) => {
       let active = false
       if (voice.type === 'free') {
-        active = location.pathname === voice.url
+        if (voice.re) {
+          let re = new RegExp(voice.re)
+          active = re.test(location.pathname)
+        } else {
+          active = location.pathname === voice.url
+        }
       } else {
         if (voice.url) {
           let pathRexp = new RegExp(voice.url)
