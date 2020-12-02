@@ -156,13 +156,15 @@ let ChangeForm = {
     })
   },
   changeFieldsetCollapseStyle: function () {
-    $('fieldset.collapse > h2').each(function (index, title) {
-      let text = $(title).text()
-      setTimeout(function () {
-        $(title).html(text).on('click', function () {
-          $(this).parent('.collapse').toggleClass('collapsed')
-        })
-      }, 100)
+    $(window).on('load', function () {
+      $('fieldset.collapse > h2').each(function (index, title) {
+        let text = $(title).text()
+        setTimeout(function () {
+          $(title).html(text).on('click', function () {
+            $(this).parent('.collapse').toggleClass('collapsed')
+          })
+        }, 100)
+      })
     })
   },
   initTemplates: function () {
