@@ -31,6 +31,7 @@ class Analytics {
        */
       var activeUsers = new gapi.analytics.ext.ActiveUsers({
         container: self.domIds.activeUsers,
+        ids: 'ga:' + self.viewId,
         pollingInterval: 5
       }).execute()
       /**
