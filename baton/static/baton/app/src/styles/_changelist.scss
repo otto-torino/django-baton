@@ -207,6 +207,10 @@
       font-size: $h3-size;
       margin-top: 1rem;
       padding: 0 1rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     ul {

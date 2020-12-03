@@ -43,6 +43,7 @@ class NewsAdmin(admin.ModelAdmin):
         TitleFilter,
         ('category', RelatedDropdownFilter, ),
         'date',
+        'published',
     )
     inlines = [AttachmentsInline, VideosInline]
     date_hierarchy = 'date'
