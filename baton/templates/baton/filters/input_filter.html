@@ -16,7 +16,7 @@
                         name="{{ spec.parameter_name }}"/>
 
                 {% if not all_choice.selected %}
-                    <a style="margin-top: .5rem;" href="{{ all_choice.query_string }}" class="btn btn-sm btn-secondary">x {% trans 'Remove' %}</a>
+                    <a style="margin-top: .5rem;" href="{{ all_choice.query_string }}" class="btn btn-sm btn-warning">x {% trans 'Remove' %}</a>
                 {% endif %}
 
             </form>
