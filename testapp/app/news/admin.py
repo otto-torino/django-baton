@@ -34,7 +34,7 @@ class VideosInline(admin.StackedInline):
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'category', 'published', )
-    list_filter = (TitleFilter, )
+    list_filter = (TitleFilter, 'category', 'date', )
     inlines = [AttachmentsInline, VideosInline]
     date_hierarchy = 'date'
 
