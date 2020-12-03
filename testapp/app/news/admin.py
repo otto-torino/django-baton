@@ -1,5 +1,5 @@
 from django.contrib import admin
-from baton.admin import InputFilter
+from baton.admin import InputFilter, RelatedDropdownFilter
 from .models import News, Category, Attachment, Video
 
 
@@ -33,8 +33,17 @@ class VideosInline(admin.StackedInline):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'category', 'published', )
-    list_filter = (TitleFilter, 'category', 'date', )
+    list_display = (
+        'title',
+        'date',
+        'category',
+        'published',
+    )
+    list_filter = (
+        TitleFilter,
+        ('category', RelatedDropdownFilter, ),
+        'date',
+    )
     inlines = [AttachmentsInline, VideosInline]
     date_hierarchy = 'date'
 
