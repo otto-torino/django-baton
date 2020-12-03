@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Translator from './i18n'
+import Modal from './Modal'
 
 let ChangeList = {
   /**
@@ -37,10 +38,22 @@ let ChangeList = {
 
       if (this.filtersInModal) {
         $('#changelist-filter').prop('id', 'changelist-filter-modal')
-        this.modal = this.createModal()
+        let titleEl = $('#changelist-filter-modal > h2')
+        let title = titleEl.html()
+        titleEl.remove()
+        let content = $('#changelist-filter-modal')[0].outerHTML
+        $('#changelist-filter-modal').remove()
+        this.modal = new Modal({
+          title,
+          content,
+          size: 'md',
+          hideFooter: true,
+        })
+        // this.modal = this.createModal()
         _filtersToggler
           .click(() => {
-            this.modal.modal('toggle')
+            // this.modal.modal('toggle')
+            this.modal.toggle()
           })
       } else {
         _filtersToggler

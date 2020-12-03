@@ -13,6 +13,7 @@
                 <input  type="text"
                         class="form-control form-control-sm"
                         value="{{ spec.value|default_if_none:'' }}"
+                        placeholder="{% trans "type and press enter..."%}"
                         name="{{ spec.parameter_name }}"/>
 
                 {% if not all_choice.selected %}
