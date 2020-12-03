@@ -1,8 +1,15 @@
 from django.contrib import admin
+from django.contrib.admin.filters import (
+    SimpleListFilter,
+    AllValuesFieldListFilter,
+    ChoicesFieldListFilter,
+    RelatedFieldListFilter,
+    RelatedOnlyFieldListFilter
+)
 
 
 class InputFilter(admin.SimpleListFilter):
-    template = 'admin/input_filter.html'
+    template = 'baton/filters/input_filter.html'
 
     def lookups(self, request, model_admin):
         # Dummy, required to show the filter.
@@ -17,3 +24,23 @@ class InputFilter(admin.SimpleListFilter):
             if k != self.parameter_name
         )
         yield all_choice
+
+
+class SimpleDropdownFilter(SimpleListFilter):
+    template = 'baton/filters/dropdown_filter.html'
+
+
+class DropdownFilter(AllValuesFieldListFilter):
+    template = 'baton/filters/dropdown_filter.html'
+
+
+class ChoicesDropdownFilter(ChoicesFieldListFilter):
+    template = 'baton/filters/dropdown_filter.html'
+
+
+class RelatedDropdownFilter(RelatedFieldListFilter):
+    template = 'baton/filters/dropdown_filter.html'
+
+
+class RelatedOnlyDropdownFilter(RelatedOnlyFieldListFilter):
+    template = 'baton/filters/dropdown_filter.html'

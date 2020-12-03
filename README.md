@@ -29,7 +29,7 @@ Login with user `demo` and password `demo`
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
 - [Signals](#signals)
-- [Text Input Filters](#text-input-filters)
+- [List Filters](#list-filters)
 - [Form Tabs](#form-tabs)
 - [Form Includes](#form-includes)
 - [Collapsable stacked inlines entries](#collapsable-stackedinline)
@@ -48,7 +48,7 @@ Everything is styled through CSS and when required, JS is used.
 - Based on bootstrap 4.5.0 and FontAwesome Free 5.8.1
 - Fully responsive
 - Custom and flexible sidebar menu
-- Text input filters facility
+- Text input filters and dropdown list filters facilities
 - Form tabs out of the box
 - Easy way to include templates in the change form page
 - Collapsable stacke inline entries
@@ -304,7 +304,9 @@ To use these, just override the baton `admin/base_site.html` template and regist
     </script>
     <!-- ... -->
 
-## <a name="text-input-filters"></a>Text Input Filters
+## <a name="list-filters"></a>List Filters
+
+### Input Text Filters
 
 Taken from this [medium article](https://medium.com/@hakibenita/how-to-add-a-text-filter-to-django-admin-5d1db93772d8)
 
@@ -335,6 +337,39 @@ class MyModelAdmin(admin.ModelAdmin):
         'my_other_field',
     )
 
+```
+
+### Dropdown Filters
+
+Taken from the github app [django-admin-list-filter-dropdown](https://github.com/mrts/django-admin-list-filter-dropdown)
+
+Baton provides a dropdown form of the following list filters:
+
+| Django admin filter name   | Baton name                  |
+| -------------------------- | --------------------------- |
+| SimpleListFilter           | SimpleDropdownFilter        |
+| AllValuesFieldListFilter   | DropdownFilter              |
+| ChoicesFieldListFilter     | ChoicesDropdownFilter       |
+| RelatedFieldListFilter     | RelatedDropdownFilter       |
+| RelatedOnlyFieldListFilter | RelatedOnlyDropdownFilter   |
+
+The dropdown is visible only if the filter contains at least three options, otherwise the default template is used.
+
+Usage:
+
+``` python
+from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    list_filter = (
+        # for ordinary fields
+        ('a_charfield', DropdownFilter),
+        # for choice fields
+        ('a_choicefield', ChoiceDropdownFilter),
+        # for related fields
+        ('a_foreignkey_field', RelatedDropdownFilter),
+    )
 ```
 
 ## <a name="form-tabs"></a>Form tabs

@@ -36,7 +36,7 @@ Getting started
    installation
    configuration
    signals
-   text_input_filters
+   list_filters
    form_tabs
    form_includes
    collapsable_stackedinline
