@@ -36,6 +36,7 @@ Getting started
    installation
    configuration
    signals
+   js_utilities
    list_filters
    form_tabs
    form_includes

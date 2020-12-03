@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 09:11+0200\n"
+"POT-Creation-Date: 2020-12-03 16:44+0100\n"
 "PO-Revision-Date: 2017-02-12 17:00+0100\n"
 "Last-Translator: Stefano Contini <abidibo@gmail.com>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -26,86 +26,103 @@ msgstr "Amministrazione sito"
 msgid "Menu"
 msgstr "Menu"
 
-#: templates/admin/base_site.html:4
+#: templates/admin/base_site.html:5
 msgid "Django site admin"
 msgstr "Amministrazione sito django"
 
-#: templates/admin/base_site.html:34
+#: templates/admin/base_site.html:44
 msgid "Django administration"
 msgstr "Amministrazione django"
 
-#: templates/admin/input_filter.html:3
+#: templates/admin/base_site.html:63
+msgid "close"
+msgstr "chiudi"
+
+#: templates/admin/base_site.html:64
+msgid "save"
+msgstr "salva"
+
+#: templates/admin/filer/folder/directory_listing.html:4
+msgid "Folders"
+msgstr "Cartelle"
+
+#: templates/baton/analytics.html:24
+msgid "last 15 days"
+msgstr "ultimi 15 giorni"
+
+#: templates/baton/analytics.html:25
+msgid "last month"
+msgstr "ultimo mese"
+
+#: templates/baton/analytics.html:26
+msgid "last three months"
+msgstr "ultimi tre mesi"
+
+#: templates/baton/analytics.html:27
+msgid "last year"
+msgstr "ultimo anno"
+
+#: templates/baton/analytics.html:34
+msgid "Traffic"
+msgstr "Traffico"
+
+#: templates/baton/analytics.html:35
+msgid "Sessions and Users"
+msgstr "Sessioni e utenti"
+
+#: templates/baton/analytics.html:41
+msgid "Popular"
+msgstr "Popolare"
+
+#: templates/baton/analytics.html:42
+msgid "Page views"
+msgstr "Visualizzazioni di pagina"
+
+#: templates/baton/analytics.html:50
+msgid "Browsers"
+msgstr "Browser"
+
+#: templates/baton/analytics.html:51
+msgid "Top used"
+msgstr "Più utilizzati"
+
+#: templates/baton/analytics.html:57
+msgid "Acquisition"
+msgstr "Acquisizione"
+
+#: templates/baton/analytics.html:58
+msgid "Referral Traffic"
+msgstr "Traffico da ricerca"
+
+#: templates/baton/analytics.html:66
+msgid "Audience"
+msgstr "Visitatori"
+
+#: templates/baton/analytics.html:67
+msgid "Countries"
+msgstr "Paesi"
+
+#: templates/baton/analytics.html:73
+msgid "Social"
+msgstr "Social"
+
+#: templates/baton/analytics.html:74
+msgid "Interactions"
+msgstr "Interazioni"
+
+#: templates/baton/filters/dropdown_filter.html:3
+#: templates/baton/filters/input_filter.html:3
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "Per %(filter_title)s"
 
-#: templates/admin/input_filter.html:18
+#: templates/baton/filters/input_filter.html:16
+msgid "type and press enter..."
+msgstr "digita e premi invio..."
+
+#: templates/baton/filters/input_filter.html:20
 msgid "Remove"
 msgstr "Rimuovi"
-
-#: templates/baton/analytics.html:25
-msgid "last 15 days"
-msgstr "ultimi 15 giorni"
-
-#: templates/baton/analytics.html:26
-msgid "last month"
-msgstr "ultimo mese"
-
-#: templates/baton/analytics.html:27
-msgid "last three months"
-msgstr "ultimi tre mesi"
-
-#: templates/baton/analytics.html:28
-msgid "last year"
-msgstr "ultimo anno"
-
-#: templates/baton/analytics.html:35
-msgid "Traffic"
-msgstr "Traffico"
-
-#: templates/baton/analytics.html:36
-msgid "Sessions and Users"
-msgstr "Sessioni e utenti"
-
-#: templates/baton/analytics.html:42
-msgid "Popular"
-msgstr "Popolare"
-
-#: templates/baton/analytics.html:43
-msgid "Page views"
-msgstr "Visualizzazioni di pagina"
-
-#: templates/baton/analytics.html:51
-msgid "Browsers"
-msgstr "Browser"
-
-#: templates/baton/analytics.html:52
-msgid "Top used"
-msgstr "Più utilizzati"
-
-#: templates/baton/analytics.html:58
-msgid "Acquisition"
-msgstr "Acquisizione"
-
-#: templates/baton/analytics.html:59
-msgid "Referral Traffic"
-msgstr "Traffico da ricerca"
-
-#: templates/baton/analytics.html:67
-msgid "Audience"
-msgstr "Visitatori"
-
-#: templates/baton/analytics.html:68
-msgid "Countries"
-msgstr "Paesi"
-
-#: templates/baton/analytics.html:74
-msgid "Social"
-msgstr "Social"
-
-#: templates/baton/analytics.html:75
-msgid "Interactions"
-msgstr "Interazioni"
 
 #: templates/baton/footer.html:7
 msgid "Support"

@@ -15,6 +15,7 @@ import ChangeList from './core/ChangeList'
 import ChangeForm from './core/ChangeForm'
 import Login from './core/Login'
 import Filer from './core/Filer'
+import Modal from './core/Modal'
 
 window.Baton = {
   intialized: false,
@@ -90,6 +91,7 @@ window.Baton = {
     }
   },
   Analytics: Analytics,
-  Dispatcher: Dispatcher
+  Dispatcher: Dispatcher,
+  Modal: Modal
 }
 window.jQuery = jQuery

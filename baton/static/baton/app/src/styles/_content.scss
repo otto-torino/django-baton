@@ -99,3 +99,27 @@
     }
   }
 }
+
+// modal
+.modal-header {
+  align-items: center !important;
+}
+
+.modal-dialog button.back {
+  align-items: center;
+  background: $modal-back-btn-bg;
+  border: none;
+  border-radius: 50%;
+  color: $modal-back-btn-fg;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  position: relative;
+  top: 2px;
+  width: 24px;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
