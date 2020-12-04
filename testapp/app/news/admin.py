@@ -89,3 +89,7 @@ class NewsAdmin(admin.ModelAdmin):
         ('news/admin_content_include.html', 'content', 'above', ),
         ('news/admin_title_include.html', 'title', 'right', ),
     ]
+
+    baton_cl_includes = [
+        ('news/admin_cl_top_include.html', 'top', ),
+    ]
