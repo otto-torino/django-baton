@@ -38,6 +38,7 @@ Getting started
    signals
    js_utilities
    list_filters
+   changelist_includes
    form_tabs
    form_includes
    collapsable_stackedinline

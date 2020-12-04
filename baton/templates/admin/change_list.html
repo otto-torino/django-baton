@@ -1,0 +1,11 @@
+{% extends 'admin/change_list.html' %}
+{% block content %}{{ block.super }}
+
+{% for template, position in cl.model_admin.baton_cl_includes %}
+    <template data-position="{{ position }}">
+        <div class="baton-cl-include baton-cl-include-{{ position }}">
+            {% include template %}
+        </div>
+    </template>
+{% endfor %}
+{% endblock %}

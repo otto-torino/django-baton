@@ -16,6 +16,7 @@ let ChangeList = {
     if (this._filtersDiv.length) {
       this.activate()
     }
+    this.initTemplates()
   },
   activate: function () {
     if ($('.changelist-form-container').length) { // django >= 3.1
@@ -42,6 +43,7 @@ let ChangeList = {
         let title = titleEl.html()
         titleEl.remove()
         let content = $('#changelist-filter-modal')[0].outerHTML
+        // remove from dom
         $('#changelist-filter-modal').remove()
         this.modal = new Modal({
           title,
@@ -49,10 +51,8 @@ let ChangeList = {
           size: 'md',
           hideFooter: true,
         })
-        // this.modal = this.createModal()
         _filtersToggler
           .click(() => {
-            // this.modal.modal('toggle')
             this.modal.toggle()
           })
       } else {
@@ -70,22 +70,23 @@ let ChangeList = {
       $('#changelist-form .results').css('padding-top', '78px')
     }
   },
-  createModal: function () {
-    let modal = $('<div />', { 'class': 'modal' })
-    let modalContent = `
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">${this.t.get('close')}</button>
-    </div>
-  </div>
-</div>
-    `
-    modal.html(modalContent)
-    modal.find('.modal-content').prepend($('#changelist-filter-modal'))
-    let title = modal.find('#changelist-filter-modal > h2')
-    modal.find('.modal-content').prepend(title.addClass('modal-header').css('margin-bottom', 0))
-    return modal
+  initTemplates: function () {
+    const positionMap = {
+      above: 'before',
+      below: 'after',
+      top: 'prepend',
+      bottom: 'append',
+    }
+
+    $('template').each(function (index, template) {
+      let position = positionMap[$(template).attr('data-position')]
+      if (position !== undefined) {
+        let el = $('#changelist-form')
+        el[position]($(template).html())
+      } else {
+        console.error('Baton: wrong changelist include position detected')
+      }
+    })
   }
 }
 

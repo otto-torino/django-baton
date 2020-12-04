@@ -378,4 +378,16 @@
       }
     }
   }
+
+  .baton-cl-include-top {
+    padding-right: 50px;
+
+    @include media-breakpoint-up(sm) {
+      padding-right: 100px;
+    }
+  }
+
+  .baton-cl-include-below {
+    order: 2;
+  }
 }
