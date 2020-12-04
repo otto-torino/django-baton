@@ -32,6 +32,7 @@ Login with user `demo` and password `demo`
 - [Js Utilities](#js-utilities)
 - [List Filters](#list-filters)
 - [Changelist Includes](#changelist-includes)
+- [Changelist Row Attributes](#changelist-row-attributes)
 - [Form Tabs](#form-tabs)
 - [Form Includes](#form-includes)
 - [Collapsable stacked inlines entries](#collapsable-stackedinline)
@@ -67,10 +68,11 @@ The following packages are required to manage the Google Analytics index:
 - google-api-python-client
 - requests
 
-At the moment __baton__ defines only 4 custom templates:
+At the moment __baton__ defines only 5 custom templates:
 
 - `admin/base_site.html`, needed to inject the JS application (which includes css and images, compiled with [webpack](https://webpack.github.io/));
 - `admin/change_form.html`, needed to inject the `baton_form_includes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
+- `admin/change_list.html`, needed to inject the `baton_cl_includes` and `baton_cl_rows_attributes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
 - `admin/delete_confirmation.html`, needed to wrap contents;
 - `admin/delete_selected_confirmation.html`, same as above.
 
@@ -438,6 +440,8 @@ class MyModelAdmin(admin.ModelAdmin):
 
 ## <a name="changelist-includes"></a>Changelist Includes
 
+> In order for this feature to work, the user browser must support html template tags.
+
 Baton lets you include templates directly inside the change list page, in any position you desire. It's as simple as specifying the template path and the position of the template:
 
 ```python
@@ -464,6 +468,58 @@ You can specify the following positions:
 |`below`| the template is placed below the changelist form|
 
 And, of course, you can access the all the changelist view context variables inside your template.
+
+## <a name="changelist-row-attributes"></a>Changelist Row Attributes
+
+> In order for this feature to work, the user browser must support html template tags.
+
+With Baton you can add every kind of html attribute (including css classes) to any element in the changelist table (cell, rows, ...)
+
+![Baton changelist row attributes](docs/images/baton-cl-row-attributes.png)
+
+It's a bit tricky, let's see how:
+
+1. Add a `baton_cl_rows_attributes` function to your `ModelAdmin` class, which takes `request` as a parameter.
+2. Return a json dictionary where the keys are used to match an element and the values specifies the attributes and other rules to select the element.
+
+Better to see an example:
+
+``` javascript
+class NewsModelAdmin(admin.ModelAdmin):
+    # ...
+
+    def get_category(self, instance):
+        return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
+    get_category.short_description = 'category'
+
+    def baton_cl_rows_attributes(self, request):
+        data = {}
+        for news in News.objects.filter(category__id=2):
+            data[news.id] = {
+                'class': 'table-info',
+            }
+        data[news.id] = {
+            'class': 'table-success',
+            'data-lol': 'lol',
+            'title': 'A fantasctic tooltip!',
+            'selector': '.span-category-id-%d' % 1,
+            'getParent': 'td',
+        }
+        return json.dumps(data)
+```
+
+In such case we're returning a dictionary with possibly many keys (each key is an id of a news instance).
+
+The first kind of dictionary elements will add a `table-info` class to the `tr` (rows) containing the news respecting the rule `category__id=2`
+
+The second kind of element instead uses some more options to customize the element selection: you can specify a css selector, and you can specify if Baton should then take one of its parents, and in such case you can give a parent selector also.
+In the example provided Baton will add the class `table-success`, `data-attribute` and the `title` attribute to the cell which contains the element `.span-category-id-1`.
+
+So these are the rules:
+
+- the default `selector` is `#result_list tr input[name=_selected_action][value=' + key + ']`, meaning that it can work only if the model is editable (you have the checkox inputs for selecting a row), and selects the row of the instance identified by `key`. If you use a custom selector the dictionary `key` is unuseful.
+- the default `getParent` is `tr`. You can change it at you will, or set it to `False`, in such case the element to which apply the given attributes will be the one specified by `selector`.
+- Every other key different from `selector` and `getParent` will be considered an attribute and added to the element.
 
 ## <a name="form-tabs"></a>Form tabs
 
@@ -532,6 +588,8 @@ Other features:
 - You can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
 
 ## [Form Includes](#form-includes)
+
+> In order for this feature to work, the user browser must support html template tags.
 
 Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
 

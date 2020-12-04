@@ -1,4 +1,7 @@
+import json
+
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from baton.admin import InputFilter, RelatedDropdownFilter
 from .models import News, Category, Attachment, Video
 
@@ -36,7 +39,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'date',
-        'category',
+        'get_category',
         'published',
     )
     list_filter = (
@@ -93,3 +96,22 @@ class NewsAdmin(admin.ModelAdmin):
     baton_cl_includes = [
         ('news/admin_cl_top_include.html', 'top', ),
     ]
+
+    def get_category(self, instance):
+        return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
+    get_category.short_description = 'category'
+
+    def baton_cl_rows_attributes(self, request, **kwargs):
+        data = {}
+        for news in News.objects.filter(category__id=2):
+            data[news.id] = {
+                'class': 'table-info',
+                # 'selector': '#result_list tr input[name=_selected_action][value=%d]' % news.id,
+            }
+        data[news.id] = {
+            'class': 'table-success',
+            'selector': '.span-category-id-%d' % 1,
+            'getParent': 'td',
+            'title': 'A fantasctic tooltip!'
+        }
+        return json.dumps(data)
