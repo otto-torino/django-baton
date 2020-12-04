@@ -59,7 +59,7 @@ The dropdown is visible only if the filter contains at least three options, othe
 
 Usage: ::
 
-    from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+    from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoicesDropdownFilter
 
     class MyModelAdmin(admin.ModelAdmin):
 
