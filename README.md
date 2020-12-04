@@ -53,8 +53,9 @@ Everything is styled through CSS and when required, JS is used.
 - Custom and flexible sidebar menu
 - Text input filters and dropdown list filters facilities
 - Form tabs out of the box
-- Easy way to include templates in the change form page
-- Collapsable stacke inline entries
+- Easy way to include templates in the change form and change list pages
+- Easy way to add attributes to change list table rows/cells
+- Collapsable stacked inline entries
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
 - Optional index page filled with google analytics widgets
