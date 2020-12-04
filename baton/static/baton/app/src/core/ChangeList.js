@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Translator from './i18n'
+import Modal from './Modal'
 
 let ChangeList = {
   /**
@@ -15,6 +16,7 @@ let ChangeList = {
     if (this._filtersDiv.length) {
       this.activate()
     }
+    this.initTemplates()
   },
   activate: function () {
     if ($('.changelist-form-container').length) { // django >= 3.1
@@ -37,10 +39,21 @@ let ChangeList = {
 
       if (this.filtersInModal) {
         $('#changelist-filter').prop('id', 'changelist-filter-modal')
-        this.modal = this.createModal()
+        let titleEl = $('#changelist-filter-modal > h2')
+        let title = titleEl.html()
+        titleEl.remove()
+        let content = $('#changelist-filter-modal')[0].outerHTML
+        // remove from dom
+        $('#changelist-filter-modal').remove()
+        this.modal = new Modal({
+          title,
+          content,
+          size: 'md',
+          hideFooter: true,
+        })
         _filtersToggler
           .click(() => {
-            this.modal.modal('toggle')
+            this.modal.toggle()
           })
       } else {
         _filtersToggler
@@ -57,22 +70,51 @@ let ChangeList = {
       $('#changelist-form .results').css('padding-top', '78px')
     }
   },
-  createModal: function () {
-    let modal = $('<div />', { 'class': 'modal' })
-    let modalContent = `
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">${this.t.get('close')}</button>
-    </div>
-  </div>
-</div>
-    `
-    modal.html(modalContent)
-    modal.find('.modal-content').prepend($('#changelist-filter-modal'))
-    let title = modal.find('#changelist-filter-modal > h2')
-    modal.find('.modal-content').prepend(title.addClass('modal-header').css('margin-bottom', 0))
-    return modal
+  initTemplates: function () {
+    const positionMap = {
+      above: 'before',
+      below: 'after',
+      top: 'prepend',
+      bottom: 'append',
+    }
+
+    $('template[data-type=include]').each(function (index, template) {
+      let position = positionMap[$(template).attr('data-position')]
+      if (position !== undefined) {
+        let el = $('#changelist-form')
+        el[position]($(template).html())
+      } else {
+        console.error('Baton: wrong changelist include position detected')
+      }
+    })
+
+    $('template[data-type=attributes]').each(function (index, template) {
+      try {
+        let data = JSON.parse($(template).html())
+
+        for (let key in data) {
+          if (data.hasOwnProperty(key)) {
+            let selector
+            let getParent = 'tr'
+            if (data[key]['selector']) {
+              selector = data[key]['selector']
+              delete data[key]['selector']
+            } else {
+              selector = '#result_list tr input[name=_selected_action][value=' + key + ']'
+            }
+            if (data[key]['getParent'] !== undefined) {
+              getParent = data[key]['getParent']
+              delete data[key]['getParent']
+            }
+
+            let el = getParent ? $(selector).parents(getParent) : $(selector)
+            el.attr(data[key])
+          }
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    })
   }
 }
 

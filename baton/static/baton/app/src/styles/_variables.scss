@@ -83,6 +83,7 @@ $filters-bg: #fafafa;
 $filters-title-bg: #263238;
 $filters-title-color: #fff;
 $filter-selected-border-color: $base;
+$filters-clear-bg: #17a2b8;
 $rl-head-bg: #f0f0f0;
 $rl-head-color: inherit;
 $rl-tr-odd-bg: #fafafa;
@@ -143,3 +144,7 @@ $delete-confirmation-border-color: #ccc;
 // analytics
 $chart-bg: #fff;
 $chart-border-color: #ccc;
+
+// modal
+$modal-back-btn-bg: #007eed;
+$modal-back-btn-fg: #fff;

@@ -15,6 +15,10 @@ export const messages = {
     en: 'Close',
     it: 'Chiudi'
   },
+  save: {
+    en: 'Salva',
+    it: 'Chiudi'
+  },
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
     it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter'
@@ -22,7 +26,6 @@ export const messages = {
 }
 
 export default class Translator {
-
   constructor (lng) {
     this.lng = this.setLng(lng)
   }

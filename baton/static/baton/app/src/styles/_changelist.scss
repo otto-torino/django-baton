@@ -186,12 +186,31 @@
       background: $filters-title-bg;
       color: $filters-title-color;
       font-size: $h2-size;
+      margin-bottom: 0;
       padding: .5rem 1rem;
     }
 
+    #changelist-filter-clear {
+      background: $filters-clear-bg;
+      font-size: .9rem;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: .5rem 1rem;
+
+      a {
+        color: $filters-title-color;
+      }
+    }
+
+
     h3 {
       font-size: $h3-size;
+      margin-top: 1rem;
       padding: 0 1rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     ul {
@@ -235,6 +254,7 @@
     max-width: 100% !important;
     max-height: 100% !important;
     order: 0 !important;
+    padding: .5rem 0 !important;
 
     select {
       margin-left: 0 !important;
@@ -357,5 +377,17 @@
         background-position: 0 -42px;
       }
     }
+  }
+
+  .baton-cl-include-top {
+    padding-right: 50px;
+
+    @include media-breakpoint-up(sm) {
+      padding-right: 100px;
+    }
+  }
+
+  .baton-cl-include-below {
+    order: 2;
   }
 }

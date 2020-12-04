@@ -3,6 +3,8 @@ Form includes
 
 .. image:: images/baton-form-includes.png
 
+.. important:: In order for this feature to work, the user browser must support html template tags.
+
 Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template::
 
     @admin.register(News)

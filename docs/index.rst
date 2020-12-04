@@ -36,7 +36,10 @@ Getting started
    installation
    configuration
    signals
-   text_input_filters
+   js_utilities
+   list_filters
+   changelist_includes
+   changelist_row_attributes
    form_tabs
    form_includes
    collapsable_stackedinline

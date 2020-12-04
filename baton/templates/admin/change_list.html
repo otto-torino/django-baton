@@ -1,0 +1,19 @@
+{% extends 'admin/change_list.html' %}
+{% load baton_tags %}
+{% block content %}{{ block.super }}
+
+{% for template, position in cl.model_admin.baton_cl_includes %}
+    <template data-type="include" data-position="{{ position }}">
+        <div class="baton-cl-include baton-cl-include-{{ position }}">
+            {% include template %}
+        </div>
+    </template>
+{% endfor %}
+
+{% call_model_admin_method model_admin=cl.model_admin method='baton_cl_rows_attributes' as data %}
+{% if data %}
+    <template data-type="attributes">
+        {{ data }}
+    </template>
+{% endif %}
+{% endblock %}

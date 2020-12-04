@@ -29,7 +29,10 @@ Login with user `demo` and password `demo`
     - [Menu](#configuration-menu)
     - [Analytics](#configuration-analytics)
 - [Signals](#signals)
-- [Text Input Filters](#text-input-filters)
+- [Js Utilities](#js-utilities)
+- [List Filters](#list-filters)
+- [Changelist Includes](#changelist-includes)
+- [Changelist Row Attributes](#changelist-row-attributes)
 - [Form Tabs](#form-tabs)
 - [Form Includes](#form-includes)
 - [Collapsable stacked inlines entries](#collapsable-stackedinline)
@@ -48,7 +51,7 @@ Everything is styled through CSS and when required, JS is used.
 - Based on bootstrap 4.5.0 and FontAwesome Free 5.8.1
 - Fully responsive
 - Custom and flexible sidebar menu
-- Text input filters facility
+- Text input filters and dropdown list filters facilities
 - Form tabs out of the box
 - Easy way to include templates in the change form page
 - Collapsable stacke inline entries
@@ -65,10 +68,11 @@ The following packages are required to manage the Google Analytics index:
 - google-api-python-client
 - requests
 
-At the moment __baton__ defines only 4 custom templates:
+At the moment __baton__ defines only 5 custom templates:
 
 - `admin/base_site.html`, needed to inject the JS application (which includes css and images, compiled with [webpack](https://webpack.github.io/));
 - `admin/change_form.html`, needed to inject the `baton_form_includes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
+- `admin/change_list.html`, needed to inject the `baton_cl_includes` and `baton_cl_rows_attributes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
 - `admin/delete_confirmation.html`, needed to wrap contents;
 - `admin/delete_selected_confirmation.html`, same as above.
 
@@ -304,7 +308,71 @@ To use these, just override the baton `admin/base_site.html` template and regist
     </script>
     <!-- ... -->
 
-## <a name="text-input-filters"></a>Text Input Filters
+## <a name="js-utilities"></a>Js Utilities
+
+Baton comes with a number of exported js modules you can use to enhance your admin application.
+
+### Dispatcher
+
+Baton Dispatcher singleton module lets you subscribe to event and dispatch them, making use of the Mediator pattern.
+
+Example:
+
+``` javascript
+
+// register a callback tied to the event
+Baton.Dispatcher.register('myAppLoaded', function (evtName, s) { console.log('COOL ' + s) })
+
+// emit the event
+Baton.Dispatcher.emit('myAppLoaded', 'STUFF!')
+```
+
+### Modal
+
+Baton Modal class lets you insert some content on a bootstrap modal without dealing with all the markup.
+
+Usage:
+
+``` javascript
+// modal configuration:
+//
+// let config = {
+//     title: 'My modal title',
+//     subtitle: 'My subtitle', // optional
+//     content: '<p>my html content</p>', // alternative to url
+//     url: '/my/url', // url used to perform an ajax request, the response is put inside the modal body. Alternative to content.
+//     hideFooter: false, // optional
+//     showBackBtn: false, // show a back button near the close icon, optional
+//     backBtnCb: function () {}, // back button click callback (useful to have a multi step modal), optional
+//     actionBtnLabel: 'save', // action button label, default 'save', optional
+//     actionBtnCb: null, // action button callback, optional
+//     onUrlLoaded: function () {}, // callback called when the ajax request has completed, optional
+//     size: 'lg', // modal size: sm, md, lg, xl, optional
+//     onClose: function () {} // callback called when the modal is closed, optional
+// }
+//
+// constructs a new modal instance
+// let myModal = new Baton.Modal(config)
+
+let myModal = new Baton.Modal({
+    title: 'My modal title',
+    content: '<p>my html content</p>',
+    size: 'lg'
+})
+
+myModal.open();
+myModal.close();
+
+myModal.update({
+    title: 'Step 2',
+    content: '<p>cool</p>'
+})
+myModal.toggle();
+```
+
+## <a name="list-filters"></a>List Filters
+
+### Input Text Filters
 
 Taken from this [medium article](https://medium.com/@hakibenita/how-to-add-a-text-filter-to-django-admin-5d1db93772d8)
 
@@ -336,6 +404,122 @@ class MyModelAdmin(admin.ModelAdmin):
     )
 
 ```
+
+### Dropdown Filters
+
+Taken from the github app [django-admin-list-filter-dropdown](https://github.com/mrts/django-admin-list-filter-dropdown)
+
+Baton provides a dropdown form of the following list filters:
+
+| Django admin filter name   | Baton name                  |
+| -------------------------- | --------------------------- |
+| SimpleListFilter           | SimpleDropdownFilter        |
+| AllValuesFieldListFilter   | DropdownFilter              |
+| ChoicesFieldListFilter     | ChoicesDropdownFilter       |
+| RelatedFieldListFilter     | RelatedDropdownFilter       |
+| RelatedOnlyFieldListFilter | RelatedOnlyDropdownFilter   |
+
+The dropdown is visible only if the filter contains at least three options, otherwise the default template is used.
+
+Usage:
+
+``` python
+from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    list_filter = (
+        # for ordinary fields
+        ('a_charfield', DropdownFilter),
+        # for choice fields
+        ('a_choicefield', ChoiceDropdownFilter),
+        # for related fields
+        ('a_foreignkey_field', RelatedDropdownFilter),
+    )
+```
+
+## <a name="changelist-includes"></a>Changelist Includes
+
+> In order for this feature to work, the user browser must support html template tags.
+
+Baton lets you include templates directly inside the change list page, in any position you desire. It's as simple as specifying the template path and the position of the template:
+
+```python
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    #...
+    baton_cl_includes = [
+        ('news/admin_include_top.html', 'top', ),
+        ('news/admin_include_below.html', 'below', )
+    ]
+```
+
+In this case, Baton will place the content of the `admin_include_top.html` template at the top of the changelist section (above the search field), and the content of the `admin_include_below.html` below the changelist form.
+
+![Baton changelist includes](docs/images/baton-cl-includes.png)
+
+You can specify the following positions:
+
+|Position|Description|
+|:--------|:-----------|
+|`top`| the template is placed inside the changelist form, at the top|
+|`bottom`| the template is placed inside the changelist form, at the bottom|
+|`above`| the template is placed above the changelist form|
+|`below`| the template is placed below the changelist form|
+
+And, of course, you can access the all the changelist view context variables inside your template.
+
+## <a name="changelist-row-attributes"></a>Changelist Row Attributes
+
+> In order for this feature to work, the user browser must support html template tags.
+
+With Baton you can add every kind of html attribute (including css classes) to any element in the changelist table (cell, rows, ...)
+
+![Baton changelist row attributes](docs/images/baton-cl-row-attributes.png)
+
+It's a bit tricky, let's see how:
+
+1. Add a `baton_cl_rows_attributes` function to your `ModelAdmin` class, which takes `request` as a parameter.
+2. Return a json dictionary where the keys are used to match an element and the values specifies the attributes and other rules to select the element.
+
+Better to see an example:
+
+``` javascript
+class NewsModelAdmin(admin.ModelAdmin):
+    # ...
+
+    def get_category(self, instance):
+        return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
+    get_category.short_description = 'category'
+
+    def baton_cl_rows_attributes(self, request):
+        data = {}
+        for news in News.objects.filter(category__id=2):
+            data[news.id] = {
+                'class': 'table-info',
+            }
+        data[news.id] = {
+            'class': 'table-success',
+            'data-lol': 'lol',
+            'title': 'A fantasctic tooltip!',
+            'selector': '.span-category-id-%d' % 1,
+            'getParent': 'td',
+        }
+        return json.dumps(data)
+```
+
+In such case we're returning a dictionary with possibly many keys (each key is an id of a news instance).
+
+The first kind of dictionary elements will add a `table-info` class to the `tr` (rows) containing the news respecting the rule `category__id=2`
+
+The second kind of element instead uses some more options to customize the element selection: you can specify a css selector, and you can specify if Baton should then take one of its parents, and in such case you can give a parent selector also.
+In the example provided Baton will add the class `table-success`, `data-attribute` and the `title` attribute to the cell which contains the element `.span-category-id-1`.
+
+So these are the rules:
+
+- the default `selector` is `#result_list tr input[name=_selected_action][value=' + key + ']`, meaning that it can work only if the model is editable (you have the checkox inputs for selecting a row), and selects the row of the instance identified by `key`. If you use a custom selector the dictionary `key` is unuseful.
+- the default `getParent` is `tr`. You can change it at you will, or set it to `False`, in such case the element to which apply the given attributes will be the one specified by `selector`.
+- Every other key different from `selector` and `getParent` will be considered an attribute and added to the element.
 
 ## <a name="form-tabs"></a>Form tabs
 
@@ -404,6 +588,8 @@ Other features:
 - You can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
 
 ## [Form Includes](#form-includes)
+
+> In order for this feature to work, the user browser must support html template tags.
 
 Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
 
