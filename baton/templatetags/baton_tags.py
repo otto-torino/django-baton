@@ -57,3 +57,13 @@ def footer(context):
         'copyright': get_config('COPYRIGHT'),
         'powered_by': get_config('POWERED_BY'),
     }
+
+
+@register.simple_tag(takes_context=True)
+def call_model_admin_method(context, **kwargs):
+    try:
+        model_admin = kwargs.pop('model_admin')
+        method = kwargs.pop('method')
+        return getattr(model_admin, method)(context['request'], **kwargs)
+    except Exception as e:
+        return None

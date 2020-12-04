@@ -1,7 +1,9 @@
-Form includes
-=========
+Changelist includes
+===================
 
 .. image:: images/baton-cl-includes.png
+
+.. important:: In order for this feature to work, the user browser must support html template tags.
 
 Baton lets you include templates directly inside the change list page, in any position you desire. It's as simple as specifying the template path and the position of the template::
 

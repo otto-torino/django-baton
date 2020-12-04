@@ -78,13 +78,41 @@ let ChangeList = {
       bottom: 'append',
     }
 
-    $('template').each(function (index, template) {
+    $('template[data-type=include]').each(function (index, template) {
       let position = positionMap[$(template).attr('data-position')]
       if (position !== undefined) {
         let el = $('#changelist-form')
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong changelist include position detected')
+      }
+    })
+
+    $('template[data-type=attributes]').each(function (index, template) {
+      try {
+        let data = JSON.parse($(template).html())
+
+        for (let key in data) {
+          if (data.hasOwnProperty(key)) {
+            let selector
+            let getParent = 'tr'
+            if (data[key]['selector']) {
+              selector = data[key]['selector']
+              delete data[key]['selector']
+            } else {
+              selector = '#result_list tr input[name=_selected_action][value=' + key + ']'
+            }
+            if (data[key]['getParent'] !== undefined) {
+              getParent = data[key]['getParent']
+              delete data[key]['getParent']
+            }
+
+            let el = getParent ? $(selector).parents(getParent) : $(selector)
+            el.attr(data[key])
+          }
+        }
+      } catch (e) {
+        console.error(e)
       }
     })
   }
