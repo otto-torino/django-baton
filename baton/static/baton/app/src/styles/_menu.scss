@@ -110,6 +110,13 @@ body:not(.menu-mobile) {
           content: '\f108';
           font-family: 'Font Awesome\ 5 Free';
         }
+
+        &[href*=doc] {
+          &::after {
+            content: '\f02d' !important;
+            font-family: 'Font Awesome\ 5 Free';
+          }
+        }
       }
 
       &.password {

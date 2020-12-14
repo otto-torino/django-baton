@@ -68,12 +68,14 @@ class TestBatonIndexMobile(TestCase):
         # user dropdown menu
         user_dropdown_menu = self.driver.find_elements_by_css_selector(
             "#user-tools .dropdown-menu a")
-        self.assertEqual(len(user_dropdown_menu), 3)
+        self.assertEqual(len(user_dropdown_menu), 4)
         self.assertEqual(user_dropdown_menu[0].get_attribute('innerHTML'),
                          'View site')
         self.assertEqual(user_dropdown_menu[1].get_attribute('innerHTML'),
-                         'Change password')
+                         'Documentation')
         self.assertEqual(user_dropdown_menu[2].get_attribute('innerHTML'),
+                         'Change password')
+        self.assertEqual(user_dropdown_menu[3].get_attribute('innerHTML'),
                          'Log out')
 
     def test_content(self):

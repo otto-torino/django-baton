@@ -8,7 +8,7 @@ let Tabs = {
     this.Dispatcher = Dispatcher
     if (this.shouldRun()) {
       console.info('Baton:', 'generating tabs')
-      this.main.attr('data-baton-tab', 'main')
+      this.main.attr('data-baton-tab', 'main-tab')
       this.createNav()
       this.createPanes()
       this.checkHash()
@@ -143,7 +143,6 @@ let Tabs = {
   },
   showErrors: function () {
     let els = [this.main, ...this.domTabsEl]
-
     for (let i = 0, len = els.length; i < len; i++) {
       let el = els[i]
       if (el.find('.form-row.errors, .errorlist').length) {
