@@ -112,4 +112,4 @@ class TestBatonIndexMobile(TestCase):
         # copyright
         self.assertEqual(links[1].get_attribute('innerText').strip(), 'copyright © 2020 Otto srl')
         # powered by
-        self.assertEqual(links[2].get_attribute('innerText').strip(), 'Baton Test App\nDeveloped by Otto srl')
+        self.assertEqual(links[2].get_attribute('innerText').strip(), 'Baton Test App · Developed by Otto srl')
