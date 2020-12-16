@@ -10,6 +10,23 @@ A cool, modern and responsive django admin application based on bootstrap 4.5.0
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ---
+**V2 is coming!**
+
+Finally Bootstrap 5 beta is here. We've started the deveopment of Baton V2 based on it!
+
+You can try it now:
+
+```
+$ pip install https://github.com/otto-torino/django-baton/archive/v2.zip
+```
+
+It's already quite stable, but stuff will change during development.
+
+If you have any feedback, please use the [Discussions](https://github.com/otto-torino/django-baton/discussions) page, thank you!
+
+---
+
+---
 **Live Demo**
 
 Now you can try django-baton using the new shining live demo!
