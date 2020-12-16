@@ -25,8 +25,6 @@ It's already quite stable, but stuff will change during development.
 If you have any feedback, please use the [Discussions](https://github.com/otto-torino/django-baton/discussions) page, thank you!
 
 ---
-
----
 **V2 Live Demo**
 
 Now you can try django-baton using the new shining live demo!
