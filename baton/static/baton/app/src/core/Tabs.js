@@ -118,7 +118,7 @@ let Tabs = {
     let self = this
     this.tabContent = $('<div />', { 'class': 'tab-content' })
     this.tabMain = $('<div />', {
-      'class': 'tab-pane fade' + (this.mainOrder === 0 ? ' active' : ''),
+      'class': 'tab-pane fade' + (this.mainOrder === 0 ? ' active show' : ''),
       'id': 'main-tab'
     }).appendTo(this.tabContent)
     this.main.parent().children(':not(.nav-tabs):not(.submit-row):not(.errornote):not(.tab-fs-none)')
@@ -131,7 +131,7 @@ let Tabs = {
 
     this.domTabsEl.forEach((el, index) => {
       let tabPane = $('<div />', {
-        'class': 'tab-pane' + (currentOrder === 0 ? ' active' : ''),
+        'class': 'tab-pane' + (currentOrder === 0 ? ' active show' : ''),
         'id': self.tabsEl[index]
       }).appendTo(this.tabContent)
       el.appendTo(tabPane)
