@@ -27,7 +27,7 @@ If you have any feedback, please use the [Discussions](https://github.com/otto-t
 ---
 
 ---
-**Live Demo**
+**V2 Live Demo**
 
 Now you can try django-baton using the new shining live demo!
 Login with user `demo` and password `demo`
