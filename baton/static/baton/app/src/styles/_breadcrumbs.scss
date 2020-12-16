@@ -2,7 +2,7 @@
 .breadcrumbs {
   @extend .p-3;
   background: $breadcrumbs-bg;
-  border-bottom: 2px solid $breadcrumbs-border-color;
+  // border-bottom: 1px solid $breadcrumbs-border-color;
   line-height: 1.9;
   word-spacing: 5px;
 
@@ -10,7 +10,7 @@
     &:first-child {
       &::before {
         @extend %font-awesome;
-        @extend .mr-1;
+        @extend .me-1;
         content: '\f015';
       }
     }

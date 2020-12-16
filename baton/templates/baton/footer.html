@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 text-center">
                 <p>
-                    <a href="{{ support_href }}"><i class="fa fa-question-circle"></i> {% trans 'Support'%}</a>
+                    <a class="btn btn-light btn-sm" href="{{ support_href }}"><i class="fa fa-question-circle"></i> {% trans 'Support'%}</a>
                 </p>
             </div>
             <div class="col-xs-12 col-sm-4 text-center">
@@ -14,8 +14,7 @@
             </div>
             <div class="col-xs-12 col-sm-4 text-center">
                 <p>
-                    {{ site_title }}<br />
-                    {% blocktrans %}Developed by {{ powered_by }}{% endblocktrans %}
+                    {{ site_title }} · {% blocktrans %}Developed by {{ powered_by }}{% endblocktrans %}
                 </p>
             </div>
         </div>

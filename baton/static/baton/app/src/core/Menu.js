@@ -31,7 +31,7 @@ let Menu = {
     let row = $('<div/>', { class: 'row' }).appendTo(container)
     this.menu = $('<nav/>', { class: 'col-lg-2 sidebar-menu' }).appendTo(row)
     $('#content')
-      .addClass('col-md-9 col-lg-10')
+      .addClass('col-lg-10')
       .prepend($('.breadcrumbs'))
       .appendTo(row)
 

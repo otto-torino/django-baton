@@ -41,7 +41,7 @@ let Tabs = {
       .css('order', this.mainOrder)
       .append($('<a />', {
         'class': 'nav-link' + (this.mainOrder === 0 ? ' active' : ''),
-        'data-toggle': 'tab',
+        'data-bs-toggle': 'tab',
         href: '#main-tab'
       }).text(this.main.children('h2').hide().text()).on('click', function () {
         location.hash = $(this).attr('href')
@@ -68,11 +68,11 @@ let Tabs = {
         domEl = this.createFieldsetEl(el, true)
       }
       this.domTabsEl.push(domEl)
-      $('<li />', { 'class': 'nav-item' })
+      $('<li />', { 'class': 'nav-item ' })
         .css('order', currentOrder)
         .append($('<a />', {
-          'class': 'nav-link' + (currentOrder === 0 ? ' active' : ''),
-          'data-toggle': 'tab',
+          'class': 'nav-link ' + (currentOrder === 0 ? ' active' : ''),
+          'data-bs-toggle': 'tab',
           href: '#' + el
         }).text(domEl.find('h2:first-child').first().hide().text()).on('click', function () {
           location.hash = $(this).attr('href')
@@ -91,7 +91,7 @@ let Tabs = {
       location.hash = ''
     })
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
       $('[title]:not(iframe)').tooltip()
     })
   },
@@ -118,7 +118,7 @@ let Tabs = {
     let self = this
     this.tabContent = $('<div />', { 'class': 'tab-content' })
     this.tabMain = $('<div />', {
-      'class': 'tab-pane' + (this.mainOrder === 0 ? ' active' : ''),
+      'class': 'tab-pane fade' + (this.mainOrder === 0 ? ' active' : ''),
       'id': 'main-tab'
     }).appendTo(this.tabContent)
     this.main.parent().children(':not(.nav-tabs):not(.submit-row):not(.errornote):not(.tab-fs-none)')

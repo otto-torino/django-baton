@@ -18,8 +18,8 @@
     }
 
     > p {
-      @extend .pl-3;
-      @extend .pr-3;
+      @extend .ps-3;
+      @extend .pe-3;
     }
 
     > .module {
@@ -89,8 +89,8 @@
   }
 
   caption {
-    @extend .pl-2;
-    @extend .pr-2;
+    @extend .ps-2;
+    @extend .pe-2;
     background: $dashboard-caption-bg;
     border: 1px solid $dashboard-module-border-color;
     caption-side: top;
@@ -160,7 +160,7 @@
   .changelink {
     &::before {
       @extend %font-awesome;
-      @extend .mr-1;
+      @extend .me-1;
       color: $dashboard-icon-color;
       white-space: nowrap;
     }

@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import Translator from './i18n'
 import Modal from './Modal'
+import breakpoints from './Breakpoints'
 
 let ChangeList = {
   /**
@@ -32,12 +33,12 @@ let ChangeList = {
       let _changelistForm = $('#changelist-form')
       let _filtersToggler = $('<a />', {
         class:
-          'btn btn-info changelist-filter-toggler' +
+          'changelist-filter-toggler' +
           (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : '')
       })
         .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
 
-      if (this.filtersInModal) {
+      if (this.filtersInModal || parseInt($(window).width()) < breakpoints.lg) {
         $('#changelist-filter').prop('id', 'changelist-filter-modal')
         let titleEl = $('#changelist-filter-modal > h2')
         let title = titleEl.html()
@@ -59,7 +60,7 @@ let ChangeList = {
         _filtersToggler
           .click(() => {
             $(document.body).toggleClass('changelist-filter-active')
-            if (parseInt(this._filtersDiv.css('max-width')) === 100) {
+            if (parseInt(this._filtersDiv.css('max-width')) === 100) { // diff between mobile and lg
               $('html,body').animate({ scrollTop: this._filtersDiv.offset().top })
             }
           })

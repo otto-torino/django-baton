@@ -4,7 +4,7 @@
 <ul class="admin-filter-{{ title|cut:' ' }}" style="padding-right: 15px;">
 {% if choices|slice:"3:" %}
     <li>
-    <select class="custom-select custom-select-sm" style="width: 100% !important;"
+    <select class="form-select form-select-sm" style="width: 100% !important;"
         onchange="go_from_select(this.options[this.selectedIndex].value)">
     {% for choice in choices %}
         <option{% if choice.selected %} selected="selected"{% endif %}

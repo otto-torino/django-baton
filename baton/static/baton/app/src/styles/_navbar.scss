@@ -77,12 +77,12 @@ body.page-logout #header {
 #branding {
   // @extend .nav-left;
   @extend .navbar-brand;
-  @extend .mr-auto;
+  @extend .me-auto;
   display: inline-block;
   padding-bottom: 0;
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 }
 

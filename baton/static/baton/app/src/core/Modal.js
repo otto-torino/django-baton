@@ -30,12 +30,10 @@ class Modal {
               <div class="modal-header">
                   <h5 class="modal-title"></h5>
                   <div style="display: flex;">
-                      <button type="button" class="back mr-1" aria-label="Back">
+                      <button type="button" class="back me-1" aria-label="Back">
                           <i class="fa fa-angle-left"></i>
                       </button>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
               </div>
               <div class="modal-body">

@@ -7,8 +7,8 @@
     }
 
     > p {
-      @extend .pl-3;
-      @extend .pr-3;
+      @extend .ps-3;
+      @extend .pe-3;
 
       a {
         @extend .btn;

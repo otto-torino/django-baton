@@ -36,6 +36,7 @@ class VideosInline(admin.StackedInline):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
+    list_per_page = 2
     list_display = (
         'title',
         'date',

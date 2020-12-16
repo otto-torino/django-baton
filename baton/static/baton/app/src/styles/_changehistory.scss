@@ -3,7 +3,6 @@ body.page-changehistory #content-main {
   @extend .container-fluid;
 
   > .module {
-    @extend .p-3;
     @extend .table-responsive;
     background: $changehistory-bg;
     border: 1px solid $changehistory-border-color;

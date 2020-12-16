@@ -114,7 +114,7 @@ BATON = {
     'SUPPORT_HREF': 'mailto:mail@otto.to.it',
     'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>',  # noqa
     'POWERED_BY': 'Otto srl',
-    'CONFIRM_UNSAVED_CHANGES': False,
+    'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': True,

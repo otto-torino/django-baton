@@ -6,7 +6,7 @@
 }
 
 %admin-form {
-  @extend .p-3;
+  @extend .p-2;
   @extend .mt-3;
   background: $changeform-bg;
   border: 1px solid $changeform-border-color;
@@ -18,7 +18,7 @@
   }
 
   .form-row {
-    @extend .form-group;
+    // @extend .form-group; // @TODO check
     background: $field-bg;
     margin-bottom: .5rem;
     padding: 1rem .5rem;
@@ -116,7 +116,7 @@
       }
 
       a + a {
-        @extend .mr-3;
+        @extend .me-3;
       }
 
       .datetimeshortcuts {
@@ -183,6 +183,10 @@
         margin-left: 15px;
         margin-right: 15px;
         order: 2;
+      }
+
+      select {
+        display: inline-block !important;
       }
     }
 
@@ -357,7 +361,7 @@
   }
 
   label {
-    @extend .pr-3;
+    @extend .pe-3;
     flex-basis: 100%;
     text-align: left;
 
@@ -381,6 +385,7 @@
   input[type=number],
   input[type=email],
   input[type=date],
+  input[type=file],
   select[multiple] {
     @extend .form-control;
 
@@ -433,7 +438,7 @@
   }
 
   select:not([multiple]):not(.admin-autocomplete) {
-    @extend .custom-select;
+    @extend .form-select;
     text-indent: .01px;
     text-overflow: '';
 
@@ -473,7 +478,7 @@
   .help {
     @extend .form-text;
     @extend .text-muted;
-    @extend .ml-3;
+    @extend .ms-3;
     flex-basis: 100% !important;
     margin-left: 0 !important;
     margin-top: .5rem;
@@ -531,7 +536,7 @@
     input[type=submit] {
       @extend .btn;
       @extend .btn-success;
-      @extend .ml-1;
+      @extend .ms-1;
       margin-bottom: 15px;
       margin-left: auto;
       order: 1;
