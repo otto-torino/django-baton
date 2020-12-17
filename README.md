@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/pypi/l/django-baton)
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
-A cool, modern and responsive django admin application based on bootstrap 4.5.0
+A cool, modern and responsive django admin application based on bootstrap 5
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
@@ -58,12 +58,12 @@ Login with user `demo` and password `demo`
 
 ## <a name="features"></a>Features
 
-Supports Django >= 1.11
+Supports Django >= 2.1
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on bootstrap 4.5.0 and FontAwesome Free 5.8.1
+- Based on bootstrap 5 and FontAwesome Free 5
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters and dropdown list filters facilities
@@ -94,8 +94,8 @@ At the moment __baton__ defines only 5 custom templates:
 
 Baton is based on the following frontend technologies:
 
-- bootstrap 4.5.0
-- FontAwesome 5.8.1 (solid and brands)
+- bootstrap 5
+- FontAwesome 5 (solid and brands)
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
 
@@ -165,6 +165,7 @@ The configuration dictionary must be defined inside your settings:
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
         'GRAVATAR_DEFAULT_IMG': 'retro',
+        'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -210,6 +211,7 @@ Default value is `True`.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
+- `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 
 `MENU` and `ANALYTICS` configurations in detail:
 

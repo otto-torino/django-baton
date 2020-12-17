@@ -24,6 +24,7 @@ This is an example of configuration::
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
         'GRAVATAR_DEFAULT_IMG': 'retro',
+        'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -168,6 +169,13 @@ Gravatar default image
 The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs <[http://en.gravatar.com/site/implement/images/>`).
 
 **Default**: 'retro'
+
+Login splash image
+-----------------------
+
+An image used as body background in the login page. The image is centered and covers the whole viewport.
+
+**Default**: None
 
 Menu
 ----

@@ -1,5 +1,7 @@
 from google.auth.transport.requests import Request
+from django.urls import reverse
 from django import template
+from django.utils.html import escapejs
 from django.core.exceptions import ImproperlyConfigured
 from google.oauth2 import service_account
 
@@ -9,8 +11,25 @@ register = template.Library()
 
 
 @register.simple_tag
-def baton_config(key):
-    return get_config(key)
+def baton_config():
+    conf = {
+        "api": {
+            "app_list": reverse('baton-app-list-json'),
+            "gravatar": reverse('baton-gravatar-json'),
+        },
+        "confirmUnsavedChanges": get_config('CONFIRM_UNSAVED_CHANGES'),
+        "showMultipartUploading": get_config('SHOW_MULTIPART_UPLOADING'),
+        "enableImagesPreview": get_config('ENABLE_IMAGES_PREVIEW'),
+        "changelistFiltersInModal": get_config('CHANGELIST_FILTERS_IN_MODAL'),
+        "changelistFiltersAlwaysOpen": get_config('CHANGELIST_FILTERS_ALWAYS_OPEN'),
+        "collapsableUserArea": get_config('COLLAPSABLE_USER_AREA'),
+        "menuAlwaysCollapsed": get_config('MENU_ALWAYS_COLLAPSED'),
+        "menuTitle": escapejs(get_config('MENU_TITLE')),
+        "gravatarDefaultImg": get_config('GRAVATAR_DEFAULT_IMG'),
+        "loginSplash": get_config('LOGIN_SPLASH'),
+    }
+
+    return conf
 
 
 @register.inclusion_tag('baton/analytics.html', takes_context=True)

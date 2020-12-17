@@ -4,7 +4,7 @@ body.login {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 1px;
+  padding: 1px 1rem 0;
 
   #header #branding {
     margin: auto !important;
@@ -21,7 +21,6 @@ body.login {
   }
 
   #container {
-    @extend .p-3;
     border: 0 !important;
     border-radius: 0;
     max-width: 100%;

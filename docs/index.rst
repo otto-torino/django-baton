@@ -6,7 +6,7 @@
 django-baton's documentation
 ========================================
 
-A cool, modern and responsive django admin application based on bootstrap 4.5.0
+A cool, modern and responsive django admin application based on bootstrap 5
 
 Baton was developed with one concept in mind: **overwrite as few django templates as possible**.
 Everything is done with css (sass and bootstrap mixins), and when the markup needs some edit, then DOM manipulation through js is used.
@@ -14,8 +14,8 @@ Everything is done with css (sass and bootstrap mixins), and when the markup nee
 Features
 --------
 
-- Supports django >= 1.11
-- Based on bootstrap 4.5.0 and FontAwesome 5.8.1
+- Supports django >= 2.1
+- Based on bootstrap 5 and FontAwesome 5
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters facility

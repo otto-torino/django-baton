@@ -31,7 +31,7 @@ window.Baton = {
       Menu.init(config, Dispatcher)
     }
     if (page === 'login') {
-      Login.init()
+      Login.init(config)
     } else if (page === 'logout' || page === 'password_change_success') {
       ActionResult.init()
     } else if (page === 'password_change') {

@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
     'baton',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,6 +123,7 @@ BATON = {
     'COLLAPSABLE_USER_AREA': False,
     'MENU_ALWAYS_COLLAPSED': False,
     'GRAVATAR_DEFAULT_IMG': 'robohash',
+    'LOGIN_SPLASH': '/static/app/bg.jpg',
     'MENU': (
         {
             'type': 'title',
