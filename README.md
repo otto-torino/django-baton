@@ -44,12 +44,12 @@ Login with user `demo` and password `demo`
 
 ## <a name="features"></a>Features
 
-Supports Django >= 2.1
+Supports Django >= 2.1. For older versions of Django, please use django-baton@1.13.2.
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on bootstrap 5 and FontAwesome Free 5
+- Based on Bootstrap 5 and FontAwesome Free 5
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters and dropdown list filters facilities
@@ -80,12 +80,12 @@ At the moment __baton__ defines only 5 custom templates:
 
 Baton is based on the following frontend technologies:
 
-- bootstrap 5
+- Bootstrap 5
 - FontAwesome 5 (solid and brands)
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
 
-All JS, fonts and CSS are compiled, and produce a single JS file which is included in the base_site template.
+All JS, fonts and CSS are compiled, and produce a single JS file which is included in the `base_site` template.
 
 A custom menu is provided, the menu is rendered through JS, and data is fetched in JSON format through an AJAX request.
 
@@ -93,33 +93,37 @@ A custom menu is provided, the menu is rendered through JS, and data is fetched 
 
 Install the last stable release
 
-    pip install django-baton
+    $ pip install django-baton
 
 or clone the repo inside your project
 
-    git clone https://github.com/otto-torino/django-baton.git
+    $ git clone https://github.com/otto-torino/django-baton.git
 
 Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
 
-    INSTALLED_APPS = (
-        # ...
-        'baton',
-        'django.contrib.admin',
-        # ... (place baton.autodiscover at the very end)
-        'baton.autodiscover',
-    )
+```
+INSTALLED_APPS = (
+    # ...
+    'baton',
+    'django.contrib.admin',
+    # ... (place baton.autodiscover at the very end)
+    'baton.autodiscover',
+)
+```
 
-Replace django.contrib.admin in your project urls, and add baton urls:
+Replace `django.contrib.admin` in your project urls, and add baton urls:
 
-    # from django.contrib import admin
-    from baton.autodiscover import admin
-    from django.urls import path, include
+``` python
+# from django.contrib import admin
+from baton.autodiscover import admin
+from django.urls import path, include
 
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('baton/', include('baton.urls')),
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('baton/', include('baton.urls')),
 
-    ]
+]
+```
 
 If you get a "__No crypto library available__" when using the Google Analytics index, install this package:
 
@@ -136,53 +140,55 @@ that so I wrote this `autodiscover` module which automatically registers all the
 
 The configuration dictionary must be defined inside your settings:
 
-    BATON = {
-        'SITE_HEADER': 'Baton',
-        'SITE_TITLE': 'Baton',
-        'INDEX_TITLE': 'Site administration',
-        'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-        'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
-        'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
-        'CONFIRM_UNSAVED_CHANGES': True,
-        'SHOW_MULTIPART_UPLOADING': True,
-        'ENABLE_IMAGES_PREVIEW': True,
-        'CHANGELIST_FILTERS_IN_MODAL': True,
-        'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
-        'MENU_ALWAYS_COLLAPSED': False,
-        'MENU_TITLE': 'Menu',
-        'GRAVATAR_DEFAULT_IMG': 'retro',
-        'LOGIN_SPLASH': '/static/core/img/login-splash.png',
-        'MENU': (
-            { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
-            {
-                'type': 'app',
-                'name': 'auth',
-                'label': 'Authentication',
-                'icon': 'fa fa-lock',
-                'models': (
-                    {
-                        'name': 'user',
-                        'label': 'Users'
-                    },
-                    {
-                        'name': 'group',
-                        'label': 'Groups'
-                    },
-                )
-            },
-            { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
-            { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
-            { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-            { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
-                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
-                { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
-            ] },
-        ),
-        'ANALYTICS': {
-            'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-            'VIEW_ID': '12345678',
-        }
+``` python
+BATON = {
+    'SITE_HEADER': 'Baton',
+    'SITE_TITLE': 'Baton',
+    'INDEX_TITLE': 'Site administration',
+    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+    'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
+    'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'SHOW_MULTIPART_UPLOADING': True,
+    'ENABLE_IMAGES_PREVIEW': True,
+    'CHANGELIST_FILTERS_IN_MODAL': True,
+    'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'MENU_ALWAYS_COLLAPSED': False,
+    'MENU_TITLE': 'Menu',
+    'GRAVATAR_DEFAULT_IMG': 'retro',
+    'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+    'MENU': (
+        { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
+        {
+            'type': 'app',
+            'name': 'auth',
+            'label': 'Authentication',
+            'icon': 'fa fa-lock',
+            'models': (
+                {
+                    'name': 'user',
+                    'label': 'Users'
+                },
+                {
+                    'name': 'group',
+                    'label': 'Groups'
+                },
+            )
+        },
+        { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
+        { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
+        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+        { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
+            { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+            { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+        ] },
+    ),
+    'ANALYTICS': {
+        'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+        'VIEW_ID': '12345678',
     }
+}
+```
 
 - `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include img tags and links.
 - `SUPPORT_HREF` is the URL of the support link. For instance, you can use `mailto:info@blabla.com`.
@@ -276,21 +282,23 @@ Currently, Baton emits four types of events:
 
 To use these, just override the baton `admin/base_site.html` template and register your listeners **before** calling `Baton.init`, i.e.
 
-    <!-- ... -->
-    <script>
+``` html
+<!-- ... -->
+<script>
 
-        (function ($, undefined) {
-            // init listeners
-            Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
-            Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
-            Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
-            // end listeners
-            $(document).ready(function () {
-                Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-            })
-        })(jQuery, undefined)
-    </script>
-    <!-- ... -->
+    (function ($, undefined) {
+        // init listeners
+        Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
+        Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
+        Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
+        // end listeners
+        $(document).ready(function () {
+            Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
+        })
+    })(jQuery, undefined)
+</script>
+<!-- ... -->
+```
 
 ## <a name="js-utilities"></a>Js Utilities
 
@@ -555,38 +563,40 @@ Using group tabs you can mix inlines with fields just by splitting fields into f
 
 Let's see how to define tabs in your admin forms (everything is done through js, no templatetags or templates overriden):
 
-    class AttributeInline(admin.StackedInline):
-        model = Attribute
-        extra = 1
+``` python
+class AttributeInline(admin.StackedInline):
+    model = Attribute
+    extra = 1
 
-    class FeatureInline(admin.StackedInline):
-        model = Feature
-        extra = 1
+class FeatureInline(admin.StackedInline):
+    model = Feature
+    extra = 1
 
-    class ItemAdmin(admin.ModelAdmin):
-        list_display = ('label', 'description', 'main_feature', )
-        inlines = [AttributeInline, FeatureInline, ]
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('label', 'description', 'main_feature', )
+    inlines = [AttributeInline, FeatureInline, ]
 
-        fieldsets = (
-            ('Main', {
-                'fields': ('label', ),
-                'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
-                'description': 'This is a description text'
+    fieldsets = (
+        ('Main', {
+            'fields': ('label', ),
+            'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
+            'description': 'This is a description text'
 
-            }),
-            ('Content', {
-                'fields': ('text', ),
-                'classes': ('tab-fs-content', ),
-                'description': 'This is another description text'
+        }),
+        ('Content', {
+            'fields': ('text', ),
+            'classes': ('tab-fs-content', ),
+            'description': 'This is another description text'
 
-            }),
-            ('Tech', {
-                'fields': ('main_feature', ),
-                'classes': ('tab-fs-tech', ),
-                'description': 'This is another description text'
+        }),
+        ('Tech', {
+            'fields': ('main_feature', ),
+            'classes': ('tab-fs-tech', ),
+            'description': 'This is another description text'
 
-            }),
-        )
+        }),
+    )
+```
 
 As you can see these are the rules:
 
