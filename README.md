@@ -10,7 +10,7 @@ A cool, modern and responsive django admin application based on bootstrap 5
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ---
-Live Demo**
+**Live Demo**
 
 Now you can try django-baton using the new shining live demo!
 Login with user `demo` and password `demo`
