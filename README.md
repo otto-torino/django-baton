@@ -101,7 +101,7 @@ or clone the repo inside your project
 
 Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
 
-```
+``` python
 INSTALLED_APPS = (
     # ...
     'baton',
