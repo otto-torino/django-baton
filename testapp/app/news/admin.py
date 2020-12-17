@@ -98,6 +98,10 @@ class NewsAdmin(admin.ModelAdmin):
         ('news/admin_cl_top_include.html', 'top', ),
     ]
 
+    baton_cl_filters_includes = [
+        ('news/admin_cl_filters_top_include.html', 'top', ),
+    ]
+
     def get_category(self, instance):
         return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
     get_category.short_description = 'category'

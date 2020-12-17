@@ -39,6 +39,7 @@ Getting started
    js_utilities
    list_filters
    changelist_includes
+   changelist_filters_includes
    changelist_row_attributes
    form_tabs
    form_includes

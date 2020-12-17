@@ -14,10 +14,10 @@ let ChangeList = {
     this.t = new Translator($('html').attr('lang'))
     this.filtersInModal = opts.changelistFiltersInModal
     this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
+    this.initTemplates()
     if (this._filtersDiv.length) {
       this.activate()
     }
-    this.initTemplates()
   },
   activate: function () {
     if ($('.changelist-form-container').length) { // django >= 3.1
@@ -86,6 +86,20 @@ let ChangeList = {
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong changelist include position detected')
+      }
+    })
+
+    $('template[data-type=filters-include]').each(function (index, template) {
+      let position = positionMap[$(template).attr('data-position')]
+      if (position !== undefined && position !== 'before' && position !== 'after') {
+        if (position === 'prepend' && $('#changelist-filter-clear').length) {
+          $('#changelist-filter-clear').after($(template).html())
+        } else {
+          let el = $('#changelist-filter')
+          el[position]($(template).html())
+        }
+      } else {
+        console.error('Baton: wrong changelist filters include position detected')
       }
     })
 

@@ -10,6 +10,12 @@
     </template>
 {% endfor %}
 
+{% for template, position in cl.model_admin.baton_cl_filters_includes %}
+    <template data-type="filters-include" data-position="{{ position }}">
+        {% include template %}
+    </template>
+{% endfor %}
+
 {% call_model_admin_method model_admin=cl.model_admin method='baton_cl_rows_attributes' as data %}
 {% if data %}
     <template data-type="attributes">
