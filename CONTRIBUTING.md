@@ -112,9 +112,10 @@ Ready to contribute? Here's how to set up `django-baton` for local development.
 Before you submit a pull request, check that it meets these guidelines:
 
 1. The pull request should include tests.
-2. If the pull request adds functionality, the docs should be updated. Put
+2. Python code should follow PEP8 guidelines, Javascript code should respect the `.eslintrc` configuration.
+3. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.md.
-3. The pull request should work for python >= 3, Django >= 2.1, and for PyPy. Check 
+4. The pull request should work for python >= 3, Django >= 2.1, and for PyPy. Check 
    https://travis-ci.org/otto-torino/django-baton/pull_requests
    and make sure that the tests pass for all supported Python versions.

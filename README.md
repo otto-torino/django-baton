@@ -729,11 +729,7 @@ Now you can generate the documentation in order to check it. Inside the root dir
 
 ## <a name="contributing"></a>Contributing
 
-- Follow the eslint rules specified in the `.eslintrc` file (https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/.eslintrc) for the JS part, and be compliant with the standard sasslint rules for the SASS part.
-- Follow PEP8 standard for the few lines of python code.
-- Update documentation
-- If possible, add tests (e2e, unit)
-- Submit PR for review specifying what you've done.
+Read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## <a name="screenshots"></a>Screenshots
 
