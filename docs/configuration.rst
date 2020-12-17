@@ -151,6 +151,8 @@ if set to ``True`` the changelist filters are opened by default. By default, its
 Collapsable user area
 -----------------------
 
+.. image:: images/collapsable-user-area.png
+
 If set to ``True`` the sidebar user area is collapsed and can be expanded to show links.
 
 **Default**: False
