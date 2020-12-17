@@ -99,7 +99,6 @@
   }
 
   #changelist-search {
-
     label,
     input {
       display: inline-block !important;
@@ -107,18 +106,23 @@
 
     label {
       @extend .pe-2;
+      position: relative;
+      top: -2px;
       text-align: right;
     }
 
     input[type=text] {
       @extend .form-control;
+      @extend .form-control-sm;
       max-width: 160px;
     }
 
     input[type=submit] {
       @extend .btn;
+      @extend .btn-sm;
       @extend .ms-2;
       background: $toolbar-btn-bg;
+      margin-top: -3px;
       max-width: 100px;
 
       &:hover {
