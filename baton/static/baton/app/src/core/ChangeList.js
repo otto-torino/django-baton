@@ -94,6 +94,8 @@ let ChangeList = {
       if (position !== undefined && position !== 'before' && position !== 'after') {
         if (position === 'prepend' && $('#changelist-filter-clear').length) {
           $('#changelist-filter-clear').after($(template).html())
+        } else if (position === 'prepend' && $('#changelist-filter > h2').length) {
+          $('#changelist-filter > h2').after($(template).html())
         } else {
           let el = $('#changelist-filter')
           el[position]($(template).html())

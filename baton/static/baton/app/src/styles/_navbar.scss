@@ -22,6 +22,7 @@ body.page-logout #header {
   background: $navbar-bg !important;
   color: $navbar-color;
   flex-direction: row !important;
+  padding: .6rem 0;
 
   strong {
     color: $navbar-color;

@@ -34,7 +34,7 @@ Login with user `demo` and password `demo`
 
 ---
 
-![Screenshot](screenshots/index-analytics-lg.png)
+![Screenshot](docs/images/index-analytics-lg.png)
 
 ## Table of contents
 
@@ -330,6 +330,8 @@ Baton.Dispatcher.emit('myAppLoaded', 'STUFF!')
 
 Baton Modal class lets you insert some content on a bootstrap modal without dealing with all the markup.
 
+![Modal](docs/images/modals.png)
+
 Usage:
 
 ``` javascript
@@ -370,6 +372,8 @@ myModal.toggle();
 ```
 
 ## <a name="list-filters"></a>List Filters
+
+![List Filters](docs/images/filters.png)
 
 ### Input Text Filters
 
@@ -549,6 +553,8 @@ So these are the rules:
 
 ## <a name="form-tabs"></a>Form tabs
 
+![Tabs](docs/images/tabs.png)
+
 How much I loved django-suit form tabs? Too much. So, this was a feature I couldn't live without.
 
 There are three types of tabs:
@@ -673,6 +679,8 @@ class VideosInline(admin.StackedInline):
 
 It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern JS app which resides in `baton/static/baton/app`.
 
+![Customization](docs/images/customization.png)
+
 You just need to change the [SASS variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) (and you can also overwrite Bootstrap variables), re-compile, get the compiled JS file, place it in the static folder of your main app,
 and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
@@ -709,19 +717,19 @@ I'll soon add more stuff here but at the moment what is really important is to f
 
 ![Screenshot](screenshots/mobile_mix.jpg)
 
-![Screenshot](screenshots/more1.png)
+![Screenshot](screenshots/mobile_mix2.png)
 
-![Screenshot](screenshots/changelist_user-lg.png)
+![Screenshot](screenshots/tablet.png)
 
-![Screenshot](screenshots/tabs-lg.png)
+![Screenshot](screenshots/splash-login.png)
 
-![Screenshot](screenshots/more2.png)
+![Screenshot](screenshots/index-no-analytics.png)
 
-![Screenshot](screenshots/more3.png)
+![Screenshot](screenshots/changelist-lg.png)
 
-![Screenshot](screenshots/more4.png)
+![Screenshot](screenshots/changeform-error.png)
 
-![Screenshot](screenshots/more5.png)
+![Screenshot](screenshots/filters-modal.png)
 
-![Screenshot](screenshots/more6.png)
+![Screenshot](screenshots/menu-collapsed.png)
 

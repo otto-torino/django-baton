@@ -1,13 +1,9 @@
 // bootstrap
 $base: #d32d41;
-// $base: #b3c100;
-// $primary: darken($base, 25%);
 $primary: darken($base, 20%);
-// $secondary: #d32d41;
 $secondary: #b3c100;
 $accent: #b3c100;
 $font-family-sans-serif: 'Dosis', sans-serif !default;
-
 
 // fonts
 $h1-size: 1.6rem;
@@ -24,7 +20,7 @@ $login-bg: #fff;
 $password-visibility-toggler-icon-fg: #999;
 
 // navbar
-$navbar-bg: #37474f;
+$navbar-bg: #1c2429;
 $navbar-link-color: #fff;
 $navbar-dropdown-link-color: #000;
 $navbar-link-color-hover: #d32d41;
