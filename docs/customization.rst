@@ -44,34 +44,17 @@ You can also perform live development, in this case:
 - create an admin base_site template ``ROOTAPP/templates/admin/base_site.html`` with the following content: ::
 
     {% extends "admin/base_site.html" %}
+    {% load static baton_tags %}
     {% block extrahead %}
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> -->
         <script src="http://localhost:8080/dist/baton.min.js"></script>
+        {% baton_config as conf %}
+        {{ conf | json_script:"baton-config" }}
         <script>
-            {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
-            {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
-            {% baton_config 'ENABLE_IMAGES_PREVIEW' as enable_images_preview %}
-            {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
-            {% baton_config 'COLLAPSABLE_USER_AREA' as collapsable_user_area %}
-            {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
-            {% baton_config 'MENU_TITLE' as menu_title %}
-            {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
             (function ($, undefined) {
                 $(document).ready(function () {
-                    Baton.init({
-                        api: {
-                            app_list: '{% url 'baton-app-list-json' %}',
-                            gravatar: '{% url 'baton-gravatar-json' %}'
-                        },
-                        confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
-                        showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
-                        enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
-                        changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
-                        collapsableUserArea: {{ collapsable_user_area|yesno:"true,false" }},
-                        menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
-                        menuTitle: '{{ menu_title|escapejs }}',
-                        gravatarDefaultImg: '{{ gravatar_default_img }}'
-                    });
+                    Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
                 })
             })(jQuery, undefined)
         </script>
