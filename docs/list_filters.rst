@@ -1,6 +1,8 @@
 List Filters
 ==================
 
+.. image:: images/filters.png
+
 Input Text Filters
 ------------------
 

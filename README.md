@@ -10,22 +10,7 @@ A cool, modern and responsive django admin application based on bootstrap 5
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ---
-**V2 is coming!**
-
-Finally Bootstrap 5 beta is here. We've started the deveopment of Baton V2 based on it!
-
-You can try it now:
-
-```
-$ pip install https://github.com/otto-torino/django-baton/archive/v2.zip
-```
-
-It's already quite stable, but stuff will change during development.
-
-If you have any feedback, please use the [Discussions](https://github.com/otto-torino/django-baton/discussions) page, thank you!
-
----
-**V2 Live Demo**
+Live Demo**
 
 Now you can try django-baton using the new shining live demo!
 Login with user `demo` and password `demo`
@@ -156,7 +141,7 @@ The configuration dictionary must be defined inside your settings:
         'SITE_TITLE': 'Baton',
         'INDEX_TITLE': 'Site administration',
         'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-        'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
+        'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
         'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
         'CONFIRM_UNSAVED_CHANGES': True,
         'SHOW_MULTIPART_UPLOADING': True,
@@ -709,27 +694,64 @@ Now while you make your changes to the JS app (CSS included), webpack will updat
 
 Starting from the release 1.7.1, django baton is provided with a set of unit and e2e tests. Testing baton is not so easy, because it almost do all the stuff with css rules and by manipulating the DOM. So the e2e tests are performed using selenium and inspecting the test application inside a real browser. In order to have them run properly, you need to have the test application running on `localhost:8000`.
 
+## <a name="development"></a>Development
+
+Start the test app (login admin:admin):
+
+    $ cd testapp
+    $ python3 -m venv .virtualenv
+    $ cd app
+    $ pip install -r requirements.txt
+    $ python manage.py runserver
+
+Switch the baton js path in `base_site.html`
+
+    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
+    <script src="http://localhost:8080/dist/baton.min.js"></script>
+
+Start the js app in watch mode
+
+    $ cd baton/static/baton/app
+    $ npm install
+    $ npm run dev
+
+Now you'll see live all your changes in the testapp.
+
+### Commands
+
+Install `invoke` and `sphinx_rtd_theme`
+
+    $ pip install invoke sphinx_rtd_theme
+
+Now you can generate the documentation in order to check it. Inside the root dir:
+
+    $ invoke docs
+
 ## <a name="contributing"></a>Contributing
 
-I'll soon add more stuff here but at the moment what is really important is to follow the eslint rules specified in the `.eslintrc` file (https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/.eslintrc) for the JS part, and be compliant with the standard sasslint rules for the SASS part. I follow PEP8 standard for the few lines of python code.
+- Follow the eslint rules specified in the `.eslintrc` file (https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/.eslintrc) for the JS part, and be compliant with the standard sasslint rules for the SASS part.
+- Follow PEP8 standard for the few lines of python code.
+- Update documentation
+- If possible, add tests (e2e, unit)
+- Submit PR for review specifying what you've done.
 
 ## <a name="screenshots"></a>Screenshots
 
-![Screenshot](screenshots/mobile_mix.jpg)
+![Screenshot](docs/screenshots/mobile_mix.jpg)
 
-![Screenshot](screenshots/mobile_mix2.png)
+![Screenshot](docs/screenshots/mobile_mix2.png)
 
-![Screenshot](screenshots/tablet.png)
+![Screenshot](docs/screenshots/tablet.png)
 
-![Screenshot](screenshots/splash-login.png)
+![Screenshot](docs/screenshots/splash-login.png)
 
-![Screenshot](screenshots/index-no-analytics.png)
+![Screenshot](docs/screenshots/index-no-analytics.png)
 
-![Screenshot](screenshots/changelist-lg.png)
+![Screenshot](docs/screenshots/changelist-lg.png)
 
-![Screenshot](screenshots/changeform-error.png)
+![Screenshot](docs/screenshots/changeform-error.png)
 
-![Screenshot](screenshots/filters-modal.png)
+![Screenshot](docs/screenshots/filters-modal.png)
 
-![Screenshot](screenshots/menu-collapsed.png)
+![Screenshot](docs/screenshots/menu-collapsed.png)
 

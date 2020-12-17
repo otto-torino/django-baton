@@ -1,6 +1,8 @@
 Customization
 =============
 
+.. image:: images/customization.png
+
 It's easy to heavily customize the appeareance of baton. All the stuff is compiled from a modern js app which resides in `baton/static/baton/app`.
 
 The Baton js app

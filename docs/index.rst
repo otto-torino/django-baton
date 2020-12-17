@@ -56,14 +56,13 @@ Advanced customization
 Screenshots
 -----------
 
-.. image:: images/screen1.png
-.. image:: images/screen2.png
-.. image:: images/screen3.png
-.. image:: images/screen4.png
-.. image:: images/screen5.png
-.. image:: images/screen6.png
-.. image:: images/screen7.png
-.. image:: images/screen8.png
 
-
-
+.. image:: screenshots/mobile_mix.jpg
+.. image:: screenshots/mobile_mix2.png
+.. image:: screenshots/tablet.png
+.. image:: screenshots/splash-login.png
+.. image:: screenshots/index-no-analytics.png
+.. image:: screenshots/changelist-lg.png
+.. image:: screenshots/changeform-error.png
+.. image:: screenshots/filters-modal.png
+.. image:: screenshots/menu-collapsed.png

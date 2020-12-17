@@ -126,12 +126,16 @@ Show an overlay with a spinner when a ``multipart/form-data`` form is submitted
 Enable images preview
 -----------------------
 
+.. image:: images/images-preview.png
+
 Displays a preview above all input file fields which contain images. You can control how the preview is displayed overriding the class ``.baton-image-preview``. By default previews are 100px height and with a box shadow on over event
 
 **Default**: True
 
 Changelist filters in modal
 -----------------------
+
+.. image:: images/filters.png
 
 If set to ``True`` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is ``False`` and the changelist filters appears from the right side of the changelist table.
 
@@ -166,12 +170,14 @@ The menu title shown in the sidebar. If an empty string, the menu title is hidde
 Gravatar default image
 -----------------------
 
-The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs <[http://en.gravatar.com/site/implement/images/>`).
+The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs [http://en.gravatar.com/site/implement/images/]`).
 
 **Default**: 'retro'
 
 Login splash image
 -----------------------
+
+.. image:: images/login-splash.png
 
 An image used as body background in the login page. The image is centered and covers the whole viewport.
 
@@ -288,7 +294,7 @@ Free voices also accept a _re_ property, which specifies a regular expression us
 Analytics
 ---------
 
-.. image:: images/analytics.jpg
+.. image:: images/analytics.png
 
 Baton provides an index view which displays google analytics statistics charts for the last 15 days, 1 month, 3 month and 1 year.
 
