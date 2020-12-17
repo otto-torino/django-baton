@@ -504,6 +504,8 @@ class NewsAdmin(admin.ModelAdmin):
     ]
 ```
 
+![Baton changelist filters includes](docs/images/baton-cl-filters-includes.png)
+
 You can specify the following positions:
 
 |Position|Description|

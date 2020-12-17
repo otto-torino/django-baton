@@ -1,6 +1,7 @@
 Changelist filters includes
 ===================
 
+.. image:: images/baton-cl-filters-includes.png
 .. important:: In order for this feature to work, the user browser must support html template tags.
 
 Baton lets you include templates directly inside the change list filter container, at the top or the bottom. It's as simple as specifying the template path and the position of the template: ::
