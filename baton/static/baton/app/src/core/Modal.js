@@ -23,7 +23,7 @@ class Modal {
   }
 
   create () {
-    let modal = $('<div />', {'class': 'modal fade'}).append(document.body)
+    let modal = $('<div />', {'class': 'modal fade'}).appendTo(document.body)
     modal.html(`
       <div class="modal-dialog" role="document">
           <div class="modal-content">
