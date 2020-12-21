@@ -39,22 +39,26 @@ let ChangeList = {
         .html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
 
       if (this.filtersInModal || parseInt($(window).width()) < breakpoints.lg) {
-        $('#changelist-filter').prop('id', 'changelist-filter-modal')
-        let titleEl = $('#changelist-filter-modal > h2')
-        let title = titleEl.html()
-        titleEl.remove()
-        let content = $('#changelist-filter-modal')
-        // remove from dom
-        this.modal = new Modal({
-          title,
-          content,
-          size: 'md',
-          hideFooter: true,
-        })
-        _filtersToggler
-          .click(() => {
-            this.modal.toggle()
+        let self = this
+        // wait for filters used js to exec
+        setTimeout(function () {
+          $('#changelist-filter').prop('id', 'changelist-filter-modal')
+          let titleEl = $('#changelist-filter-modal > h2')
+          let title = titleEl.html()
+          titleEl.remove()
+          let content = $('#changelist-filter-modal')
+          // remove from dom
+          self.modal = new Modal({
+            title,
+            content,
+            size: 'md',
+            hideFooter: true,
           })
+          _filtersToggler
+            .click(() => {
+              self.modal.toggle()
+            })
+        }, 100)
       } else {
         _filtersToggler
           .click(() => {
