@@ -43,7 +43,7 @@ let ChangeList = {
         let titleEl = $('#changelist-filter-modal > h2')
         let title = titleEl.html()
         titleEl.remove()
-        let content = $('#changelist-filter-modal')[0].outerHTML
+        let content = $('#changelist-filter-modal')
         // remove from dom
         $('#changelist-filter-modal').remove()
         this.modal = new Modal({

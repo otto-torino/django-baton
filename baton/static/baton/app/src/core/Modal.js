@@ -110,6 +110,8 @@ class Modal {
         self.modal.find('.modal-body').html(response)
         self.options.onUrlLoaded(self)
       })
+    } else if (this.options.content instanceof jQuery) {
+      self.modal.find('.modal-body').append(this.options.content)
     } else if (typeof this.options.content !== 'undefined') {
       self.modal.find('.modal-body').html(this.options.content)
     }
