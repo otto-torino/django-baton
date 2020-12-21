@@ -45,7 +45,6 @@ let ChangeList = {
         titleEl.remove()
         let content = $('#changelist-filter-modal')
         // remove from dom
-        $('#changelist-filter-modal').remove()
         this.modal = new Modal({
           title,
           content,
