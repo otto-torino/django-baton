@@ -16,7 +16,7 @@
     </template>
 {% endfor %}
 
-{% call_model_admin_method model_admin=cl.model_admin method='baton_cl_rows_attributes' as data %}
+{% call_model_admin_method model_admin=cl.model_admin method='baton_cl_rows_attributes' cl=cl as data %}
 {% if data %}
     <template data-type="attributes">
         {{ data }}

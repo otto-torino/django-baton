@@ -106,9 +106,9 @@ class NewsAdmin(admin.ModelAdmin):
         return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
     get_category.short_description = 'category'
 
-    def baton_cl_rows_attributes(self, request, **kwargs):
+    def baton_cl_rows_attributes(self, request, cl):
         data = {}
-        for news in News.objects.filter(category__id=2):
+        for news in cl.queryset.filter(category__id=2):
             data[news.id] = {
                 'class': 'table-info',
                 # 'selector': '#result_list tr input[name=_selected_action][value=%d]' % news.id,
