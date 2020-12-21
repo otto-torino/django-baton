@@ -9,7 +9,7 @@ With Baton you can add every kind of html attribute (including css classes) to a
 
 It's a bit tricky, let's see how:
 
-1. Add a ``baton_cl_rows_attributes`` function to your ``ModelAdmin`` class, which takes ``request`` as a parameter.
+1. Add a ``baton_cl_rows_attributes`` function to your ``ModelAdmin`` class, which takes ``request`` and ``cl`` (changelist view) as parameters.
 2. Return a json dictionary where the keys are used to match an element and the values specifies the attributes and other rules to select the element.
 
 Better to see an example: ::
@@ -21,9 +21,9 @@ Better to see an example: ::
             return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
         get_category.short_description = 'category'
 
-        def baton_cl_rows_attributes(self, request):
+        def baton_cl_rows_attributes(self, request, cl):
             data = {}
-            for news in News.objects.filter(category__id=2):
+            for news in cl.queryset.filter(category__id=2):
                 data[news.id] = {
                     'class': 'table-info',
                 }
