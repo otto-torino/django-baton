@@ -17,9 +17,9 @@ class BatonAdminSite(AdminSite):
         # copy registered actions
         self._actions = site._actions
         self._registry.update(site._registry)
-        for model in site._registry:
-            self.unregister([model])
-            self.register([model], type(site._registry[model]))
+        # for model in site._registry:
+        #     self.unregister([model])
+        #     self.register([model], type(site._registry[model]))
 
 
 site = BatonAdminSite()  # noqa
