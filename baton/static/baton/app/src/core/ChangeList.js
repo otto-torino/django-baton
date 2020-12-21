@@ -58,7 +58,7 @@ let ChangeList = {
             .click(() => {
               self.modal.toggle()
             })
-        }, 100)
+        }, 200)
       } else {
         _filtersToggler
           .click(() => {
