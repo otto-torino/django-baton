@@ -20,6 +20,7 @@ This is an example of configuration::
         'ENABLE_IMAGES_PREVIEW': True,
         'CHANGELIST_FILTERS_IN_MODAL': True,
         'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+        'CHANGELIST_FILTERS_FORM': True,
         'COLLAPSABLE_USER_AREA': False,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
@@ -144,7 +145,16 @@ If set to ``True`` the changelist filters are opened in a centered modal above t
 Changelist filters always open
 -----------------------
 
-if set to ``True`` the changelist filters are opened by default. By default, its value is ``False`` and the changelist filters can be expanded clicking a toggler button. This option is considered only if ``CHANGELIST_FILTERS_IN_MODAL`` is ``False``
+If set to ``True`` the changelist filters are opened by default. By default, its value is ``False`` and the changelist filters can be expanded clicking a toggler button. This option is considered only if ``CHANGELIST_FILTERS_IN_MODAL`` is ``False``
+
+**Default**: False
+
+Changelist filters form
+-----------------------
+
+.. image:: images/filters-form.png
+
+If set to ``True`` the changelist filters are treated as in a form, you can set many of them at once and then press a filter button in order to actually perform the filtering. With such option all standard filters are displayed as dropdowns.
 
 **Default**: False
 

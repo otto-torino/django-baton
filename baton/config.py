@@ -17,6 +17,7 @@ default_config = {
     'COLLAPSABLE_USER_AREA': False,
     'CHANGELIST_FILTERS_IN_MODAL': False,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'CHANGELIST_FILTERS_FORM': False,
     'MENU_ALWAYS_COLLAPSED': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': None,

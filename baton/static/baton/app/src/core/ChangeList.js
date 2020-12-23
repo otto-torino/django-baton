@@ -12,11 +12,13 @@ let ChangeList = {
   init: function (opts) {
     this._filtersDiv = $('#changelist-filter')
     this.t = new Translator($('html').attr('lang'))
+    this.filtersForm = opts.changelistFiltersForm
     this.filtersInModal = opts.changelistFiltersInModal
     this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
     this.initTemplates()
     if (this._filtersDiv.length) {
       this.activate()
+      this.fixRangeFilter()
     }
   },
   activate: function () {
@@ -52,16 +54,24 @@ let ChangeList = {
         titleEl.remove()
         let content = $('#changelist-filter-modal')
         // remove from dom
-        self.modal = new Modal({
+        this.modal = new Modal({
           title,
           content,
           size: 'md',
-          hideFooter: true
+          hideFooter: !this.filtersForm,
+          actionBtnLabel: this.t.get('filter'),
+          actionBtnCb: function () { self.filter(content) }
         })
         _filtersToggler.click(() => {
           self.modal.toggle()
         })
       } else {
+        if (this.filtersForm) {
+          // add filters button
+          let btn = $('<a />', {'class': 'btn btn-primary'}).html(this.t.get('filter'))
+            .on('click', () => this.filter($('#changelist-filter')))
+          $('#changelist-filter').append($('<div />', {'class': 'text-center mb-3'}).append(btn))
+        }
         _filtersToggler.click(() => {
           $(document.body).toggleClass('changelist-filter-active')
           if (parseInt(this._filtersDiv.css('max-width')) === 100) {
@@ -77,6 +87,29 @@ let ChangeList = {
     if (/_popup=1/.test(location.href)) {
       $('#changelist-form .results').css('padding-top', '78px')
     }
+  },
+  getDropdownValue: function (dropdown) {
+    let items = $(dropdown).find('option').attr('value').substr(1).split('&')
+    let values = $(dropdown).val().substr(1).split('&').filter(item => items.indexOf(item) === -1)
+    return values.length ? values.join('&') : null
+  },
+  filter: function (wrapper) {
+    var self = this
+    let qs = []
+
+    let dropdowns = wrapper.find('select')
+    let textInputs = wrapper.find('input').not('[type=hidden]')
+
+    dropdowns
+      .toArray()
+      .map(el => self.getDropdownValue(el))
+      .filter(v => v !== null)
+      .forEach(v => qs.push(v))
+
+    textInputs.each((idx, el) => el.value !== '' ? qs.push(`${el.name}=${el.value}`) : null)
+
+    // console.log(location.pathname + (qs.length ? '?' + qs.filter(q => q !== '').join('&') : ''), qs)
+    location.href = location.pathname + (qs.length ? '?' + qs.filter(q => q !== '').join('&') : '')
   },
   initTemplates: function () {
     const positionMap = {
@@ -151,6 +184,12 @@ let ChangeList = {
         console.error(e)
       }
     })
+  },
+  fixRangeFilter: function () {
+    if (this.filtersForm) {
+      $('.admindatefilter .controls').remove()
+      $('.admindatefilter form').onSubmit = function () { return false }
+    }
   }
 }
 

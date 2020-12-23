@@ -56,9 +56,12 @@ class TestBatonInputFilter(TestCase):
             '.changelist-filter-toggler')
         filter_button.click()
         input = self.driver.find_element_by_css_selector(
-            '#changelist-filter-modal input')
+            '#changelist-filter-modal li > input')
         input.send_keys('super band')
-        input.send_keys(Keys.RETURN)
+        btn = self.driver.find_element_by_css_selector(
+            '.modal .btn-action')
+        btn.click()
+        time.sleep(1)
         rows = self.driver.find_elements_by_css_selector(
             '#result_list tbody tr')
         self.assertEqual(len(rows), 1)

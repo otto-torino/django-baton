@@ -22,6 +22,7 @@ def baton_config():
         "enableImagesPreview": get_config('ENABLE_IMAGES_PREVIEW'),
         "changelistFiltersInModal": get_config('CHANGELIST_FILTERS_IN_MODAL'),
         "changelistFiltersAlwaysOpen": get_config('CHANGELIST_FILTERS_ALWAYS_OPEN'),
+        "changelistFiltersForm": get_config('CHANGELIST_FILTERS_FORM'),
         "collapsableUserArea": get_config('COLLAPSABLE_USER_AREA'),
         "menuAlwaysCollapsed": get_config('MENU_ALWAYS_COLLAPSED'),
         "menuTitle": escapejs(get_config('MENU_TITLE')),
@@ -30,6 +31,11 @@ def baton_config():
     }
 
     return conf
+
+
+@register.simple_tag
+def baton_config_value(key):
+    return get_config(key)
 
 
 @register.inclusion_tag('baton/analytics.html', takes_context=True)

@@ -3,6 +3,7 @@ import json
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from baton.admin import InputFilter, RelatedDropdownFilter
+from rangefilter.filter import DateRangeFilter
 from .models import News, Category, Attachment, Video
 
 
@@ -46,7 +47,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = (
         TitleFilter,
         ('category', RelatedDropdownFilter, ),
-        'date',
+        ('date', DateRangeFilter),
         'published',
     )
     inlines = [AttachmentsInline, VideosInline]

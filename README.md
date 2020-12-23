@@ -59,6 +59,7 @@ Everything is styled through CSS and when required, JS is used.
 - Collapsable stacked inline entries
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
+- Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Optional index page filled with google analytics widgets
 - Customization available for recompiling the js app provided
 - IT translations provided
@@ -69,14 +70,6 @@ The following packages are required to manage the Google Analytics index:
 - google-auth-httplib2
 - google-api-python-client
 - requests
-
-At the moment __baton__ defines only 5 custom templates:
-
-- `admin/base_site.html`, needed to inject the JS application (which includes css and images, compiled with [webpack](https://webpack.github.io/));
-- `admin/change_form.html`, needed to inject the `baton_form_includes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
-- `admin/change_list.html`, needed to inject the `baton_cl_includes` and `baton_cl_rows_attributes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
-- `admin/delete_confirmation.html`, needed to wrap contents;
-- `admin/delete_selected_confirmation.html`, same as above.
 
 Baton is based on the following frontend technologies:
 
@@ -153,6 +146,7 @@ BATON = {
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': True,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'CHANGELIST_FILTERS_FORM': True,
     'MENU_ALWAYS_COLLAPSED': False,
     'MENU_TITLE': 'Menu',
     'GRAVATAR_DEFAULT_IMG': 'retro',
@@ -199,6 +193,7 @@ Default value is `True`.
 - `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews have 100px height and with a box shadow (on "hover").
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggler button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
+- `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button. With such option all standard filters are displayed as dropdowns.
 - `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
@@ -758,6 +753,8 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md)
 ![Screenshot](docs/screenshots/changeform-error.png)
 
 ![Screenshot](docs/screenshots/filters-modal.png)
+
+![Screenshot](docs/screenshots/filters-form.png)
 
 ![Screenshot](docs/screenshots/menu-collapsed.png)
 

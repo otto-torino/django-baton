@@ -13,6 +13,7 @@ install:
   - pip install python-dotenv
   - pip install django-filer
   - pip install django-tinymce
+  - pip install django-admin-rangefilter
   - pip install docutils
   - django-admin.py --version
   - pip install selenium

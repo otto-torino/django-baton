@@ -403,4 +403,35 @@
   .baton-cl-include-below {
     order: 2;
   }
+
+  .admindatefilter {
+    border-bottom: 0 !important;
+    margin-right: 15px;
+    padding-bottom: 0;
+    position: relative;
+
+    form > p {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .datetimeshortcuts {
+      right: 2rem;
+    }
+
+    input[type='text'] {
+      @extend .form-control;
+      @extend .form-control-sm;
+      flex-grow: 1;
+    }
+
+    input[type='submit'],
+    input[type='reset'] {
+      @extend .btn-sm;
+    }
+
+    input[type='reset'] {
+      @extend .btn-secondary;
+    }
+  }
 }
