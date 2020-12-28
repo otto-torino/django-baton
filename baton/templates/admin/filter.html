@@ -1,5 +1,5 @@
 {% load i18n baton_tags %}
-<h3>{% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}</h3>
+<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
 {% baton_config_value 'CHANGELIST_FILTERS_FORM' as filters_form %}
 {% if filters_form %}
     <ul style="padding-right: 15px;">
