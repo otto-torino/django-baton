@@ -14,6 +14,7 @@ import Tabs from './core/Tabs'
 import ChangeList from './core/ChangeList'
 import ChangeForm from './core/ChangeForm'
 import Login from './core/Login'
+import AdminDocs from './core/AdminDocs'
 import Filer from './core/Filer'
 import Modal from './core/Modal'
 
@@ -40,6 +41,8 @@ window.Baton = {
       ChangeList.init(config)
     } else if (page === 'add_form' || page === 'change_form') {
       ChangeForm.init(config)
+    } else if (page === 'admindocs') {
+      AdminDocs.init()
     } else if (page === 'filer') {
       Filer.init()
     }
@@ -68,6 +71,8 @@ window.Baton = {
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
       return 'dashboard'
+    } else if (/^(\/[a-z]{2})?\/admin\/doc\//.test(location.pathname)) {
+      return 'admindocs'
     } else if (/^(\/[a-z]{2})?\/admin\/login\/$/.test(location.pathname)) {
       return 'login'
     } else if (/^(\/[a-z]{2})?\/admin\/logout\/$/.test(location.pathname)) {
