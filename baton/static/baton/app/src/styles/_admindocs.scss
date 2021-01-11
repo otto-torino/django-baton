@@ -72,9 +72,13 @@
 
       table {
         @extend .table;
+
+        thead {
+          @extend .table-dark;
+        }
       }
 
-      h3, p, h4, dl {
+      > h3, > p, > h4, > dl {
         padding-left: .5rem;
         padding-right: .5rem;
       }
