@@ -22,6 +22,10 @@ export const messages = {
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
     it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter'
+  },
+  retrieveDataError: {
+    en: 'There was an error retrieving the data',
+    it: 'Si è verificato un errore nel reuperare i dati'
   }
 }
 
@@ -33,15 +37,31 @@ export default class Translator {
   setLng (lng) {
     if (lng === 'it' || /it-/.test(lng)) {
       return 'it'
+    } else if (lng === 'en' || /en-/.test(lng)) {
+      return 'en'
     }
 
-    return 'en'
+    return lng
   }
 
   get (key) {
+    // check custom translations first
+    let b = window.Baton
+    if (b.translations && b.translations[key] !== 'undefined' && b.translations[key][this.lng] !== 'undefined') {
+      return b.translations[key][this.lng]
+    }
+
+    // if key is not found, return empty string
     if (typeof messages[key] === 'undefined') {
       return ''
     }
-    return messages[key][this.lng]
+
+    // search localized message
+    if (messages[key][this.lng] !== undefined) {
+      return messages[key][this.lng]
+    }
+
+    // default to english
+    return messages[key]['en']
   }
 }

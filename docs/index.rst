@@ -37,6 +37,7 @@ Getting started
    configuration
    signals
    js_utilities
+   js_translations
    list_filters
    changelist_includes
    changelist_filters_includes
