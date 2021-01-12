@@ -16,8 +16,8 @@ export const messages = {
     it: 'Chiudi'
   },
   save: {
-    en: 'Salva',
-    it: 'Chiudi'
+    en: 'Save',
+    it: 'Salva'
   },
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
@@ -47,8 +47,8 @@ export default class Translator {
   get (key) {
     // check custom translations first
     let b = window.Baton
-    if (b.translations && b.translations[key] !== 'undefined' && b.translations[key][this.lng] !== 'undefined') {
-      return b.translations[key][this.lng]
+    if (b.translations && b.translations[key] !== 'undefined') {
+      return b.translations[key]
     }
 
     // if key is not found, return empty string

@@ -371,36 +371,15 @@ However you can provide or add your own translations by attaching an object to t
 ``` javascript
 // these are the default translations, you can just edit the one you need, or add some locales. Baton engione will always
 // pick up your custom translation first, if it find them.
-// you can define thi object before Baton.init in the base_site template
+// you can define the object before Baton.init in the base_site template
 Baton.translations = {
-  unsavedChangesAlert: {
-    en: 'You have some unsaved changes.',
-    it: 'Alcune modifiche non sono state salvate.'
-  },
-  uploading: {
-    en: 'Uploading...',
-    it: 'Uploading...'
-  },
-  filter: {
-    en: 'Filter',
-    it: 'Filtra'
-  },
-  close: {
-    en: 'Close',
-    it: 'Chiudi'
-  },
-  save: {
-    en: 'Salva',
-    it: 'Chiudi'
-  },
-  cannotCopyToClipboardMessage: {
-    en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-    it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter'
-  },
-  retrieveDataError: {
-    en: 'There was an error retrieving the data',
-    it: 'Si è verificato un errore nel reuperare i dati'
-  }
+  unsavedChangesAlert: 'You have some unsaved changes.',
+  uploading: 'Uploading...',
+  filter: 'Filter',
+  close: 'Close',
+  save: 'Save',
+  cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
+  retrieveDataError: 'There was an error retrieving the data'
 }
 
 Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
