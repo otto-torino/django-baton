@@ -87,7 +87,7 @@ window.Baton = {
       return 'change_form'
     } else if (document.getElementById('changelist')) {
       return 'changelist'
-    } else if (document.getElementById('change-history')) {
+    } else if (document.getElementById('change-history') || /^(\/[a-z]{2})?\/admin\/[^/]+\/[^/]+\/[^/]+\/history/.test(location.pathname)) {
       return 'changehistory'
     } else if (/\/filer\//.test(location.pathname)) {
       return 'filer'
