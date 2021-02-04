@@ -4,9 +4,9 @@ Installation
 Using pip
 ---------
 
-1. Until version 0.1.0 will be released, you can pip install the repo master branch::
+1. Install the latest stable release::
 
-    pip install git+https://github.com/otto-torino/django-baton
+    pip install django-baton
 
 2. Add ``baton`` and ``baton.autodiscover`` to your ``INSTALLED_APPS``::
 
@@ -22,30 +22,12 @@ Using pip
 
 3. Replace django.contrib.admin in your project urls, and add baton urls::
 
-    # from django.contrib import admin
-    from baton.autodiscover import admin
-
-    urlpatterns = [
-        url(r'^admin/', include(admin.site.urls)),
-        # ...
-        url(r'^baton/', include('baton.urls')),
-    ]
-
-
-Django 2
---------
-
-Steps 1 and 2 remain the same.
-
-Step 3:
-
     from baton.autodiscover import admin
     from django.urls import path, include
 
     urlpatterns = [
         path('admin/', admin.site.urls),
         path('baton/', include('baton.urls')),
-
     ]
 
 .. important:: If you get a "__No crypto library available__" when using the google analytics index, then install this package:
