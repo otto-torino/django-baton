@@ -10,17 +10,23 @@ let Messages = {
   init: function (opts) {
     if (opts.messagesToasts) {
       let toasts = []
+      let all = true
       $('.messagelist li').each((index, el) => {
         let lv = $(el).attr('class')
         if (opts.messagesToasts === true || opts.messagesToasts.indexOf(lv) !== -1) {
           toasts.push(this.createToast($(el).attr('class'), $(el).html()))
+          $(el).remove()
+        } else {
+          all = false
         }
       })
       if (toasts.length) {
         $('<div />', {'class': 'toast-container position-absolute top-0 end-0 p-3'})
           .append(toasts).appendTo($(document.body))
       }
-      $('.messagelist').remove()
+      if (all) {
+        $('.messagelist').remove()
+      }
     }
     const toastElList = [].slice.call(document.querySelectorAll('.toast'))
     toastElList.map(function (toastEl) {
