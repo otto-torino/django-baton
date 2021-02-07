@@ -17,6 +17,7 @@ import Login from './core/Login'
 import AdminDocs from './core/AdminDocs'
 import Filer from './core/Filer'
 import Modal from './core/Modal'
+import Messages from './core/Messages'
 
 window.Baton = {
   intialized: false,
@@ -25,6 +26,9 @@ window.Baton = {
     this.initialized = true
     let page = this.page()
     $('body').addClass('page-' + page)
+
+    // toasts
+    Messages.init(config)
 
     Navbar.init(config)
     Dispatcher.emit('onNavbarReady')

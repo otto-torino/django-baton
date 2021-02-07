@@ -24,6 +24,7 @@ This is an example of configuration::
         'COLLAPSABLE_USER_AREA': False,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
+        'MESSAGES_TOASTS': False,
         'GRAVATAR_DEFAULT_IMG': 'retro',
         'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'MENU': (
@@ -178,6 +179,13 @@ Menu title
 -----------------------
 
 The menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
+
+Messages toasts
+-----------------------
+
+You can decide to show all or specific level admin messages in toasts. Set it to ``True`` to show all message in toasts. set it to ``['warning', 'error']`` to show only warning and error messages in toasts.
+
+**Default**: False
 
 Gravatar default image
 -----------------------

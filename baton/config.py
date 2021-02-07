@@ -19,6 +19,7 @@ default_config = {
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
     'CHANGELIST_FILTERS_FORM': False,
     'MENU_ALWAYS_COLLAPSED': False,
+    'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': None,
 }

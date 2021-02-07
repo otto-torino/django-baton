@@ -1,3 +1,4 @@
+import json
 from google.auth.transport.requests import Request
 from django.urls import reverse
 from django import template
@@ -26,6 +27,7 @@ def baton_config():
         "collapsableUserArea": get_config('COLLAPSABLE_USER_AREA'),
         "menuAlwaysCollapsed": get_config('MENU_ALWAYS_COLLAPSED'),
         "menuTitle": escapejs(get_config('MENU_TITLE')),
+        "messagesToasts": get_config('MESSAGES_TOASTS'),
         "gravatarDefaultImg": get_config('GRAVATAR_DEFAULT_IMG'),
         "loginSplash": get_config('LOGIN_SPLASH'),
     }
