@@ -135,11 +135,12 @@ let Menu = {
         cls = 'logout'
       }
       let text = $(el).html()
+      let plain = text.replace(/(<([^>]+)>)/gi, "").trim()
       let clone = $(el)
         .clone()
         .html('')
         .attr('class', cls)
-        .attr('title', text)
+        .attr('title', plain ? plain : text)
       if (cls === 'view-site') {
         clone.attr('target', '_blank')
       }
