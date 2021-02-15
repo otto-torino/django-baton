@@ -1,10 +1,12 @@
-class Analytics {
+import Translator from './i18n'
 
+class Analytics {
   constructor (gapi, token, viewId, domIds) {
     this.gapi = gapi
     this.token = token
     this.domIds = domIds
     this.viewId = viewId
+    this.t = new Translator($('html').attr('lang'))
   }
 
   init (timedelta) {
@@ -15,6 +17,31 @@ class Analytics {
   run (timedelta) {
     let self = this
     let gapi = this.gapi
+
+    let spinner = $('<div />').css({
+      textAlign: 'center',
+      padding: '3rem 0',
+      color: '#aaa',
+    }).append($('<i />', {'class': 'fa fa-spinner fa-spin fa-3x fa-fw'}))
+
+    for (let prop in this.domIds) {
+      if (['traffic', 'popular', 'browsers', 'acquisition', 'audience', 'social'].indexOf(prop) !== -1) {
+        $('#' + this.domIds[prop]).append(spinner.clone())
+      }
+    }
+
+    let errorCb = containerId => () => {
+      $('#' + containerId).empty()
+
+      let message = $('<div />').css({
+        textAlign: 'center',
+        padding: '3rem 0',
+        color: '#aaa',
+      }).text(this.t.get('retrieveDataError'))
+
+      $('#' + containerId).append(message)
+    }
+
     gapi.analytics.ready(function () {
       /**
        * Authorize the user with an access token obtained server side.
@@ -74,6 +101,9 @@ class Analytics {
           }
         }
       })
+      let trafficTimeout = setTimeout(errorCb(self.domIds.traffic), 20000)
+      dataChart1.on('error', errorCb(self.domIds.traffic))
+      dataChart1.on('success', () => clearTimeout(trafficTimeout))
       dataChart1.execute()
       /**
        * Creates a new DataChart instance showing top 5 most popular pages
@@ -95,6 +125,9 @@ class Analytics {
           }
         }
       })
+      let popularTimeout = setTimeout(errorCb(self.domIds.popular), 20000)
+      dataChart2.on('error', errorCb(self.domIds.popular))
+      dataChart2.on('success', () => clearTimeout(popularTimeout))
       dataChart2.execute()
       /**
        * Creates a new DataChart instance showing top borwsers
@@ -116,6 +149,9 @@ class Analytics {
           }
         }
       })
+      let browsersTimeout = setTimeout(errorCb(self.domIds.browsers), 20000)
+      dataChart3.on('error', errorCb(self.domIds.browsers))
+      dataChart3.on('success', () => clearTimeout(browsersTimeout))
       dataChart3.execute()
       /**
        * Creates a new DataChart instance showing top referral
@@ -137,6 +173,9 @@ class Analytics {
           }
         }
       })
+      let acquisitionTimeout = setTimeout(errorCb(self.domIds.acquisition), 20000)
+      dataChart4.on('error', errorCb(self.domIds.acquisition))
+      dataChart4.on('success', () => clearTimeout(acquisitionTimeout))
       dataChart4.execute()
       /**
        * Creates a new DataChart instance showing top visitors continents
@@ -158,6 +197,9 @@ class Analytics {
           }
         }
       })
+      let audienceTimeout = setTimeout(errorCb(self.domIds.audience), 20000)
+      dataChart5.on('error', errorCb(self.domIds.audience))
+      dataChart5.on('success', () => clearTimeout(audienceTimeout))
       dataChart5.execute()
       /**
        * Creates a new DataChart instance showing social interactions over the past 15 days.
@@ -179,6 +221,9 @@ class Analytics {
           }
         }
       })
+      let socialTimeout = setTimeout(errorCb(self.domIds.social), 20000)
+      dataChart6.on('error', errorCb(self.domIds.social))
+      dataChart6.on('success', () => clearTimeout(socialTimeout))
       dataChart6.execute()
     })
   }

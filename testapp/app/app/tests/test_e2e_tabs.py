@@ -63,6 +63,7 @@ class TestBatonInputFilter(TestCase):
         input_date = self.driver.find_element_by_id('id_date')
         self.assertEqual(input_date.is_displayed(), False)
         tabs_li[0].click()  # change tab flags
+        time.sleep(2)  # fade
         self.assertEqual(input_date.is_displayed(), True)
 
         # tabs navigation
@@ -71,9 +72,12 @@ class TestBatonInputFilter(TestCase):
         self.assertEqual(input_share.is_displayed(), False)
         self.assertEqual(description_att.is_displayed(), False)
         tabs_li[2].click()  # change tab flags
+        time.sleep(2)  # fade
+
         self.assertEqual(input_share.is_displayed(), True)
         self.assertEqual(description_att.is_displayed(), False)
         tabs_li[3].click()  # change tab attachments
+        time.sleep(2)  # fade
         self.assertEqual(input_share.is_displayed(), False)
 
         # fieldset description
@@ -91,6 +95,7 @@ class TestBatonInputFilter(TestCase):
         self.assertEqual(len(attachments_rows), 2)
         add_button = inlines.find_element_by_css_selector('.add-row a')
         self.assertEqual(add_button.is_displayed(), True)
+        time.sleep(3)  # fade
         add_button.click()
         attachments_rows = inlines.find_elements_by_css_selector('.dynamic-attachments')
         self.assertEqual(len(attachments_rows), 3)

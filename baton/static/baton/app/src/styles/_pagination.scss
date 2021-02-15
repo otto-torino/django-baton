@@ -23,7 +23,7 @@
   }
 
   .end {
-    @extend .mr-3;
+    @extend .me-3;
   }
 
   .this-page {
@@ -37,7 +37,9 @@
 
   .showall {
     @extend .btn;
+    @extend .btn-sm;
     @extend .btn-outline-primary;
+    @extend .ms-2;
     margin-top: -5px;
   }
 

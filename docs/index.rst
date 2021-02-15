@@ -6,7 +6,7 @@
 django-baton's documentation
 ========================================
 
-A cool, modern and responsive django admin application based on bootstrap 4.5.0
+A cool, modern and responsive django admin application based on bootstrap 5
 
 Baton was developed with one concept in mind: **overwrite as few django templates as possible**.
 Everything is done with css (sass and bootstrap mixins), and when the markup needs some edit, then DOM manipulation through js is used.
@@ -14,8 +14,8 @@ Everything is done with css (sass and bootstrap mixins), and when the markup nee
 Features
 --------
 
-- Supports django >= 1.11
-- Based on bootstrap 4.5.0 and FontAwesome 5.8.1
+- Supports django >= 2.1
+- Based on bootstrap 5 and FontAwesome 5
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters facility
@@ -37,8 +37,10 @@ Getting started
    configuration
    signals
    js_utilities
+   js_translations
    list_filters
    changelist_includes
+   changelist_filters_includes
    changelist_row_attributes
    form_tabs
    form_includes
@@ -55,14 +57,13 @@ Advanced customization
 Screenshots
 -----------
 
-.. image:: images/screen1.png
-.. image:: images/screen2.png
-.. image:: images/screen3.png
-.. image:: images/screen4.png
-.. image:: images/screen5.png
-.. image:: images/screen6.png
-.. image:: images/screen7.png
-.. image:: images/screen8.png
 
-
-
+.. image:: screenshots/mobile_mix.jpg
+.. image:: screenshots/mobile_mix2.png
+.. image:: screenshots/tablet.png
+.. image:: screenshots/splash-login.png
+.. image:: screenshots/index-no-analytics.png
+.. image:: screenshots/changelist-lg.png
+.. image:: screenshots/changeform-error.png
+.. image:: screenshots/filters-modal.png
+.. image:: screenshots/menu-collapsed.png

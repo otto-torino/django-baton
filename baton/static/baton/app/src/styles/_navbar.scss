@@ -22,6 +22,7 @@ body.page-logout #header {
   background: $navbar-bg !important;
   color: $navbar-color;
   flex-direction: row !important;
+  padding: .6rem 0;
 
   strong {
     color: $navbar-color;
@@ -77,12 +78,12 @@ body.page-logout #header {
 #branding {
   // @extend .nav-left;
   @extend .navbar-brand;
-  @extend .mr-auto;
+  @extend .me-auto;
   display: inline-block;
   padding-bottom: 0;
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 }
 

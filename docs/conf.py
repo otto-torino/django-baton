@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'django-baton'
-copyright = u'2017, abidibo'
+copyright = u'2017-2020, Otto srl'
 author = u'abidibo'
 
 # The version info for the project you're documenting, acts as replacement for

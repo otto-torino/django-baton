@@ -1,0 +1,21 @@
+{% load i18n baton_tags %}
+<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
+{% baton_config_value 'CHANGELIST_FILTERS_FORM' as filters_form %}
+{% if filters_form %}
+    <ul style="padding-right: 15px;">
+        <li>
+            <select class="form-select form-select-sm" style="width: 100% !important;">
+                {% for choice in choices %}
+                    <option{% if choice.selected %} selected="selected"{% endif %} value="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>
+                {% endfor %}
+            </select>
+        </li>
+    </ul>
+{% else %}
+    <ul>
+    {% for choice in choices %}
+        <li{% if choice.selected %} class="selected"{% endif %}>
+        <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">{{ choice.display }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}

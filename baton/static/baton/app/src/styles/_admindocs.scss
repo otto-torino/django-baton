@@ -1,0 +1,115 @@
+.page-admindocs {
+  .admindocs-body {
+    padding: 0 1rem;
+
+    #content-main {
+      padding-top: 1rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+    }
+
+    .subhead {
+      margin-bottom: 1rem;
+    }
+
+    .help {
+      @extend .alert;
+      @extend .alert-info;
+
+      &::before {
+        content: '\f05a';
+        display: inline-block;
+        font-family: 'Font Awesome\ 5 Free';
+        margin-right: .5rem;
+      }
+    }
+
+    .simple {
+      background: $admindocs-simple-bg;
+      padding-bottom: .5rem;
+      padding-top: 1rem;
+    }
+
+    pre {
+      background: $admindocs-pre-bg;
+      color: $admindocs-pre-color;
+      font-size: .8rem;
+      padding: 1rem;
+    }
+
+    table {
+      @extend .table;
+      border: $admindocs-table-border-color !important;
+    }
+
+    .module {
+      background: $admindocs-module-bg;
+      margin-bottom: 1rem;
+      max-width: 100%;
+      overflow: auto;
+
+      h2 {
+        background: $admindocs-module-header-bg;
+        border: 1px solid $admindocs-module-header-border-color;
+        font-size: 1.4rem;
+        padding: .5rem;
+      }
+
+      h3 {
+        color: $base;
+        font-size: 1.4rem;
+      }
+
+      h4 {
+        font-size: 1.2rem;
+      }
+
+      table {
+        @extend .table;
+
+        thead {
+          @extend .table-dark;
+        }
+      }
+
+      > h3, > p, > h4, > dl {
+        padding-left: .5rem;
+        padding-right: .5rem;
+      }
+    }
+
+    .small a {
+      @extend .btn;
+      @extend .btn-sm;
+      @extend .btn-secondary;
+    }
+  }
+
+  .colSM .admindocs-body {
+    display: flex;
+    flex-direction: column;
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+    }
+
+    #content-main {
+      order: 2;
+    }
+
+    #content-related {
+      order: 1;
+
+      @include media-breakpoint-up(lg) {
+        margin-right: 1rem;
+        padding-top: 1rem;
+      }
+    }
+  }
+}

@@ -99,26 +99,30 @@
   }
 
   #changelist-search {
-
     label,
     input {
       display: inline-block !important;
     }
 
     label {
-      @extend .pr-2;
+      @extend .pe-2;
+      position: relative;
+      top: -2px;
       text-align: right;
     }
 
     input[type=text] {
       @extend .form-control;
+      @extend .form-control-sm;
       max-width: 160px;
     }
 
     input[type=submit] {
       @extend .btn;
-      @extend .ml-2;
+      @extend .btn-sm;
+      @extend .ms-2;
       background: $toolbar-btn-bg;
+      margin-top: -3px;
       max-width: 100px;
 
       &:hover {
@@ -136,8 +140,9 @@
   }
 
   .changelist-filter-toggler {
+    @extend .btn;
+    @extend .btn-info;
     align-items: center;
-    color: $filter-toggler-color !important;
     cursor: pointer;
     display: inline;
     float: right;
@@ -146,7 +151,8 @@
     min-height: 39px;
 
     &.active {
-      background: $primary;
+      background: $accent;
+      border-color: $accent !important;
     }
 
     &.with-actions {
@@ -173,12 +179,13 @@
   #changelist-filter {
     @include make-col(12);
     background: $filters-bg;
+    max-width: 100%;
     order: 3;
-    transition: all .2s linear;
 
     @include media-breakpoint-up(lg) {
       @include make-col(0);
       max-height: 200px;
+      max-width: 99%;
       overflow: hidden;
     }
 
@@ -255,6 +262,7 @@
     max-height: 100% !important;
     order: 0 !important;
     padding: .5rem 0 !important;
+    width: auto !important;
 
     select {
       margin-left: 0 !important;
@@ -263,29 +271,29 @@
   }
 
   #changelist-form {
-    @extend .p-3;
     @include make-col(12);
     background: $changelist-bg;
     order: 2;
+    padding: 1rem !important;
     position: relative; // filter icon
-    transition: all .2s linear;
 
     @include media-breakpoint-up(lg) {
       @include make-col(12);
     }
 
     .actions {
+      @extend .mb-4;
+
       label {
-        @extend .pr-2;
-        @include make-col(8);
+        @extend .pe-2;
       }
 
       button {
         @extend .btn;
         @extend .btn-sm;
         @extend .btn-light;
-        @extend .ml-2;
-        @extend .mr-2;
+        @extend .ms-2;
+        @extend .me-2;
       }
 
       .all,
@@ -296,8 +304,8 @@
     }
 
     select {
-      @extend .custom-select;
-      @extend .custom-select-sm;
+      @extend .form-select;
+      @extend .form-select-sm;
       -moz-appearance: none;
       text-indent: .01px;
       text-overflow: '';
@@ -323,8 +331,8 @@
         color: $rl-tr-odd-color;
       }
 
-      tbody tr.selected {
-        background: $rl-tr-selected-bg;
+      tbody tr.selected, tbody tr.selected td, tbody tr.selected th {
+        background: $rl-tr-selected-bg !important;
         color: $rl-tr-selected-color;
       }
 
@@ -394,5 +402,36 @@
 
   .baton-cl-include-below {
     order: 2;
+  }
+
+  .admindatefilter {
+    border-bottom: 0 !important;
+    margin-right: 15px;
+    padding-bottom: 0;
+    position: relative;
+
+    form > p {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .datetimeshortcuts {
+      right: 2rem;
+    }
+
+    input[type='text'] {
+      @extend .form-control;
+      @extend .form-control-sm;
+      flex-grow: 1;
+    }
+
+    input[type='submit'],
+    input[type='reset'] {
+      @extend .btn-sm;
+    }
+
+    input[type='reset'] {
+      @extend .btn-secondary;
+    }
   }
 }

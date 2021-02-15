@@ -14,8 +14,10 @@ import Tabs from './core/Tabs'
 import ChangeList from './core/ChangeList'
 import ChangeForm from './core/ChangeForm'
 import Login from './core/Login'
+import AdminDocs from './core/AdminDocs'
 import Filer from './core/Filer'
 import Modal from './core/Modal'
+import Messages from './core/Messages'
 
 window.Baton = {
   intialized: false,
@@ -25,13 +27,16 @@ window.Baton = {
     let page = this.page()
     $('body').addClass('page-' + page)
 
+    // toasts
+    Messages.init(config)
+
     Navbar.init(config)
     Dispatcher.emit('onNavbarReady')
     if (page !== 'login' && page !== 'logout' && !/_popup/.test(location.search)) {
       Menu.init(config, Dispatcher)
     }
     if (page === 'login') {
-      Login.init()
+      Login.init(config)
     } else if (page === 'logout' || page === 'password_change_success') {
       ActionResult.init()
     } else if (page === 'password_change') {
@@ -40,6 +45,8 @@ window.Baton = {
       ChangeList.init(config)
     } else if (page === 'add_form' || page === 'change_form') {
       ChangeForm.init(config)
+    } else if (page === 'admindocs') {
+      AdminDocs.init()
     } else if (page === 'filer') {
       Filer.init()
     }
@@ -68,6 +75,8 @@ window.Baton = {
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
       return 'dashboard'
+    } else if (/^(\/[a-z]{2})?\/admin\/doc\//.test(location.pathname)) {
+      return 'admindocs'
     } else if (/^(\/[a-z]{2})?\/admin\/login\/$/.test(location.pathname)) {
       return 'login'
     } else if (/^(\/[a-z]{2})?\/admin\/logout\/$/.test(location.pathname)) {
@@ -82,7 +91,7 @@ window.Baton = {
       return 'change_form'
     } else if (document.getElementById('changelist')) {
       return 'changelist'
-    } else if (document.getElementById('change-history')) {
+    } else if (document.getElementById('change-history') || /^(\/[a-z]{2})?\/admin\/[^/]+\/[^/]+\/[^/]+\/history/.test(location.pathname)) {
       return 'changehistory'
     } else if (/\/filer\//.test(location.pathname)) {
       return 'filer'

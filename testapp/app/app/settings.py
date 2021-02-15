@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
     'baton',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'easy_thumbnails',
+    'rangefilter',
     'filer',
     'tinymce',
     'mptt',
@@ -119,9 +121,12 @@ BATON = {
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': True,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'CHANGELIST_FILTERS_FORM': True,
     'COLLAPSABLE_USER_AREA': False,
     'MENU_ALWAYS_COLLAPSED': False,
+    'MESSAGES_TOASTS': ['success'],
     'GRAVATAR_DEFAULT_IMG': 'robohash',
+    'LOGIN_SPLASH': '/static/app/bg.jpg',
     'MENU': (
         {
             'type': 'title',

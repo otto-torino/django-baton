@@ -9,7 +9,7 @@
   }
 
   .object-tools {
-    @extend .pl-0;
+    @extend .ps-0;
     @extend .m-2;
     float: right;
     list-style-type: none;
@@ -31,7 +31,9 @@
     height: 100px;
 
     &:hover {
-      box-shadow: 0 0 10px #aaa;
+      animation: bounce 0.1s;
+      animation-direction: alternate;
+      animation-iteration-count: 4;
     }
   }
 

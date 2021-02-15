@@ -3,6 +3,7 @@ import json
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from baton.admin import InputFilter, RelatedDropdownFilter
+from rangefilter.filter import DateRangeFilter
 from .models import News, Category, Attachment, Video
 
 
@@ -36,6 +37,7 @@ class VideosInline(admin.StackedInline):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
+    list_per_page = 2
     list_display = (
         'title',
         'date',
@@ -45,7 +47,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = (
         TitleFilter,
         ('category', RelatedDropdownFilter, ),
-        'date',
+        ('date', DateRangeFilter),
         'published',
     )
     inlines = [AttachmentsInline, VideosInline]
@@ -97,13 +99,17 @@ class NewsAdmin(admin.ModelAdmin):
         ('news/admin_cl_top_include.html', 'top', ),
     ]
 
+    baton_cl_filters_includes = [
+        ('news/admin_cl_filters_top_include.html', 'top', ),
+    ]
+
     def get_category(self, instance):
         return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
     get_category.short_description = 'category'
 
-    def baton_cl_rows_attributes(self, request, **kwargs):
+    def baton_cl_rows_attributes(self, request, cl):
         data = {}
-        for news in News.objects.filter(category__id=2):
+        for news in cl.queryset.filter(category__id=2):
             data[news.id] = {
                 'class': 'table-info',
                 # 'selector': '#result_list tr input[name=_selected_action][value=%d]' % news.id,

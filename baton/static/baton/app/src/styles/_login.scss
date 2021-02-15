@@ -1,6 +1,10 @@
 // scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
 body.login {
-  padding-top: 1px;
+  background: $login-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1px 1rem 0;
 
   #header #branding {
     margin: auto !important;
@@ -17,9 +21,11 @@ body.login {
   }
 
   #container {
-    @extend .p-3;
+    border: 0 !important;
+    border-radius: 0;
     max-width: 100%;
     min-width: auto;
+    width: 24em;
 
     .navbar-toggler {
       display: none !important;
@@ -48,11 +54,24 @@ body.login {
     input[type='text'],
     input[type='password'] {
       @extend .form-control;
+      background: #fff !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+
+    .pwd-visibility-toggle {
+      color: $password-visibility-toggler-icon-fg;
+      cursor: pointer;
+      position: absolute;
+      right: 8px;
+      top: 11px;
+      z-index: 10;
     }
 
     .form-row {
       margin-left: 0 !important;
       margin-right: 0 !important;
+      position: relative;
     }
 
     .errornote {
