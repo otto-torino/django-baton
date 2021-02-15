@@ -23,25 +23,23 @@ class Modal {
   }
 
   create () {
-    let modal = $('<div />', {'class': 'modal fade'})
+    let modal = $('<div />', {'class': 'modal fade'}).appendTo(document.body)
     modal.html(`
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
                   <h5 class="modal-title"></h5>
                   <div style="display: flex;">
-                      <button type="button" class="back mr-1" aria-label="Back">
+                      <button type="button" class="back me-1" aria-label="Back">
                           <i class="fa fa-angle-left"></i>
                       </button>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
               </div>
               <div class="modal-body">
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">${this.t.get('close')}</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${this.t.get('close')}</button>
                   <button type="button" class="btn btn-primary btn-action"></button>
               </div>
           </div><!-- /.modal-content -->
@@ -112,6 +110,8 @@ class Modal {
         self.modal.find('.modal-body').html(response)
         self.options.onUrlLoaded(self)
       })
+    } else if (this.options.content instanceof jQuery) {
+      self.modal.find('.modal-body').append(this.options.content)
     } else if (typeof this.options.content !== 'undefined') {
       self.modal.find('.modal-body').html(this.options.content)
     }

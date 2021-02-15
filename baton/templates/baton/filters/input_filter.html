@@ -1,26 +1,35 @@
-{% load i18n %}
+{% load i18n baton_tags %}
 
+{% baton_config_value 'CHANGELIST_FILTERS_FORM' as filters_form %}
 <h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
 <ul style="padding-right: 15px;">
     <li>
-        {% with choices.0 as all_choice %}
-            <form method="GET" action="">
+        {% if not filters_form %}
+            {% with choices.0 as all_choice %}
+                <form method="GET" action="">
 
-                {% for k, v in all_choice.query_parts %}
-                    <input type="hidden" name="{{ k }}" value="{{ v }}" />
-                {% endfor %}
+                    {% for k, v in all_choice.query_parts %}
+                        <input type="hidden" name="{{ k }}" value="{{ v }}" />
+                    {% endfor %}
 
-                <input  type="text"
-                        class="form-control form-control-sm"
-                        value="{{ spec.value|default_if_none:'' }}"
-                        placeholder="{% trans "type and press enter..."%}"
-                        name="{{ spec.parameter_name }}"/>
+                    <input  type="text"
+                            class="form-control form-control-sm"
+                            value="{{ spec.value|default_if_none:'' }}"
+                            placeholder="{% trans "type and press enter..."%}"
+                            name="{{ spec.parameter_name }}"/>
 
-                {% if not all_choice.selected %}
-                    <a style="margin-top: .5rem;" href="{{ all_choice.query_string }}" class="btn btn-sm btn-warning">x {% trans 'Remove' %}</a>
-                {% endif %}
+                    {% if not all_choice.selected %}
+                        <a style="margin-top: .5rem;" href="{{ all_choice.query_string }}" class="btn btn-sm btn-warning">{% trans 'Reset' %}</a>
+                    {% endif %}
 
-            </form>
-        {% endwith %}
+                </form>
+            {% endwith %}
+        {% else %}
+            <input  type="text"
+                    class="form-control form-control-sm"
+                    value="{{ spec.value|default_if_none:'' }}"
+                    placeholder="{% trans "type and press enter..."%}"
+                    name="{{ spec.parameter_name }}"/>
+        {% endif %}
     </li>
 </ul>

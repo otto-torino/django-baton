@@ -19,6 +19,8 @@ Example: ::
 Modal
 -----
 
+.. image:: images/modals.png
+
 Baton Modal class lets you insert some content on a bootstrap modal without dealing with all the markup.
 
 Usage: ::

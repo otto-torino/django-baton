@@ -5,27 +5,12 @@
 ![License](https://img.shields.io/pypi/l/django-baton)
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
-A cool, modern and responsive django admin application based on bootstrap 4.5.0
+A cool, modern and responsive django admin application based on bootstrap 5
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
 ---
-**V2 is coming!**
-
-Finally Bootstrap 5 beta is here. We've started the deveopment of Baton V2 based on it!
-
-You can try it now:
-
-```
-$ pip install https://github.com/otto-torino/django-baton/archive/v2.zip
-```
-
-It's already quite stable, but stuff will change during development.
-
-If you have any feedback, please use the [Discussions](https://github.com/otto-torino/django-baton/discussions) page, thank you!
-
----
-**V2 Live Demo**
+**Live Demo**
 
 Now you can try django-baton using the new shining live demo!
 Login with user `demo` and password `demo`
@@ -34,7 +19,7 @@ Login with user `demo` and password `demo`
 
 ---
 
-![Screenshot](screenshots/index-analytics-lg.png)
+![Screenshot](docs/images/index-analytics-lg.png)
 
 ## Table of contents
 
@@ -45,8 +30,10 @@ Login with user `demo` and password `demo`
     - [Analytics](#configuration-analytics)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
+- [Js Translations](#js-translations)
 - [List Filters](#list-filters)
 - [Changelist Includes](#changelist-includes)
+- [Changelist Filters Includes](#changelist-filters-includes)
 - [Changelist Row Attributes](#changelist-row-attributes)
 - [Form Tabs](#form-tabs)
 - [Form Includes](#form-includes)
@@ -58,12 +45,12 @@ Login with user `demo` and password `demo`
 
 ## <a name="features"></a>Features
 
-Supports Django >= 1.11
+Supports Django >= 2.1. For older versions of Django, please use django-baton@1.13.2.
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on bootstrap 4.5.0 and FontAwesome Free 5.8.1
+- Based on Bootstrap 5 and FontAwesome Free 5
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters and dropdown list filters facilities
@@ -73,6 +60,7 @@ Everything is styled through CSS and when required, JS is used.
 - Collapsable stacked inline entries
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
+- Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Optional index page filled with google analytics widgets
 - Customization available for recompiling the js app provided
 - IT translations provided
@@ -84,22 +72,14 @@ The following packages are required to manage the Google Analytics index:
 - google-api-python-client
 - requests
 
-At the moment __baton__ defines only 5 custom templates:
-
-- `admin/base_site.html`, needed to inject the JS application (which includes css and images, compiled with [webpack](https://webpack.github.io/));
-- `admin/change_form.html`, needed to inject the `baton_form_includes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
-- `admin/change_list.html`, needed to inject the `baton_cl_includes` and `baton_cl_rows_attributes` stuff. In any case, the template extends the default one and just adds some stuff at the end of the content block, so it's still full compatible with the django one;
-- `admin/delete_confirmation.html`, needed to wrap contents;
-- `admin/delete_selected_confirmation.html`, same as above.
-
 Baton is based on the following frontend technologies:
 
-- bootstrap 4.5.0
-- FontAwesome 5.8.1 (solid and brands)
+- Bootstrap 5
+- FontAwesome 5 (solid and brands)
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
 
-All JS, fonts and CSS are compiled, and produce a single JS file which is included in the base_site template.
+All JS, fonts and CSS are compiled, and produce a single JS file which is included in the `base_site` template.
 
 A custom menu is provided, the menu is rendered through JS, and data is fetched in JSON format through an AJAX request.
 
@@ -107,33 +87,37 @@ A custom menu is provided, the menu is rendered through JS, and data is fetched 
 
 Install the last stable release
 
-    pip install django-baton
+    $ pip install django-baton
 
 or clone the repo inside your project
 
-    git clone https://github.com/otto-torino/django-baton.git
+    $ git clone https://github.com/otto-torino/django-baton.git
 
 Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
 
-    INSTALLED_APPS = (
-        # ...
-        'baton',
-        'django.contrib.admin',
-        # ... (place baton.autodiscover at the very end)
-        'baton.autodiscover',
-    )
+``` python
+INSTALLED_APPS = (
+    # ...
+    'baton',
+    'django.contrib.admin',
+    # ... (place baton.autodiscover at the very end)
+    'baton.autodiscover',
+)
+```
 
-Replace django.contrib.admin in your project urls, and add baton urls:
+Replace `django.contrib.admin` in your project urls, and add baton urls:
 
-    # from django.contrib import admin
-    from baton.autodiscover import admin
-    from django.urls import path, include
+``` python
+# from django.contrib import admin
+from baton.autodiscover import admin
+from django.urls import path, include
 
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('baton/', include('baton.urls')),
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('baton/', include('baton.urls')),
 
-    ]
+]
+```
 
 If you get a "__No crypto library available__" when using the Google Analytics index, install this package:
 
@@ -150,52 +134,57 @@ that so I wrote this `autodiscover` module which automatically registers all the
 
 The configuration dictionary must be defined inside your settings:
 
-    BATON = {
-        'SITE_HEADER': 'Baton',
-        'SITE_TITLE': 'Baton',
-        'INDEX_TITLE': 'Site administration',
-        'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-        'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
-        'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
-        'CONFIRM_UNSAVED_CHANGES': True,
-        'SHOW_MULTIPART_UPLOADING': True,
-        'ENABLE_IMAGES_PREVIEW': True,
-        'CHANGELIST_FILTERS_IN_MODAL': True,
-        'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
-        'MENU_ALWAYS_COLLAPSED': False,
-        'MENU_TITLE': 'Menu',
-        'GRAVATAR_DEFAULT_IMG': 'retro',
-        'MENU': (
-            { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
-            {
-                'type': 'app',
-                'name': 'auth',
-                'label': 'Authentication',
-                'icon': 'fa fa-lock',
-                'models': (
-                    {
-                        'name': 'user',
-                        'label': 'Users'
-                    },
-                    {
-                        'name': 'group',
-                        'label': 'Groups'
-                    },
-                )
-            },
-            { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
-            { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
-            { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-            { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
-                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
-                { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
-            ] },
-        ),
-        'ANALYTICS': {
-            'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-            'VIEW_ID': '12345678',
-        }
+``` python
+BATON = {
+    'SITE_HEADER': 'Baton',
+    'SITE_TITLE': 'Baton',
+    'INDEX_TITLE': 'Site administration',
+    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+    'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
+    'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'SHOW_MULTIPART_UPLOADING': True,
+    'ENABLE_IMAGES_PREVIEW': True,
+    'CHANGELIST_FILTERS_IN_MODAL': True,
+    'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'CHANGELIST_FILTERS_FORM': True,
+    'MENU_ALWAYS_COLLAPSED': False,
+    'MENU_TITLE': 'Menu',
+    'MESSAGES_TOASTS': False,
+    'GRAVATAR_DEFAULT_IMG': 'retro',
+    'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+    'MENU': (
+        { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
+        {
+            'type': 'app',
+            'name': 'auth',
+            'label': 'Authentication',
+            'icon': 'fa fa-lock',
+            'models': (
+                {
+                    'name': 'user',
+                    'label': 'Users'
+                },
+                {
+                    'name': 'group',
+                    'label': 'Groups'
+                },
+            )
+        },
+        { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
+        { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
+        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+        { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
+            { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+            { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+        ] },
+    ),
+    'ANALYTICS': {
+        'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+        'VIEW_ID': '12345678',
     }
+}
+```
 
 - `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include img tags and links.
 - `SUPPORT_HREF` is the URL of the support link. For instance, you can use `mailto:info@blabla.com`.
@@ -206,10 +195,13 @@ Default value is `True`.
 - `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews have 100px height and with a box shadow (on "hover").
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggler button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
+- `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button. With such option all standard filters are displayed as dropdowns.
 - `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
+- `MESSAGES_TOASTS`: you can decide to show all or specific level admin messages in toasts. Set it to `True` to show all message in toasts. set it to `['warning', 'error']` to show only warning and error messages in toasts.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
+- `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 
 `MENU` and `ANALYTICS` configurations in detail:
 
@@ -288,41 +280,23 @@ Currently, Baton emits four types of events:
 
 To use these, just override the baton `admin/base_site.html` template and register your listeners **before** calling `Baton.init`, i.e.
 
-    <!-- ... -->
-    <script>
-        {% baton_config 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
-        {% baton_config 'SHOW_MULTIPART_UPLOADING' as show_multipart_uploading %}
-        {% baton_config 'ENABLE_IMAGES_PREVIEW' as enable_images_preview %}
-        {% baton_config 'CHANGELIST_FILTERS_IN_MODAL' as changelist_filters_in_modal %}
-        {% baton_config 'COLLAPSABLE_USER_AREA' as collapsable_user_area %}
-        {% baton_config 'MENU_ALWAYS_COLLAPSED' as menu_always_collapsed %}
-        {% baton_config 'MENU_TITLE' as menu_title %}
-        {% baton_config 'GRAVATAR_DEFAULT_IMG' as gravatar_default_img %}
-        (function ($, undefined) {
-            $(document).ready(function () {
-                // init listeners
-                Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
-                Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
-                Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
-                // end listeners
-                Baton.init({
-                    api: {
-                        app_list: '{% url 'baton-app-list-json' %}',
-                        gravatar: '{% url 'baton-gravatar-json' %}'
-                    },
-                    confirmUnsavedChanges: {{ confirm_unsaved_changes|yesno:"true,false" }},
-                    showMultipartUploading: {{ show_multipart_uploading|yesno:"true,false" }},
-                    enableImagesPreview: {{ enable_images_preview|yesno:"true,false" }},
-                    changelistFiltersInModal: {{ changelist_filters_in_modal|yesno:"true,false" }},
-                    collapsableUserArea: {{ collapsable_user_area|yesno:"true,false" }},
-                    menuAlwaysCollapsed: {{ menu_always_collapsed|yesno:"true,false" }},
-                    menuTitle: '{{ menu_title|escapejs }}',
-                    gravatarDefaultImg: '{{ gravatar_default_img }}'
-                });
-            })
-        })(jQuery, undefined)
-    </script>
-    <!-- ... -->
+``` html
+<!-- ... -->
+<script>
+
+    (function ($, undefined) {
+        // init listeners
+        Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
+        Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
+        Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
+        // end listeners
+        $(document).ready(function () {
+            Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
+        })
+    })(jQuery, undefined)
+</script>
+<!-- ... -->
+```
 
 ## <a name="js-utilities"></a>Js Utilities
 
@@ -346,6 +320,8 @@ Baton.Dispatcher.emit('myAppLoaded', 'STUFF!')
 ### Modal
 
 Baton Modal class lets you insert some content on a bootstrap modal without dealing with all the markup.
+
+![Modal](docs/images/modals.png)
 
 Usage:
 
@@ -386,7 +362,36 @@ myModal.update({
 myModal.toggle();
 ```
 
+## <a name="js-translations"></a>Js Translations
+
+There are some circustamces in which Baton will print to screen some js message. Baton detects the user locale and will localize such messages, but it comes with just `en` and `it` translations provided.
+
+> Baton retrieves the current user locale from the `lang` attribute of the `html` tag.
+
+However you can provide or add your own translations by attaching an object to the `Baton` namespace:
+
+``` javascript
+// these are the default translations, you can just edit the one you need, or add some locales. Baton engione will always
+// pick up your custom translation first, if it find them.
+// you can define the object before Baton.init in the base_site template
+Baton.translations = {
+  unsavedChangesAlert: 'You have some unsaved changes.',
+  uploading: 'Uploading...',
+  filter: 'Filter',
+  close: 'Close',
+  save: 'Save',
+  cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
+  retrieveDataError: 'There was an error retrieving the data'
+}
+
+Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
+```
+
+If Baton can't find the translations for the user locale, it will default to `en`. Keep in mind that Baton will use `en` translations for all `en-xx` locales, but of course you can specify your custom translations!
+
 ## <a name="list-filters"></a>List Filters
+
+![List Filters](docs/images/filters.png)
 
 ### Input Text Filters
 
@@ -485,6 +490,33 @@ You can specify the following positions:
 
 And, of course, you can access the all the changelist view context variables inside your template.
 
+## <a name="changelist-filters-includes"></a>Changelist Filters Includes
+
+> In order for this feature to work, the user browser must support html template tags.
+
+Baton lets you include templates directly inside the change list filter container, at the top or the bottom. It's as simple as specifying the template path and the position of the template:
+
+```python
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    #...
+    baton_cl_filters_includes = [
+        ('news/admin_filters_include_top.html', 'top', ),
+        ('news/admin_filters_include_bottom.html', 'bottom', )
+    ]
+```
+
+![Baton changelist filters includes](docs/images/baton-cl-filters-includes.png)
+
+You can specify the following positions:
+
+|Position|Description|
+|:--------|:-----------|
+|`top`| the template is placed inside the changelist filter container, at the top|
+|`bottom`| the template is placed inside the changelist filter container, at the bottom|
+
+And, of course, you can access the all the changelist view context variables inside your template.
+
 ## <a name="changelist-row-attributes"></a>Changelist Row Attributes
 
 > In order for this feature to work, the user browser must support html template tags.
@@ -495,7 +527,7 @@ With Baton you can add every kind of html attribute (including css classes) to a
 
 It's a bit tricky, let's see how:
 
-1. Add a `baton_cl_rows_attributes` function to your `ModelAdmin` class, which takes `request` as a parameter.
+1. Add a `baton_cl_rows_attributes` function to your `ModelAdmin` class, which takes `request` and `cl` (changelist view) as parameters.
 2. Return a json dictionary where the keys are used to match an element and the values specifies the attributes and other rules to select the element.
 
 Better to see an example:
@@ -508,9 +540,9 @@ class NewsModelAdmin(admin.ModelAdmin):
         return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
     get_category.short_description = 'category'
 
-    def baton_cl_rows_attributes(self, request):
+    def baton_cl_rows_attributes(self, request, cl):
         data = {}
-        for news in News.objects.filter(category__id=2):
+        for news in cl.queryset.filter(category__id=2):
             data[news.id] = {
                 'class': 'table-info',
             }
@@ -539,6 +571,8 @@ So these are the rules:
 
 ## <a name="form-tabs"></a>Form tabs
 
+![Tabs](docs/images/tabs.png)
+
 How much I loved django-suit form tabs? Too much. So, this was a feature I couldn't live without.
 
 There are three types of tabs:
@@ -554,38 +588,40 @@ Using group tabs you can mix inlines with fields just by splitting fields into f
 
 Let's see how to define tabs in your admin forms (everything is done through js, no templatetags or templates overriden):
 
-    class AttributeInline(admin.StackedInline):
-        model = Attribute
-        extra = 1
+``` python
+class AttributeInline(admin.StackedInline):
+    model = Attribute
+    extra = 1
 
-    class FeatureInline(admin.StackedInline):
-        model = Feature
-        extra = 1
+class FeatureInline(admin.StackedInline):
+    model = Feature
+    extra = 1
 
-    class ItemAdmin(admin.ModelAdmin):
-        list_display = ('label', 'description', 'main_feature', )
-        inlines = [AttributeInline, FeatureInline, ]
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('label', 'description', 'main_feature', )
+    inlines = [AttributeInline, FeatureInline, ]
 
-        fieldsets = (
-            ('Main', {
-                'fields': ('label', ),
-                'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
-                'description': 'This is a description text'
+    fieldsets = (
+        ('Main', {
+            'fields': ('label', ),
+            'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
+            'description': 'This is a description text'
 
-            }),
-            ('Content', {
-                'fields': ('text', ),
-                'classes': ('tab-fs-content', ),
-                'description': 'This is another description text'
+        }),
+        ('Content', {
+            'fields': ('text', ),
+            'classes': ('tab-fs-content', ),
+            'description': 'This is another description text'
 
-            }),
-            ('Tech', {
-                'fields': ('main_feature', ),
-                'classes': ('tab-fs-tech', ),
-                'description': 'This is another description text'
+        }),
+        ('Tech', {
+            'fields': ('main_feature', ),
+            'classes': ('tab-fs-tech', ),
+            'description': 'This is another description text'
 
-            }),
-        )
+        }),
+    )
+```
 
 As you can see these are the rules:
 
@@ -663,6 +699,8 @@ class VideosInline(admin.StackedInline):
 
 It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern JS app which resides in `baton/static/baton/app`.
 
+![Customization](docs/images/customization.png)
+
 You just need to change the [SASS variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) (and you can also overwrite Bootstrap variables), re-compile, get the compiled JS file, place it in the static folder of your main app,
 and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
@@ -691,27 +729,62 @@ Now while you make your changes to the JS app (CSS included), webpack will updat
 
 Starting from the release 1.7.1, django baton is provided with a set of unit and e2e tests. Testing baton is not so easy, because it almost do all the stuff with css rules and by manipulating the DOM. So the e2e tests are performed using selenium and inspecting the test application inside a real browser. In order to have them run properly, you need to have the test application running on `localhost:8000`.
 
+## <a name="development"></a>Development
+
+Start the test app (login admin:admin):
+
+    $ cd testapp
+    $ python3 -m venv .virtualenv
+    $ cd app
+    $ pip install -r requirements.txt
+    $ python manage.py runserver
+
+Switch the baton js path in `base_site.html`
+
+    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
+    <script src="http://localhost:8080/dist/baton.min.js"></script>
+
+Start the js app in watch mode
+
+    $ cd baton/static/baton/app
+    $ npm install
+    $ npm run dev
+
+Now you'll see live all your changes in the testapp.
+
+### Commands
+
+Install `invoke` and `sphinx_rtd_theme`
+
+    $ pip install invoke sphinx_rtd_theme
+
+Now you can generate the documentation in order to check it. Inside the root dir:
+
+    $ invoke docs
+
 ## <a name="contributing"></a>Contributing
 
-I'll soon add more stuff here but at the moment what is really important is to follow the eslint rules specified in the `.eslintrc` file (https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/.eslintrc) for the JS part, and be compliant with the standard sasslint rules for the SASS part. I follow PEP8 standard for the few lines of python code.
+Read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## <a name="screenshots"></a>Screenshots
 
-![Screenshot](screenshots/mobile_mix.jpg)
+![Screenshot](docs/screenshots/mobile_mix.jpg)
 
-![Screenshot](screenshots/more1.png)
+![Screenshot](docs/screenshots/mobile_mix2.png)
 
-![Screenshot](screenshots/changelist_user-lg.png)
+![Screenshot](docs/screenshots/tablet.png)
 
-![Screenshot](screenshots/tabs-lg.png)
+![Screenshot](docs/screenshots/splash-login.png)
 
-![Screenshot](screenshots/more2.png)
+![Screenshot](docs/screenshots/index-no-analytics.png)
 
-![Screenshot](screenshots/more3.png)
+![Screenshot](docs/screenshots/changelist-lg.png)
 
-![Screenshot](screenshots/more4.png)
+![Screenshot](docs/screenshots/changeform-error.png)
 
-![Screenshot](screenshots/more5.png)
+![Screenshot](docs/screenshots/filters-modal.png)
 
-![Screenshot](screenshots/more6.png)
+![Screenshot](docs/screenshots/filters-form.png)
+
+![Screenshot](docs/screenshots/menu-collapsed.png)
 

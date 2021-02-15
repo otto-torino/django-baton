@@ -1,9 +1,9 @@
-from django.contrib.admin import AdminSite, site
+from django.contrib import admin
 
 from ..config import get_config
 
 
-class BatonAdminSite(AdminSite):
+class BatonAdminSite(admin.AdminSite):
     site_header = get_config('SITE_HEADER')
     site_title = get_config('SITE_TITLE')
     index_title = get_config('INDEX_TITLE')
@@ -15,11 +15,15 @@ class BatonAdminSite(AdminSite):
         """ Registers all apps with BatonAdminSite """
         super(BatonAdminSite, self).__init__(*args, **kwargs)
         # copy registered actions
-        self._actions = site._actions
-        self._registry.update(site._registry)
-        for model in site._registry:
+        self._actions = admin.site._actions
+        self._registry.update(admin.site._registry)
+        for model in admin.site._registry:
             self.unregister([model])
-            self.register([model], type(site._registry[model]))
+            self.register([model], type(admin.site._registry[model]))
 
 
-site = BatonAdminSite()  # noqa
+site = BatonAdminSite()
+
+# override otherwise in admindocs the default admin site is used showing
+# the navbar
+admin.site = site

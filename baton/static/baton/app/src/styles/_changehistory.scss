@@ -12,6 +12,7 @@ body.page-changehistory #content-main {
     #change-history {
       @extend .table;
       @extend .table-bordered;
+      margin-bottom: 0;
 
       thead > tr {
         background: $rl-head-bg;

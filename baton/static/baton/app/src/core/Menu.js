@@ -31,7 +31,7 @@ let Menu = {
     let row = $('<div/>', { class: 'row' }).appendTo(container)
     this.menu = $('<nav/>', { class: 'col-lg-2 sidebar-menu' }).appendTo(row)
     $('#content')
-      .addClass('col-md-9 col-lg-10')
+      .addClass('col-lg-10')
       .prepend($('.breadcrumbs'))
       .appendTo(row)
 
@@ -134,7 +134,7 @@ let Menu = {
       } else if (/logout/.test($(el).attr('href'))) {
         cls = 'logout'
       }
-      let text = $(el).html()
+      let text = $(el).text()
       let clone = $(el)
         .clone()
         .html('')

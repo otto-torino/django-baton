@@ -10,7 +10,6 @@ body:not(.menu-mobile) {
       height: auto;
       left: 0;
       position: static;
-      width: auto;
 
       h1 {
         i {
@@ -29,7 +28,6 @@ body:not(.menu-mobile) {
   padding: 0;
   position: fixed;
   top: 0;
-  width: 100%;
   z-index: 100;
 
   @include media-breakpoint-up(lg) {
@@ -38,6 +36,8 @@ body:not(.menu-mobile) {
 
   #branding {
     background: $menu-branding-bg;
+    border-bottom: 1px solid $menu-branding-bg;
+    padding-top: 0;
     text-align: center;
     width: 100%;
 
@@ -51,6 +51,7 @@ body:not(.menu-mobile) {
   }
 
   .toggle-menu {
+    cursor: pointer;
     position: absolute;
     right: 1rem;
     top: 1.6rem;
@@ -135,7 +136,7 @@ body:not(.menu-mobile) {
       }
 
       &::after {
-        color: lighten($primary, 20%);
+        color: $user-links-fg;
         font-size: 1.3rem;
         display: inline-block;
         margin: 0 .6rem;

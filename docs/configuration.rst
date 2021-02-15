@@ -20,10 +20,13 @@ This is an example of configuration::
         'ENABLE_IMAGES_PREVIEW': True,
         'CHANGELIST_FILTERS_IN_MODAL': True,
         'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+        'CHANGELIST_FILTERS_FORM': True,
         'COLLAPSABLE_USER_AREA': False,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
+        'MESSAGES_TOASTS': False,
         'GRAVATAR_DEFAULT_IMG': 'retro',
+        'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -125,12 +128,16 @@ Show an overlay with a spinner when a ``multipart/form-data`` form is submitted
 Enable images preview
 -----------------------
 
+.. image:: images/images-preview.png
+
 Displays a preview above all input file fields which contain images. You can control how the preview is displayed overriding the class ``.baton-image-preview``. By default previews are 100px height and with a box shadow on over event
 
 **Default**: True
 
 Changelist filters in modal
 -----------------------
+
+.. image:: images/filters.png
 
 If set to ``True`` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is ``False`` and the changelist filters appears from the right side of the changelist table.
 
@@ -139,12 +146,23 @@ If set to ``True`` the changelist filters are opened in a centered modal above t
 Changelist filters always open
 -----------------------
 
-if set to ``True`` the changelist filters are opened by default. By default, its value is ``False`` and the changelist filters can be expanded clicking a toggler button. This option is considered only if ``CHANGELIST_FILTERS_IN_MODAL`` is ``False``
+If set to ``True`` the changelist filters are opened by default. By default, its value is ``False`` and the changelist filters can be expanded clicking a toggler button. This option is considered only if ``CHANGELIST_FILTERS_IN_MODAL`` is ``False``
+
+**Default**: False
+
+Changelist filters form
+-----------------------
+
+.. image:: images/filters-form.png
+
+If set to ``True`` the changelist filters are treated as in a form, you can set many of them at once and then press a filter button in order to actually perform the filtering. With such option all standard filters are displayed as dropdowns.
 
 **Default**: False
 
 Collapsable user area
 -----------------------
+
+.. image:: images/collapsable-user-area.png
 
 If set to ``True`` the sidebar user area is collapsed and can be expanded to show links.
 
@@ -162,12 +180,28 @@ Menu title
 
 The menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 
+Messages toasts
+-----------------------
+
+You can decide to show all or specific level admin messages in toasts. Set it to ``True`` to show all message in toasts. set it to ``['warning', 'error']`` to show only warning and error messages in toasts.
+
+**Default**: False
+
 Gravatar default image
 -----------------------
 
-The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs <[http://en.gravatar.com/site/implement/images/>`).
+The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs [http://en.gravatar.com/site/implement/images/]`).
 
 **Default**: 'retro'
+
+Login splash image
+-----------------------
+
+.. image:: images/login-splash.png
+
+An image used as body background in the login page. The image is centered and covers the whole viewport.
+
+**Default**: None
 
 Menu
 ----
@@ -280,7 +314,7 @@ Free voices also accept a _re_ property, which specifies a regular expression us
 Analytics
 ---------
 
-.. image:: images/analytics.jpg
+.. image:: images/analytics.png
 
 Baton provides an index view which displays google analytics statistics charts for the last 15 days, 1 month, 3 month and 1 year.
 
