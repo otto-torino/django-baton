@@ -134,7 +134,7 @@ let Menu = {
       } else if (/logout/.test($(el).attr('href'))) {
         cls = 'logout'
       }
-      let text = $(el).html()
+      let text = $(el).text()
       let clone = $(el)
         .clone()
         .html('')
