@@ -32,9 +32,9 @@ Using pip
     ]
 
 
-.. important:: If you want to use Google Analytics index page, please install the following packages:
+.. important:: If you get a "__No crypto library available__" when using the google analytics index, then install this package:
 
-    $ pip install PyOpenSSL google-auth google-auth-httplib2 google-api-python-client requests
+    $ pip install PyOpenSSL
 
 
 Why two installed apps?

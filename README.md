@@ -65,7 +65,7 @@ Everything is styled through CSS and when required, JS is used.
 - Customization available for recompiling the js app provided
 - IT translations provided
 
-The following packages are required to manage the Google Analytics index, you must install them manually:
+The following packages are required to manage the Google Analytics index:
 
 - google-auth
 - google-auth-httplib2
@@ -119,9 +119,9 @@ urlpatterns = [
 ]
 ```
 
-If you want to use Google Analytics index page, please install the following packages:
+If you get a "__No crypto library available__" when using the Google Analytics index, install this package:
 
-    $ pip install PyOpenSSL google-auth google-auth-httplib2 google-api-python-client requests
+    $ pip install PyOpenSSL
 
 ### Why two installed apps?
 
@@ -249,12 +249,6 @@ You can specify free voices. You must define a _url_ and if you want some visibi
 	}
 
 ### <a name="configuration-analytics"></a>ANALYTICS
-
-> It requires the installation of some packages:
-
-```
-$ pip install PyOpenSSL google-auth google-auth-httplib2 google-api-python-client requests
-```
 
 You can create a cool index page displaying some statistics widgets using the Google Analytics API just by defining the `ANALYTICS` setting.
 
