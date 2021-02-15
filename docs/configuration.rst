@@ -318,6 +318,10 @@ Analytics
 
 Baton provides an index view which displays google analytics statistics charts for the last 15 days, 1 month, 3 month and 1 year.
 
+.. important:: It requires the following packages:
+
+    $ pip install PyOpenSSL google-auth google-auth-httplib2 google-api-python-client requests
+
 In order to activate it you need to create a service account and link it to your google analytics view, then you must define the keys:
 
 - ``CREDENTIALS``: path to the credentials json file
