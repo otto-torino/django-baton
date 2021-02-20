@@ -316,6 +316,7 @@
     @extend .mt-2;
     @extend .table-responsive;
     background: $changelist-bg;
+    clear: both;
 
     table {
       @extend .table;
