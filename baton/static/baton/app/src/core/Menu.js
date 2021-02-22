@@ -132,8 +132,8 @@ let Menu = {
       }
     }
 
-    field.on('blur', () => dataList.empty())
-    field.on('focus', () => field.trigger('keyup', { keyCode: 39 }))
+    field.on('blur', e => setTimeout(() => dataList.hide(), 150))
+    field.on('focus', e => dataList.show())
     field.on('keyup', e => {
       var code = e.keyCode || e.which
 
@@ -162,7 +162,7 @@ let Menu = {
             container.removeClass('loading')
             dataList.empty()
             data.data.forEach((r, index) => dataList.append(`
-              <div class="datalist-option${index === 0 ? ' selected' : ''}" data-url="${r.url}"><span>${r.label}</span>${r.icon ? '<i class="' + r.icon + '"></i>' : ''}</div>`)
+              <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}"><a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}</div>`)
             )
           })
           .fail((jqxhr, textStatus, err) => {

@@ -153,6 +153,11 @@ body:not(.menu-mobile) {
       border-color: $search-field-input-border-color;
       color: $search-field-color;
       padding-right: 30px;
+
+      &:focus {
+        box-shadow: 0 0 0 transparent;
+        outline: 0 none;
+      }
     }
 
     &::after {
@@ -191,7 +196,18 @@ body:not(.menu-mobile) {
         padding: .5rem;
 
         &.selected {
-          background: lighten($search-field-datalist-bg, 5%);
+          background: $search-field-selected-bg;
+          color: $search-field-selected-color;
+
+          a {
+            color: $search-field-selected-color;
+          }
+
+        }
+
+        a {
+          color: $search-field-link-color;
+          text-decoration: none;
         }
 
         i {

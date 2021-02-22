@@ -64,6 +64,9 @@ $search-field-input-border-color: $menu-bg;
 $search-field-color: $menu-color;
 $search-field-datalist-bg: darken($menu-bg, 5%);
 $search-field-icon-color: lighten(#007eed, 25%);
+$search-field-link-color: #fff;
+$search-field-selected-bg: lighten($menu-bg, 20%);
+$search-field-selected-color: #fff;
 
 // dashboard
 $dashboard-bg: #f5f5f5;

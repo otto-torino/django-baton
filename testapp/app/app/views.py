@@ -20,6 +20,7 @@ def admin_search(request):
         res.append({
             'label': 'Lucio Dalla Wikipedia',
             'url': 'https://www.google.com',
+            'icon': 'fab fa-wikipedia-w'
         })
     return JsonResponse({
         'length': len(res),
