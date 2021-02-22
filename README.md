@@ -260,7 +260,16 @@ With Baton you can optionally configure a search field in the sidebar above the 
 
 ![Search field](docs/images/search-field.png)
 
-This is an autocomplete field, which will calls a custom api at every keyup event (for strings of length > 3). Such api receives the `text` param in the querystring and  should return a json response including the search results in the form:
+With this functionality, you can configure a sidebar input search field with autocomplete functionality that can let you surf easily and quickly to any page you desire.
+
+```
+'SEARCH_FIELD': {
+    'label': 'Label shown as placeholder',
+    'url': '/api/path/',
+},
+```
+
+The autocomplete field will call a custom api at every keyup event (for strings of length > 3). Such api receives the `text` param in the querystring and  should return a json response including the search results in the form:
 
 ```
 {
@@ -271,6 +280,9 @@ This is an autocomplete field, which will calls a custom api at every keyup even
     ]
 }
 ```
+
+In order to activate this functionality you should add the BATON configuration:
+
 
 You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional.
 

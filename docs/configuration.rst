@@ -319,9 +319,14 @@ Search Field
 
 .. image:: images/search-field.png
 
-With Baton you can optionally configure a search field in the sidebar above the menu.
+With this functionality, you can configure a sidebar input search field with autocomplete functionality that can let you surf easily and quickly to any page you desire. ::
 
-This is an autocomplete field, which will calls a custom api at every keyup event (for strings of length > 3). Such api receives the `text` param in the querystring and  should return a json response including the search results in the form::
+    'SEARCH_FIELD': {
+        'label': 'Label shown as placeholder',
+        'url': '/api/path/',
+    },
+
+The autocomplete field will call a custom api at every keyup event (for strings of length > 3). Such api receives the ``text`` param in the querystring and  should return a json response including the search results in the form: ::
 
     {
         length: 2,
@@ -331,9 +336,9 @@ This is an autocomplete field, which will calls a custom api at every keyup even
         ]
     }
 
-You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional.
+You should provide the results length and the data as an array of objects which must contain the ``label`` and ``url`` keys. The ``icon`` key is optional.
 
-Let's see an example::
+Let's see an example: ::
 
     @staff_member_required
     def admin_search(request):
