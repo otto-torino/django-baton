@@ -326,7 +326,7 @@ With this functionality, you can configure a sidebar input search field with aut
         'url': '/api/path/',
     },
 
-The autocomplete field will call a custom api at every keyup event (for strings of length > 3). Such api receives the ``text`` param in the querystring and  should return a json response including the search results in the form: ::
+The autocomplete field will call a custom api at every keyup event. Such api receives the ``text`` param in the querystring and  should return a json response including the search results in the form: ::
 
     {
         length: 2,
