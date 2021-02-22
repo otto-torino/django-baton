@@ -144,6 +144,64 @@ body:not(.menu-mobile) {
     }
   }
 
+  .search-field-tool {
+    margin: .5rem 1rem;
+    position: relative;
+
+    input {
+      background: $search-field-input-bg;
+      border-color: $search-field-input-border-color;
+      color: $search-field-color;
+      padding-right: 30px;
+    }
+
+    &::after {
+      color: $secondary;
+      content: '\f002';
+      font-family: 'Font Awesome\ 5 Free';
+      position: absolute;
+      right: .5rem;
+      top: .2rem;
+    }
+
+    &.loading {
+      &::after {
+        animation: fa-spin 2s linear infinite;
+        content: '\f1ce';
+      }
+    }
+
+    #admin-search-datalist {
+      background: $search-field-datalist-bg;
+      max-height: 50vh;
+      overflow: auto;
+      position: absolute;
+      width: 100%;
+
+      div {
+        align-items: center;
+        border-bottom: 1px solid darken($search-field-datalist-bg, 2%);
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        font-size: .9rem;
+        justify-content: space-between;
+        max-height: 50vh;
+        overflow: auto;
+        padding: .5rem;
+
+        &.selected {
+          background: lighten($search-field-datalist-bg, 5%);
+        }
+
+        i {
+          color: $search-field-icon-color;
+          font-size: .9rem;
+        }
+      }
+    }
+  }
+
   h1 {
     @extend .clearfix;
     background: $menu-mobile-title-bg;

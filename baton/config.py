@@ -22,6 +22,7 @@ default_config = {
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': None,
+    'SEARCH_FIELD': None,
 }
 
 

@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import Translator from './i18n'
 
 let Menu = {
   /**
@@ -8,8 +9,10 @@ let Menu = {
    */
   init: function (config, Dispatcher) {
     this.Dispatcher = Dispatcher
+    this.t = new Translator($('html').attr('lang'))
     this.collapsableUserArea = config.collapsableUserArea
     this.menuTitle = config.menuTitle
+    this.searchField = config.searchField
     this.appListUrl = config.api.app_list
     this.gravatarUrl = config.api.gravatar
     this.gravatarDefaultImg = config.gravatarDefaultImg
@@ -17,6 +20,7 @@ let Menu = {
     this.fixNodes()
     this.brandingClone = $('#branding').clone()
     this.manageBrandingUserTools()
+    this.manageSearchField()
     this.fetchData()
     this.setHeight()
     let self = this
@@ -80,6 +84,96 @@ let Menu = {
         this.removeUserTools()
       }
     }
+  },
+  manageSearchField () {
+    // unset
+    if (!this.searchField || !this.searchField.url) {
+      return
+    }
+
+    let container = $('<div />', { class: 'search-field-tool' })
+
+    let field = $('<input />', {
+      class: 'form-control form-control-sm',
+      type: 'text',
+      list: 'admin-search-datalist',
+      placeholder: this.searchField.label || this.t('search')
+    })
+    let dataList = $('<div />', { id: 'admin-search-datalist' }).on('mouseover', e => {
+      if ($(e.target).hasClass('datalist-option') || $(e.target).parent('.datalist-option').length) {
+        dataList.find('.datalist-option').removeClass('selected')
+        let item = $(e.target).hasClass('datalist-option') ? $(e.target) : $(e.target).parent('.datalist-option')
+        item.addClass('selected')
+      }
+    })
+
+    let navigateDataList = code => {
+      let target
+      let active = dataList.find('.datalist-option.selected').first()
+      if (!active.length) {
+        target = dataList.find('.datalist-option')[code === 40 ? 'first' : 'last']()
+      } else {
+        if (code === 40) {
+          let next = active.next()
+          target = next.length ? next : dataList.find('.datalist-option').first()
+        } else {
+          let prev = active.prev()
+          target = prev.length ? prev : dataList.find('.datalist-option').last()
+        }
+      }
+      if (target) {
+        active.removeClass('selected')
+        $(target).addClass('selected')
+        target[0].scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest'
+        })
+      }
+    }
+
+    field.on('blur', () => dataList.empty())
+    field.on('focus', () => field.trigger('keyup', { keyCode: 39 }))
+    field.on('keyup', e => {
+      var code = e.keyCode || e.which
+
+      if (code === 13) {
+        // goto url if there is an active voice
+        let active = dataList.find('.datalist-option.selected').first()
+        if (active.length) {
+          location.href = active.attr('data-url')
+        }
+        return
+      }
+
+      if ([40, 38].indexOf(code) !== -1) {
+        // move
+        navigateDataList(code)
+      } else {
+        // search
+        if ($(field).val().length <= 3) {
+          dataList.empty()
+          return
+        }
+
+        container.addClass('loading')
+        $.getJSON(this.searchField.url, { text: $(field).val() })
+          .done(data => {
+            container.removeClass('loading')
+            dataList.empty()
+            data.data.forEach((r, index) => dataList.append(`
+              <div class="datalist-option${index === 0 ? ' selected' : ''}" data-url="${r.url}"><span>${r.label}</span>${r.icon ? '<i class="' + r.icon + '"></i>' : ''}</div>`)
+            )
+          })
+          .fail((jqxhr, textStatus, err) => {
+            console.log(err)
+            container.removeClass('loading')
+            dataList.empty()
+          })
+      }
+    })
+
+    $('#user-tools-sidebar').after(container.append([field, dataList]))
   },
   renderUserTools: function () {
     let self = this
