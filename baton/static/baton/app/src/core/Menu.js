@@ -151,7 +151,7 @@ let Menu = {
         navigateDataList(code)
       } else {
         // search
-        if ($(field).val().length <= 3) {
+        if ($(field).val().length < 1) {
           dataList.empty()
           return
         }
