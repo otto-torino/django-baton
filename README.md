@@ -27,6 +27,7 @@ Login with user `demo` and password `demo`
 - [Installation](#installation)
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
+    - [Search Field](#configuration-search-field)
     - [Analytics](#configuration-analytics)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
@@ -53,6 +54,7 @@ Everything is styled through CSS and when required, JS is used.
 - Based on Bootstrap 5 and FontAwesome Free 5
 - Fully responsive
 - Custom and flexible sidebar menu
+- Configurable search field
 - Text input filters and dropdown list filters facilities
 - Form tabs out of the box
 - Easy way to include templates in the change form and change list pages
@@ -153,6 +155,10 @@ BATON = {
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+    'SEARCH_FIELD': {
+        'label': 'Search contents...',
+        'url': '/search/',
+    },
     'MENU': (
         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
         {
@@ -203,7 +209,7 @@ Default value is `True`.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 
-`MENU` and `ANALYTICS` configurations in detail:
+`MENU`, `SEARCH_FIELD` and `ANALYTICS` configurations in detail:
 
 ### <a name="configuration-menu"></a>MENU
 
@@ -247,6 +253,57 @@ You can specify free voices. You must define a _url_ and if you want some visibi
 	    'url': '/admin/news/category/',
 	    're': '^/admin/news/category/(\d*)?'
 	}
+
+### <a name="configuration-search-field"></a>SEARCH FIELD
+
+With Baton you can optionally configure a search field in the sidebar above the menu.
+
+![Search field](docs/images/search-field.png)
+
+This is an autocomplete field, which will calls a custom api at every keyup event (for strings of length > 3). Such api receives the `text` param in the querystring and  should return a json response including the search results in the form:
+
+```
+{
+    length: 2,
+    data: [
+        { label: 'My result #1', icon: 'fa fa-edit', url: '/admin/myapp/mymodel/1/change' },
+        // ...
+    ]
+}
+```
+
+You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional.
+
+Let's see an example:
+
+```
+@staff_member_required
+def admin_search(request):
+    text = request.GET.get('text', None)
+    res = []
+    news = News.objects.all()
+    if text:
+        news = news.filter(title__icontains=text)
+    for n in news:
+        res.append({
+            'label': str(n) + ' edit',
+            'url': '/admin/news/news/%d/change' % n.id,
+            'icon': 'fa fa-edit',
+        })
+    if text.lower() in 'Lucio Dalla Wikipedia'.lower():
+        res.append({
+            'label': 'Lucio Dalla Wikipedia',
+            'url': 'https://www.google.com',
+            'icon': 'fab fa-wikipedia-w'
+        })
+    return JsonResponse({
+        'length': len(res),
+        'data': res
+    })
+```
+
+You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
+
 
 ### <a name="configuration-analytics"></a>ANALYTICS
 
@@ -380,6 +437,7 @@ Baton.translations = {
   filter: 'Filter',
   close: 'Close',
   save: 'Save',
+  search: 'Search',
   cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
   retrieveDataError: 'There was an error retrieving the data'
 }

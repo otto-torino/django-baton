@@ -30,6 +30,7 @@ def baton_config():
         "messagesToasts": get_config('MESSAGES_TOASTS'),
         "gravatarDefaultImg": get_config('GRAVATAR_DEFAULT_IMG'),
         "loginSplash": get_config('LOGIN_SPLASH'),
+        "searchField": get_config('SEARCH_FIELD'),
     }
 
     return conf

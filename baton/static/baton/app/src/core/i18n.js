@@ -19,6 +19,10 @@ export const messages = {
     en: 'Save',
     it: 'Salva'
   },
+  search: {
+    en: 'Search',
+    it: 'Cerca'
+  },
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
     it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter'

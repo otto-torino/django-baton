@@ -27,6 +27,10 @@ This is an example of configuration::
         'MESSAGES_TOASTS': False,
         'GRAVATAR_DEFAULT_IMG': 'retro',
         'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+        'SEARCH_FIELD': {
+            'label': 'Search contents...',
+            'url': '/search/',
+        },
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
             {
@@ -310,6 +314,52 @@ Free voices also accept a _re_ property, which specifies a regular expression us
         're': '^/admin/news/category/(\d*)?'
     }
 
+Search Field
+----
+
+.. image:: images/search-field.png
+
+With Baton you can optionally configure a search field in the sidebar above the menu.
+
+This is an autocomplete field, which will calls a custom api at every keyup event (for strings of length > 3). Such api receives the `text` param in the querystring and  should return a json response including the search results in the form::
+
+    {
+        length: 2,
+        data: [
+            { label: 'My result #1', icon: 'fa fa-edit', url: '/admin/myapp/mymodel/1/change' },
+            // ...
+        ]
+    }
+
+You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional.
+
+Let's see an example::
+
+    @staff_member_required
+    def admin_search(request):
+        text = request.GET.get('text', None)
+        res = []
+        news = News.objects.all()
+        if text:
+            news = news.filter(title__icontains=text)
+        for n in news:
+            res.append({
+                'label': str(n) + ' edit',
+                'url': '/admin/news/news/%d/change' % n.id,
+                'icon': 'fa fa-edit',
+            })
+        if text.lower() in 'Lucio Dalla Wikipedia'.lower():
+            res.append({
+                'label': 'Lucio Dalla Wikipedia',
+                'url': 'https://www.google.com',
+                'icon': 'fab fa-wikipedia-w'
+            })
+        return JsonResponse({
+            'length': len(res),
+            'data': res
+        })
+
+You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
 
 Analytics
 ---------

@@ -16,6 +16,7 @@ However you can provide or add your own translations by attaching an object to t
       filter: 'Filter',
       close: 'Close',
       save: 'Save',
+      search: 'Search',
       cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
       retrieveDataError: 'There was an error retrieving the data'
     }

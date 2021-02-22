@@ -127,6 +127,10 @@ BATON = {
     'MESSAGES_TOASTS': ['success'],
     'GRAVATAR_DEFAULT_IMG': 'robohash',
     'LOGIN_SPLASH': '/static/app/bg.jpg',
+    'SEARCH_FIELD': {
+        'label': 'Search news',
+        'url': '/admin/search/',
+    },
     'MENU': (
         {
             'type': 'title',
