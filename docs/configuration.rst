@@ -336,7 +336,7 @@ The autocomplete field will call a custom api at every keyup event. Such api rec
         ]
     }
 
-You should provide the results length and the data as an array of objects which must contain the ``label`` and ``url`` keys. The ``icon`` key is optional.
+You should provide the results length and the data as an array of objects which must contain the ``label`` and ``url`` keys. The ``icon`` key is optional and is treated as css class given to an ``i`` element.
 
 Let's see an example: ::
 
