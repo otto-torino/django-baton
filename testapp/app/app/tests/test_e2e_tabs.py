@@ -13,7 +13,7 @@ from .utils import element_has_css_class
 os.environ['WDM_LOG_LEVEL'] = '0'
 
 
-class TestBatonInputFilter(TestCase):
+class TestBatonTabs(TestCase):
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -96,6 +96,43 @@ class TestBatonInputFilter(TestCase):
         add_button = inlines.find_element_by_css_selector('.add-row a')
         self.assertEqual(add_button.is_displayed(), True)
         time.sleep(3)  # fade
-        add_button.click()
+        # try except because first click will fail in selenium
+        try:
+            add_button.click()
+        except:
+            add_button.click()
+        time.sleep(10)
         attachments_rows = inlines.find_elements_by_css_selector('.dynamic-attachments')
         self.assertEqual(len(attachments_rows), 3)
+
+    def test_detect_tab_error(self):
+        # Wait until baton is ready
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+        time.sleep(2)
+
+        # tabs number
+        tabs_li = self.driver.find_elements_by_css_selector(
+            '.nav-tabs .nav-item')
+
+        tabs_li[3].click()  # change tab attachments
+        time.sleep(2)  # fade
+
+        field = self.driver.find_element_by_id("id_attachments-1-caption")
+        button = self.driver.find_element_by_css_selector('input[type=submit][name=_continue]')
+        time.sleep(1)
+        field.send_keys('test')
+        time.sleep(1)
+        try:
+            button.click()
+        except:
+            button.click()
+
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+        time.sleep(2)
+        input_share = self.driver.find_element_by_id('id_share')
+        self.assertEqual(input_share.is_displayed(), False)
+        description_att = self.driver.find_element_by_css_selector('.tab-fs-attachments .description')
+        self.assertEqual(description_att.is_displayed(), True)
+        self.assertEqual(description_att.get_attribute('innerText'), 'Add as many attachments as you want')
