@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import bootstrap from 'bootstrap/dist/js/bootstrap'
 
 let Tabs = {
   /**
@@ -42,10 +43,9 @@ let Tabs = {
       .append($('<a />', {
         'class': 'nav-link' + (this.mainOrder === 0 ? ' active' : ''),
         'data-bs-toggle': 'tab',
-        href: '#main-tab'
-      }).text(this.main.children('h2').hide().text()).on('click', function () {
-        location.hash = $(this).attr('href')
-      }))
+        'data-bs-target': '#main-tab'
+        // href: '#main-tab'
+      }).text(this.main.children('h2').hide().text()))
       .appendTo(this.nav)
 
     this.tabsEl.forEach((el) => {
@@ -73,10 +73,9 @@ let Tabs = {
         .append($('<a />', {
           'class': 'nav-link ' + (currentOrder === 0 ? ' active' : ''),
           'data-bs-toggle': 'tab',
-          href: '#' + el
-        }).text(domEl.find('h2:first-child').first().hide().text()).on('click', function () {
-          location.hash = $(this).attr('href')
-        }))
+          'data-bs-target': '#' + el
+          // href: '#' + el
+        }).text(domEl.find('h2:first-child').first().hide().text()))
         .appendTo(this.nav)
       currentOrder += 1
       if (currentOrder === this.mainOrder) {
@@ -85,11 +84,6 @@ let Tabs = {
     })
 
     this.main.before(this.nav)
-
-    // do not preserve hash if pressing save and add another
-    $('input[name="_addanother"]').on('click', function () {
-      location.hash = ''
-    })
 
     $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
       $('[title]:not(iframe)').tooltip()
@@ -146,14 +140,16 @@ let Tabs = {
     for (let i = 0, len = els.length; i < len; i++) {
       let el = els[i]
       if (el.find('.form-row.errors, .errorlist').length) {
-        this.nav.find('a[href="#' + el.attr('data-baton-tab') + '"]').trigger('click')
+        const tab = new bootstrap.Tab(this.nav.find('a[data-bs-target="#' + el.attr('data-baton-tab') + '"]')[0])
+        tab.show()
         break
       }
     }
   },
   checkHash: function () {
     if (location.hash) {
-      this.nav.find('a[href="' + location.hash + '"]').trigger('click')
+      const tab = new bootstrap.Tab(this.nav.find('a[data-bs-target="' + location.hash + '"]')[0])
+      tab.show()
     }
   }
 }
