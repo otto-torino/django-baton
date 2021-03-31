@@ -29,6 +29,7 @@ Login with user `demo` and password `demo`
     - [Menu](#configuration-menu)
     - [Search Field](#configuration-search-field)
     - [Analytics](#configuration-analytics)
+- [Page Detection](#page-detection)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
 - [Js Translations](#js-translations)
@@ -335,6 +336,33 @@ Follow the steps in the Google Identity Platform documentation to [create a serv
 Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
 
 Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request the data from. It's generally best to only grant the service account read-only access.
+
+## <a name="page-detection"></a>Page Detection
+
+Baton triggers some of its functionalities basing upon the current page. For example, it will trigger the tab functionality only when the current page is an add form or change form page.
+
+Baton understands which page is currently displayed performing some basic regular expressions against the location pathname.
+There may be cases in which you'd like to serve such contents at different and custom urls, in such cases you need a way to tell Baton which kind of page is tied to that url.
+
+For this reason you can inject your custom hook, a javascript function which should return the page type and that receives as first argument the Baton's default function to use as fallback, i.e.
+
+``` html
+<!-- admin/base_site.html -->
+<script>
+    (function ($, undefined) {
+        $(document).ready(function () {
+            Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
+            Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
+        })
+    })(jQuery, undefined)
+</script>
+```
+
+In this case we tell Baton that when the location pathname includes the string `newschange`, then the page should be considered a `change_form`, otherwise we let Baton guess the page type.
+
+So, in order to hook into the Baton page detection system, just define a `Baton.detectPageHook` function which receives the default function as first argument and should return the page type.
+
+The available page types are the following: `dashboard`, `admindocs`, `login`, `logout`, `passowrd_change`, `password_change_success`, `add_form`, `change_form`, `changelist`, `filer`, `default`.
 
 ## <a name="signals"></a>Signals
 

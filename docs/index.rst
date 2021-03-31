@@ -35,6 +35,7 @@ Getting started
 
    installation
    configuration
+   page_detection
    signals
    js_utilities
    js_translations
