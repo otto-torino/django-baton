@@ -199,6 +199,11 @@ BATON = {
                     'label': 'Google search',
                     'url': 'http://www.google.it'
                 },
+                # {
+                #     'type': 'free',
+                #     'label': 'Dalla change form',
+                #     'url': '/admin/newschange/3'
+                # },
             ]
         },
     ),

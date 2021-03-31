@@ -19,10 +19,12 @@ from django.conf import settings
 from django.views import static
 from django.contrib.staticfiles.views import serve
 from app.views import admin_search
+from news.views import news_change_view
 
 urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/search/', admin_search),
+    # path('admin/newschange/<int:id>', news_change_view),
     path('admin/', admin.site.urls),
     path('baton/', include('baton.urls')),
     path('tinymce/', include('tinymce.urls')),
