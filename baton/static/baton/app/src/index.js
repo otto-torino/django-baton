@@ -24,7 +24,7 @@ window.Baton = {
   init: function (config) {
     console.info('Baton:', 'init')
     this.initialized = true
-    let page = this.page()
+    let page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
     $('body').addClass('page-' + page)
 
     // toasts
