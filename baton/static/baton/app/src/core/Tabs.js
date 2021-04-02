@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import bootstrap from 'bootstrap/dist/js/bootstrap'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 
 let Tabs = {
   /**
@@ -86,7 +86,10 @@ let Tabs = {
     this.main.before(this.nav)
 
     $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-      $('[title]:not(iframe)').tooltip()
+      let tooltipTriggerList = [].slice.call($('[title]:not(iframe)'))
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
     })
   },
   createInlineEl: function (el, setDataTab = false) {

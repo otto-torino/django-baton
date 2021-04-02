@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import bootstrap from 'bootstrap/dist/js/bootstrap'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 
 let Messages = {
   /**

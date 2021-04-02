@@ -1,5 +1,5 @@
 // jQuery is provided by webpack provider plugin
-import 'bootstrap/dist/js/bootstrap'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 import './styles/baton.scss'
 
 import Template from './core/Template'
@@ -70,7 +70,10 @@ window.Baton = {
     Dispatcher.emit('onReady')
   },
   loadTooltips: function () {
-    $('[title]:not(iframe)').tooltip()
+    let tooltipTriggerList = [].slice.call($('[title]:not(iframe)'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
   },
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {
