@@ -190,7 +190,7 @@
       @include make-col(0);
       max-height: 200px;
       max-width: 99%;
-      overflow: hidden;
+      display: none;
     }
 
     h2 {
@@ -237,6 +237,7 @@
 
       .select2-container {
         outline: 0 !important;
+        min-width: auto !important;
         width: 100% !important;
       }
 
@@ -265,6 +266,7 @@
       @include media-breakpoint-up(lg) {
         @include make-col(2);
         max-height: 100%;
+        display: block;
       }
     }
 
@@ -278,6 +280,7 @@
   #changelist-filter-modal {
     @extend .modal-body;
     @extend #changelist-filter;
+    display: block;
     max-width: 100% !important;
     max-height: 100% !important;
     order: 0 !important;
@@ -287,6 +290,11 @@
     select {
       margin-left: 0 !important;
       width: auto !important;
+    }
+
+    > div,
+    > p {
+      display: block;
     }
 
     ul {

@@ -29,6 +29,7 @@ let ChangeList = {
       // django >= 3.1
       $('#changelist-filter').appendTo($('.changelist-form-container'))
     }
+    let isModal = false
     if (this.filtersAlwaysOpen) {
       $(document.body).addClass(
         'changelist-filter-active changelist-filter-always-open'
@@ -50,6 +51,7 @@ let ChangeList = {
 
       if (this.filtersInModal || parseInt($(window).width()) < breakpoints.lg) {
         let self = this
+        isModal = true
         // wait for filters used js to exec
         $('#changelist-filter').prop('id', 'changelist-filter-modal')
         let titleEl = $('#changelist-filter-modal > h2')
@@ -69,12 +71,6 @@ let ChangeList = {
           self.modal.toggle()
         })
       } else {
-        if (this.filtersForm) {
-          // add filters button
-          let btn = $('<a />', {'class': 'btn btn-primary'}).html(this.t.get('filter'))
-            .on('click', () => this.filter($('#changelist-filter')))
-          $('#changelist-filter').append($('<div />', {'class': 'text-center mb-3'}).append(btn))
-        }
         _filtersToggler.click(() => {
           $(document.body).toggleClass('changelist-filter-active')
           if (parseInt(this._filtersDiv.css('max-width')) === 100) {
@@ -87,6 +83,14 @@ let ChangeList = {
       }
       _changelistForm.prepend(_filtersToggler)
     }
+
+    if (!isModal && this.filtersForm) {
+      // add filters button
+      let btn = $('<a />', {'class': 'btn btn-primary'}).html(this.t.get('filter'))
+        .on('click', () => this.filter($('#changelist-filter')))
+      $('#changelist-filter').append($('<div />', {'class': 'text-center mb-3'}).append(btn))
+    }
+
     if (/_popup=1/.test(location.href)) {
       $('#changelist-form .results').css('padding-top', '78px')
     }
