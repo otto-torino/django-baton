@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from baton.admin import InputFilter, RelatedDropdownFilter
 from rangefilter.filter import DateRangeFilter
+from admin_auto_filters.filters import AutocompleteFilter
 from .models import News, Category, Attachment, Video
 
 
@@ -18,10 +19,14 @@ class TitleFilter(InputFilter):
                 title__icontains=search_term
             )
 
+class CategoryFilter(AutocompleteFilter):
+    title = 'category' # display title
+    field_name = 'category' # name of the foreign key field
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', )
+    search_fields = ('name', )
 
 
 class AttachmentsInline(admin.TabularInline):
@@ -46,7 +51,7 @@ class NewsAdmin(admin.ModelAdmin):
     )
     list_filter = (
         TitleFilter,
-        ('category', RelatedDropdownFilter, ),
+        CategoryFilter,
         ('date', DateRangeFilter),
         'published',
     )
