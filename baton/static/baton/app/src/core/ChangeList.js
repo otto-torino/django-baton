@@ -17,7 +17,10 @@ let ChangeList = {
     this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
     this.initTemplates()
     if (this._filtersDiv.length) {
-      this.activate()
+      var self = this
+      setTimeout(function () {
+        self.activate()
+      }, 200) // select2
       this.fixRangeFilter()
     }
   },
