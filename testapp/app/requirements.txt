@@ -10,6 +10,7 @@ django-filer==2.0.2
 django-js-asset==1.2.2
 django-mptt==0.11.0
 django-polymorphic==3.0.0
+django-admin-autocomplete-filter==0.6.1
 easy-thumbnails==2.7
 google-api-core==1.23.0
 google-api-python-client==1.12.4
