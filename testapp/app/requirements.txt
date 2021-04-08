@@ -5,7 +5,7 @@ chardet==3.0.4
 colorama==0.4.4
 configparser==5.0.1
 crayons==0.4.0
-Django==3.1.2
+Django==3.1.8
 django-filer==2.0.2
 django-js-asset==1.2.2
 django-mptt==0.11.0
