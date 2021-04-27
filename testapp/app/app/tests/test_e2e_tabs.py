@@ -52,12 +52,13 @@ class TestBatonTabs(TestCase):
         # tabs number
         tabs_li = self.driver.find_elements_by_css_selector(
             '.nav-tabs .nav-item')
-        self.assertEqual(len(tabs_li), 5)
+        self.assertEqual(len(tabs_li), 6)
         self.assertEqual(tabs_li[0].get_attribute('innerText'), 'Dates')
         self.assertEqual(tabs_li[1].get_attribute('innerText'), 'Main')
         self.assertEqual(tabs_li[2].get_attribute('innerText'), 'Flags')
         self.assertEqual(tabs_li[3].get_attribute('innerText'), 'Attachments')
         self.assertEqual(tabs_li[4].get_attribute('innerText'), 'Videos')
+        self.assertEqual(tabs_li[5].get_attribute('innerText'), 'Activities')
 
         # order
         input_date = self.driver.find_element_by_id('id_date')

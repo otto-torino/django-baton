@@ -2,10 +2,11 @@ import json
 
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, RelatedDropdownFilter
 from rangefilter.filter import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
-from .models import News, Category, Attachment, Video
+from .models import News, Category, Attachment, Video, Activity
 
 
 class TitleFilter(InputFilter):
@@ -40,6 +41,11 @@ class VideosInline(admin.StackedInline):
     classes = ('collapse-entry', 'expand-first', )
 
 
+class ActivitiesInline(GenericStackedInline):
+    model = Activity
+    extra = 1
+
+
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     list_per_page = 2
@@ -55,13 +61,13 @@ class NewsAdmin(admin.ModelAdmin):
         ('date', DateRangeFilter),
         'published',
     )
-    inlines = [AttachmentsInline, VideosInline]
+    inlines = [AttachmentsInline, VideosInline, ActivitiesInline, ]
     date_hierarchy = 'date'
 
     fieldsets = (
         ('Dates', {
             'fields': ('date', 'datetime', ),
-            'classes': ('order-1', 'baton-tabs-init', 'baton-tab-fs-content', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos'),
+            'classes': ('order-1', 'baton-tabs-init', 'baton-tab-fs-content', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos', 'baton-tab-inline-news-activity-content_type-object_id'),
             'description': 'This is a description text'
 
         }),
