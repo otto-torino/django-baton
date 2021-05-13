@@ -86,6 +86,8 @@ let Tabs = {
     this.main.before(this.nav)
 
     $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+      // add hash to stay in same tab when save and continue
+      $(e.target).parents('form').attr('action', $(e.target).attr('data-bs-target'))
       let tooltipTriggerList = [].slice.call($('[title]:not(iframe)'))
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
