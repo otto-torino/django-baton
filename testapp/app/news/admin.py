@@ -61,6 +61,7 @@ class NewsAdmin(admin.ModelAdmin):
         ('date', DateRangeFilter),
         'published',
     )
+    autocomplete_fields = ('category', )
     inlines = [AttachmentsInline, VideosInline, ActivitiesInline, ]
     date_hierarchy = 'date'
 
