@@ -1,11 +1,13 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
 .change-form {
-  #content-main {
-    @extend .container-fluid;
-
+  #content {
     > form {
       @extend %admin-form;
     }
+  }
+
+  #content-main {
+    @extend .container-fluid;
   }
 
   .object-tools {

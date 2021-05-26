@@ -7,6 +7,13 @@ from baton.admin import InputFilter, RelatedDropdownFilter
 from rangefilter.filter import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
 from .models import News, Category, Attachment, Video, Activity
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+
+class NewsResources(resources.ModelResource):
+    class Meta:
+        model = News
 
 
 class TitleFilter(InputFilter):
@@ -47,7 +54,7 @@ class ActivitiesInline(GenericStackedInline):
 
 
 @admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(ImportExportModelAdmin):
     list_per_page = 2
     list_display = (
         'title',

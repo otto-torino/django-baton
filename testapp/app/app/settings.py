@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'admin_auto_filters',
     'rangefilter',
+    'import_export',
     'filer',
     'tinymce',
     'mptt',
