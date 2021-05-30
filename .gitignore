@@ -14,3 +14,5 @@ tags.temp
 django_baton.egg-info/
 .ropeproject
 .virtualenv
+.python-version
+.idea
