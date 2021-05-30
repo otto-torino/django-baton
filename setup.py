@@ -21,12 +21,14 @@ setup(
     url=REPO_URL,
     author='abidibo',
     author_email='abidibo@gmail.com',
-    install_requires=[
-        'google-auth',
-        'google-auth-httplib2',
-        'google-api-python-client',
-        'requests',
-    ],
+    extras_require={
+        'analytics': [
+            'google-auth',
+            'google-auth-httplib2',
+            'google-api-python-client',
+            'requests',
+        ]
+    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
