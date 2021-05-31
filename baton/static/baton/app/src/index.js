@@ -18,8 +18,6 @@ import Filer from './core/Filer'
 import Modal from './core/Modal'
 import Messages from './core/Messages'
 
-console.log('DIOMERDA')
-
 window.Baton = {
   intialized: false,
   init: function (config) {
@@ -107,5 +105,5 @@ window.Baton = {
   Dispatcher: Dispatcher,
   Modal: Modal
 }
-console.log('DIOCAZZO', jQuery)
+
 window.jQuery = jQuery
