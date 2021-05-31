@@ -6,8 +6,8 @@
 
 {% block extrahead %}
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
-    <!-- <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script> -->
+    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> -->
+    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
     {% baton_config as conf %}
     {{ conf | json_script:"baton-config" }}
     <script>
