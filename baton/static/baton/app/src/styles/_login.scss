@@ -1,5 +1,6 @@
 // scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
 body.login {
+  align-items: center;
   background: $login-bg;
   display: flex;
   flex-direction: column;

@@ -87,7 +87,8 @@ let Tabs = {
 
     $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
       // add hash to stay in same tab when save and continue
-      $(e.target).parents('form').attr('action', $(e.target).attr('data-bs-target'))
+      const hash = $(e.target).attr('data-bs-target')
+      window.location.replace(hash) // adding with replace won't add an history entry
       let tooltipTriggerList = [].slice.call($('[title]:not(iframe)'))
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
