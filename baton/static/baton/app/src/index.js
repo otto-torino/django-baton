@@ -22,7 +22,7 @@ window.Baton = {
   intialized: false,
   init: function (config) {
     console.info('Baton:', 'init')
-    console.info('Baton revision:', BATON_REVISION)
+    console.info('Baton:', `rev ${BATON_REVISION}`)
     this.initialized = true
     let page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
     $('body').addClass('page-' + page)
