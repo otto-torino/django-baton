@@ -13,12 +13,15 @@ module.exports = {
     path: path.join(__dirname, "dist"),
     publicPath: "/static/baton/app/dist/",
     filename: "baton.min.js",
-    clean: true
+    clean: true,
   },
   plugins: [
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery",
+    }),
+    new webpack.DefinePlugin({
+      BATON_REVISION: JSON.stringify(process.env.BATON_REVISION),
     }),
   ],
   module: {
