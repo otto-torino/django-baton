@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "stats": "npx webpack --config ./webpack.prod.js --json > stats.json",
-    "compile": "npx webpack --config ./webpack.prod.js",
+    "compile": "BATON_REVISION=$(git rev-parse HEAD) npx webpack --config ./webpack.prod.js",
     "watch": "npx webpack --watch --config ./webpack.dev.js",
-    "dev": "webpack serve --host 0.0.0.0 --progress --config ./webpack.dev.js",
+    "dev": "BATON_REVISION=$(git rev-parse HEAD) webpack serve --host 0.0.0.0 --progress --config ./webpack.dev.js",
     "lint": "./node_modules/eslint/bin/eslint.js ."
   },
   "author": "abidibo",
