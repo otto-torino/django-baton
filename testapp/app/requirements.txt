@@ -18,7 +18,7 @@ google-auth-httplib2==0.0.4
 googleapis-common-protos==1.52.0
 httplib2==0.18.1
 idna==2.10
-Pillow==8.0.0
+Pillow==8.2.0
 protobuf==3.13.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
