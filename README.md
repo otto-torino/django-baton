@@ -92,6 +92,8 @@ Install the last stable release
 
     $ pip install django-baton
 
+> :information_source: In order to use the Google Analytics index install baton along the optional dependencies with `$ pip install django-baton[analytics]`
+
 or clone the repo inside your project
 
     $ git clone https://github.com/otto-torino/django-baton.git
