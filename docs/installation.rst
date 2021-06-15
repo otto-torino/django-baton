@@ -8,6 +8,8 @@ Using pip
 
     pip install django-baton
 
+.. note:: In order to use the Google Analytics index, install baton along the optional dependencies with ``pip install django-baton[analytics]``
+
 2. Add ``baton`` and ``baton.autodiscover`` to your ``INSTALLED_APPS``::
 
     INSTALLED_APPS = (

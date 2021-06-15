@@ -369,6 +369,8 @@ You can move between the results using the keyboard up and down arrows, and you 
 Analytics
 ---------
 
+.. note:: In order to use the Google Analytics index, install baton along the optional dependencies with ``pip install django-baton[analytics]``
+
 .. image:: images/analytics.png
 
 Baton provides an index view which displays google analytics statistics charts for the last 15 days, 1 month, 3 month and 1 year.
