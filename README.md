@@ -819,7 +819,7 @@ If you want to test your live changes, just start the webpack dev server:
 And inside the `base_site.html` template, make these changes:
 
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/dist/baton.min.js"></script>
+    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
 Now while you make your changes to the JS app (CSS included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
 
@@ -840,7 +840,7 @@ Start the test app (login admin:admin):
 Switch the baton js path in `base_site.html`
 
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/dist/baton.min.js"></script>
+    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
 Start the js app in watch mode
 

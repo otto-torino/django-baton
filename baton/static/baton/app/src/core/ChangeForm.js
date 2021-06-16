@@ -158,7 +158,7 @@ let ChangeForm = {
   changeFieldsetCollapseStyle: function () {
     $(window).on('load', function () {
       $('fieldset.collapse > h2').each(function (index, title) {
-        let text = $(title).text()
+        let text = $(title).text().replace(/\(.*\)/, '')
         setTimeout(function () {
           $(title).html(text).on('click', function () {
             $(this).parent('.collapse').toggleClass('collapsed')

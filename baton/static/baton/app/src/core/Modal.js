@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Translator from './i18n'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 
 class Modal {
   constructor (config) {
@@ -18,13 +19,13 @@ class Modal {
     }
 
     this.isOpen = false
-    this.modal = this.create()
+    this.create() // adds modal, modalObj and events
     this.update(config)
   }
 
   create () {
-    let modal = $('<div />', {'class': 'modal fade'}).appendTo(document.body)
-    modal.html(`
+    this.modalObj = $('<div />', {'class': 'modal fade'}).appendTo(document.body)
+    this.modalObj.html(`
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
@@ -46,12 +47,16 @@ class Modal {
       </div><!-- /.modal-dialog -->
     `)
 
-    return modal
+    var self = this
+    this.modalObj.on('hidden.bs.modal', function () {
+      self.close()
+    })
+
+    this.modal = new bootstrap.Modal(this.modalObj[0])
   }
 
   update (config) {
     this.options = $.extend({}, this.opts, config)
-    this.setEvents()
     this.setSize()
     this.setHeader()
     this.setTitle()
@@ -60,42 +65,35 @@ class Modal {
     this.setButtons()
   }
 
-  setEvents () {
-    var self = this
-    this.modal.on('hidden.bs.modal', function () {
-      self.close()
-    })
-  }
-
   setSize () {
-    this.modal.find('.modal-dialog').addClass('modal-' + this.options.size)
+    this.modalObj.find('.modal-dialog').addClass('modal-' + this.options.size)
   }
 
   setHeader () {
     if (this.options.showBackBtn) {
-      this.modal.find('.modal-header .back').show()
-      this.modal
+      this.modalObj.find('.modal-header .back').show()
+      this.modalObj
         .find('.modal-header .back')
         .on('click', this.options.backBtnCb)
     } else {
-      this.modal.find('.modal-header .back').hide()
+      this.modalObj.find('.modal-header .back').hide()
     }
   }
 
   setTitle () {
     if (typeof this.options.title !== 'undefined') {
-      this.modal.find('.modal-title').html(this.options.title)
+      this.modalObj.find('.modal-title').html(this.options.title)
     }
   }
 
   setSubtitle () {
     if (this.options.subtitle) {
-      this.modal
+      this.modalObj
         .find('.modal-subtitle')
         .show()
         .html(this.options.subtitle)
     } else {
-      this.modal
+      this.modalObj
         .find('.modal-subtitle')
         .hide()
         .html('')
@@ -107,25 +105,25 @@ class Modal {
     if (typeof this.options.url !== 'undefined') {
       this.method = 'request'
       $.get(this.options.url, function (response) {
-        self.modal.find('.modal-body').html(response)
+        self.modalObj.find('.modal-body').html(response)
         self.options.onUrlLoaded(self)
       })
     } else if (this.options.content instanceof jQuery) {
-      self.modal.find('.modal-body').append(this.options.content)
+      self.modalObj.find('.modal-body').append(this.options.content)
     } else if (typeof this.options.content !== 'undefined') {
-      self.modal.find('.modal-body').html(this.options.content)
+      self.modalObj.find('.modal-body').html(this.options.content)
     }
   };
 
   setButtons () {
     if (this.options.hideFooter) {
-      this.modal.find('.modal-footer').hide()
+      this.modalObj.find('.modal-footer').hide()
     } else {
       if (this.options.actionBtnCb) {
-        this.modal.find('.btn-action').text(this.options.actionBtnLabel)
-        this.modal.find('.btn-action').on('click', this.options.actionBtnCb)
+        this.modalObj.find('.btn-action').text(this.options.actionBtnLabel)
+        this.modalObj.find('.btn-action').on('click', this.options.actionBtnCb)
       } else {
-        this.modal.find('.btn-action').hide()
+        this.modalObj.find('.btn-action').hide()
       }
     }
   }
@@ -139,7 +137,7 @@ class Modal {
   }
 
   toggle () {
-    this.modal.modal(this.isOpen ? 'hide' : 'show')
+    this.modal[this.isOpen ? 'hide' : 'show']()
     this.isOpen = !this.isOpen
   }
 
@@ -148,7 +146,7 @@ class Modal {
       return
     }
 
-    this.modal.modal('hide')
+    this.modal.hide()
     this.options.onClose()
     this.isOpen = false
   }
