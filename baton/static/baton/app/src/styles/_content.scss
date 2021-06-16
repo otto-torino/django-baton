@@ -29,6 +29,14 @@
     background: $dashboard-title-bg;
     font-size: 1.6rem;
     font-weight: 700;
+
+    + h2 {
+      @extend .mb-0;
+      @extend .px-3;
+      background: $dashboard-title-bg;
+      font-size: 1.2rem;
+      padding-bottom: 1rem;
+    }
   }
 
   .object-tools {
@@ -63,7 +71,7 @@
 
     &::before {
       @extend %font-awesome;
-      content: '\f00c';
+      content: "\f00c";
     }
   }
 
@@ -74,7 +82,7 @@
 
     &::before {
       @extend %font-awesome;
-      content: '\f05a';
+      content: "\f05a";
     }
   }
 
@@ -85,7 +93,7 @@
 
     &::before {
       @extend %font-awesome;
-      content: '\f12a';
+      content: "\f12a";
     }
   }
 
@@ -96,7 +104,7 @@
 
     &::before {
       @extend %font-awesome;
-      content: '\f071';
+      content: "\f071";
     }
   }
 }

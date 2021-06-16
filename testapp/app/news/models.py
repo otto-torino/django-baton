@@ -1,6 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from filer.fields.image import FilerImageField
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericRelation
+
+class Activity(models.Model):
+    FAVORITE = 'F'
+    LIKE = 'L'
+    UP_VOTE = 'U'
+    DOWN_VOTE = 'D'
+    ACTIVITY_TYPES = (
+        (FAVORITE, 'Favorite'),
+        (LIKE, 'Like'),
+        (UP_VOTE, 'Up Vote'),
+        (DOWN_VOTE, 'Down Vote'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=1, choices=ACTIVITY_TYPES)
+    date = models.DateTimeField(auto_now_add=True)
+
+    # Below the mandatory fields for generic relation
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey()
+
+    class Meta:
+        verbose_name = "activity"
+        verbose_name_plural = "activities"
 
 
 class Category(models.Model):
@@ -31,6 +60,7 @@ class News(models.Model):
     published = models.BooleanField(default=False)
     attachments_summary = models.TextField('attachments summary', blank=True)
     videos_summary = models.TextField('videos summary', blank=True)
+    favorites = GenericRelation(Activity)
 
     class Meta:
         verbose_name = "news"

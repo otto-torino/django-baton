@@ -92,6 +92,8 @@ Install the last stable release
 
     $ pip install django-baton
 
+> :information_source: In order to use the Google Analytics index, install baton along the optional dependencies with `$ pip install django-baton[analytics]`
+
 or clone the repo inside your project
 
     $ git clone https://github.com/otto-torino/django-baton.git
@@ -319,6 +321,8 @@ You can move between the results using the keyboard up and down arrows, and you 
 
 
 ### <a name="configuration-analytics"></a>ANALYTICS
+
+> :information_source: In order to use the Google Analytics index, install baton along the optional dependencies with `$ pip install django-baton[analytics]`
 
 You can create a cool index page displaying some statistics widgets using the Google Analytics API just by defining the `ANALYTICS` setting.
 
@@ -819,7 +823,7 @@ If you want to test your live changes, just start the webpack dev server:
 And inside the `base_site.html` template, make these changes:
 
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/dist/baton.min.js"></script>
+    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
 Now while you make your changes to the JS app (CSS included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
 
@@ -840,7 +844,7 @@ Start the test app (login admin:admin):
 Switch the baton js path in `base_site.html`
 
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/dist/baton.min.js"></script>
+    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
 Start the js app in watch mode
 

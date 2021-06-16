@@ -441,7 +441,7 @@
   select:not([multiple]):not(.admin-autocomplete) {
     @extend .form-select;
     text-indent: .01px;
-    text-overflow: '';
+    text-overflow: clip;
 
     @include media-breakpoint-up(md) {
       width: auto;
