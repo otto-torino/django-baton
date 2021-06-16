@@ -259,7 +259,7 @@ let Menu = {
     })
   },
   setHeight: function () {
-    let height = $(window).height() - $('#header').height() - 17 // nav padding and border
+    let height = $(window).height() - $('#header').height() - 19 // nav padding and border
     this.menu.css('min-height', height + 'px')
     $('#content').css('padding-bottom', $('#footer').height() + 20 + 'px')
   },

@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 INSTALLED_APPS = [
     'app',
     'baton',
@@ -39,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'easy_thumbnails',
+    'admin_auto_filters',
     'rangefilter',
+    'import_export',
     'filer',
     'tinymce',
     'mptt',

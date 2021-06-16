@@ -2,7 +2,6 @@
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 import './styles/baton.scss'
 
-import Template from './core/Template'
 import Dispatcher from 'js-event-dispatcher/dist/EventDispatcher'
 import Navbar from './core/Navbar'
 import Footer from './core/Footer'
@@ -23,6 +22,7 @@ window.Baton = {
   intialized: false,
   init: function (config) {
     console.info('Baton:', 'init')
+    console.info('Baton:', `rev ${BATON_REVISION}`)
     this.initialized = true
     let page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
     $('body').addClass('page-' + page)
@@ -106,4 +106,5 @@ window.Baton = {
   Dispatcher: Dispatcher,
   Modal: Modal
 }
+
 window.jQuery = jQuery

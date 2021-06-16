@@ -50,7 +50,7 @@ You can also perform live development, in this case:
     {% block extrahead %}
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> -->
-        <script src="http://localhost:8080/dist/baton.min.js"></script>
+        <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
         {% baton_config as conf %}
         {{ conf | json_script:"baton-config" }}
         <script>
@@ -65,7 +65,7 @@ You can also perform live development, in this case:
 - or you can edit directly the baton template and switch the comment of the two lines: ::
 
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/dist/baton.min.js"></script>
+    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
 - start the webpack development server ::
 

@@ -2,9 +2,18 @@ import json
 
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, RelatedDropdownFilter
 from rangefilter.filter import DateRangeFilter
-from .models import News, Category, Attachment, Video
+from admin_auto_filters.filters import AutocompleteFilter
+from .models import News, Category, Attachment, Video, Activity
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+
+class NewsResources(resources.ModelResource):
+    class Meta:
+        model = News
 
 
 class TitleFilter(InputFilter):
@@ -18,10 +27,14 @@ class TitleFilter(InputFilter):
                 title__icontains=search_term
             )
 
+class CategoryFilter(AutocompleteFilter):
+    title = 'category' # display title
+    field_name = 'category' # name of the foreign key field
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', )
+    search_fields = ('name', )
 
 
 class AttachmentsInline(admin.TabularInline):
@@ -35,8 +48,13 @@ class VideosInline(admin.StackedInline):
     classes = ('collapse-entry', 'expand-first', )
 
 
+class ActivitiesInline(GenericStackedInline):
+    model = Activity
+    extra = 1
+
+
 @admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(ImportExportModelAdmin):
     list_per_page = 2
     list_display = (
         'title',
@@ -46,17 +64,18 @@ class NewsAdmin(admin.ModelAdmin):
     )
     list_filter = (
         TitleFilter,
-        ('category', RelatedDropdownFilter, ),
+        CategoryFilter,
         ('date', DateRangeFilter),
         'published',
     )
-    inlines = [AttachmentsInline, VideosInline]
+    autocomplete_fields = ('category', )
+    inlines = [AttachmentsInline, VideosInline, ActivitiesInline, ]
     date_hierarchy = 'date'
 
     fieldsets = (
         ('Dates', {
             'fields': ('date', 'datetime', ),
-            'classes': ('order-1', 'baton-tabs-init', 'baton-tab-fs-content', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos'),
+            'classes': ('order-1', 'baton-tabs-init', 'baton-tab-fs-content', 'baton-tab-fs-flags', 'baton-tab-group-fs-attachments--inline-attachments', 'baton-tab-group-fs-videos--inline-videos', 'baton-tab-inline-news-activity-content_type-object_id'),
             'description': 'This is a description text'
 
         }),
