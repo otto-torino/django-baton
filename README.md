@@ -92,6 +92,8 @@ Install the last stable release
 
     $ pip install django-baton
 
+> :information_source: In order to use the Google Analytics index, install baton along the optional dependencies with `$ pip install django-baton[analytics]`
+
 or clone the repo inside your project
 
     $ git clone https://github.com/otto-torino/django-baton.git
@@ -319,6 +321,8 @@ You can move between the results using the keyboard up and down arrows, and you 
 
 
 ### <a name="configuration-analytics"></a>ANALYTICS
+
+> :information_source: In order to use the Google Analytics index, install baton along the optional dependencies with `$ pip install django-baton[analytics]`
 
 You can create a cool index page displaying some statistics widgets using the Google Analytics API just by defining the `ANALYTICS` setting.
 

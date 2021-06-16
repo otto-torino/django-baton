@@ -1,10 +1,8 @@
 import json
-from google.auth.transport.requests import Request
 from django.urls import reverse
 from django import template
 from django.utils.html import escapejs
 from django.core.exceptions import ImproperlyConfigured
-from google.oauth2 import service_account
 
 from ..config import get_config
 
@@ -43,6 +41,11 @@ def baton_config_value(key):
 
 @register.inclusion_tag('baton/analytics.html', takes_context=True)
 def analytics(context, next=None):
+    try:
+        from google.auth.transport.requests import Request
+        from google.oauth2 import service_account
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError('django-baton: missing Google Analytics optional dependencies') from e
 
     analytics_settings = get_config('ANALYTICS')
 
