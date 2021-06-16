@@ -36,7 +36,7 @@ httplib2==0.18.1
 idna==2.10
 imagesize==1.2.0
 invoke==1.4.1
-Jinja2==2.11.2
+Jinja2==2.11.3
 MarkupPy==1.14
 MarkupSafe==1.1.1
 msgpack==1.0.2
