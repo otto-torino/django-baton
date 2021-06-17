@@ -153,7 +153,7 @@ let Tabs = {
     }
   },
   checkHash: function () {
-    if (location.hash) {
+    if (location.hash && this.nav.find('a[data-bs-target="' + location.hash + '"]').length) {
       const tab = new bootstrap.Tab(this.nav.find('a[data-bs-target="' + location.hash + '"]')[0])
       tab.show()
     }
