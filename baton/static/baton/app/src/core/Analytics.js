@@ -52,29 +52,11 @@ class Analytics {
         }
       })
       /**
-       * Create a new ActiveUsers instance to be rendered inside of an
-       * element with the id "active-users-container" and poll for changes every
-       * five seconds.
-       */
-      var activeUsers = new gapi.analytics.ext.ActiveUsers({
-        container: self.domIds.activeUsers,
-        ids: 'ga:' + self.viewId,
-        pollingInterval: 5
-      }).execute()
-      /**
        * Create a new ViewSelector2 instance to be rendered inside of an
        * element with the id "view-selector-container".
        */
       var viewSelector = new gapi.analytics.ViewSelector({
         container: self.domIds.viewSelector,
-      })
-      /**
-       * Update the activeUsers component, the Chartjs charts, and the dashboard
-       * title whenever the user changes the view.
-       */
-      viewSelector.on('viewChange', function (data) {
-        // Start tracking active users for this view.
-        activeUsers.set(data).execute()
       })
       viewSelector.execute()
 
