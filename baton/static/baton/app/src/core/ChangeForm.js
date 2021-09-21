@@ -110,7 +110,7 @@ let ChangeForm = {
       let cur = $(p).find('a')
       if (cur.length) {
         let url = cur.attr('href')
-        let ext = url.split('.').pop()
+        let ext = url.split('?')[0].split('.').pop()
         if (['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif', 'tif', 'webp'].indexOf(ext) !== -1) {
           let spinner = $('<i />', {'class': 'fa fa-spinner fa-spin fa-2x fa-fw'}).css('color', '#aaa')
           let preview = $('<div />', {'class': 'py-2'}).append(spinner)
