@@ -30,7 +30,8 @@
     font-size: 1.6rem;
     font-weight: 700;
 
-    + h2 {
+    + h2,
+    + .messagelist + h2 {
       @extend .mb-0;
       @extend .px-3;
       background: $dashboard-title-bg;

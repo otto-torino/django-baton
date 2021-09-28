@@ -127,7 +127,7 @@ BATON = {
     'CHANGELIST_FILTERS_FORM': True,
     'COLLAPSABLE_USER_AREA': False,
     'MENU_ALWAYS_COLLAPSED': False,
-    'MESSAGES_TOASTS': ['success'],
+    'MESSAGES_TOASTS': ['error'],
     'GRAVATAR_DEFAULT_IMG': 'robohash',
     'LOGIN_SPLASH': '/static/app/bg.jpg',
     'SEARCH_FIELD': {
