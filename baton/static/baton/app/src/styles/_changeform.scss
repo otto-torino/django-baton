@@ -29,6 +29,10 @@
     }
   }
 
+  input[type=text].hidden {
+    display: none !important;
+  }
+
   .baton-image-preview {
     height: 100px;
 
