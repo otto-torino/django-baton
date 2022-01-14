@@ -366,10 +366,10 @@
 
     table {
       @extend .table;
-      @extend .table-bordered;
+      // @extend .table-bordered; // removed with bootstrap 5.1
 
       thead > tr {
-        background: $rl-head-bg;
+        // background: $rl-head-bg; // removed with bootstrap 5.1
         color: $rl-head-color;
       }
 
