@@ -70,7 +70,7 @@ window.Baton = {
     Dispatcher.emit('onReady')
   },
   loadTooltips: function () {
-    let tooltipTriggerList = [].slice.call($('[title]:not(iframe)'))
+    let tooltipTriggerList = [].slice.call($('[title]:not(iframe):not(option)'))
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
