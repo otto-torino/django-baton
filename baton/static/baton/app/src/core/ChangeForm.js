@@ -44,7 +44,7 @@ let ChangeForm = {
     // form serialize does not detect filter_horizontal controllers because
     // in that case options are not selected, just added to the list of options,
     // and jquery form serialize only serializes values which are set!
-    let data = this.form.serialize()
+    let data = jQuery(":not([data-baton-excluded])",  this.form).serialize()
     $('select.filtered[multiple][id$=_to]').each(function (k, select) {
       let optionsValues = []
       $(select).children('option').each(function (kk, option) {
