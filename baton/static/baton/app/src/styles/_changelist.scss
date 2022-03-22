@@ -342,8 +342,8 @@
         @extend .me-2;
       }
 
-      .all,
-      .question,
+      .all.hidden,
+      .question.hidden,
       .clear {
         display: none;
       }
