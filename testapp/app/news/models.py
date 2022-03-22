@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
-from filer.fields.image import FilerImageField
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
@@ -54,7 +53,7 @@ class News(models.Model):
     datetime = models.DateTimeField('datetime', blank=True, null=True, help_text='insert date')
     title = models.CharField('title', max_length=50, help_text='please insert a cool title')
     link = models.URLField('link', blank=True, null=True)
-    image = FilerImageField(null=True, blank=True, on_delete=models.SET_NULL, related_name="news_image")
+    image = models.ImageField(upload_to='news/img', null=True, blank=True)
     content = HTMLField(verbose_name='content', help_text='html is supported')
     share = models.BooleanField(default=False)
     published = models.BooleanField(default=False)

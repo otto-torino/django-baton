@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'admin_auto_filters',
     'rangefilter',
     'import_export',
-    'filer',
     'tinymce',
     'mptt',
     'news',
@@ -158,17 +157,6 @@ BATON = {
         },
         {
             'type': 'title',
-            'label': 'Resources',
-            'apps': ('filer', ),
-        },
-        {
-            'type': 'app',
-            'name': 'filer',
-            'label': 'File explorer',
-            'icon': 'fa fa-file'
-        },
-        {
-            'type': 'title',
             'label': 'News',
             'apps': ('news', ),
             'default_open': True,
@@ -202,11 +190,6 @@ BATON = {
                     'label': 'Google search',
                     'url': 'http://www.google.it'
                 },
-                # {
-                #     'type': 'free',
-                #     'label': 'Dalla change form',
-                #     'url': '/admin/newschange/3'
-                # },
             ]
         },
     ),

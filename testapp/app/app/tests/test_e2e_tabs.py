@@ -16,6 +16,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 class TestBatonTabs(TestCase):
     def setUp(self):
         chrome_options = Options()
+
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-extensions')
@@ -32,7 +33,7 @@ class TestBatonTabs(TestCase):
         self.driver.quit()
 
     def login(self):
-        self.driver.get('http://localhost:8000/admin/news/news/3/change')
+        self.driver.get('http://localhost:8000/admin/news/news/1/change')
         username_field = self.driver.find_element_by_id("id_username")
         password_field = self.driver.find_element_by_id("id_password")
         button = self.driver.find_element_by_css_selector('input[type=submit]')

@@ -57,7 +57,7 @@ class TestBatonInputFilter(TestCase):
         filter_button.click()
         input = self.driver.find_element_by_css_selector(
             '#changelist-filter-modal li > input')
-        input.send_keys('super band')
+        input.send_keys('glen')
         btn = self.driver.find_element_by_css_selector(
             '.modal .btn-action')
         btn.click()
