@@ -18,6 +18,7 @@ install:
   - pip install django-import-export
   - pip install docutils
   - pip install easy_thumbnails
+  - pip install django-mptt
   - django-admin --version
   - pip install selenium
 before_script:
