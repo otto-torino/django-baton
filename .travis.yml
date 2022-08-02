@@ -19,6 +19,7 @@ install:
   - pip install docutils
   - pip install easy_thumbnails
   - pip install django-mptt
+  - pip install reportlab
   - django-admin --version
   - pip install selenium
 before_script:
