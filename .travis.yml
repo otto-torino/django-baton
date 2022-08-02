@@ -1,7 +1,7 @@
 # Config file for automatic testing at travis-ci.org
 language: python
 python:
-  - 3.6
+  - 3.10
 install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
@@ -11,7 +11,6 @@ install:
   - pip install google-auth-httplib2==0.0.4
   - pip install webdriver-manager
   - pip install python-dotenv
-  - pip install django-filer
   - pip install django-tinymce
   - pip install django-admin-rangefilter
   - pip install django-admin-autocomplete-filter==0.6.1
@@ -26,6 +25,7 @@ env:
   global:
     - DJANGO_VERSION='Django>=2.2,<3.0'
     - DJANGO_VERSION='Django>=3.0,<3.3'
+    - DJANGO_VERSION='Django>=4.0'
 script:
   - cd testapp/app && python manage.py test
 branches:
