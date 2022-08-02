@@ -17,6 +17,7 @@ install:
   - pip install django-admin-autocomplete-filter==0.6.1
   - pip install django-import-export
   - pip install docutils
+  - pip install easy_thumbnails
   - django-admin --version
   - pip install selenium
 before_script:
