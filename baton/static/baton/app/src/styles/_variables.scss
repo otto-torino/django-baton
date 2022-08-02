@@ -103,7 +103,7 @@ $filter-selected-border-color: $base;
 $filters-clear-bg: #17a2b8;
 $rl-head-bg: #f0f0f0;
 $rl-head-color: inherit;
-$rl-tr-odd-bg: #fafafa;
+$rl-tr-odd-bg: rgba(0, 0, 0, .05);
 $rl-tr-odd-color: inherit;
 $rl-tr-selected-bg-color: #cfc4a8;
 $rl-tr-selected-bg: lighten($rl-tr-selected-bg-color, 10%);
