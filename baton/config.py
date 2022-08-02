@@ -9,7 +9,7 @@ default_config = {
     'INDEX_TITLE': _('Site administration'),
     'MENU_TITLE': _('Menu'),
     'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-    'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
+    'COPYRIGHT': 'copyright © 2022 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
     'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,

@@ -23,4 +23,4 @@ class TestBatonConfig(TestCase):
         self.assertEqual(get_config('MENU')[0]['type'], 'title')
         self.assertEqual(get_config('SUPPORT_HREF'), 'mailto:mail@otto.to.it')
         self.assertEqual(get_config('POWERED_BY'), 'Otto srl')
-        self.assertEqual(get_config('COPYRIGHT'), 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>')
+        self.assertEqual(get_config('COPYRIGHT'), 'copyright © 2022 <a href="https://www.otto.to.it">Otto srl</a>')
