@@ -157,6 +157,7 @@ BATON = {
     'MENU_TITLE': 'Menu',
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
+    'GRAVATAR_ENABLED': True,
     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
     'SEARCH_FIELD': {
         'label': 'Search contents...',
@@ -210,6 +211,7 @@ Default value is `True`.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
 - `MESSAGES_TOASTS`: you can decide to show all or specific level admin messages in toasts. Set it to `True` to show all message in toasts. set it to `['warning', 'error']` to show only warning and error messages in toasts.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
+- `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 
 `MENU`, `SEARCH_FIELD` and `ANALYTICS` configurations in detail:

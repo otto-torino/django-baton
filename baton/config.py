@@ -21,6 +21,7 @@ default_config = {
     'MENU_ALWAYS_COLLAPSED': False,
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
+    'GRAVATAR_ENABLED': True,
     'LOGIN_SPLASH': None,
     'SEARCH_FIELD': None,
 }
