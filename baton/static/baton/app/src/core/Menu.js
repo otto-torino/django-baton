@@ -222,6 +222,8 @@ let Menu = {
           img.after(expandUserArea)
         }
       })
+    } else if (self.collapsableUserArea) {
+      userInfo.prepend(expandUserArea)
     }
     let linksContainer = $('<div />', { class: 'user-links' }).appendTo(
       container
