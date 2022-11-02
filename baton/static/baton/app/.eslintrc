@@ -10,9 +10,9 @@
     "browser" : true
   },
   "globals" : {
-    "Baton": {},
-    "jQuery": {},
-    "$": {},
+    "Baton": "readonly",
+    "jQuery": "readonly",
+    "$": "readonly"
   },
   "rules": {
     "semi" : [2, "never"],

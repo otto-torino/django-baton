@@ -1,8 +1,12 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule SelectorFormat
 %font-awesome {
   display: inline-block;
-  font-family: 'Font Awesome\ 5 Free';
+  font-family: 'Font Awesome\ 6 Free';
   margin-right: 5px;
+}
+
+%font-awesome-family {
+  font-family: 'Font Awesome\ 6 Free';
 }
 
 %admin-form {
