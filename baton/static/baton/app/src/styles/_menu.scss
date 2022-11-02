@@ -128,10 +128,12 @@ body:not(.menu-mobile) {
       }
 
       &.logout {
+        cursor: pointer;
+        display: inline-block;
+
         &::after {
           content: '\f2f5';
           @extend %font-awesome-family;
-          font-size: 1.6rem;
         }
       }
 

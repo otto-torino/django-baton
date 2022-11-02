@@ -225,12 +225,12 @@ let Menu = {
       let cls = 'view-site'
       if (/password_change/.test($(el).attr('href'))) {
         cls = 'password'
-      } else if (/logout/.test($(el).attr('href'))) {
+      } else if (/logout/.test($(el).attr('href')) || $(el).attr('data-item') === 'logout') {
         cls = 'logout'
       }
       let text = $(el).text()
       let clone = $(el)
-        .clone()
+        .clone(true, true)
         .html('')
         .attr('class', cls)
         .attr('title', text)
