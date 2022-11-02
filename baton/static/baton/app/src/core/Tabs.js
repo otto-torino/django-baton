@@ -151,6 +151,9 @@ let Tabs = {
         break
       }
     }
+
+    // move nonfield errors outside of tabs
+    $('.errornote').after($('.errorlist.nonfield'))
   },
   checkHash: function () {
     if (location.hash && this.nav.find('a[data-bs-target="' + location.hash + '"]').length) {

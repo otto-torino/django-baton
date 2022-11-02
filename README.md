@@ -52,7 +52,7 @@ Supports Django >= 2.1. For older versions of Django, please use django-baton@1.
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on Bootstrap 5 and FontAwesome Free 5
+- Based on Bootstrap 5 and FontAwesome Free 6
 - Fully responsive
 - Custom and flexible sidebar menu
 - Configurable search field
@@ -78,7 +78,7 @@ The following packages are required to manage the Google Analytics index:
 Baton is based on the following frontend technologies:
 
 - Bootstrap 5
-- FontAwesome 5 (solid and brands)
+- FontAwesome 6
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
 

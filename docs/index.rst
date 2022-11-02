@@ -15,7 +15,7 @@ Features
 --------
 
 - Supports django >= 2.1
-- Based on bootstrap 5 and FontAwesome 5
+- Based on bootstrap 5 and FontAwesome 6
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters facility
