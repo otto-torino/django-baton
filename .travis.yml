@@ -1,4 +1,5 @@
 # Config file for automatic testing at travis-ci.org
+dist: focal
 language: python
 python:
   - 3.10
@@ -16,8 +17,12 @@ install:
   - pip install django-admin-autocomplete-filter==0.6.1
   - pip install django-import-export
   - pip install docutils
-  - django-admin.py --version
-  - pip install selenium
+  - pip install easy_thumbnails
+  - pip install django-mptt
+  - pip install reportlab
+  - pip install svglib
+  - django-admin --version
+  - pip install selenium==3.141.0
 before_script:
   - cd testapp/app && python manage.py migrate && python manage.py runserver &
   - sleep 3
