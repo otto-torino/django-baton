@@ -17,6 +17,10 @@
     font-size: $h3-size;
   }
 
+  .errorlist.nonfield {
+    @extend .mt-3;
+  }
+
   .form-row {
     // @extend .form-group; // @TODO check
     background: $field-bg;
