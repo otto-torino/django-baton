@@ -242,9 +242,13 @@ Free voices can have children and so you can specify the _default_open_ key.
 You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use FontAwesome classes which are included by default), a _default_open_ key and a _models_ key.
 If you don't define the _models_ key, the default app models are listed under your app.
 
+> **_NOTE:_**  app name should be lowercase
+
 #### Model
 
 You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
+
+> **_NOTE:_**  model name should be lowercase
 
 #### Free
 
