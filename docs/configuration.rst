@@ -272,6 +272,8 @@ The ``models`` key must be a tuple, where every item represents a model in the f
         )
     },
 
+.. important:: App name should be lowercase.
+
 Model
 ^^^^^
 
@@ -281,6 +283,7 @@ In this case you must specify the ``type``, ``name`` and ``app`` keys, optionall
 
     { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages', 'icon': 'fa fa-file-text-o' },
 
+.. important:: Model name should be lowercase.
 
 Free
 ^^^^
