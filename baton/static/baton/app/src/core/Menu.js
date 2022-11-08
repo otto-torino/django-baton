@@ -20,6 +20,7 @@ let Menu = {
     this.fixNodes()
     this.brandingClone = $('#branding').clone()
     this.manageBrandingUserTools()
+    this.searchTimeout = null
     this.manageSearchField()
     this.fetchData()
     this.setHeight()
@@ -132,14 +133,16 @@ let Menu = {
       }
     }
 
-    field.on('blur', e => setTimeout(() => dataList.hide(), 150))
-    field.on('focus', e => dataList.show())
-    field.on('keyup', e => {
-      var code = e.keyCode || e.which
+    const keyUpHandler = e => {
+      if (this.searchTimeout) {
+        clearTimeout(this.searchTimeout)
+      }
+
+      const code = e.keyCode || e.which
 
       if (code === 13) {
         // goto url if there is an active voice
-        let active = dataList.find('.datalist-option.selected').first()
+        const active = dataList.find('.datalist-option.selected').first()
         if (active.length) {
           location.href = active.attr('data-url')
         }
@@ -156,22 +159,30 @@ let Menu = {
           return
         }
 
-        container.addClass('loading')
-        $.getJSON(this.searchField.url, { text: $(field).val() })
-          .done(data => {
-            container.removeClass('loading')
-            dataList.empty()
-            data.data.forEach((r, index) => dataList.append(`
-              <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}"><a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}</div>`)
-            )
-          })
-          .fail((jqxhr, textStatus, err) => {
-            console.log(err)
-            container.removeClass('loading')
-            dataList.empty()
-          })
+        const debounced = () => {
+          container.addClass('loading')
+          $.getJSON(this.searchField.url, { text: $(field).val() })
+            .done(data => {
+              container.removeClass('loading')
+              dataList.empty()
+              data.data.forEach((r, index) => dataList.append(`
+                <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}"><a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}</div>`)
+              )
+            })
+            .fail((jqxhr, textStatus, err) => {
+              console.log(err)
+              container.removeClass('loading')
+              dataList.empty()
+            })
+        }
+
+        this.searchTimeout = setTimeout(debounced, 300)
       }
-    })
+    }
+    field.on('keyup', keyUpHandler)
+    field.on('blur', e => setTimeout(() => dataList.hide(), 150))
+    field.on('focus', e => dataList.show())
+
 
     $('#user-tools-sidebar').after(container.append([field, dataList]))
   },
