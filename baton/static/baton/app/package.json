@@ -1,6 +1,6 @@
 {
   "name": "baton",
-  "version": "2.4.1",
+  "version": "2.6.0",
   "description": "Django Baton App",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@babel/register": "^7.13.16",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-free": "^6.2.0",
     "autoprefixer": "^10.2.6",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.2.2",

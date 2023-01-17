@@ -3,7 +3,7 @@ import json
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.admin import GenericStackedInline
-from baton.admin import InputFilter, RelatedDropdownFilter
+from baton.admin import InputFilter, MultipleChoiceListFilter
 from rangefilter.filter import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
 from .models import News, Category, Attachment, Video, Activity
@@ -53,6 +53,13 @@ class ActivitiesInline(GenericStackedInline):
     extra = 1
 
 
+class StatusListFilter(MultipleChoiceListFilter):
+    title = 'Status'
+    parameter_name = 'status__in'
+
+    def lookups(self, request, model_admin):
+        return News.Status.choices
+
 @admin.register(News)
 class NewsAdmin(ImportExportModelAdmin):
     list_per_page = 2
@@ -60,12 +67,14 @@ class NewsAdmin(ImportExportModelAdmin):
         'title',
         'date',
         'get_category',
+        'status',
         'published',
     )
     list_filter = (
         TitleFilter,
         CategoryFilter,
         ('date', DateRangeFilter),
+        StatusListFilter,
         'published',
     )
     autocomplete_fields = ('category', )
@@ -80,7 +89,7 @@ class NewsAdmin(ImportExportModelAdmin):
 
         }),
         ('Main', {
-            'fields': (('category', 'title'), 'link', 'content', ),
+            'fields': (('category', 'title'), 'link', 'content', 'status', ),
             'classes': ('tab-fs-content', ),
             'description': 'This is a description text'
 

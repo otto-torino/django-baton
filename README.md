@@ -52,7 +52,7 @@ Supports Django >= 2.1. For older versions of Django, please use django-baton@1.
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on Bootstrap 5 and FontAwesome Free 5
+- Based on Bootstrap 5 and FontAwesome Free 6
 - Fully responsive
 - Custom and flexible sidebar menu
 - Configurable search field
@@ -78,7 +78,7 @@ The following packages are required to manage the Google Analytics index:
 Baton is based on the following frontend technologies:
 
 - Bootstrap 5
-- FontAwesome 5 (solid and brands)
+- FontAwesome 6
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
 
@@ -244,9 +244,13 @@ Free voices can have children and so you can specify the _default_open_ key.
 You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use FontAwesome classes which are included by default), a _default_open_ key and a _models_ key.
 If you don't define the _models_ key, the default app models are listed under your app.
 
+> **_NOTE:_**  app name should be lowercase
+
 #### Model
 
 You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
+
+> **_NOTE:_**  model name should be lowercase
 
 #### Free
 
@@ -560,6 +564,32 @@ class MyModelAdmin(admin.ModelAdmin):
         ('a_choicefield', ChoiceDropdownFilter),
         # for related fields
         ('a_foreignkey_field', RelatedDropdownFilter),
+    )
+
+
+### Multiple choice Filters
+
+Baton defines a custom MultipleChoiceListFilter class that you can use to filter on multiple options, for example:
+
+``` python
+
+# your app admin
+
+from baton.admin import MultipleChoiceListFilter
+
+class StatusListFilter(MultipleChoiceListFilter):
+    title = 'Status'
+    parameter_name = 'status__in'
+
+    def lookups(self, request, model_admin):
+        return News.Status.choices
+
+
+class MyModelAdmin(admin.ModelAdmin):
+    list_filters = (
+        'my_field',
+        StatusListFilter,
+        'my_other_field',
     )
 ```
 

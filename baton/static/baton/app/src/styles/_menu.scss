@@ -108,14 +108,14 @@ body:not(.menu-mobile) {
 
       &.view-site {
         &::after {
-          content: '\f108';
-          font-family: 'Font Awesome\ 5 Free';
+          content: '\f390';
+          @extend %font-awesome-family;
         }
 
         &[href*=doc] {
           &::after {
             content: '\f02d' !important;
-            font-family: 'Font Awesome\ 5 Free';
+            @extend %font-awesome-family;
           }
         }
       }
@@ -123,15 +123,17 @@ body:not(.menu-mobile) {
       &.password {
         &::after {
           content: '\f084';
-          font-family: 'Font Awesome\ 5 Free';
+          @extend %font-awesome-family;
         }
       }
 
       &.logout {
+        cursor: pointer;
+        display: inline-block;
+
         &::after {
           content: '\f2f5';
-          font-family: 'Font Awesome\ 5 Free';
-          font-size: 1.6rem;
+          @extend %font-awesome-family;
         }
       }
 
@@ -163,7 +165,7 @@ body:not(.menu-mobile) {
     &::after {
       color: $secondary;
       content: '\f002';
-      font-family: 'Font Awesome\ 5 Free';
+      @extend %font-awesome-family;
       position: absolute;
       right: .5rem;
       top: .2rem;

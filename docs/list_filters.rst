@@ -73,3 +73,28 @@ Usage: ::
             # for related fields
             ('a_foreignkey_field', RelatedDropdownFilter),
         )
+
+
+Multiple Choice Filters
+------------------
+
+Baton defines a custom MultipleChoiceListFilter class that you can use to filter on multiple options, for example::
+
+    # your app admin
+
+    from baton.admin import MultipleChoiceListFilter
+
+    class StatusListFilter(MultipleChoiceListFilter):
+        title = 'Status'
+        parameter_name = 'status__in'
+
+        def lookups(self, request, model_admin):
+            return News.Status.choices
+
+
+    class MyModelAdmin(admin.ModelAdmin):
+        list_filters = (
+            'my_field',
+            StatusListFilter,
+            'my_other_field',
+        )

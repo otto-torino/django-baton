@@ -43,6 +43,12 @@ class Category(models.Model):
 
 
 class News(models.Model):
+    class Status(models.IntegerChoices):
+        DRAFT = 1, "draft"
+        REVIEWED = 2, "reviewed"
+        READY = 3, "ready"
+        ARCHIVED = 4, "archived"
+
     category = models.ForeignKey(
         Category,
         verbose_name='category',
@@ -60,6 +66,7 @@ class News(models.Model):
     attachments_summary = models.TextField('attachments summary', blank=True)
     videos_summary = models.TextField('videos summary', blank=True)
     favorites = GenericRelation(Activity)
+    status = models.IntegerField(choices=Status.choices, blank=True, null=True)
 
     class Meta:
         verbose_name = "news"
