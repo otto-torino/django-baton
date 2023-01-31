@@ -11,7 +11,7 @@ REPO_URL = 'http://github.com/otto-torino/django-baton'
 
 setup(
     name='django-baton',
-    version='2.6.0',
+    version='2.6.1',
     packages=['baton', 'baton.autodiscover', 'baton.templatetags'],
     include_package_data=True,
     license='MIT License',
@@ -54,7 +54,7 @@ setup(
     ],
     project_urls={
         'Documentation': 'https://django-baton.readthedocs.io/en/latest/',
-        'Demo': 'https://django-baton-demo.herokuapp.com/admin',
+        'Demo': 'https://django-baton.sqrt64.it/admin',
         'Source': REPO_URL,
         'Tracker': REPO_URL + '/issues',
     },

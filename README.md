@@ -15,7 +15,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 Now you can try django-baton using the new shining live demo!
 Login with user `demo` and password `demo`
 
-[https://django-baton-demo.herokuapp.com/](https://django-baton-demo.herokuapp.com/)
+[https://django-baton.sqrt64.it/](https://django-baton.sqrt64.it/)
 
 ---
 
@@ -549,8 +549,7 @@ Baton provides a dropdown form of the following list filters:
 The dropdown is visible only if the filter contains at least three options, otherwise the default template is used.
 
 Usage:
-
-``` python
+```
 from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoicesDropdownFilter
 
 class MyModelAdmin(admin.ModelAdmin):
@@ -563,14 +562,13 @@ class MyModelAdmin(admin.ModelAdmin):
         # for related fields
         ('a_foreignkey_field', RelatedDropdownFilter),
     )
-
+```
 
 ### Multiple choice Filters
 
 Baton defines a custom MultipleChoiceListFilter class that you can use to filter on multiple options, for example:
 
 ``` python
-
 # your app admin
 
 from baton.admin import MultipleChoiceListFilter
