@@ -15,7 +15,7 @@ Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 Now you can try django-baton using the new shining live demo!
 Login with user `demo` and password `demo`
 
-[https://django-baton-demo.herokuapp.com/](https://django-baton-demo.herokuapp.com/)
+[https://django-baton.sqrt64.it/](https://django-baton.sqrt64.it/)
 
 ---
 
