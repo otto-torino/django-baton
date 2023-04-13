@@ -27,7 +27,7 @@ let ChangeList = {
   },
   wrapToplinks: function () {
     const toplinks = $('.changelist-form-container .toplinks')
-    if (toplinks.length) {
+    if (toplinks.length && !toplinks.parent().hasClass('xfull')) {
       toplinks.wrap($('<div />', { class: 'xfull' }))
     }
   },

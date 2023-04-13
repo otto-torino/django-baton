@@ -75,6 +75,7 @@
       width: 100%;
     }
 
+    > div:not(.flex-container),
     .flex-container {
       align-items: flex-start;
       display: flex;
