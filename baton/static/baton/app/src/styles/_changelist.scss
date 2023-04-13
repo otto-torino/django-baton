@@ -39,16 +39,15 @@
       margin-bottom: 0;
       padding-left: 0;
 
-      li {
+      > a, > li {
         background: rgba(0, 0, 0, .1);
         display: inline-block;
         padding: .2rem 1rem;
 
-        &.date-back {
+        &.date-back,
+        &.date-back a {
           background: $base;
-          a {
-            color: $white;
-          }
+          color: $white;
         }
       }
 

@@ -75,12 +75,25 @@
       width: 100%;
     }
 
-    > div {
+    > div:not(.flex-container),
+    .flex-container {
       align-items: flex-start;
       display: flex;
       flex: 1;
       flex-direction: row;
       flex-wrap: wrap;
+
+      &.form-multiline {
+        margin-left: 0%;
+
+        @include media-breakpoint-up(md) {
+          margin-left: 10%;
+        }
+
+        @include media-breakpoint-up(lg) {
+          margin-left: 5%;
+        }
+      }
 
       &.checkbox-row {
         input {
@@ -187,9 +200,23 @@
         }
       }
 
+      .change-related,
+      .view-related,
+      .add-related {
+        opacity: .4;
+
+        &[href] {
+          opacity: 1;
+        }
+      }
+
+      .change-related,
       .add-related {
         margin-left: 15px;
         margin-right: 15px;
+      }
+
+      .add-related {
         order: 2;
       }
 
@@ -576,20 +603,21 @@
       @include media-breakpoint-up(md) {
         margin-left: 0;
       }
+    }
 
-      .deletelink {
-        @extend .btn;
-        @extend .btn-danger;
-        width: 200px;
+    .deletelink {
+      @extend .btn;
+      @extend .btn-danger;
+      margin-right: auto;
+      width: 200px;
 
-        @include media-breakpoint-up(md) {
-          width: auto;
-        }
+      @include media-breakpoint-up(md) {
+        width: auto;
+      }
 
-        &::before {
-          @extend %font-awesome;
-          content: '\f1f8';
-        }
+      &::before {
+        @extend %font-awesome;
+        content: '\f1f8';
       }
     }
   }
