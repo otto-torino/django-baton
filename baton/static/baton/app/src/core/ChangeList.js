@@ -16,12 +16,19 @@ let ChangeList = {
     this.filtersInModal = opts.changelistFiltersInModal
     this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
     this.initTemplates()
+    this.wrapToplinks()
     if (this._filtersDiv.length) {
-      var self = this
+      const self = this
       setTimeout(function () {
         self.activate()
       }, 200) // select2
       this.fixRangeFilter()
+    }
+  },
+  wrapToplinks: function () {
+    const toplinks = $('.changelist-form-container .toplinks')
+    if (toplinks.length) {
+      toplinks.wrap($('<div />', { class: 'xfull' }))
     }
   },
   activate: function () {
