@@ -77,6 +77,7 @@ class NewsAdmin(ImportExportModelAdmin):
         StatusListFilter,
         'published',
     )
+    search_fields = ('title', )
     autocomplete_fields = ('category', )
     inlines = [AttachmentsInline, VideosInline, ActivitiesInline, ]
     date_hierarchy = 'date'
