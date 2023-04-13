@@ -21,7 +21,7 @@
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.2.2",
     "babel-register": "^6.26.0",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.2.3",
     "css-loader": "^5.2.6",
     "file-loader": "^6.2.0",
     "ini": "^2.0.0",
