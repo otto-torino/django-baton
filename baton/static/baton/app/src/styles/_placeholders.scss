@@ -681,6 +681,10 @@
     }
   }
 
+  fieldset fieldset > h2 {
+      background: $fieldset-nested-title-bg;
+  }
+
   .inline-related {
     overflow-x: auto;
 
