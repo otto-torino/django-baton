@@ -10,13 +10,7 @@
     <!-- <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script> -->
     {% baton_config as conf %}
     {{ conf | json_script:"baton-config" }}
-    <script>
-        (function ($, undefined) {
-            $(document).ready(function () {
-                Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-            })
-        })(jQuery, undefined)
-    </script>
+    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 {% endblock %}
 
 {% block branding %}
