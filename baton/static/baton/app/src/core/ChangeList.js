@@ -3,7 +3,7 @@ import Translator from './i18n'
 import Modal from './Modal'
 import breakpoints from './Breakpoints'
 
-let ChangeList = {
+const ChangeList = {
   /**
    * ChangeList component
    *
@@ -38,33 +38,27 @@ let ChangeList = {
     }
     let isModal = false
     if (this.filtersAlwaysOpen) {
-      $(document.body).addClass(
-        'changelist-filter-active changelist-filter-always-open'
-      )
+      $(document.body).addClass('changelist-filter-active changelist-filter-always-open')
     } else {
       // filters active?
-      let _activeFilters = /__[^=]+=/.test(location.search)
+      const _activeFilters = /__[^=]+=/.test(location.search)
       // actions ?
-      let _activeActions = $('#changelist-form > .actions').length !== 0
-      let _changelistForm = $('#changelist-form')
-      let _filtersToggler = $('<a />', {
+      const _activeActions = $('#changelist-form > .actions').length !== 0
+      const _changelistForm = $('#changelist-form')
+      const _filtersToggler = $('<a />', {
         class:
-          'changelist-filter-toggler' +
-          (_activeFilters ? ' active' : '') +
-          (_activeActions ? ' with-actions' : '')
-      }).html(
-        '<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>'
-      )
+          'changelist-filter-toggler' + (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : ''),
+      }).html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
 
       if (this.filtersInModal || parseInt($(window).width()) < breakpoints.lg) {
-        let self = this
+        const self = this
         isModal = true
         // wait for filters used js to exec
         $('#changelist-filter').prop('id', 'changelist-filter-modal')
-        let titleEl = $('#changelist-filter-modal > h2')
-        let title = titleEl.html()
+        const titleEl = $('#changelist-filter-modal > h2')
+        const title = titleEl.html()
         titleEl.remove()
-        let content = $('#changelist-filter-modal')
+        const content = $('#changelist-filter-modal')
         // remove from dom
         this.modal = new Modal({
           title,
@@ -72,7 +66,9 @@ let ChangeList = {
           size: 'md',
           hideFooter: !this.filtersForm,
           actionBtnLabel: this.t.get('filter'),
-          actionBtnCb: function () { self.filter(content) }
+          actionBtnCb: function () {
+            self.filter(content)
+          },
         })
         _filtersToggler.click(() => {
           self.modal.toggle()
@@ -83,7 +79,7 @@ let ChangeList = {
           if (parseInt(this._filtersDiv.css('max-width')) === 100) {
             // diff between mobile and lg
             $('html,body').animate({
-              scrollTop: this._filtersDiv.offset().top
+              scrollTop: this._filtersDiv.offset().top,
             })
           }
         })
@@ -93,9 +89,10 @@ let ChangeList = {
 
     if (!isModal && this.filtersForm) {
       // add filters button
-      let btn = $('<a />', {'class': 'btn btn-primary'}).html(this.t.get('filter'))
+      const btn = $('<a />', { class: 'btn btn-primary' })
+        .html(this.t.get('filter'))
         .on('click', () => this.filter($('#changelist-filter')))
-      $('#changelist-filter').append($('<div />', {'class': 'text-center mb-3'}).append(btn))
+      $('#changelist-filter').append($('<div />', { class: 'text-center mb-3' }).append(btn))
     }
 
     if (/_popup=1/.test(location.href)) {
@@ -103,94 +100,87 @@ let ChangeList = {
     }
   },
   getDropdownValue: function (dropdown) {
-    let items = $(dropdown).find('option').attr('value').substr(1).split('&')
-    let values = $(dropdown).val().substr(1).split('&').filter(item => items.indexOf(item) === -1)
+    const items = $(dropdown).find('option').attr('value').substr(1).split('&')
+    const values = $(dropdown)
+      .val()
+      .substr(1)
+      .split('&')
+      .filter((item) => items.indexOf(item) === -1)
     return values.length ? values.join('&') : null
   },
   filter: function (wrapper) {
-    var self = this
-    let qs = []
+    const self = this
+    const qs = []
 
-    let dropdowns = wrapper.find('select')
-    let textInputs = wrapper.find('input').not('[type=hidden]')
+    const dropdowns = wrapper.find('select')
+    const textInputs = wrapper.find('input').not('[type=hidden]')
 
     dropdowns
       .toArray()
-      .map(el => self.getDropdownValue(el))
-      .filter(v => v !== null)
-      .forEach(v => qs.push(v))
+      .map((el) => self.getDropdownValue(el))
+      .filter((v) => v !== null)
+      .forEach((v) => qs.push(v))
 
-    textInputs.each((idx, el) => el.value !== '' ? qs.push(`${el.name}=${el.value}`) : null)
+    textInputs.each((_, el) => (el.value !== '' ? qs.push(`${el.name}=${el.value}`) : null))
 
     // console.log(location.pathname + (qs.length ? '?' + qs.filter(q => q !== '').join('&') : ''), qs)
-    location.href = location.pathname + (qs.length ? '?' + qs.filter(q => q !== '').join('&') : '')
+    location.href = location.pathname + (qs.length ? '?' + qs.filter((q) => q !== '').join('&') : '')
   },
   initTemplates: function () {
     const positionMap = {
       above: 'before',
       below: 'after',
       top: 'prepend',
-      bottom: 'append'
+      bottom: 'append',
     }
 
     $('template[data-type=include]').each(function (index, template) {
-      let position = positionMap[$(template).attr('data-position')]
+      const position = positionMap[$(template).attr('data-position')]
       if (position !== undefined) {
-        let el = $('#changelist-form')
+        const el = $('#changelist-form')
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong changelist include position detected')
       }
     })
 
-    $('template[data-type=filters-include]').each(function (index, template) {
-      let position = positionMap[$(template).attr('data-position')]
-      if (
-        position !== undefined &&
-        position !== 'before' &&
-        position !== 'after'
-      ) {
+    $('template[data-type=filters-include]').each(function (_, template) {
+      const position = positionMap[$(template).attr('data-position')]
+      if (position !== undefined && position !== 'before' && position !== 'after') {
         if (position === 'prepend' && $('#changelist-filter-clear').length) {
           $('#changelist-filter-clear').after($(template).html())
-        } else if (
-          position === 'prepend' &&
-          $('#changelist-filter > h2').length
-        ) {
+        } else if (position === 'prepend' && $('#changelist-filter > h2').length) {
           $('#changelist-filter > h2').after($(template).html())
         } else {
-          let el = $('#changelist-filter')
+          const el = $('#changelist-filter')
           el[position]($(template).html())
         }
       } else {
-        console.error(
-          'Baton: wrong changelist filters include position detected'
-        )
+        console.error('Baton: wrong changelist filters include position detected')
       }
     })
 
-    $('template[data-type=attributes]').each(function (index, template) {
+    $('template[data-type=attributes]').each(function (_, template) {
       try {
-        let data = JSON.parse($(template).html())
+        const data = JSON.parse($(template).html())
 
-        for (let key in data) {
+        for (const key in data) {
+          // eslint-disable-next-line no-prototype-builtins
           if (data.hasOwnProperty(key)) {
             let selector
             let getParent = 'tr'
-            if (data[key]['selector']) {
-              selector = data[key]['selector']
-              delete data[key]['selector']
+            if (data[key].selector) {
+              selector = data[key].selector
+              delete data[key].selector
             } else {
-              selector =
-                '#result_list tr input[name=_selected_action][value=' +
-                key +
-                ']'
+              selector = '#result_list tr input[name=_selected_action][value=' + key + ']'
             }
-            if (data[key]['getParent'] !== undefined) {
-              getParent = data[key]['getParent']
-              delete data[key]['getParent']
+            if (data[key].getParent !== undefined) {
+              getParent = data[key].getParent
+              delete data[key].getParent
             }
 
-            let el = getParent ? $(selector).parents(getParent) : $(selector)
+            const el = getParent ? $(selector).parents(getParent) : $(selector)
             el.attr(data[key])
           }
         }
@@ -202,9 +192,11 @@ let ChangeList = {
   fixRangeFilter: function () {
     if (this.filtersForm) {
       $('.admindatefilter .controls').remove()
-      $('.admindatefilter form').onSubmit = function () { return false }
+      $('.admindatefilter form').onSubmit = function () {
+        return false
+      }
     }
-  }
+  },
 }
 
 export default ChangeList

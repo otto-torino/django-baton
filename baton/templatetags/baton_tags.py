@@ -27,6 +27,7 @@ def baton_config():
         "menuTitle": escapejs(get_config('MENU_TITLE')),
         "messagesToasts": get_config('MESSAGES_TOASTS'),
         "gravatarDefaultImg": get_config('GRAVATAR_DEFAULT_IMG'),
+        "gravatarEnabled": get_config('GRAVATAR_ENABLED'),
         "loginSplash": get_config('LOGIN_SPLASH'),
         "searchField": get_config('SEARCH_FIELD'),
     }

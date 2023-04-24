@@ -3,7 +3,7 @@ import Translator from './i18n'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 
 class Modal {
-  constructor (config) {
+  constructor(config) {
     this.t = new Translator($('html').attr('lang'))
 
     this.opts = {
@@ -15,7 +15,7 @@ class Modal {
       actionBtnCb: null,
       onUrlLoaded: function () {},
       size: 'lg',
-      onClose: function () {}
+      onClose: function () {},
     }
 
     this.isOpen = false
@@ -23,8 +23,8 @@ class Modal {
     this.update(config)
   }
 
-  create () {
-    this.modalObj = $('<div />', {'class': 'modal fade'}).appendTo(document.body)
+  create() {
+    this.modalObj = $('<div />', { class: 'modal fade' }).appendTo(document.body)
     this.modalObj.html(`
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -40,14 +40,16 @@ class Modal {
               <div class="modal-body">
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${this.t.get('close')}</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    ${this.t.get('close')}
+                  </button>
                   <button type="button" class="btn btn-primary btn-action"></button>
               </div>
           </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     `)
 
-    var self = this
+    const self = this
     this.modalObj.on('hidden.bs.modal', function () {
       self.close()
     })
@@ -55,7 +57,7 @@ class Modal {
     this.modal = new bootstrap.Modal(this.modalObj[0])
   }
 
-  update (config) {
+  update(config) {
     this.options = $.extend({}, this.opts, config)
     this.setSize()
     this.setHeader()
@@ -65,43 +67,35 @@ class Modal {
     this.setButtons()
   }
 
-  setSize () {
+  setSize() {
     this.modalObj.find('.modal-dialog').addClass('modal-' + this.options.size)
   }
 
-  setHeader () {
+  setHeader() {
     if (this.options.showBackBtn) {
       this.modalObj.find('.modal-header .back').show()
-      this.modalObj
-        .find('.modal-header .back')
-        .on('click', this.options.backBtnCb)
+      this.modalObj.find('.modal-header .back').on('click', this.options.backBtnCb)
     } else {
       this.modalObj.find('.modal-header .back').hide()
     }
   }
 
-  setTitle () {
+  setTitle() {
     if (typeof this.options.title !== 'undefined') {
       this.modalObj.find('.modal-title').html(this.options.title)
     }
   }
 
-  setSubtitle () {
+  setSubtitle() {
     if (this.options.subtitle) {
-      this.modalObj
-        .find('.modal-subtitle')
-        .show()
-        .html(this.options.subtitle)
+      this.modalObj.find('.modal-subtitle').show().html(this.options.subtitle)
     } else {
-      this.modalObj
-        .find('.modal-subtitle')
-        .hide()
-        .html('')
+      this.modalObj.find('.modal-subtitle').hide().html('')
     }
   }
 
-  setContent () {
-    var self = this
+  setContent() {
+    const self = this
     if (typeof this.options.url !== 'undefined') {
       this.method = 'request'
       $.get(this.options.url, function (response) {
@@ -113,9 +107,9 @@ class Modal {
     } else if (typeof this.options.content !== 'undefined') {
       self.modalObj.find('.modal-body').html(this.options.content)
     }
-  };
+  }
 
-  setButtons () {
+  setButtons() {
     if (this.options.hideFooter) {
       this.modalObj.find('.modal-footer').hide()
     } else {
@@ -128,7 +122,7 @@ class Modal {
     }
   }
 
-  open () {
+  open() {
     if (this.isOpen) {
       return
     }
@@ -136,12 +130,12 @@ class Modal {
     this.isOpen = true
   }
 
-  toggle () {
+  toggle() {
     this.modal[this.isOpen ? 'hide' : 'show']()
     this.isOpen = !this.isOpen
   }
 
-  close () {
+  close() {
     if (!this.isOpen) {
       return
     }

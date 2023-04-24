@@ -26,6 +26,7 @@ This is an example of configuration::
         'MENU_TITLE': 'Menu',
         'MESSAGES_TOASTS': False,
         'GRAVATAR_DEFAULT_IMG': 'retro',
+        'GRAVATAR_ENABLED': True,
         'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'SEARCH_FIELD': {
             'label': 'Search contents...',
@@ -197,6 +198,13 @@ Gravatar default image
 The default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see `gravatar docs [http://en.gravatar.com/site/implement/images/]`).
 
 **Default**: 'retro'
+
+Gravatar enabled
+----------------
+
+Should a gravatar image be shown for the user in the menu?
+
+**Default**: True
 
 Login splash image
 -----------------------

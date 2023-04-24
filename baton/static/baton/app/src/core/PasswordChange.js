@@ -1,9 +1,9 @@
 import $ from 'jquery'
 
-let PasswordChange = {
+const PasswordChange = {
   init: function () {
     $('body').addClass('passwordchange')
-  }
+  },
 }
 
 export default PasswordChange
