@@ -356,14 +356,13 @@ For this reason you can inject your custom hook, a javascript function which sho
 
 ``` html
 <!-- admin/base_site.html -->
+{{ conf | json_script:"baton-config" }}
 <script>
-    (function ($, undefined) {
-        $(document).ready(function () {
-            Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
-            Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-        })
-    })(jQuery, undefined)
+    (function () {
+        Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
+    })()
 </script>
+<script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
 
 In this case we tell Baton that when the location pathname includes the string `newschange`, then the page should be considered a `change_form`, otherwise we let Baton guess the page type.
@@ -388,18 +387,15 @@ To use these, just override the baton `admin/base_site.html` template and regist
 ``` html
 <!-- ... -->
 <script>
-
     (function ($, undefined) {
         // init listeners
         Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
         Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
         Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
         // end listeners
-        $(document).ready(function () {
-            Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-        })
     })(jQuery, undefined)
 </script>
+<script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 <!-- ... -->
 ```
 
@@ -489,8 +485,6 @@ Baton.translations = {
   cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
   retrieveDataError: 'There was an error retrieving the data'
 }
-
-Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
 ```
 
 If Baton can't find the translations for the user locale, it will default to `en`. Keep in mind that Baton will use `en` translations for all `en-xx` locales, but of course you can specify your custom translations!

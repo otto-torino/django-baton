@@ -24,7 +24,8 @@ window.Baton = {
     console.info('Baton:', 'init')
     console.info('Baton:', `rev ${BATON_REVISION}`)
     this.initialized = true
-    let page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
+    const page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
+    console.info('Baton:', `detected page ${page}`) // eslint-disable-line
     $('body').addClass('page-' + page)
 
     // toasts

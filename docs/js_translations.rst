@@ -21,8 +21,6 @@ However you can provide or add your own translations by attaching an object to t
       retrieveDataError: 'There was an error retrieving the data'
     }
 
-    Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-
 .. important:: Just use the ``trans`` templatetag to deal with multilanguage web applications
 
 If Baton can't find the translations for the user locale, it will default to ``en``. Keep in mind that Baton will use ``en`` translations for all ``en-xx`` locales, but of course you can specify your custom translations!

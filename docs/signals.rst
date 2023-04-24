@@ -20,9 +20,7 @@ In order to use them just override the baton `admin/base_site.html` template and
             Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
             Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
             // end listeners
-            $(document).ready(function () {
-                Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-            })
         })(jQuery, undefined)
     </script>
+    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
     <!-- ... -->

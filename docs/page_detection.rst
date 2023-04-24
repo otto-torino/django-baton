@@ -10,13 +10,11 @@ For this reason you can inject your custom hook, a javascript function which sho
 
     <!-- admin/base_site.html -->
     <script>
-        (function ($, undefined) {
-            $(document).ready(function () {
-                Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
-                Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
-            })
-        })(jQuery, undefined)
+        (function () {
+            Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
+        })()
     </script>
+    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 
 In this case we tell Baton that when the location pathname includes the string ``newschange``, then the page should be considered a ``change_form``, otherwise we let Baton guess the page type.
 
