@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-let ActionResult = {
+const ActionResult = {
   /**
    * Menu component
    *
@@ -8,7 +8,7 @@ let ActionResult = {
    */
   init: function () {
     $('body').addClass('actionresult')
-  }
+  },
 }
 
 export default ActionResult

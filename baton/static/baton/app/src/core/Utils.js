@@ -1,8 +1,8 @@
 import Translator from './i18n'
 
-export function copyTextToClipboard (text) {
-  let t = new Translator($('html').attr('lang'))
-  var textArea = document.createElement('textarea')
+export function copyTextToClipboard(text) {
+  const t = new Translator($('html').attr('lang'))
+  const textArea = document.createElement('textarea')
 
   //
   // *** This styling is an extra step which is likely not required. ***
@@ -47,14 +47,11 @@ export function copyTextToClipboard (text) {
   textArea.select()
 
   try {
-    var successful = document.execCommand('copy')
-    var msg = successful ? 'successful' : 'unsuccessful'
+    const successful = document.execCommand('copy')
+    const msg = successful ? 'successful' : 'unsuccessful'
     console.log('Copying text command was ' + msg)
   } catch (err) {
-    window.prompt(
-      t.get('cannotCopyToClipboardMessage'),
-      text
-    )
+    window.prompt(t.get('cannotCopyToClipboardMessage'), text)
   }
 
   document.body.removeChild(textArea)

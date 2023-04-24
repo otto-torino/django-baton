@@ -1,13 +1,13 @@
 import $ from 'jquery'
 import { copyTextToClipboard } from './Utils'
 
-let Filer = {
+const Filer = {
   /**
    * ChangeList component
    *
    * Filtering stuff
    */
-  init: function (opts) {
+  init: function (_) {
     this.fixIcons()
     this.fixCopyToClipboard()
   },
@@ -15,16 +15,16 @@ let Filer = {
     $('.fa-pencil').addClass('fa-pencil-alt')
   },
   fixCopyToClipboard: function () {
-    let copyBtns = $('.action-button .fa-link')
+    const copyBtns = $('.action-button .fa-link')
     copyBtns.on('click', function (evt) {
       evt.preventDefault()
-      var link = $(this).parent('.action-button').attr('href')
+      let link = $(this).parent('.action-button').attr('href')
       if (!link) {
         link = $(this).parent('.action-button').next('.action-button').attr('href')
       }
       copyTextToClipboard(link)
     })
-  }
+  },
 }
 
 export default Filer

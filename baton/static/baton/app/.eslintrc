@@ -15,10 +15,14 @@
     "$": "readonly"
   },
   "rules": {
-    "semi" : [2, "never"],
-    "max-len": [2, 120, 2],
+    "no-unused-vars": "error",
+    "no-console": "error",
+    "space-before-function-paren": "never",
     "comma-dangle": [2, "only-multiline"],
-    "flow-vars/define-flow-type": 1,
-    "flow-vars/use-flow-type": 1
+    "react/react-in-jsx-scope": "off",
+    "array-bracket-newline": "off",
+    "object-curly-newline": "off",
+    "array-element-newline": "off",
+    "object-property-newline": "off"
   }
 }

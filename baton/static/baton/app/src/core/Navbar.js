@@ -20,14 +20,18 @@ const Navbar = {
     $('#branding').before(
       $('<button/>', {
         class: 'navbar-toggler navbar-toggler-right',
-        'data-bs-toggle': 'collapse'
-      }).html('<i class="fa fa-bars"></i>')
-        .click(() => $(document.body).addClass('menu-open')))
+        'data-bs-toggle': 'collapse',
+      })
+        .html('<i class="fa fa-bars"></i>')
+        .click(() => $(document.body).addClass('menu-open')),
+    )
     // remove only text
     $('#user-tools')
-      .contents().filter(function () {
-        return (this.nodeType === 3)
-      }).remove()
+      .contents()
+      .filter(function () {
+        return this.nodeType === 3
+      })
+      .remove()
     // dropdown
     const dropdown = $('<div/>', { class: 'dropdown' }).appendTo($('#user-tools'))
     const dropdownMenu = $('<div/>', { class: 'dropdown-menu dropdown-menu-right' }).appendTo(dropdown)
@@ -44,10 +48,12 @@ const Navbar = {
       $('#logout-form button').css('display', 'none')
       $('<a />', { class: 'dropdown-item', 'data-item': 'logout' })
         .html($('#logout-form button').html())
-        .on('click', function () { $('#logout-form').submit() })
+        .on('click', function () {
+          $('#logout-form').submit()
+        })
         .appendTo(dropdownMenu)
     }
-  }
+  },
 }
 
 export default Navbar

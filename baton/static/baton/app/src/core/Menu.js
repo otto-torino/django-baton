@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import Translator from './i18n'
 
-let Menu = {
+const Menu = {
   /**
    * Menu component
    *
@@ -25,27 +25,22 @@ let Menu = {
     this.manageSearchField()
     this.fetchData()
     this.setHeight()
-    let self = this
+    const self = this
     $(window).on('resize', function () {
       self.setHeight()
       self.manageBrandingUserTools()
     })
   },
   fixNodes: function () {
-    let container = $('<div/>', { class: 'container-fluid' })
+    const container = $('<div/>', { class: 'container-fluid' })
     $('#footer').before(container)
-    let row = $('<div/>', { class: 'row' }).appendTo(container)
+    const row = $('<div/>', { class: 'row' }).appendTo(container)
     this.menu = $('<nav/>', { class: 'col-lg-2 sidebar-menu' }).appendTo(row)
-    $('#content')
-      .addClass('col-lg-10')
-      .prepend($('.breadcrumbs'))
-      .appendTo(row)
+    $('#content').addClass('col-lg-10').prepend($('.breadcrumbs')).appendTo(row)
 
     $('#content > h1').after($('.messagelist'))
 
-    let title = $('<h1 />', { class: 'd-block d-lg-none' }).text(
-      this.menuTitle ? this.menuTitle : 'Menu'
-    )
+    const title = $('<h1 />', { class: 'd-block d-lg-none' }).text(this.menuTitle ? this.menuTitle : 'Menu')
     $('<i/>', { class: 'fa fa-times' })
       .click(() => {
         $(document.body).removeClass('menu-open')
@@ -54,7 +49,7 @@ let Menu = {
     this.menu.append(title)
 
     if (this.alwaysCollapsed) {
-      let close = $('<i />', { class: 'fa fa-times toggle-menu' })
+      $('<i />', { class: 'fa fa-times toggle-menu' })
         .appendTo(this.menu)
         .click(() => {
           $(document.body).removeClass('menu-open')
@@ -87,39 +82,39 @@ let Menu = {
       }
     }
   },
-  manageSearchField () {
+  manageSearchField() {
     // unset
     if (!this.searchField || !this.searchField.url) {
       return
     }
 
-    let container = $('<div />', { class: 'search-field-tool' })
+    const container = $('<div />', { class: 'search-field-tool' })
 
-    let field = $('<input />', {
+    const field = $('<input />', {
       class: 'form-control form-control-sm',
       type: 'text',
       list: 'admin-search-datalist',
-      placeholder: this.searchField.label || this.t('search')
+      placeholder: this.searchField.label || this.t('search'),
     })
-    let dataList = $('<div />', { id: 'admin-search-datalist' }).on('mouseover', e => {
+    const dataList = $('<div />', { id: 'admin-search-datalist' }).on('mouseover', (e) => {
       if ($(e.target).hasClass('datalist-option') || $(e.target).parent('.datalist-option').length) {
         dataList.find('.datalist-option').removeClass('selected')
-        let item = $(e.target).hasClass('datalist-option') ? $(e.target) : $(e.target).parent('.datalist-option')
+        const item = $(e.target).hasClass('datalist-option') ? $(e.target) : $(e.target).parent('.datalist-option')
         item.addClass('selected')
       }
     })
 
-    let navigateDataList = code => {
+    const navigateDataList = (code) => {
       let target
-      let active = dataList.find('.datalist-option.selected').first()
+      const active = dataList.find('.datalist-option.selected').first()
       if (!active.length) {
         target = dataList.find('.datalist-option')[code === 40 ? 'first' : 'last']()
       } else {
         if (code === 40) {
-          let next = active.next()
+          const next = active.next()
           target = next.length ? next : dataList.find('.datalist-option').first()
         } else {
-          let prev = active.prev()
+          const prev = active.prev()
           target = prev.length ? prev : dataList.find('.datalist-option').last()
         }
       }
@@ -129,12 +124,12 @@ let Menu = {
         target[0].scrollIntoView({
           behavior: 'smooth',
           block: 'end',
-          inline: 'nearest'
+          inline: 'nearest',
         })
       }
     }
 
-    const keyUpHandler = e => {
+    const keyUpHandler = (e) => {
       if (this.searchTimeout) {
         clearTimeout(this.searchTimeout)
       }
@@ -163,11 +158,17 @@ let Menu = {
         const debounced = () => {
           container.addClass('loading')
           $.getJSON(this.searchField.url, { text: $(field).val() })
-            .done(data => {
+            .done((data) => {
               container.removeClass('loading')
               dataList.empty()
-              data.data.forEach((r, index) => dataList.append(`
-                <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}"><a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}</div>`)
+              data.data.forEach(
+                (r, index) =>
+                  dataList.append(`
+                <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${
+                    r.url
+                  }'" data-url="${r.url}"><a href="${r.url}">${r.label}</a>${
+                    r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''
+                  }</div>`), // eslint-disable-line
               )
             })
             .fail((jqxhr, textStatus, err) => {
@@ -181,16 +182,15 @@ let Menu = {
       }
     }
     field.on('keyup', keyUpHandler)
-    field.on('blur', e => setTimeout(() => dataList.hide(), 150))
-    field.on('focus', e => dataList.show())
-
+    field.on('blur', (_) => setTimeout(() => dataList.hide(), 150))
+    field.on('focus', (_) => dataList.show())
 
     $('#user-tools-sidebar').after(container.append([field, dataList]))
   },
   renderUserTools: function () {
-    let self = this
-    let container = $('<div />', { id: 'user-tools-sidebar' })
-    let expandUserArea = $('<i />', {'class': 'fa fa-angle-down user-area-toggler'}).on('click', function () {
+    const self = this
+    const container = $('<div />', { id: 'user-tools-sidebar' })
+    const expandUserArea = $('<i />', { class: 'fa fa-angle-down user-area-toggler' }).on('click', function () {
       $(this).toggleClass('fa-angle-up')
       container.toggleClass('collapsed')
     })
@@ -198,23 +198,22 @@ let Menu = {
       container.addClass('collapsed')
     }
     container.insertAfter('#user-tools')
-    let userInfo = $('<div />', { class: 'user-info' })
-      .html(
-        '<div>' +
-          $('#user-tools .dropdown-toggle').text() +
-          '</div>'
-      )
+    const userInfo = $('<div />', { class: 'user-info' })
+      .html('<div>' + $('#user-tools .dropdown-toggle').text() + '</div>')
       .appendTo(container)
     // gravatar
     if (this.gravatarEnabled) {
-      let gravatarSpinner = $('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>')
+      // eslint-disable-next-line max-len
+      const gravatarSpinner = $(
+        '<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>',
+      )
       userInfo.prepend(gravatarSpinner)
       $.getJSON(this.gravatarUrl, function (data) {
-        let img = $('<img />', {
+        const img = $('<img />', {
           class: 'gravatar-icon',
           src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
             .replace('{hash}', data.hash)
-            .replace('{default}', self.gravatarDefaultImg)
+            .replace('{default}', self.gravatarDefaultImg),
         })
         gravatarSpinner.replaceWith(img)
         if (self.collapsableUserArea) {
@@ -222,11 +221,11 @@ let Menu = {
         }
       }).fail(function (err) {
         console.error(err.responseText)
-        let img = $('<img />', {
+        const img = $('<img />', {
           class: 'gravatar-icon',
           src: 'https://www.gravatar.com/avatar/{hash}?s=50&d={default}'
             .replace('{hash}', '')
-            .replace('{default}', self.gravatarDefaultImg)
+            .replace('{default}', self.gravatarDefaultImg),
         })
         gravatarSpinner.replaceWith(img)
         if (self.collapsableUserArea) {
@@ -236,22 +235,16 @@ let Menu = {
     } else if (self.collapsableUserArea) {
       userInfo.prepend(expandUserArea)
     }
-    let linksContainer = $('<div />', { class: 'user-links' }).appendTo(
-      container
-    )
-    $('#user-tools .dropdown-menu a').each(function (index, el) {
+    const linksContainer = $('<div />', { class: 'user-links' }).appendTo(container)
+    $('#user-tools .dropdown-menu a').each(function (_, el) {
       let cls = 'view-site'
       if (/password_change/.test($(el).attr('href'))) {
         cls = 'password'
       } else if (/logout/.test($(el).attr('href')) || $(el).attr('data-item') === 'logout') {
         cls = 'logout'
       }
-      let text = $(el).text()
-      let clone = $(el)
-        .clone(true, true)
-        .html('')
-        .attr('class', cls)
-        .attr('title', text)
+      const text = $(el).text()
+      const clone = $(el).clone(true, true).html('').attr('class', cls).attr('title', text)
       if (cls === 'view-site') {
         clone.attr('target', '_blank')
       }
@@ -262,52 +255,45 @@ let Menu = {
     $('#user-tools-sidebar').remove()
   },
   fetchData: function () {
-    let self = this
+    const self = this
     $.getJSON(this.appListUrl, function (data) {
       self.render(data)
       self.Dispatcher.emit('onMenuReady')
     }).fail(function (err) {
       console.error(err.responseText)
       self.menu.remove()
-      $('#content')
-        .removeClass('col-md-9')
-        .removeClass('col-lg-10')
-        .css('flex-grow', 1)
+      $('#content').removeClass('col-md-9').removeClass('col-lg-10').css('flex-grow', 1)
       self.Dispatcher.emit('onMenuError')
     })
   },
   setHeight: function () {
-    let height = $(window).height() - $('#header').height() - 19 // nav padding and border
+    const height = $(window).height() - $('#header').height() - 19 // nav padding and border
     this.menu.css('min-height', height + 'px')
     $('#content').css('padding-bottom', $('#footer').height() + 20 + 'px')
   },
   render: function (data) {
-    let self = this
-    let mainUl = $('<ul/>', { class: 'depth-0' }).appendTo(self.menu)
-    data.forEach((voice, index) => {
+    const self = this
+    const mainUl = $('<ul/>', { class: 'depth-0' }).appendTo(self.menu)
+    data.forEach((voice, _) => {
       let active = false
       if (voice.type === 'free') {
         if (voice.re) {
-          let re = new RegExp(voice.re)
+          const re = new RegExp(voice.re)
           active = re.test(location.pathname)
         } else {
           active = location.pathname === voice.url
         }
       } else {
         if (voice.url) {
-          let pathRexp = new RegExp(voice.url)
+          const pathRexp = new RegExp(voice.url)
           active = pathRexp.test(location.pathname)
         }
       }
-      let li = $('<li />', {
-        class:
-          'top-level ' +
-          voice.type +
-          (voice.defaultOpen ? ' default-open' : '') +
-          (active ? ' active' : '')
+      const li = $('<li />', {
+        class: 'top-level ' + voice.type + (voice.defaultOpen ? ' default-open' : '') + (active ? ' active' : ''),
       })
-      let a = $('<' + (voice.url ? 'a' : 'span') + ' />', {
-        href: voice.url || '#'
+      const a = $('<' + (voice.url ? 'a' : 'span') + ' />', {
+        href: voice.url || '#',
       })
         .text(voice.label)
         .appendTo(li)
@@ -320,26 +306,26 @@ let Menu = {
         subUl = $('<ul />', { class: 'depth-1' }).appendTo(li)
         a.addClass('has-children')
 
-        voice.children.forEach((model, i) => {
+        voice.children.forEach((model, _) => {
           let active = false
           if (model.type === 'free') {
             if (model.re) {
-              let re = new RegExp(model.re)
+              const re = new RegExp(model.re)
               active = re.test(location.pathname)
             } else {
               active = location.pathname === model.url
             }
           } else if (model.url) {
-            let pathRexp = new RegExp(model.url)
+            const pathRexp = new RegExp(model.url)
             active = pathRexp.test(location.pathname)
           }
-          let subLi = $('<li />')
+          const subLi = $('<li />')
           if (active) {
             subLi.addClass('active')
             li.addClass('with-active')
           }
-          let a = $('<a />', {
-            href: model.url
+          const a = $('<a />', {
+            href: model.url,
           })
             .text(model.label)
             .appendTo(subLi)
@@ -355,29 +341,24 @@ let Menu = {
 
     $('.has-children').on('click', function (evt) {
       evt.preventDefault()
-      let self = this
-      let p = $(this).parent()
-      let depth0 = $('.depth-0')
-      let depth1 = p.children('ul')
-      if (
-        p.hasClass('open') ||
-        (p.hasClass('default-open') && !$('body').hasClass('menu-open'))
-      ) {
+      const self = this
+      const p = $(this).parent()
+      const depth0 = $('.depth-0')
+      const depth1 = p.children('ul')
+      if (p.hasClass('open') || (p.hasClass('default-open') && !$('body').hasClass('menu-open'))) {
         p.removeClass('open default-open')
         depth1.children('.nav-back').remove()
         depth0.css('overflow', 'auto')
       } else {
         if (p.hasClass('top-level')) {
           $('.top-level').removeClass('open')
-          $('.top-level')
-            .find('.nav-back')
-            .remove()
+          $('.top-level').find('.nav-back').remove()
         }
         p.addClass('open')
-        let back = $(
+        const back = $(
           '<li class="nav-item nav-back"><a href="#"><i class="fa fa-angle-double-left"></i> ' + // eslint-disable-line
             $(this).text() +
-            '</a></li>'
+            '</a></li>',
         )
         back.on('click', function () {
           $(self).trigger('click')
@@ -387,7 +368,7 @@ let Menu = {
         depth0.scrollTop(0) // return to top
       }
     })
-  }
+  },
 }
 
 export default Menu

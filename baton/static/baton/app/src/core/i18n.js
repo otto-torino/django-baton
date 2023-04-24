@@ -1,44 +1,44 @@
 export const messages = {
   unsavedChangesAlert: {
     en: 'You have some unsaved changes.',
-    it: 'Alcune modifiche non sono state salvate.'
+    it: 'Alcune modifiche non sono state salvate.',
   },
   uploading: {
     en: 'Uploading...',
-    it: 'Uploading...'
+    it: 'Uploading...',
   },
   filter: {
     en: 'Filter',
-    it: 'Filtra'
+    it: 'Filtra',
   },
   close: {
     en: 'Close',
-    it: 'Chiudi'
+    it: 'Chiudi',
   },
   save: {
     en: 'Save',
-    it: 'Salva'
+    it: 'Salva',
   },
   search: {
     en: 'Search',
-    it: 'Cerca'
+    it: 'Cerca',
   },
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-    it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter'
+    it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter',
   },
   retrieveDataError: {
     en: 'There was an error retrieving the data',
-    it: 'Si è verificato un errore nel reuperare i dati'
-  }
+    it: 'Si è verificato un errore nel reuperare i dati',
+  },
 }
 
 export default class Translator {
-  constructor (lng) {
+  constructor(lng) {
     this.lng = this.setLng(lng)
   }
 
-  setLng (lng) {
+  setLng(lng) {
     if (lng === 'it' || /it-/.test(lng)) {
       return 'it'
     } else if (lng === 'en' || /en-/.test(lng)) {
@@ -48,9 +48,9 @@ export default class Translator {
     return lng
   }
 
-  get (key) {
+  get(key) {
     // check custom translations first
-    let b = window.Baton
+    const b = window.Baton
     if (b.translations && b.translations[key] !== 'undefined') {
       return b.translations[key]
     }
@@ -66,6 +66,6 @@ export default class Translator {
     }
 
     // default to english
-    return messages[key]['en']
+    return messages[key].en
   }
 }
