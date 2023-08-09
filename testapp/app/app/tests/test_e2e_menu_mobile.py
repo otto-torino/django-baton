@@ -2,6 +2,7 @@ import time
 
 from django.test import TestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,13 +16,14 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 
 class TestBatonMenuMobile(TestCase):
     def setUp(self):
+        service = Service(ChromeDriverManager(version='114.0.5735.90').install())
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--disable-dev-shm-usage')
         self.driver = webdriver.Chrome(
-            ChromeDriverManager().install(),
+            service=service,
             options=chrome_options,
         )
         self.driver.set_window_size(480, 600)
@@ -33,9 +35,9 @@ class TestBatonMenuMobile(TestCase):
 
     def login(self):
         self.driver.get('http://localhost:8000/admin')
-        username_field = self.driver.find_element_by_id("id_username")
-        password_field = self.driver.find_element_by_id("id_password")
-        button = self.driver.find_element_by_css_selector('input[type=submit]')
+        username_field = self.driver.find_element(By.ID, "id_username")
+        password_field = self.driver.find_element(By.ID, "id_password")
+        button = self.driver.find_element(By.CSS_SELECTOR, 'input[type=submit]')
 
         username_field.send_keys('admin')
         time.sleep(1)
@@ -59,19 +61,19 @@ class TestBatonMenuMobile(TestCase):
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
         time.sleep(2)
-        navbar = self.driver.find_element_by_class_name('sidebar-menu')
-        self.assertEqual('menu-open' in self.driver.find_element_by_tag_name('body').get_attribute('class').split(), False)
+        navbar = self.driver.find_element(By.CLASS_NAME, 'sidebar-menu')
+        self.assertEqual('menu-open' in self.driver.find_element(By.TAG_NAME, 'body').get_attribute('class').split(), False)
         self.assertEqual(self.navbar_is_invisible(navbar), True)
 
-        toggler = self.driver.find_element_by_css_selector(".navbar-toggler")
+        toggler = self.driver.find_element(By.CSS_SELECTOR, ".navbar-toggler")
         toggler.click()
         self.assertEqual(self.navbar_is_visible(navbar), True)
-        self.assertEqual('menu-open' in self.driver.find_element_by_tag_name('body').get_attribute('class').split(), True)
-        root_voices = navbar.find_elements_by_css_selector('.depth-0 > li')
+        self.assertEqual('menu-open' in self.driver.find_element(By.TAG_NAME, 'body').get_attribute('class').split(), True)
+        root_voices = navbar.find_elements(By.CSS_SELECTOR, '.depth-0 > li')
 
-        close_button = self.driver.find_element_by_class_name('fa-times')
+        close_button = self.driver.find_element(By.CLASS_NAME, 'fa-times')
         close_button.click()
-        self.assertEqual('menu-open' in self.driver.find_element_by_tag_name('body').get_attribute('class').split(), False)
+        self.assertEqual('menu-open' in self.driver.find_element(By.TAG_NAME, 'body').get_attribute('class').split(), False)
         self.assertEqual(self.navbar_is_invisible(navbar), True)
 
         toggler.click()

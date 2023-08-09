@@ -111,6 +111,11 @@
       }
     }
 
+    // datetime fields should not be blocks because are followed by the calendar icon
+    .vDateField {
+      display: inline-block !important;
+    }
+
     .date-icon {
       &::before {
         @extend %font-awesome;
@@ -122,6 +127,14 @@
       &::before {
         @extend %font-awesome;
         content: '\f017';
+      }
+    }
+
+    .date {
+      .timezonewarning {
+        margin-left: 0 !important;
+        white-space: nowrap;
+        width: 0;
       }
     }
 
@@ -725,11 +738,6 @@
           margin-bottom: 0;
         }
       }
-    }
-
-    // datetime fields should not be blocks because are followed by the calendar icon
-    .vDateField {
-      display: inline-block;
     }
 
     .errorlist {
