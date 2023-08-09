@@ -9,7 +9,7 @@ body.page-changehistory #content-main {
     border: 1px solid $changehistory-border-color;
     margin-top: 15px;
 
-    #change-history {
+    table {
       @extend .table;
       @extend .table-bordered;
       margin-bottom: 0;
