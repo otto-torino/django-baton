@@ -3,6 +3,7 @@ import time
 
 from django.test import TestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,13 +16,14 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 
 class TestBatonClIncludes(TestCase):
     def setUp(self):
+        service = Service(ChromeDriverManager(version='114.0.5735.90').install())
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--disable-dev-shm-usage')
         self.driver = webdriver.Chrome(
-            ChromeDriverManager().install(),
+            service=service,
             options=chrome_options,
         )
         self.driver.set_window_size(1920, 1080)
@@ -33,9 +35,9 @@ class TestBatonClIncludes(TestCase):
 
     def login(self):
         self.driver.get('http://localhost:8000/admin/news/news/')
-        username_field = self.driver.find_element_by_id("id_username")
-        password_field = self.driver.find_element_by_id("id_password")
-        button = self.driver.find_element_by_css_selector('input[type=submit]')
+        username_field = self.driver.find_element(By.ID, "id_username")
+        password_field = self.driver.find_element(By.ID, "id_password")
+        button = self.driver.find_element(By.CSS_SELECTOR, 'input[type=submit]')
 
         username_field.send_keys('admin')
         time.sleep(1)
@@ -50,8 +52,7 @@ class TestBatonClIncludes(TestCase):
         time.sleep(2)
 
         # tabs number
-        include = self.driver.find_element_by_css_selector(
-            '.baton-cl-include-top')
+        include = self.driver.find_element(By.CSS_SELECTOR, '.baton-cl-include-top')
         self.assertEqual(include.is_displayed(), True)
-        parent = include.find_element_by_xpath('..')
+        parent = include.find_element(By.XPATH, '..')
         self.assertEqual(parent.get_attribute('id'), 'changelist-form')

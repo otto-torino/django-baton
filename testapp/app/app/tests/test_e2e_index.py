@@ -2,6 +2,7 @@ import time
 
 from django.test import TestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -16,13 +17,14 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 
 class TestBatonIndex(TestCase):
     def setUp(self):
+        service = Service(ChromeDriverManager(version='114.0.5735.90').install())
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--disable-dev-shm-usage')
         self.driver = webdriver.Chrome(
-            ChromeDriverManager().install(),
+            service=service,
             options=chrome_options,
         )
         self.driver.set_window_size(1920, 1080)
@@ -34,9 +36,9 @@ class TestBatonIndex(TestCase):
 
     def login(self):
         self.driver.get('http://localhost:8000/admin')
-        username_field = self.driver.find_element_by_id("id_username")
-        password_field = self.driver.find_element_by_id("id_password")
-        button = self.driver.find_element_by_css_selector('input[type=submit]')
+        username_field = self.driver.find_element(By.ID, "id_username")
+        password_field = self.driver.find_element(By.ID, "id_password")
+        button = self.driver.find_element(By.CSS_SELECTOR, 'input[type=submit]')
 
         username_field.send_keys('admin')
         time.sleep(1)
@@ -50,7 +52,7 @@ class TestBatonIndex(TestCase):
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
 
         # site title
-        site_name = self.driver.find_element_by_css_selector("#site-name a")
+        site_name = self.driver.find_element(By.CSS_SELECTOR, "#site-name a")
         self.assertEqual(
             site_name.get_attribute('innerHTML'), 'Baton Test App')
 
@@ -62,17 +64,15 @@ class TestBatonIndex(TestCase):
         time.sleep(1)
 
         # page title
-        page_title = self.driver.find_element_by_css_selector(
-            "#content h1")
+        page_title = self.driver.find_element(By.CSS_SELECTOR, "#content h1")
         self.assertEqual(page_title.get_attribute('innerHTML'), 'Baton administration')
         self.assertEqual(page_title.is_displayed(), True)
 
         # recent actions
-        recent_actions = self.driver.find_element_by_id('recent-actions-module')
+        recent_actions = self.driver.find_element(By.ID, 'recent-actions-module')
         self.assertEqual(recent_actions.is_displayed(), True)
 
-        modules = self.driver.find_elements_by_css_selector(
-            "#content-main .module")
+        modules = self.driver.find_elements(By.CSS_SELECTOR, "#content-main .module")
         self.assertEqual(len(modules), 2)
 
     def test_footer(self):
@@ -80,11 +80,10 @@ class TestBatonIndex(TestCase):
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
 
-        links = self.driver.find_elements_by_css_selector(
-            "#footer .col-sm-4 p")
+        links = self.driver.find_elements(By.CSS_SELECTOR, "#footer .col-sm-4 p")
         self.assertEqual(len(links), 3)
         # support
-        self.assertEqual(links[0].find_element_by_css_selector('a').get_attribute('href'), 'mailto:mail@otto.to.it')
+        self.assertEqual(links[0].find_element(By.CSS_SELECTOR, 'a').get_attribute('href'), 'mailto:mail@otto.to.it')
         self.assertEqual(links[0].get_attribute('innerText').strip(), 'Support')
         # copyright
         self.assertEqual(links[1].get_attribute('innerText').strip(), 'copyright © 2022 Otto srl')
