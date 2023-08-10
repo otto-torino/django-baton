@@ -70,7 +70,7 @@ class StatusListFilter(MultipleChoiceListFilter):
 
 @admin.register(News)
 class NewsAdmin(ImportExportModelAdmin):
-    list_per_page = 2
+    list_per_page = 1
     list_display = (
         'title',
         'date',

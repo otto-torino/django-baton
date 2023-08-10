@@ -485,7 +485,9 @@ Baton.translations = {
   save: 'Save',
   search: 'Search',
   cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-  retrieveDataError: 'There was an error retrieving the data'
+  retrieveDataError: 'There was an error retrieving the data',
+  lightTheme: 'Light theme',
+  darkTheme: 'Dark theme'
 }
 ```
 

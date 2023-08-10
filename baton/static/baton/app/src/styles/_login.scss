@@ -1,7 +1,7 @@
 // scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
 body.login {
   align-items: center;
-  background: $login-bg;
+  background: var(--bs-baton-login-bg);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,13 +55,12 @@ body.login {
     input[type='text'],
     input[type='password'] {
       @extend .form-control;
-      background: #fff !important;
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
     }
 
     .pwd-visibility-toggle {
-      color: $password-visibility-toggler-icon-fg;
+      color: var(--bs-baton-login-pwd-visibility-toggle-color);
       cursor: pointer;
       position: absolute;
       right: 8px;

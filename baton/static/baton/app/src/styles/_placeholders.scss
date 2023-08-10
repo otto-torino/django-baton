@@ -12,8 +12,8 @@
 %admin-form {
   @extend .p-2;
   @extend .mt-3;
-  background: $changeform-bg;
-  border: 1px solid $changeform-border-color;
+  background: var(--bs-baton-changeform-bg);
+  border: 1px solid var(--bs-baton-changeform-border-color);
   clear: both;
   overflow: auto;
 
@@ -27,7 +27,7 @@
 
   .form-row {
     // @extend .form-group; // @TODO check
-    background: $field-bg;
+    background: var(--bs-baton-changeform-field-bg);
     margin-bottom: .5rem;
     padding: 1rem .5rem;
 
@@ -36,7 +36,7 @@
     }
 
     &.errors {
-      background: $field-row-error-bg;
+      background: var(--bs-baton-changeform-field-row-error-bg);
 
       .errorlist {
         @extend .pt-2;
@@ -48,7 +48,7 @@
         }
 
         li {
-          color: $danger-fg !important;
+          color: var(--bs-baton-danger-color) !important;
           list-style-type: none;
           font-weight: bold;
           text-decoration: underline;
@@ -181,7 +181,7 @@
       @extend .py-0;
 
       align-self: center;
-      color: $warning-fg;
+      color: var(--bs-baton-warning-color);
       display: block;
       margin: .2rem 0;
       padding-left: 1px;
@@ -284,8 +284,8 @@
 
     .selector-filter {
       align-items: center;
-      border-left: 1px solid $selector-item-border-color;
-      border-right: 1px solid $selector-item-border-color;
+      border-left: 1px solid var(--bs-baton-changeform-selector-item-border-color);
+      border-right: 1px solid var(--bs-baton-changeform-selector-item-border-color);
       display: flex;
       flex-direction: row;
       margin-bottom: 0;
@@ -317,10 +317,10 @@
 
       h2 {
         @extend .p-2;
-        background: $selector-available-title-bg;
-        border-left: 1px solid $selector-item-border-color;
-        border-right: 1px solid $selector-item-border-color;
-        border-top: 1px solid $selector-item-border-color;
+        background: var(--bs-baton-changeform-selector-available-title-bg);
+        border-left: 1px solid var(--bs-baton-changeform-selector-item-border-color);
+        border-right: 1px solid var(--bs-baton-changeform-selector-item-border-color);
+        border-top: 1px solid var(--bs-baton-changeform-selector-item-border-color);
         font-size: 1rem;
         margin-bottom: 0;
       }
@@ -334,16 +334,18 @@
 
     .selector-chosen {
       h2 {
-        background: $selector-chosen-title-bg;
+        background: var(--bs-baton-changeform-selector-chosen-title-bg);
       }
     }
 
     .selector-chooseall,
     .selector-clearall {
       @extend .btn;
-      @extend .btn-light;
       display: inline-block;
       margin: 5px auto;
+
+      background-color: var(--bs-baton-changeform-selector-button-bg);
+      color: var(--bs-baton-changeform-selector-button-color);
 
       &:not(.active) {
         @extend .text-muted;
@@ -352,7 +354,7 @@
 
     .selector-chooser {
       align-self: center;
-      background-color: $selector-chooser-bg;
+      background-color: var(--bs-baton-changeform-selector-chooser-bg);
       border-radius: 10px;
       display: inline-block;
       float: left;
@@ -547,7 +549,7 @@
   }
 
   div.help {
-    color: $help-text-color !important;
+    color: var(--bs-baton-changeform-help-text-color) !important;
   }
 
   img.help {
@@ -660,7 +662,7 @@
       justify-content: space-between;
 
       &::after {
-        color: $collapse-entry-icon-color;
+        color: var(--bs-baton-changeform-collapse-entry-icon-color);
         content: '\f070';
         display: inline-block;
         font-family: 'Font Awesome\ 6 Free';
@@ -684,7 +686,7 @@
   }
 
   fieldset > h2 {
-    background: $fieldset-title-bg;
+    background: var(--bs-baton-changeform-fieldset-title-bg);
     font-size: $h2-size;
     margin-bottom: 0;
     padding: 5px 10px;
@@ -695,7 +697,7 @@
   }
 
   fieldset fieldset > h2 {
-      background: $fieldset-nested-title-bg;
+      background: var(--bs-baton-changeform-fieldset-nested-title-bg);
   }
 
   .inline-related {
@@ -714,9 +716,9 @@
       @extend .clearfix;
       @extend .mt-2;
       align-items: center;
-      background: $inline-related-title-bg;
-      border-bottom: 1px solid $inline-related-title-border-color;
-      border-top: 5px solid $inline-related-title-border-top-color;
+      background: var(--bs-baton-changeform-inline-related-title-bg);
+      border-bottom: 1px solid var(--bs-baton-changeform-inline-related-title-border-color);
+      border-top: 5px solid var(--bs-baton-changeform-inline-related-title-border-top-color);
       display: flex;
       font-size: 1.1rem;
       padding: 8px 10px;
@@ -741,7 +743,7 @@
     }
 
     .errorlist {
-      background: $field-row-error-bg;
+      background: var(--bs-baton-changeform-field-row-error-bg);
     }
 
     > .module {
@@ -754,7 +756,7 @@
       @extend .table-bordered;
 
       th {
-        background: $inline-related-title-bg;
+        background: var(--bs-baton-changeform-inline-related-title-bg);
         font-weight: normal !important;
 
         &.required {
@@ -780,8 +782,8 @@
 
         p {
           align-items: center;
-          background: $inline-tabular-original-bg;
-          border-bottom: 1px solid $inline-tabular-original-border-color;
+          background: var(--bs-baton-changeform-inline-tabular-original-bg);
+          border-bottom: 1px solid var(--bs-baton-changeform-inline-tabular-original-border-color);
           display: flex;
           font-size: .9rem;
           flex-direction: row;
@@ -809,7 +811,7 @@
     }
 
     .inlinechangelink {
-      background: $inline-changelink-bg;
+      background: var(--bs-baton-changeform-inline-changelink-bg);
       font-size: .9rem;
       margin-left: 8px;
       padding: 2px 4px;
@@ -821,7 +823,7 @@
       }
 
       &:hover {
-        background: darken($inline-changelink-bg, 10%);
+        opacity: .98;
         text-decoration: none;
       }
     }

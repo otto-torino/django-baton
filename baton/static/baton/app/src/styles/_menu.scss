@@ -21,8 +21,8 @@ body:not(.menu-mobile) {
 }
 
 .sidebar-menu {
-  background: $menu-bg;
-  color: $menu-color;
+  background: var(--bs-baton-menu-bg);
+  color: var(--bs-baton-menu-color);
   height: 100%;
   left: -100%;
   padding: 0;
@@ -35,18 +35,18 @@ body:not(.menu-mobile) {
   }
 
   #branding {
-    background: $menu-branding-bg;
-    border-bottom: 1px solid $menu-branding-bg;
+    background: var(--bs-baton-menu-branding-bg);
+    border-bottom: 1px solid var(--bs-baton-menu-branding-bg);
     padding-top: 0;
     text-align: center;
     width: 100%;
 
     > h1 {
-      background: $menu-branding-bg;
+      background: var(--bs-baton-menu-branding-bg);
     }
 
     a {
-      color: $menu-branding-color !important;
+      color: var(--bs-baton-menu-branding-color) !important;
     }
   }
 
@@ -83,7 +83,7 @@ body:not(.menu-mobile) {
     }
 
     .gravatar-icon {
-      border: 2px solid $gravatar-border-color;
+      border: 2px solid var(--bs-baton-menu-gravatar-border-color);
       border-radius: 50%;
     }
 
@@ -104,7 +104,7 @@ body:not(.menu-mobile) {
     }
 
     a {
-      color: $menu-link-color !important;
+      color: var(--bs-baton-menu-link-color) !important;
 
       &.view-site {
         &::after {
@@ -117,6 +117,20 @@ body:not(.menu-mobile) {
             content: '\f02d' !important;
             @extend %font-awesome-family;
           }
+        }
+      }
+
+      &.theme-dark {
+        &::after {
+          content: '\f186';
+          @extend %font-awesome-family;
+        }
+      }
+
+      &.theme-light {
+        &::after {
+          content: '\f185';
+          @extend %font-awesome-family;
         }
       }
 
@@ -138,7 +152,7 @@ body:not(.menu-mobile) {
       }
 
       &::after {
-        color: $user-links-fg;
+        color: var(--bs-baton-menu-user-links-color);
         font-size: 1.3rem;
         display: inline-block;
         margin: 0 .6rem;
@@ -151,9 +165,9 @@ body:not(.menu-mobile) {
     position: relative;
 
     input {
-      background: $search-field-input-bg;
-      border-color: $search-field-input-border-color;
-      color: $search-field-color;
+      background: var(--bs-baton-search-field-input-bg);
+      border-color: var(--bs-baton-search-field-input-border-color);
+      color: var(--bs-baton-search-field-color);
       padding-right: 30px;
 
       &:focus {
@@ -163,7 +177,7 @@ body:not(.menu-mobile) {
     }
 
     &::after {
-      color: $secondary;
+      color: var(--bs-baton-search-field-icon-color);
       content: '\f002';
       @extend %font-awesome-family;
       position: absolute;
@@ -179,7 +193,7 @@ body:not(.menu-mobile) {
     }
 
     #admin-search-datalist {
-      background: $search-field-datalist-bg;
+      background: var(--bs-baton-search-field-datalist-bg);
       max-height: 50vh;
       overflow: auto;
       position: absolute;
@@ -187,7 +201,7 @@ body:not(.menu-mobile) {
 
       div {
         align-items: center;
-        border-bottom: 1px solid darken($search-field-datalist-bg, 2%);
+        border-bottom: var(--bs-baton-search-field-datalist-bg);
         cursor: pointer;
         display: flex;
         flex-direction: row;
@@ -198,22 +212,22 @@ body:not(.menu-mobile) {
         padding: .5rem;
 
         &.selected {
-          background: $search-field-selected-bg;
-          color: $search-field-selected-color;
+          background: var(--bs-baton-search-field-selected-bg);
+          color: var(--bs-baton-search-field-selected-color);
 
           a {
-            color: $search-field-selected-color;
+            color: var(--bs-baton-search-field-selected-color);
           }
 
         }
 
         a {
-          color: $search-field-link-color;
+          color: var(--bs-baton-search-field-link-color);
           text-decoration: none;
         }
 
         i {
-          color: $search-field-icon-color;
+          color: var(--bs-baton-search-field-icon-color);
           font-size: .9rem;
         }
       }
@@ -222,9 +236,8 @@ body:not(.menu-mobile) {
 
   h1 {
     @extend .clearfix;
-    background: $menu-mobile-title-bg;
-    // border-bottom: 2px solid $menu-mobile-title-border-color;
-    color: $menu-mobile-title-color;
+    background: var(--bs-baton-menu-mobile-title-bg);
+    color: var(--bs-baton-menu-mobile-title-color);
     font-size: 1.6rem;
     margin-bottom: 0;
     padding: 1rem 16px;
@@ -234,7 +247,7 @@ body:not(.menu-mobile) {
     z-index: 12;
 
     @include media-breakpoint-up(lg) {
-      background: $menu-title-bg;
+      background: var(--bs-baton-menu-title-bg);
       position: static;
     }
 
@@ -249,7 +262,7 @@ body:not(.menu-mobile) {
 
   .depth-0,
   .depth-1 {
-    background: $menu-bg;
+    background: var(--bs-baton-menu-bg);
     height: 100%;
     left: 0;
     list-style-type: none;
@@ -269,7 +282,6 @@ body:not(.menu-mobile) {
     }
 
     li {
-      // border-bottom: 1px solid $menu-li-border-color;
       padding: 0;
 
       a,
@@ -280,12 +292,12 @@ body:not(.menu-mobile) {
 
     a,
     span {
-      color: $menu-link-color;
+      color: var(--bs-baton-menu-link-color);
       display: block;
       outline: 0;
 
       &:hover {
-        color: $menu-link-hover-color;
+        color: var(--bs-baton-menu-link-hover-color);
         text-decoration: none;
       }
 
@@ -309,15 +321,15 @@ body:not(.menu-mobile) {
   .depth-0 {
     > li:not(.title) {
       &:hover {
-        background: $menu-li-hover-bg;
+        background: var(--bs-baton-menu-li-hover-bg);
       }
     }
 
     .title {
-      background: $menu-voice-title-bg !important;
+      background: var(--bs-baton-menu-voice-title-bg) !important;
 
       > span {
-        color: $menu-voice-title-color !important;
+        color: var(--bs-baton-menu-voice-title-color) !important;
         font-weight: bold;
         text-transform: uppercase;
       }
@@ -356,7 +368,7 @@ body:not(.menu-mobile) {
 
       ul,
       li {
-        background: $menu-selected-sub-bg !important;
+        background: var(--bs-baton-menu-selected-sub-bg) !important;
       }
     }
 
@@ -380,7 +392,7 @@ body:not(.menu-mobile) {
 
       ul,
       li {
-        background: $menu-selected-sub-bg !important;
+        background: var(--bs-baton-menu-selected-sub-bg) !important;
       }
 
       > .depth-1 {
@@ -395,7 +407,7 @@ body:not(.menu-mobile) {
   }
 
   .nav-back {
-    background: $menu-mobile-back-bg;
+    background: var(--bs-baton-menu-mobile-back-bg);
 
     @include media-breakpoint-up(lg) {
       display: none;
@@ -412,7 +424,7 @@ body:not(.menu-mobile) {
 
       ul,
       li {
-        background: $menu-selected-sub-bg;
+        background: var(--bs-baton-menu-selected-sub-bg) !important;
       }
 
       > .depth-1 {
@@ -428,8 +440,8 @@ body:not(.menu-mobile) {
 
   .active:not(.with-active) {
     @include media-breakpoint-up(lg) {
-      background: $menu-active-voice-bg !important;
-      border-left: 5px solid $menu-active-voice-border-color;
+      background: var(--bs-baton-menu-active-voice-bg) !important;
+      border-left: 5px solid var(--bs-baton-menu-active-voice-border-color) !important;
       position: relative;
 
       a {

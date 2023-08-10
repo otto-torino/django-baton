@@ -1,9 +1,10 @@
 html {
-  background: $navbar-bg;
+  background: var(--bs-baton-body-bg);
   height: 100%;
 }
 
 body {
+  background: var(--bs-baton-body-bg);
   font-weight: 300;
   min-height: 100%;
   opacity: 0;

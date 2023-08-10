@@ -28,6 +28,11 @@ window.Baton = {
     console.info('Baton:', `detected page ${page}`) // eslint-disable-line
     $('body').addClass('page-' + page)
 
+    // theme
+    const theme = localStorage.getItem('baton-theme') || 'light'
+    $('body').attr('data-bs-theme', theme)
+    console.info('Baton:', 'theme: ' + theme)
+
     // toasts
     Messages.init(config)
 

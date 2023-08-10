@@ -19,13 +19,13 @@ body.page-logout #header {
   @extend .bg-dark;
 
   align-items: center;
-  background: $navbar-bg !important;
-  color: $navbar-color;
+  background: var(--bs-baton-navbar-bg) !important;
+  color: var(--bs-baton-navbar-color);
   flex-direction: row !important;
   padding: .6rem 0;
 
   strong {
-    color: $navbar-color;
+    color: var(--bs-baton-navbar-color);
     padding-left: 0;
 
     &::before {
@@ -37,15 +37,15 @@ body.page-logout #header {
   }
 
   a {
-    color: $navbar-link-color;
+    color: var(--bs-baton-navbar-link-color);
 
     &:hover {
-      color: $navbar-link-color-hover;
+      color: var(--bs-baton-navbar-link-hover-color);
       text-decoration: none;
     }
 
     &.dropdown-item {
-      color: $navbar-dropdown-link-color;
+      color: var(--bs-baton-navbar-dropdown-link-color);
     }
   }
 
@@ -71,7 +71,7 @@ body.page-logout #header {
   }
 
   .nav-menu.is-active {
-    background: $navbar-mobile-pane-bg;
+    background: var(--bs-baton-navbar-mobile-pane-bg);
   }
 }
 

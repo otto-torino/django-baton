@@ -5,23 +5,24 @@ body.page-changehistory #content-main {
   > .module {
     @extend .p-3;
     @extend .table-responsive;
-    background: $changehistory-bg;
-    border: 1px solid $changehistory-border-color;
+    background: var(--bs-baton-changehistory-bg);
+    border: 1px solid var(--bs-baton-changehistory-border-color);
     margin-top: 15px;
 
     table {
       @extend .table;
       @extend .table-bordered;
+      @extend .table-striped;
       margin-bottom: 0;
 
       thead > tr {
-        background: $rl-head-bg;
-        color: $rl-head-color;
+        background: var(--bs-baton-changelist-rl-head-bg);
+        color: var(--bs-baton-changelist-rl-head-color);
       }
 
       tbody tr:nth-child(2n + 1) {
-        background: $rl-tr-odd-bg;
-        color: $rl-tr-odd-color;
+        background: var(--bs-baton-changelist-rl-tr-odd-bg);
+        color: var(--bs-baton-changelist-rl-tr-odd-color);
       }
 
       td,

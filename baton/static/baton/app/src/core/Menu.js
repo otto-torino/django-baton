@@ -21,6 +21,7 @@ const Menu = {
     this.fixNodes()
     this.brandingClone = $('#branding').clone()
     this.manageBrandingUserTools()
+    this.addThemeToggle()
     this.searchTimeout = null
     this.manageSearchField()
     this.fetchData()
@@ -29,6 +30,7 @@ const Menu = {
     $(window).on('resize', function () {
       self.setHeight()
       self.manageBrandingUserTools()
+      self.addThemeToggle()
     })
   },
   fixNodes: function () {
@@ -80,6 +82,19 @@ const Menu = {
       if ($('#user-tools-sidebar').length === 0) {
         this.removeUserTools()
       }
+    }
+  },
+  addThemeToggle() {
+    const currentTheme = localStorage.getItem('baton-theme') || 'light'
+    const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' }).css('cursor', 'pointer').click(function () {
+        const currentTheme = $(document.body).attr('data-bs-theme');
+        $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        $(this).removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark').addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light');
+        localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
+      })
+    if ($('.user-links').find('.theme-link-toggler').length === 0) {
+      $('.user-links').prepend(themeToggler)
     }
   },
   manageSearchField() {
@@ -236,7 +251,7 @@ const Menu = {
       userInfo.prepend(expandUserArea)
     }
     const linksContainer = $('<div />', { class: 'user-links' }).appendTo(container)
-    $('#user-tools .dropdown-menu a').each(function (_, el) {
+    $('#user-tools .dropdown-menu a:not(.dropdown-item-theme)').each(function (_, el) {
       let cls = 'view-site'
       if (/password_change/.test($(el).attr('href'))) {
         cls = 'password'

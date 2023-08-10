@@ -12,8 +12,8 @@ $white: #fff;
   }
 
   .chart-container {
-    background: $chart-bg;
-    border: 1px solid $chart-border-color;
+    background: var(--bs-baton-analytics-chart-bg);
+    border: 1px solid var(--bs-baton-analytics-chart-border-color);
     padding: 15px;
   }
 }
