@@ -25,6 +25,8 @@
   }
 
   .btn-light {
+    background: var(--bs-baton-footer-support-bg);
+    border: 1px solid var(--bs-baton-footer-support-bg);
     color: var(--bs-baton-footer-support-color);
   }
 }
