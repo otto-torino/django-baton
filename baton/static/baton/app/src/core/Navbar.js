@@ -60,7 +60,7 @@ const Navbar = {
       let self = this
       const currentTheme = $('html').attr('data-bs-theme')
       const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme'}).html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme')).css('cursor', 'pointer').click(function () {
-          const currentTheme = $(document.body).attr('data-bs-theme');
+          const currentTheme = $('html').attr('data-bs-theme');
           $(html).attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
           $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
           $(this).html(currentTheme === 'dark' ? self.t.get('darkTheme') : self.t.get('lightTheme'));

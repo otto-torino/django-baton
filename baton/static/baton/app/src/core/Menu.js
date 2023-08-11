@@ -88,7 +88,7 @@ const Menu = {
     if (!config.forceTheme) {
       const currentTheme = $('html').attr('data-bs-theme')
       const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' }).css('cursor', 'pointer').click(function () {
-          const currentTheme = $(document.body).attr('data-bs-theme');
+          const currentTheme = $('html').attr('data-bs-theme');
           $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
           $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
           $(this).removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark').addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light');
