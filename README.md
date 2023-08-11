@@ -18,6 +18,15 @@ Login with user `demo` and password `demo`
 [https://django-baton.sqrt64.it/](https://django-baton.sqrt64.it/)
 
 ---
+**Last changes**
+
+Baton 2.8.0 updates bootstrap to version 5.3 and introduces the dark theme!
+
+The theme can be changed by the user (default one is system theme), or can be forced through settings (in this case the theme selector disappears)
+
+There are not breaking changes, but if you have overridden the `admin/base_site.html` template, then you'll have to change it in order to reflect the new additions (in particular there is a small script which sets the theme data attribute at the very beginning to avoid ugly flashes)
+
+---
 
 ![Screenshot](docs/images/index-analytics-lg.png)
 

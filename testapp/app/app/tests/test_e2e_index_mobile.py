@@ -68,7 +68,7 @@ class TestBatonIndexMobile(TestCase):
 
         # user dropdown menu
         user_dropdown_menu = self.driver.find_elements(By.CSS_SELECTOR, "#user-tools .dropdown-menu a")
-        self.assertEqual(len(user_dropdown_menu), 4)
+        self.assertEqual(len(user_dropdown_menu), 5)
         self.assertEqual(user_dropdown_menu[0].get_attribute('innerHTML'),
                          'View site')
         self.assertEqual(user_dropdown_menu[1].get_attribute('innerHTML'),
@@ -77,6 +77,8 @@ class TestBatonIndexMobile(TestCase):
                          'Change password')
         self.assertEqual(user_dropdown_menu[3].get_attribute('innerHTML'),
                          'Log out')
+        self.assertEqual(user_dropdown_menu[4].get_attribute('innerHTML'),
+                         'Dark theme')
 
     def test_content(self):
         # Wait until baton is ready

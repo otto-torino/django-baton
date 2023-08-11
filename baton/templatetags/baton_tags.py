@@ -33,6 +33,8 @@ def baton_config():
         "forceTheme": get_config('FORCE_THEME'),
     }
 
+    print(conf)
+
     return conf
 
 
