@@ -159,6 +159,7 @@ BATON = {
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'GRAVATAR_ENABLED': True,
     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+    'FORCE_THEME': None,
     'SEARCH_FIELD': {
         'label': 'Search contents...',
         'url': '/search/',
@@ -213,6 +214,7 @@ Default value is `True`.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
 - `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
+- `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
 
 `MENU`, `SEARCH_FIELD` and `ANALYTICS` configurations in detail:
 

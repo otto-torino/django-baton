@@ -21,7 +21,7 @@ const Menu = {
     this.fixNodes()
     this.brandingClone = $('#branding').clone()
     this.manageBrandingUserTools()
-    this.addThemeToggle()
+    this.addThemeToggle(config)
     this.searchTimeout = null
     this.manageSearchField()
     this.fetchData()
@@ -30,7 +30,7 @@ const Menu = {
     $(window).on('resize', function () {
       self.setHeight()
       self.manageBrandingUserTools()
-      self.addThemeToggle()
+      self.addThemeToggle(config)
     })
   },
   fixNodes: function () {
@@ -84,17 +84,19 @@ const Menu = {
       }
     }
   },
-  addThemeToggle() {
-    const currentTheme = localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
-    const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' }).css('cursor', 'pointer').click(function () {
-        const currentTheme = $(document.body).attr('data-bs-theme');
-        $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-        $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
-        $(this).removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark').addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light');
-        localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
-      })
-    if ($('.user-links').find('.theme-link-toggler').length === 0) {
-      $('.user-links').prepend(themeToggler)
+  addThemeToggle(config) {
+    if (!config.forceTheme) {
+      const currentTheme = localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
+      const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' }).css('cursor', 'pointer').click(function () {
+          const currentTheme = $(document.body).attr('data-bs-theme');
+          $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          $(this).removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark').addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light');
+          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        })
+      if ($('.user-links').find('.theme-link-toggler').length === 0) {
+        $('.user-links').prepend(themeToggler)
+      }
     }
   },
   manageSearchField() {

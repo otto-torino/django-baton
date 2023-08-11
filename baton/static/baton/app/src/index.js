@@ -29,8 +29,11 @@ window.Baton = {
     $('body').addClass('page-' + page)
 
     // theme
-    const theme = localStorage.getItem('baton-theme') || 'light'
+    const theme = config.forceTheme || localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
     $('body').attr('data-bs-theme', theme)
+    if (!localStorage.getItem('baton-theme')) {
+      localStorage.setItem('baton-theme', theme)
+    }
     console.info('Baton:', 'theme: ' + theme)
 
     // toasts

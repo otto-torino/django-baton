@@ -129,6 +129,7 @@ BATON = {
     'MESSAGES_TOASTS': ['error'],
     'GRAVATAR_DEFAULT_IMG': 'robohash',
     'GRAVATAR_ENABLED': True,
+    'FORCE_THEME': 'dark',
     'LOGIN_SPLASH': '/static/app/bg.jpg',
     'SEARCH_FIELD': {
         'label': 'Search news',

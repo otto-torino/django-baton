@@ -10,9 +10,9 @@ const Navbar = {
   init: function (config) {
     this.t = new Translator($('html').attr('lang'))
     this.menuAlwaysCollapsed = config.menuAlwaysCollapsed
-    this.fixNodes()
+    this.fixNodes(config)
   },
-  fixNodes: function () {
+  fixNodes: function (config) {
     if (!this.menuAlwaysCollapsed) {
       $('#header').addClass('expand')
     } else {
@@ -56,17 +56,19 @@ const Navbar = {
         .appendTo(dropdownMenu)
     }
 
-    let self = this
-    const currentTheme = localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
-    const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme'}).html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme')).css('cursor', 'pointer').click(function () {
-        const currentTheme = $(document.body).attr('data-bs-theme');
-        $(html).attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-        $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
-        $(this).html(currentTheme === 'dark' ? self.t.get('darkTheme') : self.t.get('lightTheme'));
-        localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
-      })
-    if (dropdownMenu.find('.dropdown-item-theme').length === 0) {
-      dropdownMenu.append(themeToggler)
+    if (!config.forceTheme) {
+      let self = this
+      const currentTheme = localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
+      const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme'}).html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme')).css('cursor', 'pointer').click(function () {
+          const currentTheme = $(document.body).attr('data-bs-theme');
+          $(html).attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          $(document.body).attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          $(this).html(currentTheme === 'dark' ? self.t.get('darkTheme') : self.t.get('lightTheme'));
+          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        })
+      if (dropdownMenu.find('.dropdown-item-theme').length === 0) {
+        dropdownMenu.append(themeToggler)
+      }
     }
   },
 }
