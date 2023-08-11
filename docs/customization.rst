@@ -45,16 +45,21 @@ You can also perform live development, in this case:
 - place one of your django apps before `baton` in the `INSTALLED_APPS` settings, I'll call this app ROOTAPP
 - create an admin base_site template ``ROOTAPP/templates/admin/base_site.html`` with the following content: ::
 
-    {% extends "admin/base_site.html" %}
-    {% load static baton_tags %}
-    {% block extrahead %}
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> -->
-        <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
-        {% baton_config as conf %}
-        {{ conf | json_script:"baton-config" }}
-        <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
-    {% endblock %}
+    {% baton_config as conf %}
+    {{ conf | json_script:"baton-config" }}
+    <script charset="utf-8">
+        (function () {
+            // immediately set the theme mode to avoid flashes
+            var systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+            var theme = JSON.parse(document.getElementById('baton-config').textContent).forceTheme || localStorage.getItem('baton-theme') || (systemTheme.matches ? 'dark' : 'light');
+            document.getElementsByTagName('html')[0].setAttribute('data-bs-theme', theme);
+        })()
+    </script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="stylesheet" href="{% static 'baton/css/theme.css' %}" />
+    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
+    <!-- <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script> -->
+    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 
 - or you can edit directly the baton template and switch the comment of the two lines: ::
 
