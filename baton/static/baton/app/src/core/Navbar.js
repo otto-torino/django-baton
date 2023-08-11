@@ -58,7 +58,7 @@ const Navbar = {
 
     if (!config.forceTheme) {
       let self = this
-      const currentTheme = localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
+      const currentTheme = $('html').attr('data-bs-theme')
       const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme'}).html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme')).css('cursor', 'pointer').click(function () {
           const currentTheme = $(document.body).attr('data-bs-theme');
           $(html).attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');

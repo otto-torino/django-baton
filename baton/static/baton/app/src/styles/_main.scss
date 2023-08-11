@@ -1,5 +1,4 @@
 html {
-  background: var(--bs-baton-body-bg);
   height: 100%;
 }
 
@@ -13,6 +12,16 @@ body {
   &.baton-ready {
     opacity: 1;
   }
+}
+
+.baton-startup-overlay {
+  background: var(--bs-baton-body-bg);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 a {
