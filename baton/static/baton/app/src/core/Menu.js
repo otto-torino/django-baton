@@ -85,7 +85,7 @@ const Menu = {
     }
   },
   addThemeToggle() {
-    const currentTheme = localStorage.getItem('baton-theme') || 'light'
+    const currentTheme = localStorage.getItem('baton-theme') || $('html').attr('data-theme') || 'light'
     const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' }).css('cursor', 'pointer').click(function () {
         const currentTheme = $(document.body).attr('data-bs-theme');
         $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
