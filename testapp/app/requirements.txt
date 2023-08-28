@@ -65,7 +65,7 @@ PySocks==1.7.1
 pytz==2020.1
 PyYAML==5.4.1
 regex==2021.4.4
-reportlab==3.6.11
+reportlab==3.6.13
 requests==2.24.0
 rsa==4.7
 selenium==4.11.2
