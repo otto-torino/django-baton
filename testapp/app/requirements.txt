@@ -90,7 +90,7 @@ trio==0.22.2
 trio-websocket==0.10.3
 Unidecode==1.1.1
 uritemplate==3.0.1
-urllib3==2.0.4
+urllib3==2.0.6
 webdriver-manager==3.2.2
 webencodings==0.5.1
 wsproto==1.2.0
