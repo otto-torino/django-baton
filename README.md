@@ -20,7 +20,7 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
-Baton 2.8.0 updates bootstrap to version 5.3 and introduces the dark theme!
+Baton 2.8.* updates bootstrap to version 5.3 and introduces the dark theme!
 
 The theme can be changed by the user (default one is system theme), or can be forced through settings (in this case the theme selector disappears)
 
