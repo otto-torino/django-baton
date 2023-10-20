@@ -119,3 +119,4 @@ window.Baton = {
 }
 
 window.jQuery = jQuery
+window.bootstrap = bootstrap
