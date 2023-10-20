@@ -58,7 +58,7 @@ class Modal {
   }
 
   update(config) {
-    this.options = $.extend({}, this.opts, config)
+    this.options = $.extend({}, this.options ? this.options : this.opts, config)
     this.setSize()
     this.setHeader()
     this.setTitle()
