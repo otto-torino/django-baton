@@ -27,7 +27,7 @@ This is an example of configuration::
         'MESSAGES_TOASTS': False,
         'GRAVATAR_DEFAULT_IMG': 'retro',
         'GRAVATAR_ENABLED': True,
-        'FORCE_THEME': None
+        'FORCE_THEME': None,
         'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'SEARCH_FIELD': {
             'label': 'Search contents...',
