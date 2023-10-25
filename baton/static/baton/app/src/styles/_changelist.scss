@@ -17,7 +17,7 @@
   }
 
   #changelist {
-    border: 1px solid $changelist-border-color;
+    border: 1px solid var(--bs-baton-changelist-border-color);
     clear: both;
     display: flex;
     flex-wrap: wrap;
@@ -96,10 +96,10 @@
   #toolbar {
     @extend .mb-0;
     @extend .p-3;
+    @extend .rounded;
+    background: var(--bs-baton-changelist-toolbar-bg);
     @include make-col(12);
-    background: $toolbar-bg;
     order: 1;
-    border-radius: 1rem;
     background-color: var(--bs-baton-changelist-toolbar-bg);
   }
 
@@ -148,6 +148,7 @@
   .changelist-filter-toggler {
     @extend .btn;
     @extend .btn-info;
+    
     align-items: center;
     cursor: pointer;
     display: inline;
@@ -184,10 +185,11 @@
 
   #changelist-filter {
     @include make-col(12);
-    background: $filters-bg;
     max-width: 100%;
-    order: 3;
-
+    order: 2;
+    @extend .rounded;
+    background: var(--bs-baton-changelist-toolbar-bg);
+    margin-top: 1.5rem;
     @include media-breakpoint-up(lg) {
       @include make-col(0);
       max-height: 200px;
@@ -201,24 +203,28 @@
       font-size: $h2-size;
       margin-bottom: 0;
       padding: .5rem 1rem;
+      display: none;
     }
 
     #changelist-filter-clear {
-      background: $filters-clear-bg;
       font-size: .9rem;
       margin-bottom: 0;
       margin-top: 0;
-      padding: .5rem 1rem;
+      padding: 0 1rem;
+      order: 999;
 
       a {
-        color: $filters-title-color;
+        @extend .btn;
+        @extend .btn-sm;
+        @extend .btn-primary;
       }
     }
 
 
     h3 {
-      font-size: $h3-size;
-      margin-top: 1rem;
+      font-size: 0.9rem;
+      margin-top: 0;
+      margin-bottom: 0;
       padding: 0 1rem;
 
       &:first-child {
@@ -230,6 +236,7 @@
       list-style-type: none;
       padding-left: 15px;
       padding-right: 15px;
+      margin-bottom: 0;
 
       .selected {
         border-left: 5px solid $filter-selected-border-color;
@@ -266,15 +273,18 @@
   &.changelist-filter-active {
     #changelist-filter {
       @include media-breakpoint-up(lg) {
-        @include make-col(2);
+        @include make-col(12);
         max-height: 100%;
-        display: block;
+        display: flex;
+        align-items: center;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
       }
     }
 
     #changelist-form {
       @include media-breakpoint-up(lg) {
-        @include make-col(10);
+        @include make-col(12);
       }
     }
   }
@@ -300,6 +310,7 @@
     }
 
     ul {
+      @extend .mb-3;
       li {
         .select2-container {
           width: 100% !important;
@@ -320,8 +331,8 @@
 
   #changelist-form {
     @include make-col(12);
-    background: $changelist-bg;
-    order: 2;
+    background: var(--bs-baton-changelist-bg);
+    order: 3;
     padding: 1rem !important;
     position: relative; // filter icon
 
