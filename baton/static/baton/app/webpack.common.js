@@ -11,7 +11,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "dist"),
-    publicPath: "/static/baton/app/dist/",
+    publicPath: "{{ STATIC_URL }}baton/",
     filename: "baton.min.js",
     clean: true,
   },

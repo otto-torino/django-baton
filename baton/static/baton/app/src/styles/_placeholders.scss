@@ -98,6 +98,7 @@
       &.checkbox-row {
         input {
           margin-top: 5px;
+          margin-right: 5px;
           order: 2;
         }
 
@@ -314,7 +315,7 @@
 
       select {
         border-radius: 0;
-        min-height: 200px;
+        min-height: 250px;
         width: 100%;
       }
     }
@@ -399,6 +400,7 @@
     @extend .pe-3;
     flex-basis: 100%;
     text-align: left;
+    @extend .mb-2;
 
     @include media-breakpoint-up(md) {
       flex-basis: 20%;
@@ -576,7 +578,6 @@
       margin-bottom: 15px;
       margin-left: auto;
       order: 1;
-      width: 200px;
 
       @include media-breakpoint-up(md) {
         margin-bottom: 0;
@@ -609,7 +610,7 @@
       @extend .btn;
       @extend .btn-danger;
       margin-right: auto;
-      width: 200px;
+      width: 250px;
 
       @include media-breakpoint-up(md) {
         width: auto;

@@ -99,6 +99,8 @@
     @include make-col(12);
     background: $toolbar-bg;
     order: 1;
+    border-radius: 1rem;
+    background-color: var(--bs-baton-changelist-toolbar-bg);
   }
 
   #changelist-search {
@@ -117,6 +119,7 @@
     input[type=text] {
       @extend .form-control;
       @extend .form-control-sm;
+      background-color: #fff;
       max-width: 160px;
     }
 
@@ -339,6 +342,13 @@
         @extend .btn-light;
         @extend .ms-2;
         @extend .me-2;
+
+        background: var(--bs-baton-changelist-toolbar-btn-bg);
+        color: var(--bs-baton-changelist-toolbar-btn-color);
+        border: 1px solid $primary;
+        &:hover {
+          background: var(--bs-baton-changelist-toolbar-btn-hover-bg);
+        }
       }
 
       .all.hidden,

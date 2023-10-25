@@ -138,8 +138,8 @@ body:not(.menu-mobile) {
       }
 
       &::after {
-        color: $user-links-fg;
-        font-size: 1.3rem;
+        color: var(--bs-baton-menu-user-links-color);
+        font-size: 0.9rem;
         display: inline-block;
         margin: 0 .6rem;
       }
@@ -431,10 +431,15 @@ body:not(.menu-mobile) {
       background: $menu-active-voice-bg !important;
       border-left: 5px solid $menu-active-voice-border-color;
       position: relative;
-
       a {
         margin-left: -5px;
       }
     }
   }
+}
+
+
+// overrides
+.sidebar-menu ul.depth-0 li.top-level.app.with-active ul.depth-1 li.active a {
+  color: var(--bs-baton-menu-active-voice-color) !important;
 }

@@ -4,7 +4,8 @@ html {
 }
 
 body {
-  font-weight: 300;
+  background: var(--bs-baton-body-bg);
+  font-weight: 400;
   min-height: 100%;
   opacity: 0;
   transition: opacity .2s linear;

@@ -1,0 +1,14 @@
+{
+  "[css]": {
+    "editor.defaultFormatter": null
+  },
+  "[scss]": {
+    "editor.defaultFormatter": null
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": null
+  },
+  "[html]": {
+    "editor.defaultFormatter": null
+  }
+}
