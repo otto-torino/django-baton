@@ -17,7 +17,7 @@ cryptography==3.4.5
 cssselect2==0.6.0
 defusedxml==0.7.1
 diff-match-patch==20200713
-Django==4.2.4
+Django==4.2.7
 django-admin-autocomplete-filter==0.6.1
 django-admin-rangefilter==0.6.3
 django-import-export==3.0.1
