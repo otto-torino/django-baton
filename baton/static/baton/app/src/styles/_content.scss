@@ -62,6 +62,7 @@
 }
 
 .messagelist {
+  @extend .px-3;
   list-style-type: none;
   padding: 0;
 

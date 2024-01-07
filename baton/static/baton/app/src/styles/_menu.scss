@@ -433,6 +433,7 @@ body:not(.menu-mobile) {
       position: relative;
       a {
         margin-left: -5px;
+        color: var(--bs-baton-menu-active-voice-color) !important;
       }
     }
   }

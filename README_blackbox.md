@@ -8,7 +8,7 @@ Remember to update the publicPath in baton/static/baton/app/webpack.common.js
 ````
 #!/bin/bash
 
-export PROJECT_PATH=../modulu-backend
+export PROJECT_PATH=../../wahlhelfer-backend
 (cd baton/static/baton/app && npm install && npm run compile)
 cp -f baton/static/baton/app/dist/* $PROJECT_PATH/static/baton/ && git checkout -- baton/static/baton/app/dist/ && git clean -f -d baton/static/baton/app/dist/
 
