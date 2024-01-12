@@ -16,7 +16,7 @@ install:
   - pip install django-admin-rangefilter
   - pip install django-admin-autocomplete-filter==0.6.1
   - pip install django-import-export
-  - pip install django-admin-rangefilter
+  - pip install django-admin-rangefilter==0.6.3
   - pip install django-select2
   - pip install docutils
   - pip install easy_thumbnails
