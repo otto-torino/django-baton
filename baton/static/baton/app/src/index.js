@@ -115,8 +115,8 @@ window.Baton = {
   },
   Analytics: Analytics,
   Dispatcher: Dispatcher,
-  Modal: Modal
+  Modal: Modal,
+  jQuery: jQuery,
 }
 
-window.jQuery = jQuery
 window.bootstrap = bootstrap
