@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, MultipleChoiceListFilter
-from rangefilter.filter import DateRangeFilter
+from rangefilter.filters import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
 
 from .forms import ActivityForm
