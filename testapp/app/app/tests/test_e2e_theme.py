@@ -1,4 +1,3 @@
-import os
 import time
 
 from django.test import TestCase
@@ -7,10 +6,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from .utils import element_has_css_class, make_driver
 
+import os
 os.environ['WDM_LOG_LEVEL'] = '0'
 
-
-class TestBatonClIncludes(TestCase):
+class TestBatonIndex(TestCase):
     def setUp(self):
         self.driver = make_driver()
         self.driver.set_window_size(1920, 1080)
@@ -21,7 +20,7 @@ class TestBatonClIncludes(TestCase):
         self.driver.quit()
 
     def login(self):
-        self.driver.get('http://localhost:8000/admin/news/news/')
+        self.driver.get('http://localhost:8000/admin')
         username_field = self.driver.find_element(By.ID, "id_username")
         password_field = self.driver.find_element(By.ID, "id_password")
         button = self.driver.find_element(By.CSS_SELECTOR, 'input[type=submit]')
@@ -32,14 +31,12 @@ class TestBatonClIncludes(TestCase):
         time.sleep(1)
         button.click()
 
-    def test_includes(self):
+    def test_force_theme(self):
         # Wait until baton is ready
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
-        time.sleep(2)
 
-        # tabs number
-        include = self.driver.find_element(By.CSS_SELECTOR, '.baton-cl-include-top')
-        self.assertEqual(include.is_displayed(), True)
-        parent = include.find_element(By.XPATH, '..')
-        self.assertEqual(parent.get_attribute('id'), 'changelist-form')
+        # site title
+        html = self.driver.find_element(By.CSS_SELECTOR, "html")
+        self.assertEqual(
+            html.get_attribute('data-bs-theme'), 'light')

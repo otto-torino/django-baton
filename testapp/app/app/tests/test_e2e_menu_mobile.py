@@ -1,14 +1,10 @@
 import time
 
 from django.test import TestCase
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
-from .utils import element_has_css_class
+from .utils import element_has_css_class, make_driver
 
 import os
 os.environ['WDM_LOG_LEVEL'] = '0'
@@ -16,16 +12,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 
 class TestBatonMenuMobile(TestCase):
     def setUp(self):
-        service = Service(ChromeDriverManager(version='114.0.5735.90').install())
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-extensions')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        self.driver = webdriver.Chrome(
-            service=service,
-            options=chrome_options,
-        )
+        self.driver = make_driver()
         self.driver.set_window_size(480, 600)
         self.driver.implicitly_wait(10)
         self.login()

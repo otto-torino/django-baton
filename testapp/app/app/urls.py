@@ -27,6 +27,7 @@ urlpatterns = [
     # path('admin/newschange/<int:id>', news_change_view),
     path('admin/', admin.site.urls),
     path('baton/', include('baton.urls')),
+    path("select2/", include("django_select2.urls")),
     path('tinymce/', include('tinymce.urls')),
 ]
 

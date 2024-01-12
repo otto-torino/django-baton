@@ -17,7 +17,8 @@
   }
 
   #changelist {
-    border: 1px solid $changelist-border-color;
+    background: var(--bs-baton-changelist-toolbar-bg);
+    border: 1px solid var(--bs-baton-changelist-border-color);
     clear: both;
     display: flex;
     flex-wrap: wrap;
@@ -46,7 +47,7 @@
 
         &.date-back,
         &.date-back a {
-          background: $base;
+          background: $primary;
           color: $white;
         }
       }
@@ -97,7 +98,7 @@
     @extend .mb-0;
     @extend .p-3;
     @include make-col(12);
-    background: $toolbar-bg;
+    background: var(--bs-baton-changelist-toolbar-bg);
     order: 1;
   }
 
@@ -124,12 +125,13 @@
       @extend .btn;
       @extend .btn-sm;
       @extend .ms-2;
-      background: $toolbar-btn-bg;
+      background: var(--bs-baton-changelist-toolbar-btn-bg);
+      color: var(--bs-baton-changelist-toolbar-btn-color);
       margin-top: -3px;
       max-width: 100px;
 
       &:hover {
-        background: $toolbar-btn-hover-bg;
+        background: var(--bs-baton-changelist-toolbar-btn-hover-bg);
       }
     }
   }
@@ -154,8 +156,8 @@
     min-height: 39px;
 
     &.active {
-      background: $accent;
-      border-color: $accent !important;
+      background: var(--bs-baton-accent-color);
+      border-color: var(--bs-baton-accent-color) !important;
     }
 
     &.with-actions {
@@ -181,7 +183,7 @@
 
   #changelist-filter {
     @include make-col(12);
-    background: $filters-bg;
+    background: var(--bs-baton-changelist-filters-bg);
     max-width: 100%;
     order: 3;
 
@@ -193,22 +195,22 @@
     }
 
     h2 {
-      background: $filters-title-bg;
-      color: $filters-title-color;
+      background: var(--bs-baton-changelist-filters-title-bg);
+      color: var(--bs-baton-changelist-filters-title-color);
       font-size: $h2-size;
       margin-bottom: 0;
       padding: .5rem 1rem;
     }
 
     #changelist-filter-clear {
-      background: $filters-clear-bg;
+      background: var(--bs-baton-changelist-filters-clear-bg);
       font-size: .9rem;
       margin-bottom: 0;
       margin-top: 0;
       padding: .5rem 1rem;
 
       a {
-        color: $filters-title-color;
+        color: var(--bs-baton-changelist-filters-title-color);
       }
     }
 
@@ -229,7 +231,7 @@
       padding-right: 15px;
 
       .selected {
-        border-left: 5px solid $filter-selected-border-color;
+        border-left: 5px solid var(--bs-baton-changelist-filters-selected-border-color);
         margin-left: -15px;
         padding-left: 10px;
       }
@@ -317,7 +319,7 @@
 
   #changelist-form {
     @include make-col(12);
-    background: $changelist-bg;
+    background: var(--bs-baton-changelist-bg);
     order: 2;
     padding: 1rem !important;
     position: relative; // filter icon
@@ -336,9 +338,11 @@
       button {
         @extend .btn;
         @extend .btn-sm;
-        @extend .btn-light;
         @extend .ms-2;
         @extend .me-2;
+
+        background: var(--bs-baton-changelist-toolbar-btn-bg);
+        color: var(--bs-baton-changelist-toolbar-btn-color);
       }
 
       .all.hidden,
@@ -360,26 +364,25 @@
   .results {
     @extend .mt-2;
     @extend .table-responsive;
-    background: $changelist-bg;
+    background: var(--bs-baton-changelist-bg);
     clear: both;
 
     table {
       @extend .table;
-      // @extend .table-bordered; // removed with bootstrap 5.1
+      @extend .table-striped;
 
       thead > tr {
-        // background: $rl-head-bg; // removed with bootstrap 5.1
-        color: $rl-head-color;
+        color: var(--bs-baton-changelist-rl-head-color);
       }
 
       tbody tr:nth-child(2n + 1) {
-        background: $rl-tr-odd-bg;
-        color: $rl-tr-odd-color;
+        background: var(--bs-baton-changelist-rl-tr-odd-bg);
+        color: var(--bs-baton-changelist-rl-tr-odd-color);
       }
 
       tbody tr.selected, tbody tr.selected td, tbody tr.selected th {
-        background: $rl-tr-selected-bg !important;
-        color: $rl-tr-selected-color;
+        background: var(--bs-baton-changelist-rl-tr-selected-bg) !important;
+        color: var(--bs-baton-changelist-rl-tr-selected-color);
       }
 
       .action-checkbox-column {
@@ -413,7 +416,7 @@
       width: 14px;
 
       &.sortremove::after {
-        color: $sort-icon-color;
+        color: var(--bs-baton-changelist-sort-icon-color);
         content: '\\';
         font-size: 18px;
         font-weight: 200;

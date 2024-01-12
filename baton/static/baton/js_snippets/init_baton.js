@@ -3,4 +3,4 @@
     $(document).ready(function () {
         Baton.init(JSON.parse(document.getElementById('baton-config').textContent));
     })
-})(jQuery, undefined)
+})(Baton.jQuery, undefined)

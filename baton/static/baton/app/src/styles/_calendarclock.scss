@@ -19,8 +19,8 @@
   width: auto;
 
   h2 {
-    background: $clockbox-title-bg;
-    border-bottom: 1px solid $clockbox-title-border-color;
+    background: var(--bs-baton-changeform-clockbox-title-bg);
+    border-bottom: 1px solid var(--bs-baton-changeform-clockbox-title-border-color);
     font-size: 1rem;
     padding: 0.5rem 1rem;
   }

@@ -2,7 +2,7 @@
 .dashboard {
 
   #content {
-    background: $dashboard-bg;
+    background: var(--bs-baton-dashboard-bg);
   }
 
   #content-main {
@@ -37,8 +37,8 @@
 
     table {
       @extend .table;
-      background: $dashboard-module-bg;
-      border: 1px solid $dashboard-module-border-color;
+      background: var(--bs-baton-dashboard-module-bg);
+      border: 1px solid var(--bs-baton-dashboard-module-border-color);
 
       tbody {
         border-top: 0px !important;
@@ -80,8 +80,8 @@
       @extend .p-3;
       @extend .mt-3;
 
-      background: $dashboard-module-bg;
-      border: 1px solid $dashboard-module-border-color;
+      background: var(--bs-baton-dashboard-module-bg);
+      border: 1px solid var(--bs-baton-dashboard-module-border-color);
     }
 
     .actionlist {
@@ -92,17 +92,17 @@
   caption {
     @extend .ps-2;
     @extend .pe-2;
-    background: $dashboard-caption-bg;
-    border: 1px solid $dashboard-module-border-color;
+    background: var(--bs-baton-dashboard-caption-bg);
+    border: 1px solid var(--bs-baton-dashboard-module-border-color);
     caption-side: top;
 
     a {
-      color: $dashboard-caption-color;
+      color: var(--bs-baton-dashboard-caption-color);
     }
   }
 
   .actionlist {
-    border-left: 5px solid #e7e7e7;
+    border-left: 5px solid var(--bs-baton-dashboard-action-list-border-color);
     list-style-type: none;
     margin-left: .5rem;
     margin-top: 1.5rem;
@@ -111,7 +111,7 @@
 
 
     &::after {
-      background-image: linear-gradient(#e7e7e7 50%, rgba(255, 255, 255, 0) 0%);
+      background-image: linear-gradient(var(--bs-baton-dashboard-action-list-border-color) 50%, rgba(255, 255, 255, 0) 0%);
       background-position: center;
       background-repeat: repeat-y;
       background-size: 5px 13px;
@@ -129,7 +129,7 @@
       position: relative;
 
       &::before {
-        background: $dashboard-icon-color;
+        background-color: var(--bs-baton-dashboard-icon-color);
         border-radius: 50%;
         color: $white !important;
         display: inline-block;
@@ -142,15 +142,15 @@
       }
 
       &.addlink::before {
-        background: $dashboard-add-bg;
+        background: var(--bs-baton-dashboard-add-bg);
       }
 
       &.changelink::before {
-        background: $dashboard-change-bg;
+        background: var(--bs-baton-dashboard-change-bg);
       }
 
       &.deletelink::before {
-        background: $dashboard-delete-bg;
+        background: var(--bs-baton-dashboard-delete-bg);
       }
     }
   }
@@ -162,7 +162,7 @@
     &::before {
       @extend %font-awesome;
       @extend .me-1;
-      color: $dashboard-icon-color;
+      color: var(--bs-baton-dashboard-icon-color);
       white-space: nowrap;
     }
   }

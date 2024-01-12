@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import Translator from './i18n'
 
 const Navbar = {
   /**
@@ -7,10 +8,11 @@ const Navbar = {
    * Adds a menu toggler for mobile and does some styling
    */
   init: function (config) {
+    this.t = new Translator($('html').attr('lang'))
     this.menuAlwaysCollapsed = config.menuAlwaysCollapsed
-    this.fixNodes()
+    this.fixNodes(config)
   },
-  fixNodes: function () {
+  fixNodes: function (config) {
     if (!this.menuAlwaysCollapsed) {
       $('#header').addClass('expand')
     } else {
@@ -52,6 +54,21 @@ const Navbar = {
           $('#logout-form').submit()
         })
         .appendTo(dropdownMenu)
+    }
+
+    if (!config.forceTheme) {
+      let self = this
+      const currentTheme = $('html').attr('data-bs-theme')
+      const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme'}).html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme')).css('cursor', 'pointer').click(function () {
+          const currentTheme = $('html').attr('data-bs-theme');
+          $('hmtl').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          $('html').attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          $(this).html(currentTheme === 'dark' ? self.t.get('darkTheme') : self.t.get('lightTheme'));
+          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        })
+      if (dropdownMenu.find('.dropdown-item-theme').length === 0) {
+        dropdownMenu.append(themeToggler)
+      }
     }
   },
 }

@@ -27,6 +27,7 @@ This is an example of configuration::
         'MESSAGES_TOASTS': False,
         'GRAVATAR_DEFAULT_IMG': 'retro',
         'GRAVATAR_ENABLED': True,
+        'FORCE_THEME': None
         'LOGIN_SPLASH': '/static/core/img/login-splash.png',
         'SEARCH_FIELD': {
             'label': 'Search contents...',
@@ -212,6 +213,13 @@ Login splash image
 .. image:: images/login-splash.png
 
 An image used as body background in the login page. The image is centered and covers the whole viewport.
+
+**Default**: None
+
+Force theme
+-----------------------
+
+You can force the light or dark theme, and the theme toggle disappears from the user area.
 
 **Default**: None
 

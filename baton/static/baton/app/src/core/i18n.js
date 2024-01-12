@@ -31,6 +31,14 @@ export const messages = {
     en: 'There was an error retrieving the data',
     it: 'Si è verificato un errore nel reuperare i dati',
   },
+  lightTheme: {
+    en: 'Light theme',
+    it: 'Tema chiaro',
+  },
+  darkTheme: {
+    en: 'Dark theme',
+    it: 'Tema scuro',
+  },
 }
 
 export default class Translator {

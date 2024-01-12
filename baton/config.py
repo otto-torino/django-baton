@@ -24,6 +24,7 @@ default_config = {
     'GRAVATAR_ENABLED': True,
     'LOGIN_SPLASH': None,
     'SEARCH_FIELD': None,
+    'FORCE_THEME': None,
 }
 
 

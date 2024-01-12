@@ -11,7 +11,7 @@
 }
 
 #content {
-  background: $content-bg;
+  background: var(--bs-baton-content-bg);
   margin-right: 0 !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -26,7 +26,7 @@
   > h1 {
     @extend .mb-0;
     @extend .p-3;
-    background: $dashboard-title-bg;
+    background: var(--bs-baton-content-title-bg);
     font-size: 1.6rem;
     font-weight: 700;
 
@@ -34,7 +34,7 @@
     + .messagelist + h2 {
       @extend .mb-0;
       @extend .px-3;
-      background: $dashboard-title-bg;
+      background: var(--bs-baton-content-title-bg);
       font-size: 1.2rem;
       padding-bottom: 1rem;
     }
@@ -117,10 +117,10 @@
 
 .modal-dialog button.back {
   align-items: center;
-  background: $modal-back-btn-bg;
+  background: var(--bs-baton-modal-back-btn-bg);
   border: none;
   border-radius: 50%;
-  color: $modal-back-btn-fg;
+  color: var(--bs-baton-modal-back-btn-color);
   display: flex;
   height: 24px;
   justify-content: center;

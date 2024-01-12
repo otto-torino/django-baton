@@ -1,14 +1,10 @@
 import time
 
 from django.test import TestCase
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
-from .utils import element_has_css_class
+from .utils import element_has_css_class, make_driver
 
 import os
 os.environ['WDM_LOG_LEVEL'] = '0'
@@ -16,16 +12,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 
 class TestBatonIndexMobile(TestCase):
     def setUp(self):
-        service = Service(ChromeDriverManager(version='114.0.5735.90').install())
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-extensions')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        self.driver = webdriver.Chrome(
-            service=service,
-            options=chrome_options,
-        )
+        self.driver = make_driver()
         self.driver.set_window_size(480, 600)
         self.driver.implicitly_wait(10)
         self.login()
@@ -68,7 +55,7 @@ class TestBatonIndexMobile(TestCase):
 
         # user dropdown menu
         user_dropdown_menu = self.driver.find_elements(By.CSS_SELECTOR, "#user-tools .dropdown-menu a")
-        self.assertEqual(len(user_dropdown_menu), 4)
+        self.assertEqual(len(user_dropdown_menu), 5)
         self.assertEqual(user_dropdown_menu[0].get_attribute('innerHTML'),
                          'View site')
         self.assertEqual(user_dropdown_menu[1].get_attribute('innerHTML'),
@@ -77,6 +64,8 @@ class TestBatonIndexMobile(TestCase):
                          'Change password')
         self.assertEqual(user_dropdown_menu[3].get_attribute('innerHTML'),
                          'Log out')
+        self.assertEqual(user_dropdown_menu[4].get_attribute('innerHTML'),
+                         'Dark theme')
 
     def test_content(self):
         # Wait until baton is ready

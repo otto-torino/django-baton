@@ -18,6 +18,15 @@ Login with user `demo` and password `demo`
 [https://django-baton.sqrt64.it/](https://django-baton.sqrt64.it/)
 
 ---
+**Last changes**
+
+Baton 2.8.* updates bootstrap to version 5.3 and introduces the dark theme!
+
+The theme can be changed by the user (default one is system theme), or can be forced through settings (in this case the theme selector disappears)
+
+There are not breaking changes, but if you have overridden the `admin/base_site.html` template, then you'll have to change it in order to reflect the new additions (in particular there is a small script which sets the theme data attribute at the very beginning to avoid ugly flashes)
+
+---
 
 ![Screenshot](docs/images/index-analytics-lg.png)
 
@@ -65,7 +74,7 @@ Everything is styled through CSS and when required, JS is used.
 - Optional display of changelist filters in a modal
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Optional index page filled with google analytics widgets
-- Customization available for recompiling the js app provided
+- Customization available by recompiling the js app provided
 - IT translations provided
 
 The following packages are required to manage the Google Analytics index:
@@ -130,7 +139,7 @@ If you get a "__No crypto library available__" when using the Google Analytics i
 
 ### Why two installed apps?
 
-Well, first `baton` has to be placed before the `django.contrib.admin` app, because it overrides 3 templates and resets all CSS.
+Well, first `baton` has to be placed before the `django.contrib.admin` app, because it overrides some templates and resets all CSS.
 The `baton.autodiscover` entry is needed as the last installed app in order to register all applications for the admin.
 I decided to create a custom `AdminSite` class, to allow the customization of some variables the Django way (`site_header`, `index_title`, ...). I think it's a good approach to customize these vars instead of overwriting the orignal templates. The problem is that when creating a custom AdminSite, you have to register all the apps manualy. I didn't like
 that so I wrote this `autodiscover` module which automatically registers all the apps registered with the Django's default AdminSite. For this to work, all the apps must be already registered so this app should be the last in `INSTALLED_APPS`.
@@ -159,6 +168,7 @@ BATON = {
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'GRAVATAR_ENABLED': True,
     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+    'FORCE_THEME': None,
     'SEARCH_FIELD': {
         'label': 'Search contents...',
         'url': '/search/',
@@ -196,15 +206,15 @@ BATON = {
 }
 ```
 
-- `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include img tags and links.
+- `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include html (i.e. img tags and links).
 - `SUPPORT_HREF` is the URL of the support link. For instance, you can use `mailto:info@blabla.com`.
 - `CONFIRM_UNSAVED_CHANGES`: if set to `True` a confirmation modal appears when leaving a change form or add form with unsaved changes.
 The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
 Default value is `True`.
 - `SHOW_MULTIPART_UPLOADING`: if set to `True` an overlay with a spinner appears when submitting a `multipart/form-data` form.
-- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews have 100px height and with a box shadow (on "hover").
+- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews are 100px height and have a box shadow on "hover".
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
-- `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggler button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
+- `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggle button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
 - `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button. With such option all standard filters are displayed as dropdowns.
 - `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
@@ -213,18 +223,19 @@ Default value is `True`.
 - `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
 - `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
+- `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
 
 `MENU`, `SEARCH_FIELD` and `ANALYTICS` configurations in detail:
 
 ### <a name="configuration-menu"></a>MENU
 
-Currently four kind of voices are supported: _title_, _app_, _model_ and _free_.
+Currently four kind of items are supported: _title_, _app_, _model_ and _free_.
 
 Title and free voices can have children, which follow the following rules:
 
-- children voices' children are ignored (do not place an app voice as a child)
+- children items' children are ignored (do not place an app voice as a child)
 
-Voices with children (title, app, free) can specify a `default_open` key to expand the submenu by default.
+Items with children (title, app, free) can specify a `default_open` key to expand the submenu by default.
 
 If you don't define a MENU key in the configuration dictionary, the default MENU is shown.
 
@@ -237,7 +248,7 @@ You can also define some perms (OR condition), like this:
 
     { 'type': 'title', 'label': 'main', 'perms': ('auth.add_user', ) },
 
-Free voices can have children and so you can specify the _default_open_ key.
+Title items can have children and so you can specify the _default_open_ key.
 
 #### App
 
@@ -254,7 +265,7 @@ You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
 
 #### Free
 
-You can specify free voices. You must define a _url_ and if you want some visibility permissions (OR clause). Free voices can have children and so you can specify the _default_open_ key. Free voices also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname).
+You can specify free items. You must define a _url_ and if you want some visibility permissions (OR clause). Free items can have children and so you can specify the _default_open_ key. Free items also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname).
 
 	{
 	    'type': 'free',
@@ -289,10 +300,6 @@ The autocomplete field will call a custom api at every keyup event. Such api rec
     ]
 }
 ```
-
-In order to activate this functionality you should add the BATON configuration:
-
-
 You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional and is treated as css class given to an `i` element.
 
 Let's see an example:
@@ -376,7 +383,7 @@ The available page types are the following: `dashboard`, `admindocs`, `login`, `
 ## <a name="signals"></a>Signals
 
 Baton provides a dispatcher that can be used to register function that will be called when some events occurr.
-Currently, Baton emits four types of events:
+Currently, Baton emits five types of events:
 
 - `onNavbarReady`: dispatched when the navbar is fully rendered
 - `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieved async)
@@ -407,7 +414,7 @@ Baton comes with a number of exported js modules you can use to enhance your adm
 
 ### Dispatcher
 
-Baton Dispatcher singleton module lets you subscribe to event and dispatch them, making use of the Mediator pattern.
+Baton Dispatcher singleton module lets you subscribe to events and dispatch them, making use of the Mediator pattern.
 
 Example:
 
@@ -474,8 +481,8 @@ There are some circustamces in which Baton will print to screen some js message.
 However you can provide or add your own translations by attaching an object to the `Baton` namespace:
 
 ``` javascript
-// these are the default translations, you can just edit the one you need, or add some locales. Baton engione will always
-// pick up your custom translation first, if it find them.
+// these are the default translations, you can just edit the one you need, or add some locales. Baton engine will always
+// pick up your custom translation first, if it finds them.
 // you can define the object before Baton.init in the base_site template
 Baton.translations = {
   unsavedChangesAlert: 'You have some unsaved changes.',
@@ -485,7 +492,9 @@ Baton.translations = {
   save: 'Save',
   search: 'Search',
   cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-  retrieveDataError: 'There was an error retrieving the data'
+  retrieveDataError: 'There was an error retrieving the data',
+  lightTheme: 'Light theme',
+  darkTheme: 'Dark theme'
 }
 ```
 

@@ -30,6 +30,7 @@ def baton_config():
         "gravatarEnabled": get_config('GRAVATAR_ENABLED'),
         "loginSplash": get_config('LOGIN_SPLASH'),
         "searchField": get_config('SEARCH_FIELD'),
+        "forceTheme": get_config('FORCE_THEME'),
     }
 
     return conf

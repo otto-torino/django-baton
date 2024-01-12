@@ -7,9 +7,9 @@
 
   span,
   a:not(.showall) {
-    background: $pag-bg;
-    border: 1px solid $pag-border-color;
-    color: $pag-color;
+    background: var(--bs-baton-pagination-bg);
+    border: 1px solid var(--bs-baton-pagination-border-color);
+    color: var(--bs-baton-pagination-color);
     display: inline-block;
     line-height: 40px;
     padding: 0 !important;
@@ -17,7 +17,7 @@
     width: 40px;
 
     &:hover {
-      background: $pag-hover-bg;
+      background: var(--bs-baton-pagination-hover-bg);
     }
   }
 
@@ -26,11 +26,11 @@
   }
 
   .this-page {
-    background: $pag-selected-bg;
-    color: $pag-selected-color;
+    background: var(--bs-baton-pagination-selected-bg);
+    color: var(--bs-baton-pagination-selected-color);
 
     &:hover {
-      background: $pag-selected-bg;
+      background: var(--bs-baton-pagination-selected-bg);
     }
   }
 

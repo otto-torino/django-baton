@@ -52,7 +52,7 @@
         order: 1;
 
         &::before {
-          color: $collapse-entry-icon-color;
+          color: var(--bs-baton-changeform-collapse-entry-icon-color);
           content: '\f070';
           cursor: pointer;
           font-family: 'Font Awesome\ 6 Free';
@@ -107,9 +107,9 @@
 
 .spinner-overlay {
   align-items: center;
-  background: $spinner-overlay-bg;
+  background: var(--bs-baton-changeform-spinner-overlay-bg);
   bottom: 0;
-  color: $spinner-overlay-fg;
+  color: var(--bs-baton-changeform-spinner-overlay-color);
   display: flex;
   height: 100%;
   justify-content: center;
@@ -130,9 +130,6 @@
 // tabs
 .nav-tabs {
   .nav-link {
-    background: #fafafa;
-    border: 1px solid #dee2e6;
-    color: #999;
     cursor: pointer;
 
     &:hover {

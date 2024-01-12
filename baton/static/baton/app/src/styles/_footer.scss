@@ -1,10 +1,10 @@
 // scss-lint:disable PlaceholderInExtend IdSelector
 .site-footer {
   @extend .p-3;
-  background: $footer-bg;
-  border-top: 1px solid $footer-border-color;
+  background: var(--bs-baton-footer-bg);
+  border-top: 1px solid var(--bs-baton-footer-border-color);
   bottom: 0;
-  color: $footer-color;
+  color: var(--bs-baton-footer-color);
   font-size: .9rem;
   left: 0;
   margin-top: 20px;
@@ -17,15 +17,17 @@
   }
 
   a {
-    color: $footer-link-color;
+    color: var(--bs-baton-footer-link-color);
 
     &:hover {
-      color: $footer-link-color-hover;
+      color: var(--bs-baton-footer-link-hover-color);
     }
   }
 
   .btn-light {
-    color: $footer-support-fg;
+    background: var(--bs-baton-footer-support-bg);
+    border: 1px solid var(--bs-baton-footer-support-bg);
+    color: var(--bs-baton-footer-support-color);
   }
 }
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'django_select2',
     'easy_thumbnails',
     'admin_auto_filters',
     'rangefilter',
@@ -129,6 +130,7 @@ BATON = {
     'MESSAGES_TOASTS': ['error'],
     'GRAVATAR_DEFAULT_IMG': 'robohash',
     'GRAVATAR_ENABLED': True,
+    'FORCE_THEME': None,
     'LOGIN_SPLASH': '/static/app/bg.jpg',
     'SEARCH_FIELD': {
         'label': 'Search news',

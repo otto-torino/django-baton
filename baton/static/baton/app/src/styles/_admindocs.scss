@@ -31,38 +31,38 @@
     }
 
     .simple {
-      background: $admindocs-simple-bg;
+      background: var(--bs-baton-admindocs-simple-bg);
       padding-bottom: .5rem;
       padding-top: 1rem;
     }
 
     pre {
-      background: $admindocs-pre-bg;
-      color: $admindocs-pre-color;
+      background: var(--bs-baton-admindocs-pre-bg);
+      color: var(--bs-baton-admindocs-pre-color);
       font-size: .8rem;
       padding: 1rem;
     }
 
     table {
       @extend .table;
-      border: $admindocs-table-border-color !important;
+      border: var(--bs-baton-admindocs-table-border-color) !important;
     }
 
     .module {
-      background: $admindocs-module-bg;
+      background: var(--bs-baton-admindocs-module-bg);
       margin-bottom: 1rem;
       max-width: 100%;
       overflow: auto;
 
       h2 {
-        background: $admindocs-module-header-bg;
-        border: 1px solid $admindocs-module-header-border-color;
+        background: var(--bs-baton-admindocs-module-header-bg);
+        border: 1px solid var(--bs-baton-admindocs-module-header-border-color);
         font-size: 1.4rem;
         padding: .5rem;
       }
 
       h3 {
-        color: $base;
+        color: var(--bs-primary);
         font-size: 1.4rem;
       }
 

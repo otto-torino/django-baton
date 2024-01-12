@@ -18,7 +18,9 @@ However you can provide or add your own translations by attaching an object to t
       save: 'Save',
       search: 'Search',
       cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-      retrieveDataError: 'There was an error retrieving the data'
+      retrieveDataError: 'There was an error retrieving the data',
+      lightTheme: 'Light theme',
+      darkTheme: 'Dark theme',
     }
 
 .. important:: Just use the ``trans`` templatetag to deal with multilanguage web applications
