@@ -6,6 +6,8 @@ from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, MultipleChoiceListFilter
 from rangefilter.filter import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
+
+from .forms import ActivityForm
 from .models import News, Category, Attachment, Video, Activity
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -58,6 +60,7 @@ class VideosInline(admin.StackedInline):
 
 class ActivitiesInline(GenericStackedInline):
     model = Activity
+    form = ActivityForm
     extra = 1
 
 
