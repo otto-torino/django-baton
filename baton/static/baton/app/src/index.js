@@ -64,7 +64,7 @@ window.Baton = {
     })
 
     // tabs
-    if (page === 'add_form' || page === 'change_form') {
+    if (page === 'add_form' || page === 'change_form' || this.activateTabs(config)) {
       Tabs.init(Dispatcher)
     }
 
@@ -85,6 +85,16 @@ window.Baton = {
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+  },
+  activateTabs: function (opts) {
+    const patterns = opts.activateTabs;
+    for (var i = 0; i < patterns.length; i++) {
+      let regex = new RegExp(`/${patterns[i]}/`);
+      if (regex.test(location.pathname)) {
+       return true;
+      }
+    }
+    return false;
   },
   page: function () {
     if (/^(\/[a-z]{2})?\/admin\/$/.test(location.pathname)) {

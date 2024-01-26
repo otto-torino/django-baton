@@ -31,6 +31,7 @@ def baton_config():
         "loginSplash": get_config('LOGIN_SPLASH'),
         "searchField": get_config('SEARCH_FIELD'),
         "forceTheme": get_config('FORCE_THEME'),
+        "activateTabs": get_config('ACTIVATE_TABS'),
     }
 
     return conf

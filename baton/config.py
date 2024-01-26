@@ -25,6 +25,7 @@ default_config = {
     'LOGIN_SPLASH': None,
     'SEARCH_FIELD': None,
     'FORCE_THEME': None,
+    'ACTIVATE_TABS': [],
 }
 
 
