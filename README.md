@@ -147,6 +147,7 @@ BATON = {
     'CHANGELIST_FILTERS_IN_MODAL': True,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
     'CHANGELIST_FILTERS_FORM': True,
+    'CHANGEFORM_FIXED_SUBMIT_ROW': True,
     'MENU_ALWAYS_COLLAPSED': False,
     'MENU_TITLE': 'Menu',
     'MESSAGES_TOASTS': False,
@@ -197,6 +198,7 @@ Default value is `True`.
 - `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
 - `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggle button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
 - `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button. With such option all standard filters are displayed as dropdowns.
+- `CHANGEFORM_FIXED_SUBMIT_ROW`: if set to `True` the submit row in the changeform is fixed at the bottom on large screens.
 - `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
 - `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.

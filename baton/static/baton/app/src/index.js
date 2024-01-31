@@ -52,7 +52,7 @@ window.Baton = {
     } else if (page === 'changelist') {
       ChangeList.init(config)
     } else if (page === 'add_form' || page === 'change_form') {
-      ChangeForm.init(config)
+      ChangeForm.init(config, Dispatcher)
     } else if (page === 'admindocs') {
       AdminDocs.init()
     } else if (page === 'filer') {

@@ -28,8 +28,8 @@
   .form-row {
     // @extend .form-group; // @TODO check
     background: var(--bs-baton-changeform-field-bg);
-    margin-bottom: .5rem;
-    padding: 1rem .5rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem 0.5rem;
 
     &.with-wrapped-fields {
       background: transparent;
@@ -57,7 +57,7 @@
             @extend %font-awesome;
             content: '\f12a';
             display: inline-block;
-            margin-right: .5rem;
+            margin-right: 0.5rem;
           }
         }
       }
@@ -71,7 +71,7 @@
 
     .newline {
       display: block;
-      height: .5rem;
+      height: 0.5rem;
       width: 100%;
     }
 
@@ -172,7 +172,7 @@
       + br {
         content: '';
         display: block;
-        height: .5rem;
+        height: 0.5rem;
         width: 100%;
       }
     }
@@ -183,7 +183,7 @@
       align-self: center;
       color: var(--bs-baton-warning-color);
       display: block;
-      margin: .2rem 0;
+      margin: 0.2rem 0;
       padding-left: 1px;
 
       @include media-breakpoint-up(md) {
@@ -200,7 +200,9 @@
       flex-direction: row;
       flex-grow: 1;
 
-      + p /* django 1.11 */ {
+      +p
+
+            /* django 1.11 */ {
         flex-basis: 100%;
         margin-left: 0 !important;
 
@@ -216,7 +218,7 @@
       .change-related,
       .view-related,
       .add-related {
-        opacity: .4;
+        opacity: 0.4;
 
         &[href] {
           opacity: 1;
@@ -381,7 +383,7 @@
         cursor: default;
         display: block;
         height: 16px;
-        opacity: .3;
+        opacity: 0.3;
         overflow: hidden;
         text-indent: -3000px;
         width: 16px;
@@ -430,13 +432,13 @@
     font-weight: bold;
   }
 
-  input[type=text],
-  input[type=password],
-  input[type=url],
-  input[type=number],
-  input[type=email],
-  input[type=date],
-  input[type=file],
+  input[type='text'],
+  input[type='password'],
+  input[type='url'],
+  input[type='number'],
+  input[type='email'],
+  input[type='date'],
+  input[type='file'],
   select[multiple] {
     @extend .form-control;
 
@@ -445,15 +447,15 @@
     }
   }
 
-  input[type=url] {
+  input[type='url'] {
     display: inline-block !important;
   }
 
-  input[type=text][size] {
+  input[type='text'][size] {
     width: auto !important;
   }
 
-  input[type=text]:not([size]) {
+  input[type='text']:not([size]) {
     @include media-breakpoint-up(md) {
       min-width: 240px;
     }
@@ -469,10 +471,10 @@
   }
 
   .tabular.inline-related {
-    input[type=text],
-    input[type=number],
-    input[type=email],
-    input[type=date],
+    input[type='text'],
+    input[type='number'],
+    input[type='email'],
+    input[type='date'],
     textarea,
     select {
       min-width: auto !important;
@@ -490,7 +492,7 @@
 
   select:not([multiple]):not(.admin-autocomplete) {
     @extend .form-select;
-    text-indent: .01px;
+    text-indent: 0.01px;
     text-overflow: clip;
 
     @include media-breakpoint-up(md) {
@@ -532,7 +534,7 @@
     @extend .ms-3;
     flex-basis: 100% !important;
     margin-left: 0 !important;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     padding-left: 1px;
 
     @include media-breakpoint-up(md) {
@@ -578,13 +580,27 @@
     display: flex;
     flex-basis: baseline;
     flex-direction: column;
+    left: 0;
     margin-top: 15px;
 
     @include media-breakpoint-up(md) {
       flex-direction: row-reverse;
     }
 
-    input[type=submit] {
+    @include media-breakpoint-up(lg) {
+      &.baton-fixed-submit-row {
+        background: var(--bs-baton-changeform-submit-row-bg);
+        bottom: 0;
+        left: 16.66666667%;
+        padding: 1rem 2rem;
+        position: fixed;
+        transition: padding 0.2s linear;
+        width: 83.33333333%;
+        z-index: 100;
+      }
+    }
+
+    input[type='submit'] {
       @extend .btn;
       @extend .btn-success;
       @extend .ms-1;
@@ -600,7 +616,7 @@
 
     > a {
       margin-bottom: 15px;
-      margin-left: .25rem;
+      margin-left: 0.25rem;
       order: 1;
 
       @include media-breakpoint-up(md) {
@@ -642,7 +658,6 @@
     @extend .alert-danger;
     font-weight: bold;
   }
-
 
   // fieldsets
 
@@ -697,7 +712,7 @@
   }
 
   fieldset fieldset > h2 {
-      background: var(--bs-baton-changeform-fieldset-nested-title-bg);
+    background: var(--bs-baton-changeform-fieldset-nested-title-bg);
   }
 
   .inline-related {
@@ -709,8 +724,10 @@
       }
     }
 
-    &.empty-form, // stacked inline
-    .empty-form { // tabular
+    &.empty-form,
+        // stacked inline
+        .empty-form {
+      // tabular
       display: none !important; // inline extra param
     }
 
@@ -730,7 +747,7 @@
       padding: 8px 10px;
 
       .inline_label {
-        margin-left: .5rem;
+        margin-left: 0.5rem;
         margin-right: auto;
       }
 
@@ -791,7 +808,7 @@
           background: var(--bs-baton-changeform-inline-tabular-original-bg);
           border-bottom: 1px solid var(--bs-baton-changeform-inline-tabular-original-border-color);
           display: flex;
-          font-size: .9rem;
+          font-size: 0.9rem;
           flex-direction: row;
           left: 14px;
           padding: 0 4px;
@@ -818,7 +835,7 @@
 
     .inlinechangelink {
       background: var(--bs-baton-changeform-inline-changelink-bg);
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-left: 8px;
       padding: 2px 4px;
 
@@ -829,7 +846,7 @@
       }
 
       &:hover {
-        opacity: .98;
+        opacity: 0.98;
         text-decoration: none;
       }
     }
@@ -891,7 +908,7 @@
   }
 
   .wrapped-fields-container > * {
-      flex-grow: 0 !important;
+    flex-grow: 0 !important;
   }
 
   .wrapped-fields-container .fieldBox {
@@ -918,6 +935,15 @@
       label + *:not(.datetime) {
         display: inline-block;
       }
+    }
+  }
+}
+
+.baton-menu-always-collapsed {
+  @include media-breakpoint-up(lg) {
+    .baton-fixed-submit-row {
+      left: 0 !important;
+      width: 100% !important;
     }
   }
 }

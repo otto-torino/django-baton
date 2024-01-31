@@ -20,6 +20,7 @@ def baton_config():
         "changelistFiltersInModal": get_config('CHANGELIST_FILTERS_IN_MODAL'),
         "changelistFiltersAlwaysOpen": get_config('CHANGELIST_FILTERS_ALWAYS_OPEN'),
         "changelistFiltersForm": get_config('CHANGELIST_FILTERS_FORM'),
+        "changeformFixedSubmitRow": get_config('CHANGEFORM_FIXED_SUBMIT_ROW'),
         "collapsableUserArea": get_config('COLLAPSABLE_USER_AREA'),
         "menuAlwaysCollapsed": get_config('MENU_ALWAYS_COLLAPSED'),
         "menuTitle": escapejs(get_config('MENU_TITLE')),

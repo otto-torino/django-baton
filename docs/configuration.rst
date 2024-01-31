@@ -21,6 +21,7 @@ This is an example of configuration::
         'CHANGELIST_FILTERS_IN_MODAL': True,
         'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
         'CHANGELIST_FILTERS_FORM': True,
+        'CHANGEFORM_FIXED_SUBMIT_ROW': True,
         'COLLAPSABLE_USER_AREA': False,
         'MENU_ALWAYS_COLLAPSED': False,
         'MENU_TITLE': 'Menu',
@@ -160,6 +161,13 @@ Changelist filters form
 If set to ``True`` the changelist filters are treated as in a form, you can set many of them at once and then press a filter button in order to actually perform the filtering. With such option all standard filters are displayed as dropdowns.
 
 **Default**: False
+
+Changeform fixed submit row
+-----------------------
+
+If set to ``True`` the submit row in the changeform page is fixed at the bottom of the page on large screens.
+
+**Default**: True
 
 Collapsable user area
 -----------------------

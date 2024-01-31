@@ -2,7 +2,7 @@
 .site-footer {
   @extend .p-3;
   background: var(--bs-baton-footer-bg);
-  border-top: 1px solid var(--bs-baton-footer-border-color);
+  // border-top: 1px solid var(--bs-baton-footer-border-color);
   bottom: 0;
   color: var(--bs-baton-footer-color);
   font-size: .9rem;
@@ -10,6 +10,7 @@
   margin-top: 20px;
   position: absolute;
   width: 100%;
+  z-index: 1000;
 
   p {
     margin-bottom: 5px;

@@ -30,7 +30,7 @@ const Menu = {
     $(window).on('resize', function () {
       self.setHeight()
       self.manageBrandingUserTools()
-      self.addThemeToggle(config).bind(this)
+      self.addThemeToggle(config)
     })
   },
   fixNodes: function () {
