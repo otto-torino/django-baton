@@ -20,11 +20,11 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
-Baton 2.8.* updates bootstrap to version 5.3 and introduces the dark theme!
+Baton 3.0.* removes the `analyitcs` module!
 
-The theme can be changed by the user (default one is system theme), or can be forced through settings (in this case the theme selector disappears)
+It also introduces a cool option, which is enabled by default, and displays the changeform submit row fixed at the bottom on large screens.
 
-There are not breaking changes, but if you have overridden the `admin/base_site.html` template, then you'll have to change it in order to reflect the new additions (in particular there is a small script which sets the theme data attribute at the very beginning to avoid ugly flashes)
+It fixes some bugs.
 
 ---
 
