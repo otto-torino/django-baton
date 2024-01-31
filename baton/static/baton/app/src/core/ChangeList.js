@@ -70,11 +70,11 @@ const ChangeList = {
             self.filter(content)
           },
         })
-        _filtersToggler.click(() => {
-          self.modal.toggle()
+        _filtersToggler.on('click', () => {
+          self.modal.open()
         })
       } else {
-        _filtersToggler.click(() => {
+        _filtersToggler.on('click', () => {
           $(document.body).toggleClass('changelist-filter-active')
           if (parseInt(this._filtersDiv.css('max-width')) === 100) {
             // diff between mobile and lg

@@ -15,7 +15,7 @@ class Modal {
       actionBtnCb: null,
       onUrlLoaded: function () {},
       size: 'lg',
-      onClose: function () {},
+      onClose: function (modal) { modal.isOpen = false; },
     }
 
     this.isOpen = false
@@ -50,7 +50,7 @@ class Modal {
     `)
 
     const self = this
-    this.modalObj.on('hidden.bs.modal', function () {
+    this.modalObj[0].addEventListener('hidden.bs.modal', function () {
       self.close()
     })
 
@@ -141,7 +141,7 @@ class Modal {
     }
 
     this.modal.hide()
-    this.options.onClose()
+    this.options.onClose(this)
     this.isOpen = false
   }
 }
