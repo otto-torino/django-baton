@@ -23,7 +23,6 @@ Features
 - Easy way to include templates in the change form page
 - Collapsable stacke inline entries
 - Lazy load of current uploaded images
-- Optional index page filled with google analytics widgets
 - Full customization available recompiling the provided js app
 - it translations
 

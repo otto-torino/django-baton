@@ -8,8 +8,6 @@ Using pip
 
     pip install django-baton
 
-.. note:: In order to use the Google Analytics index, install baton along the optional dependencies with ``pip install django-baton[analytics]``
-
 2. Add ``baton`` and ``baton.autodiscover`` to your ``INSTALLED_APPS``::
 
     INSTALLED_APPS = (
@@ -32,11 +30,6 @@ Using pip
         path('baton/', include('baton.urls')),
 
     ]
-
-
-.. important:: If you get a "__No crypto library available__" when using the google analytics index, then install this package:
-
-    $ pip install PyOpenSSL
 
 
 Why two installed apps?

@@ -1,7 +1,7 @@
 # baton translations
-# Copyright (C) 2017 Otto srl
+# Copyright (C) 2024 Otto srl
 # This file is distributed under the same license as the django-baton package.
-# Stefano Contini <abidibo@gmail.com>, 2017.
+# Stefano Contini <abidibo@gmail.com>, 2024.
 #
 #, fuzzy
 msgid ""
@@ -45,70 +45,6 @@ msgstr "salva"
 #: templates/admin/filer/folder/directory_listing.html:4
 msgid "Folders"
 msgstr "Cartelle"
-
-#: templates/baton/analytics.html:24
-msgid "last 15 days"
-msgstr "ultimi 15 giorni"
-
-#: templates/baton/analytics.html:25
-msgid "last month"
-msgstr "ultimo mese"
-
-#: templates/baton/analytics.html:26
-msgid "last three months"
-msgstr "ultimi tre mesi"
-
-#: templates/baton/analytics.html:27
-msgid "last year"
-msgstr "ultimo anno"
-
-#: templates/baton/analytics.html:34
-msgid "Traffic"
-msgstr "Traffico"
-
-#: templates/baton/analytics.html:35
-msgid "Sessions and Users"
-msgstr "Sessioni e utenti"
-
-#: templates/baton/analytics.html:41
-msgid "Popular"
-msgstr "Popolare"
-
-#: templates/baton/analytics.html:42
-msgid "Page views"
-msgstr "Visualizzazioni di pagina"
-
-#: templates/baton/analytics.html:50
-msgid "Browsers"
-msgstr "Browser"
-
-#: templates/baton/analytics.html:51
-msgid "Top used"
-msgstr "Più utilizzati"
-
-#: templates/baton/analytics.html:57
-msgid "Acquisition"
-msgstr "Acquisizione"
-
-#: templates/baton/analytics.html:58
-msgid "Referral Traffic"
-msgstr "Traffico da ricerca"
-
-#: templates/baton/analytics.html:66
-msgid "Audience"
-msgstr "Visitatori"
-
-#: templates/baton/analytics.html:67
-msgid "Countries"
-msgstr "Paesi"
-
-#: templates/baton/analytics.html:73
-msgid "Social"
-msgstr "Social"
-
-#: templates/baton/analytics.html:74
-msgid "Interactions"
-msgstr "Interazioni"
 
 #: templates/baton/filters/dropdown_filter.html:3
 #: templates/baton/filters/input_filter.html:3

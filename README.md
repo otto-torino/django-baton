@@ -37,7 +37,6 @@ There are not breaking changes, but if you have overridden the `admin/base_site.
 - [Configuration](#configuration)
     - [Menu](#configuration-menu)
     - [Search Field](#configuration-search-field)
-    - [Analytics](#configuration-analytics)
 - [Page Detection](#page-detection)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
@@ -73,16 +72,8 @@ Everything is styled through CSS and when required, JS is used.
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
-- Optional index page filled with google analytics widgets
 - Customization available by recompiling the js app provided
 - IT translations provided
-
-The following packages are required to manage the Google Analytics index:
-
-- google-auth
-- google-auth-httplib2
-- google-api-python-client
-- requests
 
 Baton is based on the following frontend technologies:
 
@@ -100,8 +91,6 @@ A custom menu is provided, the menu is rendered through JS, and data is fetched 
 Install the last stable release
 
     $ pip install django-baton
-
-> :information_source: In order to use the Google Analytics index, install baton along the optional dependencies with `$ pip install django-baton[analytics]`
 
 or clone the repo inside your project
 
@@ -132,10 +121,6 @@ urlpatterns = [
 
 ]
 ```
-
-If you get a "__No crypto library available__" when using the Google Analytics index, install this package:
-
-    $ pip install PyOpenSSL
 
 ### Why two installed apps?
 
@@ -198,11 +183,7 @@ BATON = {
             { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
             { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
         ] },
-    ),
-    'ANALYTICS': {
-        'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-        'VIEW_ID': '12345678',
-    }
+    )
 }
 ```
 
@@ -225,7 +206,7 @@ Default value is `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
 
-`MENU`, `SEARCH_FIELD` and `ANALYTICS` configurations in detail:
+`MENU` and `SEARCH_FIELD` configurations in detail:
 
 ### <a name="configuration-menu"></a>MENU
 
@@ -331,28 +312,6 @@ def admin_search(request):
 ```
 
 You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
-
-
-### <a name="configuration-analytics"></a>ANALYTICS
-
-> :information_source: In order to use the Google Analytics index, install baton along the optional dependencies with `$ pip install django-baton[analytics]`
-
-You can create a cool index page displaying some statistics widgets using the Google Analytics API just by defining the `ANALYTICS` setting.
-
-It requires two keys:
-
-- `CREDENTIALS`: it is the path to the credentials json file
-- `VIEW_ID`: ID of the view from which to display data
-
-You can add contents before and after the analytics dashboard by extending the `baton/analytics.html` template and filling the `baton_before_analytics` and `baton_after_analytics` blocks.
-
-#### How to generate a credentials json file
-
-Follow the steps in the Google Identity Platform documentation to [create a service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount) from the [Google Developer Console](https://console.developers.google.com/).
-
-Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
-
-Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request the data from. It's generally best to only grant the service account read-only access.
 
 ## <a name="page-detection"></a>Page Detection
 

@@ -59,11 +59,7 @@ This is an example of configuration::
                 { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'fa fa-gavel' },
                 { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
             ] },
-        ),
-        'ANALYTICS': {
-            'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
-            'VIEW_ID': '12345678',
-        }
+        )
     }
 
 Site header
@@ -384,28 +380,3 @@ Let's see an example: ::
         })
 
 You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
-
-Analytics
----------
-
-.. note:: In order to use the Google Analytics index, install baton along the optional dependencies with ``pip install django-baton[analytics]``
-
-.. image:: images/analytics.png
-
-Baton provides an index view which displays google analytics statistics charts for the last 15 days, 1 month, 3 month and 1 year.
-
-In order to activate it you need to create a service account and link it to your google analytics view, then you must define the keys:
-
-- ``CREDENTIALS``: path to the credentials json file
-- ``VIEW_ID``: id of the analytics view which serves the data
-
-You can add contents before and after the analytics dashboard by extending the ``baton/analytics.html`` template and filling the ``baton_before_analytics`` and ``baton_after_analytics`` blocks.
-
-How to generate a credentials json file
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Follow the steps in the Google Identity Platform documentation to `create a service account <https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount>`_ from the `Google Developer Console <https://console.developers.google.com/>`_.
-
-Once the service account is created, you can click the Generate New JSON Key button to create and download the key and add it to your project.
-
-Add the service account as a user in Google Analytics. The service account you created in the previous step has an email address that you can add to any of the Google Analytics views you'd like to request data from. It's generally best to only grant the service account read-only access.
