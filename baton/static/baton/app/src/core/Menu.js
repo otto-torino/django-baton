@@ -30,7 +30,7 @@ const Menu = {
     $(window).on('resize', function () {
       self.setHeight()
       self.manageBrandingUserTools()
-      self.addThemeToggle(config)
+      self.addThemeToggle(config).bind(this)
     })
   },
   fixNodes: function () {
@@ -44,7 +44,7 @@ const Menu = {
 
     const title = $('<h1 />', { class: 'd-block d-lg-none' }).text(this.menuTitle ? this.menuTitle : 'Menu')
     $('<i/>', { class: 'fa fa-times' })
-      .click(() => {
+      .on('click', () => {
         $(document.body).removeClass('menu-open')
       })
       .appendTo(title)
@@ -53,7 +53,7 @@ const Menu = {
     if (this.alwaysCollapsed) {
       $('<i />', { class: 'fa fa-times toggle-menu' })
         .appendTo(this.menu)
-        .click(() => {
+        .on('click', () => {
           $(document.body).removeClass('menu-open')
         })
     }
@@ -85,13 +85,18 @@ const Menu = {
     }
   },
   addThemeToggle(config) {
+    let self = this
     if (!config.forceTheme) {
       const currentTheme = $('html').attr('data-bs-theme')
-      const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' }).css('cursor', 'pointer').click(function () {
+      const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' })
+        .css('cursor', 'pointer').attr('title', self.t.get(currentTheme === 'dark' ? 'lightTheme' : 'darkTheme'))
+        .on('click', function () {
           const currentTheme = $('html').attr('data-bs-theme');
           $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
           $('html').attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
           $(this).removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark').addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light');
+          $(this).attr('title', self.t.get(currentTheme === 'dark' ? 'darkTheme' : 'lightTheme'));
+          $(this).attr('data-bs-original-title', self.t.get(currentTheme === 'dark' ? 'darkTheme' : 'lightTheme'));
           localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
         })
       if ($('.user-links').find('.theme-link-toggler').length === 0) {
