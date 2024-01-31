@@ -12,7 +12,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 class TestBatonIndex(TestCase):
     def setUp(self):
         self.driver = make_driver()
-        self.driver.set_window_size(1920, 1080)
+        self.driver.set_window_size(1920, 1280)
         self.driver.implicitly_wait(10)
         self.login()
 

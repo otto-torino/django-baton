@@ -1,7 +1,7 @@
 import os
 import time
 
-from django.test import TestCase
+from django.test import TestCase 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -9,11 +9,10 @@ from .utils import element_has_css_class, make_driver
 
 os.environ['WDM_LOG_LEVEL'] = '0'
 
-
 class TestBatonTabs(TestCase):
     def setUp(self):
         self.driver = make_driver()
-        self.driver.set_window_size(1920, 1080)
+        self.driver.set_window_size(1920, 2080)
         self.driver.implicitly_wait(10)
         self.login()
 
@@ -86,6 +85,7 @@ class TestBatonTabs(TestCase):
         self.assertEqual(len(attachments_rows), 2)
         add_button = inlines.find_element(By.CSS_SELECTOR, '.add-row a')
         self.assertEqual(add_button.is_displayed(), True)
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
         time.sleep(3)  # fade
         # try except because first click will fail in selenium
         try:
@@ -114,6 +114,7 @@ class TestBatonTabs(TestCase):
         button = self.driver.find_element(By.CSS_SELECTOR, 'input[type=submit][name=_continue]')
         time.sleep(1)
         field.send_keys('test')
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
         time.sleep(1)
         try:
             button.click()
