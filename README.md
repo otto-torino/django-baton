@@ -90,20 +90,28 @@ A custom menu is provided, the menu is rendered through JS, and data is fetched 
 
 Install the last stable release
 
-    $ pip install django-baton
+```bash
+$ pip install django-baton
+```
 
 or clone the repo inside your project
 
-    $ git clone https://github.com/otto-torino/django-baton.git
+```bash
+$ git clone https://github.com/otto-torino/django-baton.git
+```
 
 Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
 
 ``` python
 INSTALLED_APPS = (
     # ...
+
     'baton',
     'django.contrib.admin',
-    # ... (place baton.autodiscover at the very end)
+
+    # ...
+
+    # (place baton.autodiscover at the very end)
     'baton.autodiscover',
 )
 ```
@@ -118,7 +126,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('baton/', include('baton.urls')),
-
+    # ...
 ]
 ```
 
@@ -126,14 +134,17 @@ urlpatterns = [
 
 Well, first `baton` has to be placed before the `django.contrib.admin` app, because it overrides some templates and resets all CSS.
 The `baton.autodiscover` entry is needed as the last installed app in order to register all applications for the admin.
-I decided to create a custom `AdminSite` class, to allow the customization of some variables the Django way (`site_header`, `index_title`, ...). I think it's a good approach to customize these vars instead of overwriting the orignal templates. The problem is that when creating a custom AdminSite, you have to register all the apps manualy. I didn't like
-that so I wrote this `autodiscover` module which automatically registers all the apps registered with the Django's default AdminSite. For this to work, all the apps must be already registered so this app should be the last in `INSTALLED_APPS`.
+I decided to create a custom `AdminSite` class, to allow the customization of some variables the Django way (`site_header`, `index_title`, ...). 
+I think it's a good approach to customize these vars instead of overwriting the orignal templates. 
+The problem is that when creating a custom AdminSite, you have to register all the apps manualy. 
+I didn't like that, so I wrote this `autodiscover` module which automatically registers all the apps registered with the Django's default AdminSite. 
+For this to work, all the apps must be already registered so this app should be the last in `INSTALLED_APPS`.
 
 ## <a name="configuration"></a>Configuration
 
 The configuration dictionary must be defined inside your settings:
 
-``` python
+```python
 BATON = {
     'SITE_HEADER': 'Baton',
     'SITE_TITLE': 'Baton',
@@ -160,31 +171,63 @@ BATON = {
         'url': '/search/',
     },
     'MENU': (
-        { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
+        {
+            'type': 'title',
+            'label': 'main',
+            'apps': ('auth', ),
+        },
         {
             'type': 'app',
             'name': 'auth',
             'label': 'Authentication',
-            'icon': 'fa fa-lock',
+            'icon': 'fa-fw fa-lock',
             'models': (
                 {
                     'name': 'user',
-                    'label': 'Users'
+                    'label': 'Users',
                 },
                 {
                     'name': 'group',
-                    'label': 'Groups'
+                    'label': 'Groups',
                 },
-            )
+            ),
         },
-        { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
-        { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
-        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-        { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
-            { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
-            { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
-        ] },
-    )
+        {
+            'type': 'title',
+            'label': 'Contents',
+            'apps': ('flatpages', ),
+        },
+        {
+            'type': 'model',
+            'label': 'Pages',
+            'name': 'flatpage',
+            'app': 'flatpages',
+        },
+        {
+            'type': 'free',
+            'label': 'Custom Link',
+            'url': 'http://www.google.it',
+            'perms': ('flatpages.add_flatpage', 'auth.change_user'),
+        },
+        {
+            'type': 'free',
+            'label': 'My parent voice',
+            'default_open': True,
+            'children': [
+                {
+                    'type': 'model',
+                    'label': 'A Model',
+                    'name': 'mymodelname',
+                    'app': 'myapp',
+                },
+                {
+                    'type': 'free',
+                    'label': 'Another custom link',
+                    'url': 'http://www.google.it',
+                },
+            ],
+        },
+    ),
 }
 ```
 
@@ -194,100 +237,131 @@ BATON = {
 The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
 Default value is `True`.
 - `SHOW_MULTIPART_UPLOADING`: if set to `True` an overlay with a spinner appears when submitting a `multipart/form-data` form.
-- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews are 100px height and have a box shadow on "hover".
-- `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
-- `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggle button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
-- `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button. With such option all standard filters are displayed as dropdowns.
+- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images.
+  You can control how the preview is displayed by overriding the class `.baton-image-preview`.
+  By default, previews are 100px height and have a box shadow on "hover".
+- `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters.
+  By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
+- `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default.
+  By default, its value is `False` and the changelist filters can be expanded clicking a toggle button.
+  This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
+- `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button.
+  With such option all standard filters are displayed as dropdowns.
 - `CHANGEFORM_FIXED_SUBMIT_ROW`: if set to `True` the submit row in the changeform is fixed at the bottom on large screens.
 - `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
 - `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
-- `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
-- `MESSAGES_TOASTS`: you can decide to show all or specific level admin messages in toasts. Set it to `True` to show all message in toasts. set it to `['warning', 'error']` to show only warning and error messages in toasts.
-- `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
+- `MENU_TITLE`: the menu title shown in the sidebar.
+  If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
+- `MESSAGES_TOASTS`: you can decide to show all or specific level admin messages in toasts. Set it to `True` to show all message in toasts.
+  Set it to `['warning', 'error']` to show only warning and error messages in toasts.
+- `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image.
+  Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash,
+  blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
 - `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
-- `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
+- `LOGIN_SPLASH`: an image used as body background in the login page.
+  The image is centered and covers the whole viewport.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
 
 `MENU` and `SEARCH_FIELD` configurations in detail:
 
-### <a name="configuration-menu"></a>MENU
+### <a name="configuration-menu"></a>`MENU`
 
-Currently four kind of items are supported: _title_, _app_, _model_ and _free_.
+Currently four kind of items are supported: `title`, `app`, `model` and `free`.
 
-Title and free voices can have children, which follow the following rules:
+The `title` and `free` voices can have `children`, which follow the following rules:
 
 - children items' children are ignored (do not place an app voice as a child)
+- Items with `children` (`title`, `app`, `free`) can specify a `default_open` key to expand the submenu by default.
 
-Items with children (title, app, free) can specify a `default_open` key to expand the submenu by default.
+If you don't define a `MENU` key in the configuration dictionary, the default is shown.
 
-If you don't define a MENU key in the configuration dictionary, the default MENU is shown.
+#### `title`
 
-#### Title
+Like __MAIN__ and __CONTENTS__ in the screenshot, it represents a menu section. 
+You should set a label and optionally apps or perms key, used for visualization purposes.
 
-Like __MAIN__ and __CONTENTS__ in the screenshot, it represents a menu section. You should set a label and optionally apps or perms key, used for visualization purposes.
+If the title voice should act as a section title for a group of apps, you'd want to specify these apps, 
+because if the user can't operate over them, then the voice is not shown.
+You can also define model permissions using `perms` (OR condition), e.g:
 
-If the title voice should act as a section title for a group of apps, you'd want to specify these apps, because if the user can't operate over them, then the voice is not shown.
-You can also define some perms (OR condition), like this:
-
-    { 'type': 'title', 'label': 'main', 'perms': ('auth.add_user', ) },
+```python
+        {
+            'type': 'title',
+            'label': 'main',
+            'perms': ('auth.add_user', ),
+        },
+```
 
 Title items can have children and so you can specify the _default_open_ key.
 
-#### App
+#### `app`
 
-You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use FontAwesome classes which are included by default), a _default_open_ key and a _models_ key.
-If you don't define the _models_ key, the default app models are listed under your app.
+You must specify the `type` and `name` keys. 
+Optionally, an `icon` key (you can use FontAwesome classes, which are included by default), a `default_open` key and a `models` key.
+If you don't define the `models` key, the default app models are listed under your app.
 
 > **_NOTE:_**  app name should be lowercase
 
-#### Model
+#### `model`
 
-You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
+You must specify the `type`, `name` and `app` keys, and optionally, an `icon`key.
 
 > **_NOTE:_**  model name should be lowercase
 
-#### Free
+#### `free`
 
-You can specify free items. You must define a _url_ and if you want some visibility permissions (OR clause). Free items can have children and so you can specify the _default_open_ key. Free items also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname).
+You can specify free items. You must define a `url` and if you want some visibility permissions (OR clause). 
+Free items can have children and so you can specify the `default_open` key.
+Free items also accept a `re` property, which specifies a (javascript) regular expression used to decide whether to highlight the voice or not. 
+I.e. the regular expression is evaluated against the document location pathname.
 
-	{
-	    'type': 'free',
-	    'label': 'Categories',
-	    'url': '/admin/news/category/',
-	    're': '^/admin/news/category/(\d*)?'
-	}
+```python
+        {
+            'type': 'free',
+            'label': 'Categories',
+            'url': '/admin/news/category/',
+            're': r'^/admin/news/category/(\d*)?',
+        },
+```
 
-### <a name="configuration-search-field"></a>SEARCH FIELD
+### <a name="configuration-search-field"></a>`SEARCH_FIELD`
 
 With Baton you can optionally configure a search field in the sidebar above the menu.
 
 ![Search field](docs/images/search-field.png)
 
-With this functionality, you can configure a sidebar input search field with autocomplete functionality that can let you surf easily and quickly to any page you desire.
+With this functionality, you can configure a sidebar input search field with autocomplete functionality 
+that can let you surf easily and quickly to any page you desire.
 
-```
-'SEARCH_FIELD': {
-    'label': 'Label shown as placeholder',
-    'url': '/api/path/',
-},
+```python
+    'SEARCH_FIELD': {
+        'label': 'Label shown as placeholder',
+        'url': '/api/path/',
+    },
 ```
 
-The autocomplete field will call a custom api at every keyup event. Such api receives the `text` param in the querystring and  should return a json response including the search results in the form:
+The autocomplete field will call a custom api at every keyup event. 
+Such api receives the `text` param in the querystring and  should return a json response including the search results in the form:
 
+```python
+    {
+        length: 2,
+        data: [
+            {
+                label: 'My result #1',
+                icon: 'fa-fw fa-edit',
+                url: '/admin/myapp/mymodel/1/change',
+            },
+            // ...
+        ],
+    },
 ```
-{
-    length: 2,
-    data: [
-        { label: 'My result #1', icon: 'fa fa-edit', url: '/admin/myapp/mymodel/1/change' },
-        // ...
-    ]
-}
-```
-You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional and is treated as css class given to an `i` element.
+You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. 
+The `icon` key is optional and is treated as css class given to an `i` element.
 
 Let's see an example:
 
-```
+```python
 @staff_member_required
 def admin_search(request):
     text = request.GET.get('text', None)
@@ -317,12 +391,15 @@ You can move between the results using the keyboard up and down arrows, and you 
 
 ## <a name="page-detection"></a>Page Detection
 
-Baton triggers some of its functionalities basing upon the current page. For example, it will trigger the tab functionality only when the current page is an add form or change form page.
+Baton triggers some of its functionalities basing upon the current page. 
+For example, it will trigger the tab functionality only when the current page is an add form or change form page.
 
 Baton understands which page is currently displayed performing some basic regular expressions against the location pathname.
-There may be cases in which you'd like to serve such contents at different and custom urls, in such cases you need a way to tell Baton which kind of page is tied to that url.
+There may be cases in which you'd like to serve such contents at different and custom urls, 
+in such cases you need a way to tell Baton which kind of page is tied to that url.
 
-For this reason you can inject your custom hook, a javascript function which should return the page type and that receives as first argument the Baton's default function to use as fallback, i.e.
+For this reason you can inject your custom hook; 
+a javascript function which should return the page type and that receives as first argument the Baton's default function to use as fallback, e.g.
 
 ``` html
 <!-- admin/base_site.html -->
@@ -335,11 +412,14 @@ For this reason you can inject your custom hook, a javascript function which sho
 <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
 
-In this case we tell Baton that when the location pathname includes the string `newschange`, then the page should be considered a `change_form`, otherwise we let Baton guess the page type.
+In this case we tell Baton that when the location pathname includes the string `newschange`, 
+then the page should be considered a `change_form`, otherwise we let Baton guess the page type.
 
-So, in order to hook into the Baton page detection system, just define a `Baton.detectPageHook` function which receives the default function as first argument and should return the page type.
+So, in order to hook into the Baton page detection system, 
+just define a `Baton.detectPageHook` function which receives the default function as first argument and should return the page type.
 
-The available page types are the following: `dashboard`, `admindocs`, `login`, `logout`, `passowrd_change`, `password_change_success`, `add_form`, `change_form`, `changelist`, `filer`, `default`.
+The available page types are the following: 
+`dashboard`, `admindocs`, `login`, `logout`, `passowrd_change`, `password_change_success`, `add_form`, `change_form`, `changelist`, `filer`, `default`.
 
 ## <a name="signals"></a>Signals
 
@@ -380,7 +460,6 @@ Baton Dispatcher singleton module lets you subscribe to events and dispatch them
 Example:
 
 ``` javascript
-
 // register a callback tied to the event
 Baton.Dispatcher.register('myAppLoaded', function (evtName, s) { console.log('COOL ' + s) })
 
@@ -435,7 +514,8 @@ myModal.toggle();
 
 ## <a name="js-translations"></a>Js Translations
 
-There are some circustamces in which Baton will print to screen some js message. Baton detects the user locale and will localize such messages, but it comes with just `en` and `it` translations provided.
+There are some circustamces in which Baton will print to screen some js message. 
+Baton detects the user locale and will localize such messages, but it comes with just `en` and `it` translations provided.
 
 > Baton retrieves the current user locale from the `lang` attribute of the `html` tag.
 
@@ -459,7 +539,8 @@ Baton.translations = {
 }
 ```
 
-If Baton can't find the translations for the user locale, it will default to `en`. Keep in mind that Baton will use `en` translations for all `en-xx` locales, but of course you can specify your custom translations!
+If Baton can't find the translations for the user locale, it will default to `en`. 
+Keep in mind that Baton will use `en` translations for all `en-xx` locales, but of course you can specify your custom translations!
 
 ## <a name="list-filters"></a>List Filters
 
@@ -472,7 +553,6 @@ Taken from this [medium article](https://medium.com/@hakibenita/how-to-add-a-tex
 Baton defines a custom InputFilter class that you can use to create text input filters and use them as any other `list_filters`, for example:
 
 ``` python
-
 # your app admin
 
 from baton.admin import InputFilter
@@ -488,14 +568,12 @@ class IdFilter(InputFilter):
                 id=search_term
             )
 
-
 class MyModelAdmin(admin.ModelAdmin):
     list_filters = (
         'my_field',
         IdFilter,
         'my_other_field',
     )
-
 ```
 
 ### Dropdown Filters
@@ -515,7 +593,7 @@ Baton provides a dropdown form of the following list filters:
 The dropdown is visible only if the filter contains at least three options, otherwise the default template is used.
 
 Usage:
-```
+```python
 from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoicesDropdownFilter
 
 class MyModelAdmin(admin.ModelAdmin):
@@ -546,7 +624,6 @@ class StatusListFilter(MultipleChoiceListFilter):
     def lookups(self, request, model_admin):
         return News.Status.choices
 
-
 class MyModelAdmin(admin.ModelAdmin):
     list_filters = (
         'my_field',
@@ -559,7 +636,8 @@ class MyModelAdmin(admin.ModelAdmin):
 
 > In order for this feature to work, the user browser must support html template tags.
 
-Baton lets you include templates directly inside the change list page, in any position you desire. It's as simple as specifying the template path and the position of the template:
+Baton lets you include templates directly inside the change list page, in any position you desire. 
+It's as simple as specifying the template path and the position of the template:
 
 ```python
 @admin.register(News)
@@ -571,7 +649,8 @@ class NewsAdmin(admin.ModelAdmin):
     ]
 ```
 
-In this case, Baton will place the content of the `admin_include_top.html` template at the top of the changelist section (above the search field), and the content of the `admin_include_below.html` below the changelist form.
+In this case, Baton will place the content of the `admin_include_top.html` template at the top of the changelist section (above the search field),
+and the content of the `admin_include_below.html` below the changelist form.
 
 ![Baton changelist includes](docs/images/baton-cl-includes.png)
 
@@ -590,7 +669,8 @@ And, of course, you can access the all the changelist view context variables ins
 
 > In order for this feature to work, the user browser must support html template tags.
 
-Baton lets you include templates directly inside the change list filter container, at the top or the bottom. It's as simple as specifying the template path and the position of the template:
+Baton lets you include templates directly inside the change list filter container, at the top or the bottom. 
+It's as simple as specifying the template path and the position of the template:
 
 ```python
 @admin.register(News)
@@ -628,13 +708,15 @@ It's a bit tricky, let's see how:
 
 Better to see an example:
 
-``` javascript
+```python
 class NewsModelAdmin(admin.ModelAdmin):
     # ...
 
-    def get_category(self, instance):
-        return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
-    get_category.short_description = 'category'
+    @admin.display(description='category')
+    def get_category(self, obj):
+        return mark_safe(
+            f'<span class="span-category-id-{obj.id}">{obj.category}</span>'
+        )
 
     def baton_cl_rows_attributes(self, request, cl):
         data = {}
@@ -642,11 +724,11 @@ class NewsModelAdmin(admin.ModelAdmin):
             data[news.id] = {
                 'class': 'table-info',
             }
-        data[news.id] = {
+        data[42] = {
             'class': 'table-success',
             'data-lol': 'lol',
             'title': 'A fantasctic tooltip!',
-            'selector': '.span-category-id-%d' % 1,
+            'selector': '.span-category-id-1',
             'getParent': 'td',
         }
         return json.dumps(data)
@@ -656,13 +738,21 @@ In such case we're returning a dictionary with possibly many keys (each key is a
 
 The first kind of dictionary elements will add a `table-info` class to the `tr` (rows) containing the news respecting the rule `category__id=2`
 
-The second kind of element instead uses some more options to customize the element selection: you can specify a css selector, and you can specify if Baton should then take one of its parents, and in such case you can give a parent selector also.
-In the example provided Baton will add the class `table-success`, `data-attribute` and the `title` attribute to the cell which contains the element `.span-category-id-1`.
+The second kind of element instead uses some more options to customize the element selection: 
+You can specify a css selector, and you can specify if Baton should then take one of its parents, 
+and in such case you can give a parent selector also.
+
+In the example provided Baton will add the class `table-success`, 
+`data-attribute` and the `title` attribute to the cell which contains the element `.span-category-id-1`.
 
 So these are the rules:
 
-- the default `selector` is `#result_list tr input[name=_selected_action][value=' + key + ']`, meaning that it can work only if the model is editable (you have the checkox inputs for selecting a row), and selects the row of the instance identified by `key`. If you use a custom selector the dictionary `key` is unuseful.
-- the default `getParent` is `tr`. You can change it at you will, or set it to `False`, in such case the element to which apply the given attributes will be the one specified by `selector`.
+- the default `selector` is `#result_list tr input[name=_selected_action][value=' + key + ']`,
+  meaning that it can work only if the model is editable (you have the checkox inputs for selecting a row),
+  and selects the row of the instance identified by `key`.
+  If you use a custom selector the dictionary `key` is unuseful.
+- the default `getParent` is `tr`. You can change it at you will, or set it to `False`,
+  in such case the element to which apply the given attributes will be the one specified by `selector`.
 - Every other key different from `selector` and `getParent` will be considered an attribute and added to the element.
 
 ## <a name="form-tabs"></a>Form tabs
@@ -677,7 +767,8 @@ There are three types of tabs:
 - **inline tab**: a tab containing an inline
 - **group tab**: a tab which can contain fieldsets and inlines in the order you specify
 
-Tabs' titles are retrieved automatically. For fieldset and inline tabs, it's the fieldset's title and the inline related verbose name plural.
+Tabs' titles are retrieved automatically. 
+For fieldset and inline tabs, it's the fieldset's title and the inline related verbose name plural.
 For group tabs the first title is taken (either of an inline or fieldset section).
 
 Using group tabs you can mix inlines with fields just by splitting fields into fieldsets and arranging them in your preferred order.
@@ -694,27 +785,31 @@ class FeatureInline(admin.StackedInline):
     extra = 1
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('label', 'description', 'main_feature', )
-    inlines = [AttributeInline, FeatureInline, ]
+    list_display = ('label', 'description', 'main_feature')
+    inlines = (AttributeInline, FeatureInline)
 
     fieldsets = (
         ('Main', {
             'fields': ('label', ),
-            'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
-            'description': 'This is a description text'
-
+            'classes': (
+                'order-0',
+                'baton-tabs-init',
+                'baton-tab-inline-attribute',
+                'baton-tab-fs-content',
+                'baton-tab-group-fs-tech--inline-feature',
+            ),
+            'description': 'This is a description text',
         }),
         ('Content', {
             'fields': ('text', ),
             'classes': ('tab-fs-content', ),
-            'description': 'This is another description text'
+            'description': 'This is another description text',
 
         }),
         ('Tech', {
             'fields': ('main_feature', ),
             'classes': ('tab-fs-tech', ),
-            'description': 'This is another description text'
-
+            'description': 'This is another description text',
         }),
     )
 ```
@@ -723,12 +818,20 @@ As you can see these are the rules:
 
 - Inline classes remain the same, no action needed
 - On the first fieldset, define a `baton-tabs-init` class which enables tabs
-- On the first fieldset, you can add an `order-[NUMBER]` class, which will be used to determined in which position to place the first fieldset. The order starts from 0, and if omitted, the first fieldset has order 0. If you assign for example the class `order-2` to the first fieldset, then the first fieldset will be the third tab, while all other tabs will respect the order of declaration.
-- For every inline you want to put in a separate tab, add a class `baton-tab-inline-MODELNAME` or `baton-tab-inline-RELATEDNAME` if you've specified a related name in the model foreign key field
+- On the first fieldset, you can add an `order-[NUMBER]` class, which will be used to determined in which position to place the first fieldset.
+  The order starts from 0, and if omitted, the first fieldset has order 0.
+  If you assign for example the class `order-2` to the first fieldset, then the first fieldset will be the third tab,
+  while all other tabs will respect the order of declaration.
+- For every inline you want to put in a separate tab,
+  add a class `baton-tab-inline-MODELNAME` or `baton-tab-inline-RELATEDNAME` if you've specified a related name in the model foreign key field
 - For every fieldset you want to put in a separate tab, add a class `baton-tab-fs-CUSTOMNAME`, and add a class `tab-fs-CUSTOMNAME` on the fieldset
-- For every group you want to put in a separate tab, add a class `baton-tab-group-ITEMS`, where items can be inlines (`inline-RELATEDNAME`) and/or fieldsets (`fs-CUSTOMNAME`) separated by a double hypen `--`. Also add a class `tab-fs-CUSTOMNAME` on the fieldset items.
+- For every group you want to put in a separate tab, add a class `baton-tab-group-ITEMS`,
+  where items can be inlines (`inline-RELATEDNAME`) and/or fieldsets (`fs-CUSTOMNAME`) separated by a double hypen `--`.
+  Also add a class `tab-fs-CUSTOMNAME` on the fieldset items.
 - Tabs order respects the defined classes order
-- Fieldsets without a specified tab will be added to the main tab. If you want the fieldset to instead display outside of any tabs, add a class `tab-fs-none` to the fieldset. The fieldset will then always be visible regardless of the current tab.
+- Fieldsets without a specified tab will be added to the main tab.
+  If you want the fieldset to instead display outside of any tabs, add a class `tab-fs-none` to the fieldset.
+  The fieldset will then always be visible regardless of the current tab.
 
 Other features:
 
@@ -739,19 +842,21 @@ Other features:
 
 > In order for this feature to work, the user browser must support html template tags.
 
-Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
+Baton lets you include templates directly inside the change form page, in any position you desire. 
+It's as simple as specifying the template path, the field name used as anchor and the position of the template:
 
 ```python
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     #...
     baton_form_includes = [
-        ('news/admin_datetime_include.html', 'datetime', 'top', ),
-        ('news/admin_content_include.html', 'content', 'above', )
+        ('news/admin_datetime_include.html', 'datetime', 'top'),
+        ('news/admin_content_include.html', 'content', 'above'),
     ]
 ```
 
-In this case, Baton will place the content of the `admin_datetime_include.html` template at the top of the datetime field row, and the content of the `admin_content_include.html` above the content field row.
+In this case, Baton will place the content of the `admin_datetime_include.html` template at the top of the datetime field row, 
+and the content of the `admin_content_include.html` above the content field row.
 
 ![Baton form includes](docs/images/baton-form-includes.png)
 
@@ -775,20 +880,20 @@ It works seamlessly with the tab facility, if you include content related to a f
 
 Baton lets you collapse single stacked inline entries, just add a `collapse-entry` class to the inline, with or without the entire collapse class:
 
-```
+```python
 class VideosInline(admin.StackedInline):
     model = Video
     extra = 1
-    classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+    classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry')
 ```
 
 And if you want the first entry to be initially expanded, add also the `expand-first` class:
 
-```
+```python
 class VideosInline(admin.StackedInline):
     model = Video
     extra = 1
-    classes = ('collapse-entry', 'expand-first', )
+    classes = ('collapse-entry', 'expand-first')
 ```
 
 ## <a name="customization"></a>Customization
@@ -797,54 +902,70 @@ It's easy to heavily customize the appeareance of __baton__. All the stuff is co
 
 ![Customization](docs/images/customization.png)
 
-You just need to change the [SASS variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) (and you can also overwrite Bootstrap variables), re-compile, get the compiled JS file, place it in the static folder of your main app,
+You just need to change the [SASS variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) 
+(and you can also overwrite Bootstrap variables), re-compile, get the compiled JS file, place it in the static folder of your main app,
 and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
 So:
 
-    $ git clone https://github.com/otto-torino/django-baton.git
-    $ cd django-baton/baton/static/baton/app/
-    $ npm install
-    $ vim src/styles/_variables.scss
-    $ npm run compile
-    $ cp dist/baton.min.js ROOTAPP/static/baton/app/dist/
+```bash
+$ git clone https://github.com/otto-torino/django-baton.git
+$ cd django-baton/baton/static/baton/app/
+$ npm install
+$ vim src/styles/_variables.scss
+$ npm run compile
+$ cp dist/baton.min.js ROOTAPP/static/baton/app/dist/
+```
 
 If you want to test your live changes, just start the webpack dev server:
 
-    $ cd django-baton/baton/static/baton/app/
-    $ npm run dev
+```bash
+$ cd django-baton/baton/static/baton/app/
+$ npm run dev
+```
 
 And inside the `base_site.html` template, make these changes:
 
-    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+```html
+<!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
+<script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+```
 
 Now while you make your changes to the JS app (CSS included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
 
 ## <a name="tests"></a>Tests
 
-Starting from the release 1.7.1, django baton is provided with a set of unit and e2e tests. Testing baton is not so easy, because it almost do all the stuff with css rules and by manipulating the DOM. So the e2e tests are performed using selenium and inspecting the test application inside a real browser. In order to have them run properly, you need to have the test application running on `localhost:8000`.
+Starting from the release 1.7.1, django baton is provided with a set of unit and e2e tests. 
+Testing baton is not so easy, because it almost do all the stuff with css rules and by manipulating the DOM. 
+So the e2e tests are performed using selenium and inspecting the test application inside a real browser. 
+In order to have them run properly, you need to have the test application running on `localhost:8000`.
 
 ## <a name="development"></a>Development
 
 Start the test app (login admin:admin):
 
-    $ cd testapp
-    $ python3 -m venv .virtualenv
-    $ cd app
-    $ pip install -r requirements.txt
-    $ python manage.py runserver
+```bash
+$ cd testapp
+$ python3 -m venv .virtualenv
+$ cd app
+$ pip install -r requirements.txt
+$ python manage.py runserver
+```
 
 Switch the baton js path in `base_site.html`
 
-    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+```html
+<!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
+<script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+```
 
 Start the js app in watch mode
 
-    $ cd baton/static/baton/app
-    $ npm install
-    $ npm run dev
+```bash
+$ cd baton/static/baton/app
+$ npm install
+$ npm run dev
+```
 
 Now you'll see live all your changes in the testapp.
 
@@ -852,11 +973,15 @@ Now you'll see live all your changes in the testapp.
 
 Install `invoke` and `sphinx_rtd_theme`
 
-    $ pip install invoke sphinx_rtd_theme
+```bash
+$ pip install invoke sphinx_rtd_theme
+```
 
 Now you can generate the documentation in order to check it. Inside the root dir:
 
-    $ invoke docs
+```bash
+$ invoke docs
+```
 
 ## <a name="contributing"></a>Contributing
 
