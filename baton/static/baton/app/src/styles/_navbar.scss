@@ -88,7 +88,13 @@ body.page-logout #header {
 }
 
 #site-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
   // @extend .nav-item;
+}
+
+.menu-open #site-name {
+  padding-right: 30px; // leave space for close menu icon
 }
 
 #user-tools {
