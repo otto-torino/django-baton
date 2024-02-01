@@ -29,7 +29,7 @@ body:not(.menu-mobile) {
   position: fixed;
   top: 0;
   transition: left .4s ease-out;
-  z-index: 10002;
+  z-index: 1002;
 
   @include media-breakpoint-up(lg) {
     overflow: auto;
