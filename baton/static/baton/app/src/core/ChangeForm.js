@@ -214,6 +214,7 @@ const ChangeForm = {
         fixPosition()
         $(window).on('scroll', fixPosition)
         $(window).on('resize', fixPosition)
+        this.Dispatcher.register('onTabsReady', fixPosition)
         this.Dispatcher.register('onTabChanged', fixPosition)
     },
 }
