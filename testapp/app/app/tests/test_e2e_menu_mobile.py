@@ -54,12 +54,14 @@ class TestBatonMenuMobile(TestCase):
 
         toggler = self.driver.find_element(By.CSS_SELECTOR, ".navbar-toggler")
         toggler.click()
+        time.sleep(2)
         self.assertEqual(self.navbar_is_visible(navbar), True)
         self.assertEqual('menu-open' in self.driver.find_element(By.TAG_NAME, 'body').get_attribute('class').split(), True)
         root_voices = navbar.find_elements(By.CSS_SELECTOR, '.depth-0 > li')
 
         close_button = self.driver.find_element(By.CLASS_NAME, 'fa-times')
         close_button.click()
+        time.sleep(2)
         self.assertEqual('menu-open' in self.driver.find_element(By.TAG_NAME, 'body').get_attribute('class').split(), False)
         self.assertEqual(self.navbar_is_invisible(navbar), True)
 
