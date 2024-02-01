@@ -930,7 +930,7 @@
 
 .baton-menu-always-collapsed {
   @include media-breakpoint-up(lg) {
-    .baton-fixed-submit-row {
+    .baton-fixed-submit-row .submit-row {
       left: 0 !important;
       width: 100% !important;
     }
