@@ -154,7 +154,7 @@ class NewsAdmin(ImportExportModelAdmin):
                 'class': 'table-info',
                 # 'selector': '#result_list tr input[name=_selected_action][value=%d]' % news.id,
             }
-        data[news.id] = {
+        data[1] = {
             'class': 'table-success',
             'selector': '.span-category-id-%d' % 1,
             'getParent': 'td',
