@@ -8,4 +8,11 @@
         </div>
     </template>
 {% endfor %}
+
+{% if adminform.model_admin.baton_form_object_tools_include %}
+    <template id="template-object-tools" data-position="{{ adminform.model_admin.baton_form_object_tools_include.1 }}">
+        {% include adminform.model_admin.baton_form_object_tools_include.0 %}
+    </template>
+{% endif %}
+
 {% endblock %}

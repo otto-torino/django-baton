@@ -739,7 +739,7 @@ Other features:
 
 > In order for this feature to work, the user browser must support html template tags.
 
-Baton lets you include templates directly inside the change form page, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
+Baton lets you include templates directly inside the change form page near a field, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
 
 ```python
 @admin.register(News)
@@ -768,6 +768,17 @@ You can specify the following positions:
 And, of course, you can access the `{{ original }}` object variable inside your template.
 
 It works seamlessly with the tab facility, if you include content related to a field inside one tab, then the content will be placed in the same tab.
+
+Baton lets also include templates in the object tools top bar in the change form page, keep in mind that suche templates are injected inside an `ul` tag. The template can be inserted on the left or the right:
+
+```python
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    #...
+    baton_form_object_tools_include = ('news/object_tools_include.html', 'left', )
+```
+
+![Baton form object tools includes](docs/images/baton_form_object_tools_include.png)
 
 ## <a name="collapsable-stackedinline"></a>Collapsable stacked inlines entries
 
