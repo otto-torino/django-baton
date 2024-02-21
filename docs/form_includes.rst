@@ -36,3 +36,13 @@ You can specify the following positions:
 And, of course, you can access the `{{ original }}` object variable inside your template.
 
 It works seamlessly with the tab facility, if you include content related to a field inside one tab, then the content will be placed in the same tab.
+
+Baton lets also include templates in the object tools top bar in the change form page, keep in mind that suche templates are injected inside an ``ul`` tag. The template can be inserted on the left or the right::
+
+    @admin.register(News)
+    class NewsAdmin(admin.ModelAdmin):
+        #...
+        baton_form_object_tools_include = ('news/object_tools_include.html', 'left', )
+
+
+.. image:: images/baton_form_object_tools_include.png

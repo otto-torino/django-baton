@@ -187,7 +187,7 @@ const ChangeForm = {
             bottom: 'append',
             right: 'after',
         }
-        $('template').each(function(_, template) {
+        $('template:not(#template-object-tools)').each(function(_, template) {
             const field = $(template).attr('id').replace('template-', '')
             const position = positionMap[$(template).attr('data-position')]
             if (position !== undefined) {
@@ -199,6 +199,12 @@ const ChangeForm = {
             } else {
                 console.error('Baton: wrong form include position detected')
             }
+        })
+
+        $('template#template-object-tools').each(function(_, template) {
+          const position = $(template).attr('data-position') === 'right' ? 'append' : 'prepend'
+          const el = $('ul.object-tools')
+          el[position]($(template).html())
         })
     },
     fixSubmitRow: function() {
