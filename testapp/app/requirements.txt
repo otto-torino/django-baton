@@ -13,7 +13,7 @@ click==7.1.2
 colorama==0.4.4
 configparser==5.0.1
 crayons==0.4.0
-cryptography==3.4.5
+cryptography==41.0.4
 cssselect2==0.6.0
 defusedxml==0.7.1
 diff-match-patch==20200713
