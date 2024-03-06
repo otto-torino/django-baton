@@ -2,43 +2,58 @@ export const messages = {
   unsavedChangesAlert: {
     en: 'You have some unsaved changes.',
     it: 'Alcune modifiche non sono state salvate.',
+    es: 'Tienes algunos cambios sin guardar.',
   },
   uploading: {
     en: 'Uploading...',
     it: 'Uploading...',
+    es: 'Cargando...',
   },
   filter: {
     en: 'Filter',
     it: 'Filtra',
+    es: 'Filtrar',
   },
   close: {
     en: 'Close',
     it: 'Chiudi',
+    es: 'Cerrar',
   },
   save: {
     en: 'Save',
     it: 'Salva',
+    es: 'Guardar',
   },
   search: {
     en: 'Search',
     it: 'Cerca',
+    es: 'Buscar',
   },
   cannotCopyToClipboardMessage: {
     en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
     it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter',
+    es: 'No se puede copiar al portapapeles, por favor copie manualmente: Ctrl+C, Enter',
   },
   retrieveDataError: {
     en: 'There was an error retrieving the data',
     it: 'Si è verificato un errore nel reuperare i dati',
+    es: 'Hubo un error al recuperar los datos',
   },
   lightTheme: {
     en: 'Light theme',
     it: 'Tema chiaro',
+    es: 'Tema claro',
   },
   darkTheme: {
     en: 'Dark theme',
     it: 'Tema scuro',
+    es: 'Tema oscuro',
   },
+  translate: {
+    en: 'Translate',
+    it: 'Traduci',
+    es: 'Traducir',
+  }
 }
 
 export default class Translator {
