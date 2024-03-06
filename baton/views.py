@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import json
+import hmac
+import base64
+import time
+import requests
 from django.http import JsonResponse
 from django.contrib.admin import site
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ImproperlyConfigured
 from django.views import View
+from django.conf import settings
 
 from .config import get_config
 
@@ -250,5 +256,33 @@ class GetGravatartUrlJsonView(View):
             return JsonResponse({"hash": hash.hexdigest()})
         except Exception:
             return JsonResponse({})
+
+class TranslateView(View):
+    def post(self, request):
+        payload = { "items": [] }
+        for field in json.loads(request.body):
+            payload["items"].append({
+                "languages": field.get("languages"),
+                "id": field.get("field"),
+                "text": field.get("text"),
+            })
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/translate/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        # Print the response
+        post_response_json = post_response.json()
+
+        return JsonResponse({"data": post_response_json, "success": True})
 
 

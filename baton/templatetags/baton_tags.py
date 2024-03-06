@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django import template
 from django.utils.html import escapejs
+from django.conf import settings
 
 from ..config import get_config
 
@@ -9,10 +10,32 @@ register = template.Library()
 
 @register.simple_tag
 def baton_config():
+    # retrieve the default language
+    default_language = None
+    try:
+        default_language = settings.MODELTRANSLATION_DEFAULT_LANGUAGE
+    except AttributeError:
+        default_language = settings.LANGUAGES[0][0]
+    except:
+        pass
+
+    # retrieve other languages for translations
+    other_languages = []
+    try:
+        other_languages = [l[0] for l in settings.LANGUAGES if l[0] != default_language]
+    except:
+        pass
+
+    ai_config = get_config('AI') or {}
+
     conf = {
         "api": {
             "app_list": reverse('baton-app-list-json'),
             "gravatar": reverse('baton-gravatar-json'),
+        },
+        "ai": {
+            "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False),
+            "translateApiUrl": reverse('baton-translate'),
         },
         "confirmUnsavedChanges": get_config('CONFIRM_UNSAVED_CHANGES'),
         "showMultipartUploading": get_config('SHOW_MULTIPART_UPLOADING'),
@@ -30,6 +53,8 @@ def baton_config():
         "loginSplash": get_config('LOGIN_SPLASH'),
         "searchField": get_config('SEARCH_FIELD'),
         "forceTheme": get_config('FORCE_THEME'),
+        "defaultLanguage": default_language,
+        "otherLanguages": other_languages,
     }
 
     return conf

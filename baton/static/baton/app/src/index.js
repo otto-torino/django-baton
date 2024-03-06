@@ -16,6 +16,7 @@ import AdminDocs from './core/AdminDocs'
 import Filer from './core/Filer'
 import Modal from './core/Modal'
 import Messages from './core/Messages'
+import AI from './core/AI'
 
 window.Baton = {
   intialized: false,
@@ -66,6 +67,9 @@ window.Baton = {
     if (page === 'add_form' || page === 'change_form') {
       Tabs.init(Dispatcher)
     }
+
+    // AI
+    AI.init(config, page)
 
     // tooltips
     setTimeout(this.loadTooltips, 1000) // wait a bit for tinymce
