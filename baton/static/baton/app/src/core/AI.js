@@ -23,7 +23,6 @@ const AI = {
     },
     translate: function() {
         var self = this
-        console.log('THIS', this)
         // spinner
         const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
         const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
@@ -64,7 +63,7 @@ const AI = {
                 try {
                     ; (data.data?.items || []).forEach(function(item) {
                         const key = `${item.id}_${item.language}`
-                        if (CKEDITOR.instances[key]) {
+                        if (CKEDITOR?.instances[key]) {
                             CKEDITOR.instances[key].insertText(item.translation)
                         } else {
                             $('#' + key).val(item.translation)
