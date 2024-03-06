@@ -44,7 +44,7 @@ const AI = {
             })
             if (missing.length > 0) {
                 payload.push({
-                    text: CKEDITOR?.instances[`${baseId}_${self.config.defaultLanguage}`]?.getData() || $(`#${baseId}_${self.config.defaultLanguage}`).val(),
+                    text: window.CKEDITOR?.instances[`${baseId}_${self.config.defaultLanguage}`]?.getData() || $(`#${baseId}_${self.config.defaultLanguage}`).val(),
                     field: baseId,
                     languages: missing,
                 })
@@ -63,8 +63,8 @@ const AI = {
                 try {
                     ; (data.data?.items || []).forEach(function(item) {
                         const key = `${item.id}_${item.language}`
-                        if (CKEDITOR?.instances[key]) {
-                            CKEDITOR.instances[key].insertText(item.translation)
+                        if (window.CKEDITOR?.instances[key]) {
+                            window.CKEDITOR.instances[key].insertText(item.translation)
                         } else {
                             $('#' + key).val(item.translation)
                         }
