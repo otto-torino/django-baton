@@ -20,11 +20,9 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
-Baton 3.0.* removes the `analyitcs` module!
+Baton 4.0.* introduces the AI functionalities!
 
-It also introduces a cool option, which is enabled by default, and displays the changeform submit row fixed at the bottom on large screens.
-
-It fixes some bugs.
+Translate all your contents with just one click, more info below in the dedicated section
 
 ---
 
@@ -35,6 +33,7 @@ It fixes some bugs.
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
+    - [AI](#configuration-ai)
     - [Menu](#configuration-menu)
     - [Search Field](#configuration-search-field)
 - [Page Detection](#page-detection)
@@ -74,6 +73,7 @@ Everything is styled through CSS and when required, JS is used.
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Customization available by recompiling the js app provided
 - IT translations provided
+- Automatic translations with AI (you need a subscription key)
 
 Baton is based on the following frontend technologies:
 
@@ -159,6 +159,11 @@ BATON = {
         'label': 'Search contents...',
         'url': '/search/',
     },
+    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
+    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'AI': {
+        'ENABLE_TRANSLATIONS': True,
+    },
     'MENU': (
         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
         {
@@ -207,8 +212,32 @@ Default value is `True`.
 - `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
+- `BATON_CLIENT_ID`: The client ID of your baton subscription. Defaults to `None`
+- `BATON_CLIENT_SECRET`: The client secret of your baton subscription. Defaults to `None`
 
-`MENU` and `SEARCH_FIELD` configurations in detail:
+`AI`, `MENU` and `SEARCH_FIELD` configurations in detail:
+
+### <a name="configuration-ai"></a>AI
+
+Django Baton can provide you AI assistance in the admin interface. You can enable it by setting the `AI` key in the configuration dictionary.    
+Currently only the translations feature is available. It's designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
+Baton will then fill in the fields with the translations.
+
+In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET` keys in the configuration dictionary. In order to obtain these keys for now you need to contact
+our company [Otto srl](https://www.otto.to.it).
+
+New features will be addedd soon, stay tuned.
+
+```
+    ...
+    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
+    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'AI': {
+        'ENABLE_TRANSLATIONS': True,
+    },
+    ...
+```
 
 ### <a name="configuration-menu"></a>MENU
 

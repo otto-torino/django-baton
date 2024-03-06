@@ -34,7 +34,7 @@ def baton_config():
             "gravatar": reverse('baton-gravatar-json'),
         },
         "ai": {
-            "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False),
+            "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "translateApiUrl": reverse('baton-translate'),
         },
         "confirmUnsavedChanges": get_config('CONFIRM_UNSAVED_CHANGES'),
