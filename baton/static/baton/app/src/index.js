@@ -38,9 +38,9 @@ window.Baton = {
     // toasts
     Messages.init(config)
 
-    Navbar.init(config)
-    Dispatcher.emit('onNavbarReady')
     if (page !== 'login' && page !== 'logout' && !/_popup/.test(location.search)) {
+      Navbar.init(config)
+      Dispatcher.emit('onNavbarReady')
       Menu.init(config, Dispatcher)
     }
     if (page === 'login') {
