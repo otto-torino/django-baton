@@ -82,6 +82,7 @@
       flex: 1;
       flex-direction: row;
       flex-wrap: wrap;
+      gap: .5rem;
 
       &.form-multiline {
         margin-left: 0%;
@@ -192,6 +193,18 @@
 
       @include media-breakpoint-up(lg) {
         margin-left: 10%;
+      }
+    }
+
+    // ckeditor
+    .cke {
+      + a {
+        margin-top: .5rem;
+
+        + a {
+          margin-top: .5rem;
+          margin-left: .5rem;
+        }
       }
     }
 
@@ -414,7 +427,6 @@
   }
 
   label {
-    @extend .pe-3;
     flex-basis: 100%;
     text-align: left;
 

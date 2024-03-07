@@ -55,9 +55,9 @@ export const messages = {
         es: 'Traducir',
     },
     generateSummary: {
-        en: 'Generate summary',
-        it: 'Genera il riassunto',
-        es: 'Generar resumen',
+        en: 'Summarize in',
+        it: 'Riassumi in',
+        es: 'Resumen en',
     },
     generate: {
         en: 'Generate',
