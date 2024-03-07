@@ -220,6 +220,9 @@ Default value is `True`.
 ### <a name="configuration-ai"></a>AI
 
 Django Baton can provide you AI assistance in the admin interface. You can enable it by setting the `AI` key in the configuration dictionary.    
+
+> Note: This feature is currently experimental.
+
 Currently only the translations feature is available. It's designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
 If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.

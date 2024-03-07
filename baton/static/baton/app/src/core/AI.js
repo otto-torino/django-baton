@@ -14,12 +14,40 @@ const AI = {
         }
     },
     activateTranslations: function() {
+        // check if form has fields that need translation
+        let hasTranslations = false
+        const firstOtherLanguage = this.config.otherLanguages.length ? this.config.otherLanguages[0] : null
+
+        if (firstOtherLanguage) {
+            const re = new RegExp(`_${this.config.defaultLanguage}$`)
+            const fieldsIds = $(`[id$=_${this.config.defaultLanguage}]`)
+                .filter((_, el) => !$(el).attr('id').includes('__prefix__'))
+
+            for (const fieldId of fieldsIds) {
+
+                if ($(`#${fieldId.id}`.replace(re, `_${firstOtherLanguage}`)).length) {
+                    hasTranslations = true
+                    break
+                }
+            }
+        }
+
+        if (!hasTranslations) {
+            return
+        }
+
+        // add translate button if needed
         this.t = new Translator($('html').attr('lang'))
         const translateButton = $('<a />', { id: 'translate-tool', href: '#' })
             .on('click', this.translate.bind(this))
             .prepend($('<i />', { class: 'fa fa-language' }))
             .append($('<span />').text(` ${this.t.get('translate')}`))
-        $('ul.object-tools').prepend($('<li />').append(translateButton))
+        const container = $('ul.object-tools')
+        if (container.length) { // change form
+            container.prepend($('<li />').append(translateButton))
+        } else { // add form
+            $('<ul />', { class: 'object-tools' }).prepend($('<li />').append(translateButton)).prependTo('#content-main')
+        }
     },
     translate: function() {
         var self = this
