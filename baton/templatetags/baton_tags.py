@@ -88,6 +88,6 @@ def call_model_admin_method(context, **kwargs):
         return None
 
 
+@register.filter
 def to_json(python_dict):
     return json.dumps(python_dict)
-register.filter("to_json", to_json)
