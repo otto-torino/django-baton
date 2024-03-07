@@ -258,6 +258,11 @@ class GetGravatartUrlJsonView(View):
             return JsonResponse({})
 
 class TranslateView(View):
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args, **kwargs):
+        """ Only staff members can access this view """
+        return super(TranslateView, self).dispatch(*args, **kwargs)
+
     def post(self, request):
         payload = { "items": [] }
         for field in json.loads(request.body):
