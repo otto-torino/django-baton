@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import GetAppListJsonView, GetGravatartUrlJsonView, TranslateView
+from .views import GetAppListJsonView, GetGravatartUrlJsonView, TranslateView, SummarizeView
 
 
 urlpatterns = [
@@ -10,4 +10,6 @@ urlpatterns = [
         name='baton-gravatar-json'),
     path('translate/', TranslateView.as_view(),
         name='baton-translate'),
+    path('summarize/', SummarizeView.as_view(),
+        name='baton-summarize'),
 ]

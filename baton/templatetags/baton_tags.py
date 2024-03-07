@@ -1,3 +1,4 @@
+import json
 from django.urls import reverse
 from django import template
 from django.utils.html import escapejs
@@ -36,6 +37,7 @@ def baton_config():
         "ai": {
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "translateApiUrl": reverse('baton-translate'),
+            "summarizeApiUrl": reverse('baton-summarize'),
         },
         "confirmUnsavedChanges": get_config('CONFIRM_UNSAVED_CHANGES'),
         "showMultipartUploading": get_config('SHOW_MULTIPART_UPLOADING'),
@@ -84,3 +86,8 @@ def call_model_admin_method(context, **kwargs):
         return getattr(model_admin, method)(context['request'], **kwargs)
     except Exception as e:
         return None
+
+
+def to_json(python_dict):
+    return json.dumps(python_dict)
+register.filter("to_json", to_json)

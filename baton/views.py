@@ -291,3 +291,34 @@ class TranslateView(View):
         return JsonResponse({"data": post_response_json, "success": True})
 
 
+class SummarizeView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        payload = {
+            "id": data.get("id"),
+            "text": data.get("text"),
+            "words": data.get("words"),
+            "useBulletedList": data.get("useBulletedList"),
+            "languages": data.get("language"),
+        }
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/summarize/"
+        # url_post = "http://192.168.1.245:1323/api/v1/summarize/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        # Print the response
+        post_response_json = post_response.json()
+
+        return JsonResponse({"data": post_response_json, "success": True})
+
+

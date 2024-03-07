@@ -15,4 +15,16 @@
     </template>
 {% endif %}
 
+{% if adminform.model_admin.baton_summarize_fields %}
+    {% for field, items in adminform.model_admin.baton_summarize_fields.items %}
+        {% for item in items %}
+            <script>
+                Baton.Dispatcher.register('onReady', function () {
+                    Baton.AI.addSummarization('{{ field }}', {{ item|to_json|safe }});
+                })
+            </script>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
 {% endblock %}
