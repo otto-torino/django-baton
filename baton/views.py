@@ -322,3 +322,31 @@ class SummarizeView(View):
         return JsonResponse({"data": post_response_json, "success": True})
 
 
+class GenerateImageView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        payload = {
+            "id": data.get("id"),
+            "prompt": data.get("prompt"),
+        }
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/image/"
+        # url_post = "http://192.168.1.160:1323/api/v1/image/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        post_response_json = post_response.json()
+
+        if post_response.status_code != 200:
+            return JsonResponse({"data": post_response_json, "success": False}, status=post_response.status_code)
+
+        return JsonResponse({"data": post_response_json, "success": True})

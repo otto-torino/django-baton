@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if widget.is_initial %}<div class="file-upload">{{ widget.initial_text }}: <a {% if widget.attrs.subject_location_field %}onclick="window.open('{{ widget.value.url }}')" href="javascript:void(0)"{% else %}href="{{ widget.value.url }}"{% endif %}>{{ widget.value }}</a>{% if widget.attrs.subject_location_field %}<br /><div class="subject-image-preview" id="subject-image-preview-{{ widget.attrs.id }}" style="display: inline-block; position: relative; margin-bottom: 1rem;"><img draggable="false" style="width: {{ widget.attrs.preview_width }}px;user-select: none;" src="{{ widget.value.url }}" /></div>{% endif %}{% if not widget.required %}
+<span class="clearable-file-input">
+<input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+<label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label></span>{% endif %}<br>
+{{ widget.input_text }}:{% endif %}
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if widget.is_initial %}</div>{% endif %}
+<script>
+    Baton.Dispatcher.register('onReady', function () {
+        Baton.AI.addImageGeneration('{{ widget.name }}')
+    })
+</script>

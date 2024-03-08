@@ -113,6 +113,8 @@ const AI = {
           })
           overlay.remove()
         } catch (e) {
+          console.log(err)
+          alert(self.t.get('error') + ': ' + err)
           overlay.remove()
         }
       })
@@ -191,7 +193,6 @@ const AI = {
       headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
     })
       .done(function (data) {
-        console.log('DATA', data, targetId, $('#' + targetId), window.CKEDITOR) // eslint-disable-line
         try {
           if (window.CKEDITOR?.instances[targetId]) {
             window.CKEDITOR.instances[targetId].setData('', {
@@ -204,7 +205,10 @@ const AI = {
           }
           overlay.remove()
         } catch (e) {
+          console.log(err)
+          alert(self.t.get('error') + ': ' + err)
           overlay.remove()
+          return null
         }
         modal.close()
         modal.destroy()
@@ -214,6 +218,124 @@ const AI = {
         modal.close()
         modal.destroy()
       })
+  },
+  addImageGeneration(fieldName) {
+    const field = $(`#id_${fieldName}`)
+
+    const generateImageButton = $('<a />', {
+      id: `generate-image-${fieldName}`,
+      class: 'btn btn-sm btn-secondary mt-1',
+      href: '#',
+    })
+      .prepend($('<i />', { class: 'fa fa-rocket' }))
+      .append($('<span />').text(` ${this.t.get('generateImageFromAI')}`))
+
+    field.after(generateImageButton)
+
+    const content = `
+        <div>
+        <label class="block mb-1" style="font-weight: 700">${this.t.get('fileName')}</label>
+        <input class="form-control" id="ai-image-name" value="ai_image" />
+        <label class="block mt-2 mb-1" style="font-weight: 700">${this.t.get('describeImageContent')}</label>
+        <textarea class="form-control" id="ai-image-description"></textarea>
+        <div id="ai-image-preview"></div>
+        </div>
+        `
+
+    var self = this
+    $(generateImageButton).on('click', function () {
+      let myModal = new Baton.Modal({
+        title: self.t.get('generateImageFromAI'),
+        content: content,
+        size: 'md',
+        actionBtnLabel: self.t.get('generate'),
+        actionBtnCb: async function () {
+          let prompt = $('#ai-image-description').val()
+          self.generateImage(field, prompt, function (image) {
+            if (!image) {
+              alert(self.t.get('imageGenerationError'))
+              return
+            }
+            let imageEl = new Image()
+            imageEl.src = `data:image/png;base64,${image}`
+            $(imageEl).css({ width: '100%', marginTop: '1rem' })
+            $('#ai-image-preview').append(imageEl)
+            myModal.modalObj.find('.btn-action').text(self.t.get('useImage'))
+            myModal.modalObj.find('.btn-action').off('click')
+            myModal.modalObj.find('.btn-action').on('click', function (evt) {
+              // base64 data
+              const data = `data:image/png;base64,${image}`
+              // create a blob object
+              const blob = self.dataURItoBlob(data)
+              // use the Blob to create a File Object
+              const file = new File(
+                [blob],
+                $('#ai-image-name').val() ? $('#ai-image-name').val() + '.png' : 'image.png',
+                { type: 'image/png', lastModified: new Date().getTime() },
+              )
+              const array_images = [file]
+
+              // modify the input content to be submited
+              const input_images = document.querySelector(`#id_${fieldName}`)
+              input_images.files = new self.fileListItems(array_images)
+
+              myModal.close()
+              myModal.destroy()
+            })
+          })
+        },
+      })
+
+      myModal.open()
+    })
+  },
+  generateImage: function (field, prompt, cb) {
+    var self = this
+    const csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
+    // spinner
+    const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
+    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
+
+    // retrieve necessary translations
+    const payload = {
+      id: field.attr('id'),
+      prompt: prompt,
+    }
+    // use api
+    return $.ajax({
+      url: this.config.ai.generateImageApiUrl,
+      method: 'POST',
+      data: JSON.stringify(payload),
+      dataType: 'json',
+      contentType: 'application/json',
+      headers: { 'X-CSRFToken': csrfToken },
+    })
+      .done(function (data) {
+        cb(data.data.base64Image)
+        overlay.remove()
+      })
+      .fail(function (err) {
+        console.log(err)
+        alert(self.t.get('imageGenerationError'))
+        overlay.remove()
+        return null
+      })
+  },
+  dataURItoBlob: function (dataURI) {
+    const binary = atob(dataURI.split(',')[1])
+    const array = []
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i))
+    }
+    return new Blob([new Uint8Array(array)], { type: 'image/png' })
+  },
+  fileListItems(file_objects) {
+    const new_input = new ClipboardEvent('').clipboardData || new DataTransfer()
+    for (let i = 0, size = file_objects.length; i < size; ++i) {
+      new_input.items.add(file_objects[i])
+    }
+    return new_input.files
   },
 }
 

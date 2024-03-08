@@ -38,6 +38,7 @@ def baton_config():
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "translateApiUrl": reverse('baton-translate'),
             "summarizeApiUrl": reverse('baton-summarize'),
+            "generateImageApiUrl": reverse('baton-generate-image'),
         },
         "confirmUnsavedChanges": get_config('CONFIRM_UNSAVED_CHANGES'),
         "showMultipartUploading": get_config('SHOW_MULTIPART_UPLOADING'),

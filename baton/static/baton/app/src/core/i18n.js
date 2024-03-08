@@ -74,6 +74,36 @@ export const messages = {
         it: 'Usa elenco puntato',
         es: 'Usa lista de viñetas',
     },
+    describeImageContent: {
+        en: 'Describe the image content',
+        it: 'Descrivi il contenuto dell’immagine',
+        es: 'Describa el contenido de la imagen',
+    },
+    generateImageFromAI: {
+        en: 'Generate image from AI',
+        it: 'Genera immagine da AI',
+        es: 'Generar imagen desde AI',
+    },
+    fileName: {
+        en: 'File name',
+        it: 'Nome del file',
+        es: 'Nombre del archivo',
+    },
+    useImage: {
+        en: 'Use image',
+        it: 'Usa immagine',
+        es: 'Usar imagen',
+    },
+    imageGenerationError: {
+        en: 'There was an error generating the image',
+        it: 'Si è verificato un errore nella generazione dell’immagine',
+        es: 'Hubo un error al generar la imagen',
+    },
+    error: {
+        en: 'Error',
+        it: 'Errore',
+        es: 'Error',
+    },
 }
 
 export default class Translator {
