@@ -381,6 +381,7 @@ Currently, Baton emits five types of events:
 - `onNavbarReady`: dispatched when the navbar is fully rendered
 - `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieved async)
 - `onTabsReady`: dispatched when the changeform tabs are fully rendered
+- `onTabChanged`: dispatched when the current changeform tab is changed
 - `onMenuError`: dispatched if the request sent to retrieve menu contents fails
 - `onReady`: dispatched when Baton JS has finished its sync job
 
