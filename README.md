@@ -20,9 +20,11 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
-Baton 4.0.* introduces the AI functionalities!
+Baton 4.0.* introduces a bunch of new AI functionalities!
 
-Translate all your contents with just one click, more info below in the dedicated section
+- automatic translations with django-modeltranslation
+- text summarization
+- image generation
 
 ---
 
@@ -36,6 +38,7 @@ Translate all your contents with just one click, more info below in the dedicate
     - [AI](#configuration-ai)
     - [Menu](#configuration-menu)
     - [Search Field](#configuration-search-field)
+- [AI](#ai)
 - [Page Detection](#page-detection)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
@@ -212,25 +215,23 @@ Default value is `True`.
 - `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
-- `BATON_CLIENT_ID`: The client ID of your baton subscription. Defaults to `None`
-- `BATON_CLIENT_SECRET`: The client secret of your baton subscription. Defaults to `None`
+- `BATON_CLIENT_ID`: The client ID of your baton subscription (unleashes AI functionalities). Defaults to `None`
+- `BATON_CLIENT_SECRET`: The client secret of your baton subscription (unleashes AI functionalities). Defaults to `None`
 
 `AI`, `MENU` and `SEARCH_FIELD` configurations in detail:
 
 ### <a name="configuration-ai"></a>AI
 
-Django Baton can provide you AI assistance in the admin interface. You can enable it by setting the `AI` key in the configuration dictionary.    
+Django Baton can provide you AI assistance in the admin interface. You can enable the translations feature by setting the `AI` key in the configuration dictionary.    
 
 > Note: This feature is currently experimental.
 
-Currently only the translations feature is available. It's designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+It's designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
 If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.
 
 In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET` keys in the configuration dictionary. In order to obtain these keys for now you need to contact
 our company [Otto srl](https://www.otto.to.it).
-
-New features will be addedd soon, stay tuned.
 
 ```
     ...
@@ -346,6 +347,68 @@ def admin_search(request):
 ```
 
 You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
+
+## <a name="ai"></a>AI
+
+Starting from 4.0.0, the new AI functionalities are available:
+
+- Automatic translations with django-modeltranslation
+- Text summarization
+- Image generation
+
+### <a name="ai-translations"></a>Automatic Translations
+
+In the configuration section you can specify if you want to enable the automatic translation with django-modeltranslation. If you enable it, the functionality will be activated sitewide.
+In every add/change form page which contains fields that need to be translated, the `Translate` button will appear in the `object tools` position.
+
+Clicking it all the empty fields that need a translations will be filled with the translation fetched.
+
+All default fields and CKEDITOR fields are supported.
+
+### <a name="ai-summarization"></a>Text Summarization
+
+In your `ModelAdmin` classes you can define which fields can be summarized to create a content used to fill other model fields, look at the following example:
+
+``` python
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    baton_summarize_fields = {
+        "text_it": [{
+            "target": "abstract_it",
+            "words": 140,
+            "useBulletedList": True,
+            "language": "it",
+        }, {
+            "target": "meta_description_it",
+            "words": 45,
+            "useBulletedList": False,
+        }],
+    }
+```
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- `words`: number of words used in the summary (approximate, it will not be followed strictly)
+- `useBulletedList`: if the summary should be in a bulleted list
+- `language`: the language of the summary, default is your default language
+
+The `words` and `useBulletedList` parameters can be edited int the UI when actually summarizing the text.
+
+With this configuration, two (the number of targets) buttons will appear near the `text_it` field, each one opening a modal dialog with the configuration for the target field.
+In this modal you can edit the `words` and `useBulletedList` parameters and perform the summarization that will be inserted in the target field.
+
+### <a name="ai-image-generation"></a>Image Generation
+
+Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
+The button will open a modal where you can set some options, describe the image you want and generate the image. You can then preview the image and if you like it you can save it in the 
+file field with just one click.
+
+``` python
+from baton.fields import BatonAiImageField
+
+class MyModel(models.Model):
+    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
+```
 
 ## <a name="page-detection"></a>Page Detection
 
