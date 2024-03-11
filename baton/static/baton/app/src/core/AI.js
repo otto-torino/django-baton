@@ -308,7 +308,7 @@ const AI = {
     const payload = {
       id: field.attr('id'),
       prompt: prompt,
-      aspectRatio: aspectRatio,
+      format: aspectRatio,
     }
     // use api
     return $.ajax({
