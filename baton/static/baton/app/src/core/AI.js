@@ -236,6 +236,12 @@ const AI = {
         <div>
         <label class="block mb-1" style="font-weight: 700">${this.t.get('fileName')}</label>
         <input class="form-control" id="ai-image-name" value="ai_image" />
+        <label class="block mb-1 mt-2" style="font-weight: 700">${this.t.get('aspectRatio')}</label>
+        <select class="form-select" id="ai-image-aspect-ratio">
+            <option value="1">1:1</option>
+            <option value="2">14:8</option>
+            <option value="3">8:14</option>
+        </select>
         <label class="block mt-2 mb-1" style="font-weight: 700">${this.t.get('describeImageContent')}</label>
         <textarea class="form-control" id="ai-image-description"></textarea>
         <div id="ai-image-preview"></div>
@@ -251,7 +257,8 @@ const AI = {
         actionBtnLabel: self.t.get('generate'),
         actionBtnCb: async function () {
           let prompt = $('#ai-image-description').val()
-          self.generateImage(field, prompt, function (image) {
+          let aspectRatio = $('#ai-image-aspect-ratio').val()
+          self.generateImage(field, prompt, aspectRatio, function (image) {
             if (!image) {
               alert(self.t.get('imageGenerationError'))
               return
@@ -289,7 +296,7 @@ const AI = {
       myModal.open()
     })
   },
-  generateImage: function (field, prompt, cb) {
+  generateImage: function (field, prompt, aspectRatio, cb) {
     var self = this
     const csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
     // spinner
@@ -301,6 +308,7 @@ const AI = {
     const payload = {
       id: field.attr('id'),
       prompt: prompt,
+      aspectRatio: aspectRatio,
     }
     // use api
     return $.ajax({

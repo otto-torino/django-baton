@@ -104,6 +104,11 @@ export const messages = {
         it: 'Errore',
         es: 'Error',
     },
+    aspectRatio: {
+        en: 'Aspect ratio',
+        it: 'Formato',
+        es: 'Aspecto',
+    }
 }
 
 export default class Translator {
