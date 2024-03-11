@@ -328,7 +328,7 @@ class GenerateImageView(View):
         payload = {
             "id": data.get("id"),
             "prompt": data.get("prompt"),
-            "format": data.get("format"),
+            "format": int(data.get("format")),
         }
 
         # The API endpoint to communicate with
