@@ -192,3 +192,23 @@
   }
 
 }
+
+// Baton AI stats
+.baton-ai-stats {
+    background: var(--bs-baton-dashboard-module-bg);
+    margin: 0 0 1.5rem;
+    padding: 1rem;
+    width: 100%;
+
+    h2 {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .baton-ai-canvas-container {
+      height: 360px;
+    }
+}

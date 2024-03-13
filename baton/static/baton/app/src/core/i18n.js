@@ -1,23 +1,98 @@
 export const messages = {
-    unsavedChangesAlert: {
-        en: 'You have some unsaved changes.',
-        it: 'Alcune modifiche non sono state salvate.',
-        es: 'Tienes algunos cambios sin guardar.',
+    aspectRatio: {
+        en: 'Aspect ratio',
+        it: 'Formato',
+        es: 'Aspecto',
     },
-    uploading: {
-        en: 'Uploading...',
-        it: 'Uploading...',
-        es: 'Cargando...',
+    cannotCopyToClipboardMessage: {
+        en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
+        it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter',
+        es: 'No se puede copiar al portapapeles, por favor copie manualmente: Ctrl+C, Enter',
+    },
+    close: {
+        en: 'Close',
+        it: 'Chiudi',
+        es: 'Cerrar',
+    },
+    Count: {
+        en: 'Count',
+        it: 'Conteggio',
+        es: 'Conteo',
+    },
+    Cost: {
+        en: 'Cost',
+        it: 'Costo',
+        es: 'Costo',
+    },
+    darkTheme: {
+        en: 'Dark theme',
+        it: 'Tema scuro',
+        es: 'Tema oscuro',
+    },
+    Date: {
+        en: 'Date',
+        it: 'Data',
+        es: 'Fecha',
+    },
+    describeImageContent: {
+        en: 'Describe the image content',
+        it: 'Descrivi il contenuto dell’immagine',
+        es: 'Describa el contenido de la imagen',
+    },
+    error: {
+        en: 'Error',
+        it: 'Errore',
+        es: 'Error',
+    },
+    fileName: {
+        en: 'File name',
+        it: 'Nome del file',
+        es: 'Nombre del archivo',
     },
     filter: {
         en: 'Filter',
         it: 'Filtra',
         es: 'Filtrar',
     },
-    close: {
-        en: 'Close',
-        it: 'Chiudi',
-        es: 'Cerrar',
+    generate: {
+        en: 'Generate',
+        it: 'Genera',
+        es: 'Generar',
+    },
+    generateImageFromAI: {
+        en: 'Generate image from AI',
+        it: 'Genera immagine da AI',
+        es: 'Generar imagen desde AI',
+    },
+    generateSummary: {
+        en: 'Summarize in',
+        it: 'Riassumi in',
+        es: 'Resumen en',
+    },
+    imageGenerationError: {
+        en: 'There was an error generating the image',
+        it: 'Si è verificato un errore nella generazione dell’immagine',
+        es: 'Hubo un error al generar la imagen',
+    },
+    ImagesApiCalls: {
+        en: 'Images API calls',
+        it: 'Chiamate immagini',
+        es: 'Llamadas de imagen',
+    },
+    ImagesApiCost: {
+        en: 'Images API cost',
+        it: 'Costo immagini',
+        es: 'Costo de imagenes',
+    },
+    lightTheme: {
+        en: 'Light theme',
+        it: 'Tema chiaro',
+        es: 'Tema claro',
+    },
+    retrieveDataError: {
+        en: 'There was an error retrieving the data',
+        it: 'Si è verificato un errore nel reuperare i dati',
+        es: 'Hubo un error al recuperar los datos',
     },
     save: {
         en: 'Save',
@@ -29,86 +104,61 @@ export const messages = {
         it: 'Cerca',
         es: 'Buscar',
     },
-    cannotCopyToClipboardMessage: {
-        en: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-        it: 'Impossibile copiare negli appunti, copiare manualmente: Ctrl+C, Enter',
-        es: 'No se puede copiar al portapapeles, por favor copie manualmente: Ctrl+C, Enter',
+    SummApiCalls: {
+        en: 'Summ API calls',
+        it: 'Chiamate riassunto',
+        es: 'Llamadas de resumen',
     },
-    retrieveDataError: {
-        en: 'There was an error retrieving the data',
-        it: 'Si è verificato un errore nel reuperare i dati',
-        es: 'Hubo un error al recuperar los datos',
+    SummApiCost: {
+        en: 'Summ API cost',
+        it: 'Costo riassunto',
+        es: 'Costo de resumen',
     },
-    lightTheme: {
-        en: 'Light theme',
-        it: 'Tema chiaro',
-        es: 'Tema claro',
+    TotalCost: {
+        en: 'Total cost',
+        it: 'Costo totale',
+        es: 'Costo total',
     },
-    darkTheme: {
-        en: 'Dark theme',
-        it: 'Tema scuro',
-        es: 'Tema oscuro',
+    TransApiCalls: {
+        en: 'Trans API calls',
+        it: 'Chiamate traduzione',
+        es: 'Llamadas de traducción',
+    },
+    TransApiCost: {
+        en: 'Trans API cost',
+        it: 'Costo traduzione',
+        es: 'Costo de traducción',
     },
     translate: {
         en: 'Translate',
         it: 'Traduci',
         es: 'Traducir',
     },
-    generateSummary: {
-        en: 'Summarize in',
-        it: 'Riassumi in',
-        es: 'Resumen en',
+    unsavedChangesAlert: {
+        en: 'You have some unsaved changes.',
+        it: 'Alcune modifiche non sono state salvate.',
+        es: 'Tienes algunos cambios sin guardar.',
     },
-    generate: {
-        en: 'Generate',
-        it: 'Genera',
-        es: 'Generar',
-    },
-    words: {
-        en: 'Words',
-        it: 'Parole',
-        es: 'Palabras',
+    uploading: {
+        en: 'Uploading...',
+        it: 'Uploading...',
+        es: 'Cargando...',
     },
     useBulletedList: {
         en: 'Use bulletted list',
         it: 'Usa elenco puntato',
         es: 'Usa lista de viñetas',
     },
-    describeImageContent: {
-        en: 'Describe the image content',
-        it: 'Descrivi il contenuto dell’immagine',
-        es: 'Describa el contenido de la imagen',
-    },
-    generateImageFromAI: {
-        en: 'Generate image from AI',
-        it: 'Genera immagine da AI',
-        es: 'Generar imagen desde AI',
-    },
-    fileName: {
-        en: 'File name',
-        it: 'Nome del file',
-        es: 'Nombre del archivo',
-    },
     useImage: {
         en: 'Use image',
         it: 'Usa immagine',
         es: 'Usar imagen',
     },
-    imageGenerationError: {
-        en: 'There was an error generating the image',
-        it: 'Si è verificato un errore nella generazione dell’immagine',
-        es: 'Hubo un error al generar la imagen',
+    words: {
+        en: 'Words',
+        it: 'Parole',
+        es: 'Palabras',
     },
-    error: {
-        en: 'Error',
-        it: 'Errore',
-        es: 'Error',
-    },
-    aspectRatio: {
-        en: 'Aspect ratio',
-        it: 'Formato',
-        es: 'Aspecto',
-    }
 }
 
 export default class Translator {

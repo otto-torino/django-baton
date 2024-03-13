@@ -16,6 +16,7 @@ import AdminDocs from './core/AdminDocs'
 import Filer from './core/Filer'
 import Modal from './core/Modal'
 import Messages from './core/Messages'
+import Translator from './core/i18n'
 import AI from './core/AI'
 
 window.Baton = {
@@ -26,7 +27,6 @@ window.Baton = {
 
         this.initialized = true
         const page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
-        console.info('Baton:', `detected page ${page}`) // eslint-disable-line
         $('body').addClass('page-' + page)
 
         // theme
@@ -123,6 +123,7 @@ window.Baton = {
     Modal: Modal,
     jQuery: jQuery,
     AI: AI,
+    T: new Translator(jQuery('html').attr('lang')),
 }
 
 window.bootstrap = bootstrap

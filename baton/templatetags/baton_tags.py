@@ -1,4 +1,10 @@
 import json
+import time
+import hmac
+import base64
+import hashlib
+import requests
+from decimal import Decimal
 from django.urls import reverse
 from django import template
 from django.utils.html import escapejs
@@ -92,3 +98,32 @@ def call_model_admin_method(context, **kwargs):
 @register.filter
 def to_json(python_dict):
     return json.dumps(python_dict)
+
+
+@register.inclusion_tag('baton/ai_stats.html', takes_context=True)
+def baton_ai_stats(context):
+    user = context['user']
+
+    # The API endpoint to communicate with
+    url_post = "https://baton.sqrt64.it/api/v1/stats/"
+    # url_post = "http://192.168.1.160:1323/api/v1/stats/"
+
+    # A GET request to tthe API
+    ts = str(int(time.time()))
+    h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+    sig = base64.b64encode(h.digest()).decode()
+    response = requests.get(url_post, headers={
+        'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+        'X-Timestamp': ts,
+        'X-Signature': sig,
+    })
+
+    response_json = response.json()
+
+    return {
+        'user': user,
+        'budget': round(Decimal(response_json.get('budget', 0.0)), 2),
+        'translations': response_json.get('translations', {}),
+        'summarizations': response_json.get('summarizations', {}),
+        'images': response_json.get('images', {}),
+    }
