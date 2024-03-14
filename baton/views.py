@@ -299,7 +299,7 @@ class SummarizeView(View):
             "text": data.get("text"),
             "words": data.get("words"),
             "useBulletedList": data.get("useBulletedList"),
-            "languages": data.get("language"),
+            "language": data.get("language"),
         }
 
         # The API endpoint to communicate with
