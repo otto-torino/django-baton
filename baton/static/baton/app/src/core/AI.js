@@ -64,7 +64,7 @@ const AI = {
 
     // retrieve necessary translations
     const payload = []
-    const fieldsIds = $(`[id$=_${this.config.defaultLanguage}]`)
+    let fieldsIds = $(`[id$=_${this.config.defaultLanguage}]`)
       .filter((_, el) => !$(el).attr('id').includes('__prefix__'))
       .filter((_, el) => $(el).val() !== '')
       .toArray()
@@ -76,6 +76,7 @@ const AI = {
         }
       })
     }
+    fieldsIds = [...new Set(fieldsIds)]
 
     fieldsIds.forEach(function (fieldId) {
       const re = new RegExp(`_${self.config.defaultLanguage}`)
@@ -110,7 +111,7 @@ const AI = {
           ;(data.data?.items || []).forEach(function (item) {
             const key = `${item.id}_${item.language}`
             if (window.CKEDITOR?.instances[key]) {
-              window.CKEDITOR.instances[key].insertText(item.translation)
+              window.CKEDITOR.instances[key].setData(item.translation)
             } else {
               $('#' + key).val(item.translation)
             }
@@ -199,11 +200,7 @@ const AI = {
       .done(function (data) {
         try {
           if (window.CKEDITOR?.instances[targetId]) {
-            window.CKEDITOR.instances[targetId].setData('', {
-              callback: function () {
-                window.CKEDITOR.instances[targetId].insertText(data.data.summary)
-              },
-            })
+            window.CKEDITOR.instances[targetId].setData(data.data.summary)
           } else {
             $('#' + targetId).val(data.data.summary)
           }
