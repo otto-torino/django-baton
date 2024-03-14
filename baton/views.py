@@ -363,8 +363,8 @@ class CorrectView(View):
         }
 
         # The API endpoint to communicate with
-        # url_post = "https://baton.sqrt64.it/api/v1/correct/"
-        url_post = "http://192.168.1.245:1323/api/v1/correct/"
+        url_post = "https://baton.sqrt64.it/api/v1/correct/"
+        # url_post = "http://192.168.1.245:1323/api/v1/correct/"
 
         # A POST request to tthe API
         ts = str(int(time.time()))
