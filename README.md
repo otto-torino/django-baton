@@ -166,6 +166,7 @@ BATON = {
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
     'AI': {
         'ENABLE_TRANSLATIONS': True,
+        'ENABLE_CORRECTIONS': True,
     },
     'MENU': (
         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -242,6 +243,24 @@ our company [Otto srl](https://www.otto.to.it).
     },
     ...
 ```
+
+You can also enable the AI corrections feature:
+
+```
+    ...
+    'AI': {
+        'ENABLE_CORRECTIONS': True,
+    },
+    ...
+```
+
+In this case near the labels of all input text, textarea and ckeditor fields, will appear an icon to trigger the AI correction.
+If the corrected text is the same as the original one, a check icon will appear near the field, otherwise a modal is open, showing
+the diff between the original and the corrected text. At that point you can decide to use the corrected text just by pressing the confirm button.
+
+There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
+
+![Corrections](docs/images/ai-corrections.png)
 
 ### <a name="configuration-menu"></a>MENU
 
@@ -364,6 +383,16 @@ In every add/change form page which contains fields that need to be translated, 
 Clicking it all the empty fields that need a translations will be filled with the translation fetched.
 
 All default fields and CKEDITOR fields are supported.
+
+### <a name="ai-corrections"></a>Corrections
+
+In the configuration section you can specify if you want to enable the corrections feature. If you enable it, the functionality will be activated sitewide.
+In every add/change form page which contains text fields (also CKEDITOR), an icon will appear near the label to trigger the AI correction.
+
+When triggergin the correction there are two possible results:
+
+- the corrected text is the same as the original one: nothing happens, only a green check icon appears near the field
+- the corrected text is different from the original one: a modal is shown with the diff between the original and the corrected text, and the user can decide to use the corrected text.
 
 ### <a name="ai-summarization"></a>Text Summarization
 
