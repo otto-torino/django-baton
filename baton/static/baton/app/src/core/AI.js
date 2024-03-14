@@ -382,6 +382,7 @@ const AI = {
           const diff = Diff.diffChars(decodedText, data?.data?.text)
           const fragment = $('<div />')
 
+          const diffParts = []
           diff.forEach((part) => {
             // green for additions, red for deletions
             // grey for common parts
@@ -389,6 +390,7 @@ const AI = {
             const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
             const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
             fragment.append(span)
+            diffParts.push(part.added ? `<span style="color: green">${part.value}</span>` : part.removed ? `<span style="color: red">${part.value}</span>` : `${part.value}`)
           })
           const fragmentHtml = fragment[0].outerHTML
           const content = `
@@ -403,7 +405,7 @@ const AI = {
 </div>
 <div class="col-md-4">
 <label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Diff')}</label>
-<div>${fragmentHtml}</div>
+<div>${diffParts.join('')}</div>
 </div>
 </div>
 `
