@@ -143,8 +143,8 @@ class Modal {
         }
 
         this.modal.hide()
-        this.options.onClose(this)
         this.isOpen = false
+        this.options.onClose(this)
     }
 
     destroy() {

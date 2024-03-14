@@ -256,6 +256,9 @@ const AI = {
         content: content,
         size: 'md',
         actionBtnLabel: self.t.get('generate'),
+        onClose: function (modal) {
+          modal.destroy()
+        },
         actionBtnCb: async function () {
           let prompt = $('#ai-image-description').val()
           let aspectRatio = $('#ai-image-aspect-ratio').val()
@@ -451,7 +454,9 @@ const AI = {
       const disabledNames = ['subject_location', 'username', 'email']
       if (
         window.CKEDITOR?.instances[fieldId] ||
-        (field.attr('type') === 'text' && !field.hasClass('vDateField') && !disabledNames.includes(field.attr('name')) ) ||
+        (field.attr('type') === 'text' &&
+          !field.hasClass('vDateField') &&
+          !disabledNames.includes(field.attr('name'))) ||
         field.prop('tagName') === 'TEXTAREA'
       ) {
         const icon = $('<a class="fa-solid fa-spell-check me-2 text-decoration-none" href="javascript:void(0)"></a>')
