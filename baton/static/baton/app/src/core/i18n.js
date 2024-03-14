@@ -14,6 +14,16 @@ export const messages = {
         it: 'Chiudi',
         es: 'Cerrar',
     },
+    CorrApiCalls: {
+        en: 'Corr API calls',
+        it: 'Chiamate correzione',
+        es: 'Llamadas de corrección',
+    },
+    CorrApiCost: {
+        en: 'Corr API cost',
+        it: 'Costo correzioni',
+        es: 'Costo de corrección',
+    },
     Correction: {
         en: 'Correction',
         it: 'Correzione',

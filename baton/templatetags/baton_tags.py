@@ -107,8 +107,8 @@ def baton_ai_stats(context):
     user = context['user']
 
     # The API endpoint to communicate with
-    url_post = "https://baton.sqrt64.it/api/v1/stats/"
-    # url_post = "http://192.168.1.245:1323/api/v1/stats/"
+    # url_post = "https://baton.sqrt64.it/api/v1/stats/"
+    url_post = "http://192.168.1.245:1323/api/v1/stats/"
 
     # A GET request to the API
     ts = str(int(time.time()))
@@ -121,6 +121,7 @@ def baton_ai_stats(context):
     budget = 0
     translations = {}
     summarizations = {}
+    corrections = {}
     images = {}
     response_json = {}
 
@@ -143,6 +144,7 @@ def baton_ai_stats(context):
             budget = round(Decimal(response_json.get('budget', 0.0)), 2)
             translations = response_json.get('translations', {})
             summarizations = response_json.get('summarizations', {})
+            corrections = response_json.get('corrections', {})
             images = response_json.get('images', {})
     except:
         error = True
@@ -155,5 +157,6 @@ def baton_ai_stats(context):
         'budget': budget,
         'translations': translations,
         'summarizations': summarizations,
+        'corrections': corrections,
         'images': images,
     }
