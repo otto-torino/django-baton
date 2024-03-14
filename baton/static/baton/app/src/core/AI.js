@@ -382,6 +382,7 @@ const AI = {
           const diff = Diff.diffWords(decodedText, data?.data?.text)
           // const fragment = $('<div />')
 
+                    console.log('DIFF', diff)
           const diffParts = []
           diff.forEach((part) => {
             // green for additions, red for deletions
