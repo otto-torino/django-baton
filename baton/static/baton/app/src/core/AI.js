@@ -393,15 +393,15 @@ const AI = {
           const fragmentHtml = fragment[0].outerHTML
           const content = `
 <div class="row">
-<div class="col">
+<div class="col-md-4">
 <label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Original')}</label>
 <div>${text}</div>
 </div>
-<div class="col">
+<div class="col-md-4">
 <label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Correction')}</label>
 <div>${data.data.text}</div>
 </div>
-<div class="col">
+<div class="col-md-4">
 <label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Diff')}</label>
 <div>${fragmentHtml}</div>
 </div>
@@ -410,7 +410,7 @@ const AI = {
           let myModal = new Baton.Modal({
             title: self.t.get('Correction'),
             content: content,
-            size: 'lg',
+            size: 'xl',
             actionBtnLabel: self.t.get('useCorrection'),
             actionBtnCb: function () {
               const fieldId = $(field).attr('id')
