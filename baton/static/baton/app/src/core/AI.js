@@ -375,8 +375,8 @@ const AI = {
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          // const decodedText = $('<textarea />').html(text).text()
-          const diff = Diff.diffChars(text, data?.data?.text)
+          const decodedText = $('<textarea />').html(text).text()
+          const diff = Diff.diffChars(decodedText, data?.data?.text)
           const fragment = $('<div />')
 
           diff.forEach((part) => {
