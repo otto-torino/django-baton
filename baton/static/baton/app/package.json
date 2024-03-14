@@ -23,6 +23,7 @@
     "babel-register": "^6.26.0",
     "bootstrap": "^5.3.1",
     "css-loader": "^5.2.6",
+    "diff": "^5.2.0",
     "file-loader": "^6.2.0",
     "ini": "^2.0.0",
     "jquery": "^3.6.0",

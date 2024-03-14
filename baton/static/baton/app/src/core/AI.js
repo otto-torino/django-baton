@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Translator from './i18n'
+const Diff = require('diff')
 
 const AI = {
   /**
@@ -12,6 +13,9 @@ const AI = {
     this.config = config
     if (config.ai.enableTranslations && (page === 'change_form' || page === 'add_form')) {
       this.activateTranslations()
+    }
+    if (config.ai.enableCorrections && (page === 'change_form' || page === 'add_form')) {
+      this.activateCorrections()
     }
   },
   activateTranslations: function () {
@@ -344,6 +348,144 @@ const AI = {
       new_input.items.add(file_objects[i])
     }
     return new_input.files
+  },
+  correct: function (field, text) {
+    var self = this
+    const payload = {
+      id: field.attr('id'),
+      text,
+      language: this.getCorrectionLanguage(field.attr('id')),
+    }
+
+    // spinner
+    const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
+    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
+
+    // use api
+    $.ajax({
+      url: this.config.ai.correctApiUrl,
+      method: 'POST',
+      data: JSON.stringify(payload),
+      dataType: 'json',
+      contentType: 'application/json',
+      headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
+    })
+      .done(function (data) {
+        if (data?.data?.text === text) {
+          const checkIcon = $('<i />', {
+            class: 'fa fa-check',
+          }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
+          $(field).after(checkIcon)
+        } else if (data?.data?.text) {
+          const decodedText = $('<textarea />').html(text).text()
+          const diff = Diff.diffChars(decodedText, data?.data?.text)
+          const fragment = $('<div />')
+
+          diff.forEach((part) => {
+            // green for additions, red for deletions
+            // grey for common parts
+            const color = part.added ? 'green' : part.removed ? 'red' : 'black'
+            const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
+            const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
+            fragment.append(span)
+          })
+          const fragmentHtml = fragment[0].outerHTML
+          const content = `
+<div class="row">
+<div class="col">
+<label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Original')}</label>
+<div>${text}</div>
+</div>
+<div class="col">
+<label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Correction')}</label>
+<div>${data.data.text}</div>
+</div>
+<div class="col">
+<label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Diff')}</label>
+<div>${fragmentHtml}</div>
+</div>
+</div>
+`
+          let myModal = new Baton.Modal({
+            title: self.t.get('Correction'),
+            content: content,
+            size: 'lg',
+            actionBtnLabel: self.t.get('useCorrection'),
+            actionBtnCb: function () {
+              const fieldId = $(field).attr('id')
+              if (window.CKEDITOR?.instances[fieldId]) {
+                window.CKEDITOR.instances[fieldId].setData(data.data.text)
+              } else {
+                $(field).val(data.data.text)
+              }
+              myModal.close()
+              myModal.destroy()
+            },
+          })
+
+          myModal.open()
+        }
+        overlay.remove()
+      })
+      .fail(function () {
+        overlay.remove()
+        console.log(err)
+        alert(self.t.get('error') + ': ' + err)
+      })
+  },
+  getCorrectionLanguage: function (fieldId) {
+    let locale = this.config.defaultLanguage
+    this.config.otherLanguages.forEach(function (lng) {
+      const re = new RegExp(`_${lng}$`)
+      if (fieldId.match(re)) {
+        locale = lng
+      }
+    })
+    return locale
+  },
+  activateCorrections: function () {
+    var self = this
+    // check if form has fields that need translation
+    $('label[for]').each(function (idx, el) {
+      const fieldId = $(this).attr('for')
+      const field = $(`#${fieldId}`)
+
+      if (
+        window.CKEDITOR?.instances[fieldId] ||
+        field.attr('type') === 'text' ||
+        field.prop('tagName') === 'TEXTAREA'
+      ) {
+        const icon = $('<a class="fa-solid fa-spell-check me-2 text-decoration-none" href="javascript:void(0)"></a>')
+        icon.on('click', function () {
+          let text
+          if (window.CKEDITOR?.instances[fieldId]) {
+            text = window.CKEDITOR?.instances[fieldId]?.getData()
+          } else if (field.attr('type') === 'text' || field.prop('tagName') === 'TEXTAREA') {
+            text = $(field).val()
+          }
+          if (text) {
+            self.correct($(field), text)
+          }
+        })
+        $(this).prepend(icon)
+      }
+    })
+    $('input[type=text],textarea').on('click', function (evt) {
+      if (evt.ctrlKey) {
+        const field = $(this)
+        const fieldId = field.attr('id')
+        let text
+        if (window.CKEDITOR?.instances[fieldId]) {
+          text = window.CKEDITOR?.instances[fieldId]?.getData()
+        } else if (field.attr('type') === 'text' || field.prop('tagName') === 'TEXTAREA') {
+          text = $(field).val()
+        }
+        if (text) {
+          self.correct($(field), text)
+        }
+      }
+    })
   },
 }
 

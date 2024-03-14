@@ -42,9 +42,11 @@ def baton_config():
         },
         "ai": {
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
+            "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "translateApiUrl": reverse('baton-translate'),
             "summarizeApiUrl": reverse('baton-summarize'),
             "generateImageApiUrl": reverse('baton-generate-image'),
+            "correctApiUrl": reverse('baton-correct'),
         },
         "confirmUnsavedChanges": get_config('CONFIRM_UNSAVED_CHANGES'),
         "showMultipartUploading": get_config('SHOW_MULTIPART_UPLOADING'),

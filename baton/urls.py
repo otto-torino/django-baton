@@ -6,6 +6,7 @@ from .views import (
     SummarizeView,
     TranslateView,
     GenerateImageView,
+    CorrectView,
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("translate/", TranslateView.as_view(), name="baton-translate"),
     path("summarize/", SummarizeView.as_view(), name="baton-summarize"),
     path("generate-image/", GenerateImageView.as_view(), name="baton-generate-image"),
+    path("correct/", CorrectView.as_view(), name="baton-correct"),
 ]

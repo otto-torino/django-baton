@@ -14,15 +14,20 @@ export const messages = {
         it: 'Chiudi',
         es: 'Cerrar',
     },
-    Count: {
-        en: 'Count',
-        it: 'Conteggio',
-        es: 'Conteo',
+    Correction: {
+        en: 'Correction',
+        it: 'Correzione',
+        es: 'Corrección',
     },
     Cost: {
         en: 'Cost',
         it: 'Costo',
         es: 'Costo',
+    },
+    Count: {
+        en: 'Count',
+        it: 'Conteggio',
+        es: 'Conteo',
     },
     darkTheme: {
         en: 'Dark theme',
@@ -38,6 +43,11 @@ export const messages = {
         en: 'Describe the image content',
         it: 'Descrivi il contenuto dell’immagine',
         es: 'Describa el contenido de la imagen',
+    },
+    Diff: {
+        en: 'Diff',
+        it: 'Diff',
+        es: 'Diff',
     },
     error: {
         en: 'Error',
@@ -88,6 +98,11 @@ export const messages = {
         en: 'Light theme',
         it: 'Tema chiaro',
         es: 'Tema claro',
+    },
+    Original: {
+        en: 'Original',
+        it: 'Originale',
+        es: 'Original',
     },
     retrieveDataError: {
         en: 'There was an error retrieving the data',
@@ -148,6 +163,11 @@ export const messages = {
         en: 'Use bulletted list',
         it: 'Usa elenco puntato',
         es: 'Usa lista de viñetas',
+    },
+    useCorrection: {
+        en: 'Use correction',
+        it: 'Usa correzione',
+        es: 'Usar corrección',
     },
     useImage: {
         en: 'Use image',
