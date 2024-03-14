@@ -106,24 +106,52 @@ def baton_ai_stats(context):
 
     # The API endpoint to communicate with
     url_post = "https://baton.sqrt64.it/api/v1/stats/"
-    # url_post = "http://192.168.1.160:1323/api/v1/stats/"
+    # url_post = "http://192.168.1.245:1323/api/v1/stats/"
 
-    # A GET request to tthe API
+    # A GET request to the API
     ts = str(int(time.time()))
     h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
     sig = base64.b64encode(h.digest()).decode()
-    response = requests.get(url_post, headers={
-        'X-Client-Id': settings.BATON_AI_CLIENT_ID,
-        'X-Timestamp': ts,
-        'X-Signature': sig,
-    })
 
-    response_json = response.json()
+    error = False
+    errorMessage = None
+    status_code = 200
+    budget = 0
+    translations = {}
+    summarizations = {}
+    images = {}
+    response_json = {}
+
+    try:
+        response = requests.get(url_post, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        status_code = response.status_code
+        if status_code != 200:
+            error = True
+            try:
+                errorMessage = response.json().get('message', None)
+            except:
+                pass
+        else:
+            response_json = response.json()
+            budget = round(Decimal(response_json.get('budget', 0.0)), 2)
+            translations = response_json.get('translations', {})
+            summarizations = response_json.get('summarizations', {})
+            images = response_json.get('images', {})
+    except:
+        error = True
 
     return {
         'user': user,
-        'budget': round(Decimal(response_json.get('budget', 0.0)), 2),
-        'translations': response_json.get('translations', {}),
-        'summarizations': response_json.get('summarizations', {}),
-        'images': response_json.get('images', {}),
+        'error': error,
+        'error_message': errorMessage,
+        'status_code': status_code,
+        'budget': budget,
+        'translations': translations,
+        'summarizations': summarizations,
+        'images': images,
     }

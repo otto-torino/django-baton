@@ -2,9 +2,18 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="baton-ai-stats">
     <h2>
-        <span>Baton AI</span>
-        <span>€ {{ budget }}</span>
+        <a href="https://baton.sqrt64.it/account/" target="_blank">Baton AI</a>
+        <span><i class="fa fa-wallet"></i> € {{ budget }}</span>
     </h2>
+    {% if error %}
+    <div class="alert alert-warning alert-sm mt-4" role="alert">
+        {% if error_message %}
+            {{ error_message }}
+        {% else %}
+            {% trans "Something went wrong" %}
+        {% endif %}
+    </div>
+    {% else %}
     <div class="baton-ai-canvas-container">
         <canvas id="baton-ai-bar-stats"></canvas>
     </div>
@@ -182,6 +191,7 @@
         mutations.forEach(function(mutation) {
             if (mutation.type === "attributes") {
                 const theme = $('html').attr('data-bs-theme');
+                console.log('DRAWING CHART', theme)
                 aiChart.destroy();
                 drawChart(theme); 
             }
@@ -195,4 +205,5 @@
     drawChart($('html').attr('data-bs-theme'));
 })(Baton.jQuery)
     </script>
+    {% endif %}
 </div>
