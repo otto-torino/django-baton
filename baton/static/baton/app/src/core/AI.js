@@ -372,14 +372,14 @@ const AI = {
       headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
     })
       .done(function (data) {
-        if (data?.data?.text === text) {
+        if (data?.data?.text.trim() === text.trim()) {
           const checkIcon = $('<i />', {
             class: 'fa fa-check',
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          const decodedText = $('<textarea />').html(text).text()
-          const diff = Diff.diffChars(decodedText, data?.data?.text)
+          // const decodedText = $('<textarea />').html(text).text()
+          const diff = Diff.diffChars(text, data?.data?.text)
           const fragment = $('<div />')
 
           diff.forEach((part) => {
