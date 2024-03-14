@@ -378,9 +378,9 @@ const AI = {
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          const decodedText = $('<textarea />').html(text).text()
+          const decodedText = $('<textarea />').html(text).text() // ckeditor
           const diff = Diff.diffChars(decodedText, data?.data?.text)
-          // const fragment = $('<div />')
+          // const fragment = $('<div />') // use fragment if escaping all html 
 
           const diffParts = []
           diff.forEach((part) => {
@@ -390,7 +390,11 @@ const AI = {
             // const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
             // const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
             // fragment.append(span)
-            diffParts.push(part.added ? `<span style="color: green; background: rgba(0, 255, 0, 0.2)">${part.value}</span>` : part.removed ? `<span style="color: red; background: rgba(255, 0, 0, 0.2)">${part.value}</span>` : `${part.value}`)
+            diffParts.push(part.added 
+                ? `<span style="color: green; background: rgba(0, 255, 0, 0.2)">${part.value}</span>`
+                : part.removed
+                    ? `<span style="color: red; background: rgba(255, 0, 0, 0.2)">${part.value}</span>`
+                    : `${part.value}`)
           })
           // const fragmentHtml = fragment[0].outerHTML
           const content = `
