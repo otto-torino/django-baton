@@ -378,8 +378,8 @@ const AI = {
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          const decodedText = $('<textarea />').html(text).text() // ckeditor
-          const diff = Diff.diffChars(decodedText, data?.data?.text)
+          const decodedText = $('<textarea />').html(text).text().replace(/&nbsp;/g, ' ') // ckeditor
+          const diff = Diff.diffWords(decodedText, data?.data?.text)
           // const fragment = $('<div />') // use fragment if escaping all html 
 
           const diffParts = []
