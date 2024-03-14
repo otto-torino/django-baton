@@ -375,8 +375,8 @@ const AI = {
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          const decodedText = $('<textarea />').html(text).text()
-          const diff = Diff.diffChars(decodedText, data?.data?.text)
+          // const decodedText = $('<textarea />').html(text).text()
+          const diff = Diff.diffChars(text, data?.data?.text)
           const fragment = $('<div />')
 
           diff.forEach((part) => {
@@ -444,13 +444,14 @@ const AI = {
   activateCorrections: function () {
     var self = this
     // check if form has fields that need translation
-    $('label[for]').each(function (idx, el) {
+    $('label[for]').each(function () {
       const fieldId = $(this).attr('for')
       const field = $(`#${fieldId}`)
 
+      const disabledNames = ['subject_location', 'username', 'email']
       if (
         window.CKEDITOR?.instances[fieldId] ||
-        field.attr('type') === 'text' ||
+        (field.attr('type') === 'text' && !field.hasClass('vDateField') && !disabledNames.includes(field.attr('name')) ) ||
         field.prop('tagName') === 'TEXTAREA'
       ) {
         const icon = $('<a class="fa-solid fa-spell-check me-2 text-decoration-none" href="javascript:void(0)"></a>')
