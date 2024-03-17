@@ -167,6 +167,7 @@ BATON = {
     'AI': {
         'ENABLE_TRANSLATIONS': True,
         'ENABLE_CORRECTIONS': True,
+        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
     },
     'MENU': (
         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -250,13 +251,16 @@ You can also enable the AI corrections feature:
     ...
     'AI': {
         'ENABLE_CORRECTIONS': True,
+        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
     },
     ...
 ```
 
-In this case near the labels of all input text, textarea and ckeditor fields, will appear an icon to trigger the AI correction.
+In this case near the labels of all fields which satisfy one provided selector, and all ckeditor fields, will appear an icon to trigger the AI correction.
 If the corrected text is the same as the original one, a check icon will appear near the field, otherwise a modal is open, showing
 the diff between the original and the corrected text. At that point you can decide to use the corrected text just by pressing the confirm button.
+
+The default selectors are `textarea` and `input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])`.
 
 There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
 

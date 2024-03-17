@@ -256,9 +256,6 @@ const AI = {
         content: content,
         size: 'md',
         actionBtnLabel: self.t.get('generate'),
-        onClose: function (modal) {
-          modal.destroy()
-        },
         actionBtnCb: async function () {
           let prompt = $('#ai-image-description').val()
           let aspectRatio = $('#ai-image-aspect-ratio').val()
@@ -378,25 +375,19 @@ const AI = {
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          const decodedText = $('<textarea />').html(text).text().replace(/&nbsp;/g, ' ') // ckeditor
-          const diff = Diff.diffChars(decodedText, data?.data?.text)
-          // const fragment = $('<div />') // use fragment if escaping all html 
+          // const decodedText = $('<textarea />').html(text).text()
+          const diff = Diff.diffChars(text, data?.data?.text)
+          const fragment = $('<div />')
 
-          const diffParts = []
           diff.forEach((part) => {
             // green for additions, red for deletions
             // grey for common parts
-            // const color = part.added ? 'green' : part.removed ? 'red' : 'black'
-            // const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
-            // const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
-            // fragment.append(span)
-            diffParts.push(part.added 
-                ? `<span style="color: green; background: rgba(0, 255, 0, 0.2)">${part.value}</span>`
-                : part.removed
-                    ? `<span style="color: red; background: rgba(255, 0, 0, 0.2)">${part.value}</span>`
-                    : `${part.value}`)
+            const color = part.added ? 'green' : part.removed ? 'red' : 'black'
+            const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
+            const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
+            fragment.append(span)
           })
-          // const fragmentHtml = fragment[0].outerHTML
+          const fragmentHtml = fragment[0].outerHTML
           const content = `
 <div class="row">
 <div class="col-md-4">
@@ -409,7 +400,7 @@ const AI = {
 </div>
 <div class="col-md-4">
 <label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Diff')}</label>
-<div>${diffParts.join('')}</div>
+<div>${fragmentHtml}</div>
 </div>
 </div>
 `
@@ -450,6 +441,14 @@ const AI = {
     })
     return locale
   },
+  isEnabledCorrectionField: function (field) {
+    for (let selector of this.config.ai.correctionSelectors) {
+      if ($(field).is(selector)) {
+        return true
+      }
+    }
+    return false
+  },
   activateCorrections: function () {
     var self = this
     // check if form has fields that need translation
@@ -457,13 +456,9 @@ const AI = {
       const fieldId = $(this).attr('for')
       const field = $(`#${fieldId}`)
 
-      const disabledNames = ['subject_location', 'username', 'email']
       if (
         window.CKEDITOR?.instances[fieldId] ||
-        (field.attr('type') === 'text' &&
-          !field.hasClass('vDateField') &&
-          !disabledNames.includes(field.attr('name'))) ||
-        field.prop('tagName') === 'TEXTAREA'
+        self.isEnabledCorrectionField(field)
       ) {
         const icon = $('<a class="fa-solid fa-spell-check me-2 text-decoration-none" href="javascript:void(0)"></a>')
         icon.on('click', function () {
@@ -480,7 +475,7 @@ const AI = {
         $(this).prepend(icon)
       }
     })
-    $('input[type=text],textarea').on('click', function (evt) {
+    $(this.config.ai.correctionSelectors.join(', ')).on('click', function (evt) {
       if (evt.ctrlKey) {
         const field = $(this)
         const fieldId = field.attr('id')
