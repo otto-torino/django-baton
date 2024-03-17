@@ -375,19 +375,25 @@ const AI = {
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           $(field).after(checkIcon)
         } else if (data?.data?.text) {
-          // const decodedText = $('<textarea />').html(text).text()
-          const diff = Diff.diffChars(text, data?.data?.text)
-          const fragment = $('<div />')
+          const decodedText = $('<textarea />').html(text).text().replace(/&nbsp;/g, ' ') // ckeditor
+          const diff = Diff.diffChars(decodedText, data?.data?.text)
+          // const fragment = $('<div />') // use fragment if escaping all html 
 
+          const diffParts = []
           diff.forEach((part) => {
             // green for additions, red for deletions
             // grey for common parts
-            const color = part.added ? 'green' : part.removed ? 'red' : 'black'
-            const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
-            const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
-            fragment.append(span)
+            // const color = part.added ? 'green' : part.removed ? 'red' : 'black'
+            // const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
+            // const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
+            // fragment.append(span)
+            diffParts.push(part.added 
+                ? `<span style="color: green; background: rgba(0, 255, 0, 0.2)">${part.value}</span>`
+                : part.removed
+                    ? `<span style="color: red; background: rgba(255, 0, 0, 0.2)">${part.value}</span>`
+                    : `${part.value}`)
           })
-          const fragmentHtml = fragment[0].outerHTML
+          // const fragmentHtml = fragment[0].outerHTML
           const content = `
 <div class="row">
 <div class="col-md-4">
@@ -400,7 +406,7 @@ const AI = {
 </div>
 <div class="col-md-4">
 <label class="block mt-2 mb-1" style="font-weight: 700">${self.t.get('Diff')}</label>
-<div>${fragmentHtml}</div>
+<div>${diffParts.join('')}</div>
 </div>
 </div>
 `
