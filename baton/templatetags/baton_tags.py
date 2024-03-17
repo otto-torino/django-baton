@@ -43,7 +43,7 @@ def baton_config():
         "ai": {
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
-            "correctionSelectors": ai_config.get('CORRECTIONS_SELECTORS', ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"]),
+            "correctionSelectors": ai_config.get('CORRECTION_SELECTORS', ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"]),
             "translateApiUrl": reverse('baton-translate'),
             "summarizeApiUrl": reverse('baton-summarize'),
             "generateImageApiUrl": reverse('baton-generate-image'),
