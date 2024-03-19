@@ -250,6 +250,21 @@
   --#{$prefix}baton-changeform-selector-button-color: #000;
   --#{$prefix}baton-changeform-submit-row-bg: #2d3538;
 
+  // calendar
+  --#{$prefix}baton-calendar-bg: #fff;
+  --#{$prefix}baton-calendar-header-bg: #f5f5f5;
+  --#{$prefix}baton-calendar-header-color: #000;
+  --#{$prefix}baton-calendar-cell-th-bg: #fafafa;
+  --#{$prefix}baton-calendar-cell-bg: #fff;
+  --#{$prefix}baton-calendar-cell-color: #000;
+  --#{$prefix}baton-calendar-cell-nonday-bg: #f8f8f8;
+  --#{$prefix}baton-calendar-cell-th-border-color: #ccc;
+  --#{$prefix}baton-calendar-cell-td-border-color: #f0f0f0;
+  --#{$prefix}baton-calendar-shortcuts-bg: #eee;
+  --#{$prefix}baton-calendar-shortcuts-color: ##8e9b00;
+  --#{$prefix}baton-calendar-cancel-bg: #b3c100;
+  --#{$prefix}baton-calendar-cancel-color: #fff;
+
   // changehistory
   --#{$prefix}baton-changehistory-bg: #fff;
   --#{$prefix}baton-changehistory-border-color: #fff;
@@ -469,7 +484,22 @@
     --#{$prefix}baton-changeform-selector-chooser-bg: #222;
     --#{$prefix}baton-changeform-selector-button-bg: #111;
     --#{$prefix}baton-changeform-selector-button-color: #fff;
-  --#{$prefix}baton-changeform-submit-row-bg: #1c2429;
+    --#{$prefix}baton-changeform-submit-row-bg: #1c2429;
+
+    // calendar
+    --#{$prefix}baton-calendar-bg: #111;
+    --#{$prefix}baton-calendar-header-bg: #666;
+    --#{$prefix}baton-calendar-header-color: #fff;
+    --#{$prefix}baton-calendar-cell-th-bg: #202020;
+    --#{$prefix}baton-calendar-cell-bg: #222;
+    --#{$prefix}baton-calendar-cell-color: #fff;
+    --#{$prefix}baton-calendar-cell-nonday-bg: #303030;
+    --#{$prefix}baton-calendar-cell-th-border-color: #333;
+    --#{$prefix}baton-calendar-cell-td-border-color: #222;
+    --#{$prefix}baton-calendar-shortcuts-bg: #404040;
+    --#{$prefix}baton-calendar-shortcuts-color: #b3c100;
+    --#{$prefix}baton-calendar-cancel-bg: #b3c100;
+    --#{$prefix}baton-calendar-shortcuts-color: #fff;
 
     // changehistory
     --#{$prefix}baton-changehistory-bg: #222;
