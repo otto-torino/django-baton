@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import $ from 'jquery'
 import Translator from './i18n'
 const Diff = require('diff')
