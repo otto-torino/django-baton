@@ -13,7 +13,7 @@ class InputFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         # Dummy, required to show the filter.
-        return ((),)
+        return (('all', 'All'),)
 
     def choices(self, changelist):
         # Grab only the "all" option.
