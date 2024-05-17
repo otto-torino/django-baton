@@ -95,6 +95,7 @@ const AI = {
             $(`#${baseId}_${self.config.defaultLanguage}`).val(),
           field: baseId,
           languages: missing,
+          defaultLanguage: self.config.defaultLanguage,
         })
       }
     })
