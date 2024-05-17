@@ -125,7 +125,9 @@ const AI = {
           overlay.remove()
         }
       })
-      .fail(function () {
+      .fail(function (err) {
+        console.log(err)
+        alert(self.t.get('aiApiError') + ': ' + err.statusText)
         overlay.remove()
       })
   },
@@ -171,11 +173,11 @@ const AI = {
   },
   summarize: function (field, conf, modal) {
     const targetId = `id_${conf.target}`
-    const words = $(`#${field.attr('id')}_words`).val()
+    const words = modal.modalObj.find(`#${field.attr('id')}_words`).val()
     if (words === '' || !conf.target) {
       return
     }
-    const useBulletedList = $(`#${field.attr('id')}_useBulletedList`).is(':checked')
+    const useBulletedList = modal.modalObj.find(`#${field.attr('id')}_useBulletedList`).is(':checked')
 
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
@@ -216,8 +218,9 @@ const AI = {
         modal.close()
         modal.destroy()
       })
-      .fail(function () {
+      .fail(function (err) {
         overlay.remove()
+        alert(self.t.get('aiApiError') + ': ' + err.statusText)
         modal.close()
         modal.destroy()
       })
@@ -375,7 +378,11 @@ const AI = {
           const checkIcon = $('<i />', {
             class: 'fa fa-check',
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
-          $(field).after(checkIcon)
+          if (window.CKEDITOR?.instances[$(field).attr('id')]) {
+            $(field).parent('.django-ckeditor-widget').after(checkIcon)
+          } else {
+            $(field).after(checkIcon)
+          }
         } else if (data?.data?.text) {
           const decodedText = $('<textarea />').html(text).text().replace(/&nbsp;/g, ' ') // ckeditor
           const diff = Diff.diffChars(decodedText, data?.data?.text)
@@ -433,10 +440,10 @@ const AI = {
         }
         overlay.remove()
       })
-      .fail(function () {
+      .fail(function (err) {
         overlay.remove()
         console.log(err)
-        alert(self.t.get('error') + ': ' + err)
+        alert(self.t.get('aiApiError') + ': ' + err.statusText)
       })
   },
   getCorrectionLanguage: function (fieldId) {

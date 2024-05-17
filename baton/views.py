@@ -267,6 +267,7 @@ class TranslateView(View):
         payload = { "items": [] }
         for field in json.loads(request.body):
             payload["items"].append({
+                "defaultLanguage": field.get("defaultLanguage"),
                 "languages": field.get("languages"),
                 "id": field.get("field"),
                 "text": field.get("text"),

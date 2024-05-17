@@ -1,4 +1,9 @@
 export const messages = {
+    aiApiError: {
+        en: 'There was an error while generating the AI response',
+        it: 'Si è verificato un errore durante la generazione della risposta AI',
+        es: 'Hubo un error al generar la respuesta AI',
+    },
     aspectRatio: {
         en: 'Aspect ratio',
         it: 'Formato',
