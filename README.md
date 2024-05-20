@@ -74,7 +74,7 @@ Everything is styled through CSS and when required, JS is used.
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
-- Customization available by recompiling the js app provided
+- Customization available by editing css vars and/or recompiling the js app provided
 - IT translations provided
 - Automatic translations with AI (you need a subscription key)
 
@@ -933,11 +933,14 @@ class VideosInline(admin.StackedInline):
 
 ## <a name="customization"></a>Customization
 
-It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern JS app which resides in `baton/static/baton/app`.
+It's easy to customize the appeareance of __baton__.
+You can override all the css variables, just create a `baton/css/root.css` file (see [here](https://github.com/otto-torino/django-baton/tree/master/baton/static/baton/css/root.css)) and serve it from an app listed before baton in `INSTALLED_APPS`.
+
+If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 
 ![Customization](docs/images/customization.png)
 
-You just need to change the [SASS variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) (and you can also overwrite Bootstrap variables), re-compile, get the compiled JS file, place it in the static folder of your main app,
+Make the changes you want, re-compile, get the compiled JS file, place it in the static folder of your main app,
 and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
 So:
