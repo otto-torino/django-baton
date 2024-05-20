@@ -239,13 +239,13 @@ AI
 
 Django Baton can provide you AI assistance in the admin interface. You can enable the translations feature by setting the `AI` key in the configuration dictionary.    
 
-.. important:: This feature is currently experimental.
+.. important:: Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
 
 It's designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
 If enabled, it will add a ``Translate`` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.
 
-In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATON_CLIENT_SECRET`` keys in the configuration dictionary. In order to obtain these keys for now you need to contact our company [Otto srl](https://www.otto.to.it).::
+In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATON_CLIENT_SECRET`` keys in the configuration dictionary. In order to obtain these keys you must create an account at [Baton](https://baton.sqrt64.it). Please visit the site for more information and pricing::
 
     # ...
     'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',

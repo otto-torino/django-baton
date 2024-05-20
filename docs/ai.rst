@@ -4,6 +4,7 @@ AI
 Starting from 4.0.0, the new AI functionalities are available:
 
 - Automatic translations with django-modeltranslation
+- Text corrections
 - Text summarization
 - Image generation
 
@@ -23,10 +24,22 @@ Corrections
 In the configuration section you can specify if you want to enable the corrections feature. If you enable it, the functionality will be activated sitewide.
 In every add/change form page which contains text fields (also CKEDITOR), an icon will appear near the label to trigger the AI correction.
 
-When triggergin the correction there are two possible results:
+When triggering the correction there are two possible results:
 
 - the corrected text is the same as the original one: nothing happens, only a green check icon appears near the field
 - the corrected text is different from the original one: a modal is shown with the diff between the original and the corrected text, and the user can decide to use the corrected text.
+
+The default selectors are `textarea` and `input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])`, you can change them in the configuration:::
+
+    ...
+    'AI': {
+        'ENABLE_CORRECTIONS': True,
+        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+    },
+    ...
+
+
+There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
 
 Text Summarization
 ------------------
