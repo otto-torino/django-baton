@@ -10,6 +10,8 @@ from django import template
 from django.utils.html import escapejs
 from django.conf import settings
 
+from baton.models import BatonTheme
+
 from ..config import get_config
 
 register = template.Library()
@@ -75,6 +77,17 @@ def baton_config():
 @register.simple_tag
 def baton_config_value(key):
     return get_config(key)
+
+
+@register.inclusion_tag('baton/theme.html')
+def baton_theme():
+    try:
+        theme = BatonTheme.objects.get(active=True)
+    except:
+        theme = None
+    return {
+        'theme': theme,
+    }
 
 @register.inclusion_tag('baton/footer.html', takes_context=True)
 def footer(context):

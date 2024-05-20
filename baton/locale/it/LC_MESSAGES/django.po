@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 16:44+0100\n"
+"POT-Creation-Date: 2024-05-20 14:33+0200\n"
 "PO-Revision-Date: 2017-02-12 17:00+0100\n"
 "Last-Translator: Stefano Contini <abidibo@gmail.com>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -26,45 +26,64 @@ msgstr "Amministrazione sito"
 msgid "Menu"
 msgstr "Menu"
 
+#: models.py:5
+msgid "Name"
+msgstr "Nome"
+
+#: models.py:6
+msgid "Theme"
+msgstr "Tema"
+
+#: models.py:7
+msgid "Active"
+msgstr "Attivo"
+
 #: templates/admin/base_site.html:5
 msgid "Django site admin"
 msgstr "Amministrazione sito django"
 
-#: templates/admin/base_site.html:44
+#: templates/admin/base_site.html:27
 msgid "Django administration"
 msgstr "Amministrazione django"
-
-#: templates/admin/base_site.html:63
-msgid "close"
-msgstr "chiudi"
-
-#: templates/admin/base_site.html:64
-msgid "save"
-msgstr "salva"
 
 #: templates/admin/filer/folder/directory_listing.html:4
 msgid "Folders"
 msgstr "Cartelle"
 
-#: templates/baton/filters/dropdown_filter.html:3
-#: templates/baton/filters/input_filter.html:3
+#: templates/admin/filter.html:2 templates/baton/filters/dropdown_filter.html:6
+#: templates/baton/filters/input_filter.html:4
+#: templates/baton/filters/multiple_choice_filter.html:2
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "Per %(filter_title)s"
 
-#: templates/baton/filters/input_filter.html:16
+#: templates/baton/ai_stats.html:13
+msgid "Something went wrong"
+msgstr "Qualcosa è andato storto"
+
+#: templates/baton/filters/input_filter.html:18
+#: templates/baton/filters/input_filter.html:31
 msgid "type and press enter..."
 msgstr "digita e premi invio..."
 
-#: templates/baton/filters/input_filter.html:20
-msgid "Remove"
-msgstr "Rimuovi"
+#: templates/baton/filters/input_filter.html:22
+msgid "Reset"
+msgstr ""
 
 #: templates/baton/footer.html:7
 msgid "Support"
 msgstr "Supporto"
 
-#: templates/baton/footer.html:18
+#: templates/baton/footer.html:17
 #, python-format
 msgid "Developed by %(powered_by)s"
 msgstr "Sviluppato da %(powered_by)s"
+
+#~ msgid "close"
+#~ msgstr "chiudi"
+
+#~ msgid "save"
+#~ msgstr "salva"
+
+#~ msgid "Remove"
+#~ msgstr "Rimuovi"

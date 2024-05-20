@@ -11,8 +11,9 @@
     --bs-btn-active-bg: #f90;
     --bs-btn-active-border-color: #f90;
     --bs-baton-accent-color: #b3c100
-        /* utils */
-        --bs-baton-warning-color: #d39e00;
+
+    /* utils */
+    --bs-baton-warning-color: #d39e00;
     --bs-baton-danger-color: #dc3545;
 
     /* login */
