@@ -24,6 +24,7 @@ Baton 4.0.* introduces a bunch of new AI functionalities!
 
 - automatic translations with django-modeltranslation
 - text summarization
+- text corrections
 - image generation
 
 ---
@@ -50,7 +51,7 @@ Baton 4.0.* introduces a bunch of new AI functionalities!
 - [Form Tabs](#form-tabs)
 - [Form Includes](#form-includes)
 - [Collapsable stacked inlines entries](#collapsable-stackedinline)
-- [Customization](#customization)
+- [Themes & Customization](#customization)
 - [Tests](#tests)
 - [Contributing](#contributing)
 - [Screenshots](#screenshots)
@@ -110,6 +111,10 @@ INSTALLED_APPS = (
     'baton.autodiscover',
 )
 ```
+
+Run migrations
+
+    $ python manage.py migrate
 
 Replace `django.contrib.admin` in your project urls, and add baton urls:
 
@@ -931,10 +936,12 @@ class VideosInline(admin.StackedInline):
     classes = ('collapse-entry', 'expand-first', )
 ```
 
-## <a name="customization"></a>Customization
+## <a name="customization"></a>Themes & Customization
 
 It's easy to customize the appeareance of __baton__.
 You can override all the css variables, just create a `baton/css/root.css` file (see [here](https://github.com/otto-torino/django-baton/tree/master/baton/static/baton/css/root.css)) and serve it from an app listed before baton in `INSTALLED_APPS`.
+
+You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
 
 If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 

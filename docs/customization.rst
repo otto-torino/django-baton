@@ -7,6 +7,8 @@ It's easy to customize the appeareance of baton.
 
 You can override all the css variables, just create a `baton/css/root.css` file and serve it from an app listed before baton in `INSTALLED_APPS`.
 
+You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
+
 If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 
 The Baton js app

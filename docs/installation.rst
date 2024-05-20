@@ -20,7 +20,11 @@ Using pip
 
 .. important:: ``baton`` must be placed before ``django.contrib.admin`` and ``baton.autodiscover`` as the last app.
 
-3. Replace django.contrib.admin in your project urls, and add baton urls::
+3. Run migrations::
+
+    $ python manage.py migrate
+
+4. Replace django.contrib.admin in your project urls, and add baton urls::
 
     from baton.autodiscover import admin
     from django.urls import path, include
