@@ -26,7 +26,7 @@
     "diff": "^5.2.0",
     "file-loader": "^6.2.0",
     "ini": "^2.0.0",
-    "jquery": "^3.6.0",
+    "jquery": "^3.7.1",
     "js-event-dispatcher": "^0.1.0",
     "loader": "^2.1.1",
     "lodash": "^4.17.21",
