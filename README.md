@@ -450,6 +450,14 @@ class MyModel(models.Model):
     image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
 ```
 
+There is also another way to add the AI image generation functionality to a normal ImageField if you do not want to use the BatonAiImageField model field:
+
+``` html
+<script>
+    Baton.AI.addImageGeneration('{{ widget.name }}');
+</script>
+```
+
 ### <a name="ai-stats"></a>Stats widget
 
 Baton provides a new widget which can be used to display stats about AI usage. Just include it in your admin index template:

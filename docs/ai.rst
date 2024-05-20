@@ -84,6 +84,13 @@ file field with just one click.::
     class MyModel(models.Model):
         image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
 
+
+There is also another way to add the AI image generation functionality to a normal ImageField if you do not want to use the BatonAiImageField model field:::
+
+    <script>
+        Baton.AI.addImageGeneration('{{ widget.name }}');
+    </script>
+
 Stats
 ----------------
 
