@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/pypi/l/django-baton)
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
-A cool, modern and responsive django admin application based on bootstrap 5
+A cool, modern and responsive django admin application based on bootstrap 5, which brings AI in your admin panel.
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
