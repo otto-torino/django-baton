@@ -83,3 +83,13 @@ file field with just one click.::
 
     class MyModel(models.Model):
         image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
+
+Stats
+----------------
+
+Baton provides a new widget which can be used to display stats about AI usage. Just include it in your admin index template:::
+
+    {% load baton_tags %}
+    {% baton_ai_stats %}
+
+.. image:: images/baton-ai-stats.png

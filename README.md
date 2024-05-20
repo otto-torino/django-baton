@@ -382,6 +382,7 @@ You can move between the results using the keyboard up and down arrows, and you 
 Starting from 4.0.0, the new AI functionalities are available:
 
 - Automatic translations with django-modeltranslation
+- Text corrections
 - Text summarization
 - Image generation
 
@@ -448,6 +449,18 @@ from baton.fields import BatonAiImageField
 class MyModel(models.Model):
     image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
 ```
+
+### <a name="ai-stats"></a>Stats widget
+
+Baton provides a new widget which can be used to display stats about AI usage. Just include it in your admin index template:
+
+``` HTML
+{% load baton_tags %}
+
+{% baton_ai_stats %}
+```
+
+![Modal](docs/images/baton-ai-stats.png)
 
 ## <a name="page-detection"></a>Page Detection
 
