@@ -72,7 +72,7 @@ You can also perform live development, in this case:
         <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
         <!-- <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script> -->
         <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'baton/css/root.css' %}">
+        {% baton_theme %}
     {% endblock extrahead %}
 
     {% block branding %}
