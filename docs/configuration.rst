@@ -245,6 +245,8 @@ It's designed to work with the [django-modeltranslation](https://github.com/desc
 If enabled, it will add a ``Translate`` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.
 
+.. important:: Important! Translate many long texts at once can be slow, so be sure to increase the timeout threshold in your web server configuration! The translate request is performed to the django application which then calls the external translation service, so if you have a small timeout it may happen that the request to the external translation service goes on and you're charged for it but the application closes the request with a 502 error!
+
 In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATON_CLIENT_SECRET`` keys in the configuration dictionary. In order to obtain these keys you must create an account at [Baton](https://baton.sqrt64.it). Please visit the site for more information and pricing::
 
     # ...

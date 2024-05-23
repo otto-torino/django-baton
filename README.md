@@ -67,7 +67,9 @@ Everything is styled through CSS and when required, JS is used.
 
 - Based on Bootstrap 5 and FontAwesome Free 6
 - Fully responsive
+- AI functionalities: translations, corrections, summarizations, image generation (you need a subscription key)
 - Custom and flexible sidebar menu
+- Themes support
 - Configurable search field
 - Text input filters and dropdown list filters facilities
 - Form tabs out of the box
@@ -79,7 +81,6 @@ Everything is styled through CSS and when required, JS is used.
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Customization available by editing css vars and/or recompiling the js app provided
 - IT translations provided
-- Automatic translations with AI (you need a subscription key)
 
 Baton is based on the following frontend technologies:
 
@@ -238,6 +239,8 @@ Django Baton can provide you AI assistance in the admin interface. You can enabl
 The translations feature is designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
 If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.
+
+> Important! Translate many long texts at once can be slow, so be sure to increase the timeout threshold in your web server configuration! The translate request is performed to the django application which then calls the external translation service, so if you have a small timeout it may happen that the request to the external translation service goes on and you're charged for it but the application closes the request with a 502 error!
 
 In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET` keys in the configuration dictionary. In order to obtain these keys you must create an account at [Baton](https://baton.sqrt64.it). Please visit the site for more information and pricing.
 
