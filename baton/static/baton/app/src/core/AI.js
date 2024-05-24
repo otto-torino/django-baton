@@ -19,6 +19,11 @@ const AI = {
       this.activateCorrections()
     }
   },
+  decodeHtml(html) {
+    let txt = document.createElement("textarea")
+    txt.innerHTML = html
+    return txt.value
+  },
   activateTranslations: function () {
     // check if form has fields that need translation
     let hasTranslations = false
@@ -89,10 +94,9 @@ const AI = {
         }
       })
       if (missing.length > 0) {
+        const html = window.CKEDITOR?.instances[`${baseId}_${self.config.defaultLanguage}`]?.getData()
         payload.push({
-          text:
-            window.CKEDITOR?.instances[`${baseId}_${self.config.defaultLanguage}`]?.getData() ||
-            $(`#${baseId}_${self.config.defaultLanguage}`).val(),
+          text: html ? self.decodeHtml(html) : $(`#${baseId}_${self.config.defaultLanguage}`).val(),
           field: baseId,
           languages: missing,
           defaultLanguage: self.config.defaultLanguage,
@@ -127,7 +131,7 @@ const AI = {
       })
       .fail(function (err) {
         console.log(err)
-        alert(self.t.get('aiApiError') + ': ' + err.statusText)
+        alert(self.t.get('aiApiError') + ': ' + (err.responseJSON?.data?.message || err.statusText))
         overlay.remove()
       })
   },
@@ -172,6 +176,7 @@ const AI = {
     myModal.open()
   },
   summarize: function (field, conf, modal) {
+    var self = this
     const targetId = `id_${conf.target}`
     const words = modal.modalObj.find(`#${field.attr('id')}_words`).val()
     if (words === '' || !conf.target) {
@@ -185,9 +190,10 @@ const AI = {
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     // retrieve necessary translations
+    const html = window.CKEDITOR?.instances[field.attr('id')]?.getData()
     const payload = {
       id: field.attr('id'),
-      text: window.CKEDITOR?.instances[field.attr('id')]?.getData() || $(`#${field.attr('id')}`).val(),
+      text: html ? this.decodeHtml(html) : $(`#${field.attr('id')}`).val(),
       words: parseInt(words),
       useBulletedList: useBulletedList,
       language: conf?.language || this.config.defaultLanguage,
@@ -202,6 +208,7 @@ const AI = {
       headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
     })
       .done(function (data) {
+                console.log('DATA', data) // eslint-disable-line
         try {
           if (window.CKEDITOR?.instances[targetId]) {
             window.CKEDITOR.instances[targetId].setData(data.data.summary)
@@ -219,8 +226,9 @@ const AI = {
         modal.destroy()
       })
       .fail(function (err) {
+        console.log(err)
         overlay.remove()
-        alert(self.t.get('aiApiError') + ': ' + err.statusText)
+        alert(self.t.get('aiApiError') + ': ' + (err.responseJSON?.data?.message || err.statusText))
         modal.close()
         modal.destroy()
       })
@@ -331,7 +339,7 @@ const AI = {
       })
       .fail(function (err) {
         console.log(err)
-        alert(self.t.get('imageGenerationError'))
+        alert(self.t.get('imageGenerationError') + ': ' + (err.responseJSON?.data?.message || err.statusText))
         overlay.remove()
         return null
       })
@@ -384,8 +392,7 @@ const AI = {
             $(field).after(checkIcon)
           }
         } else if (data?.data?.text) {
-          const decodedText = $('<textarea />').html(text).text().replace(/&nbsp;/g, ' ') // ckeditor
-          const diff = Diff.diffChars(decodedText, data?.data?.text)
+          const diff = Diff.diffChars(text, data?.data?.text)
           // const fragment = $('<div />') // use fragment if escaping all html 
 
           const diffParts = []
@@ -441,9 +448,9 @@ const AI = {
         overlay.remove()
       })
       .fail(function (err) {
-        overlay.remove()
         console.log(err)
-        alert(self.t.get('aiApiError') + ': ' + err.statusText)
+        overlay.remove()
+        alert(self.t.get('aiApiError') + ': ' + (err.responseJSON?.data?.message || err.statusText))
       })
   },
   getCorrectionLanguage: function (fieldId) {
@@ -479,7 +486,7 @@ const AI = {
         icon.on('click', function () {
           let text
           if (window.CKEDITOR?.instances[fieldId]) {
-            text = window.CKEDITOR?.instances[fieldId]?.getData()
+            text = self.decodeHtml(window.CKEDITOR?.instances[fieldId]?.getData())
           } else if (field.attr('type') === 'text' || field.prop('tagName') === 'TEXTAREA') {
             text = $(field).val()
           }

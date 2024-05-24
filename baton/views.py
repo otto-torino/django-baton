@@ -289,7 +289,8 @@ class TranslateView(View):
         # Print the response
         post_response_json = post_response.json()
 
-        return JsonResponse({"data": post_response_json, "success": True})
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
 
 
 class SummarizeView(View):
@@ -320,7 +321,8 @@ class SummarizeView(View):
         # Print the response
         post_response_json = post_response.json()
 
-        return JsonResponse({"data": post_response_json, "success": True})
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
 
 
 class GenerateImageView(View):
@@ -348,10 +350,8 @@ class GenerateImageView(View):
 
         post_response_json = post_response.json()
 
-        if post_response.status_code != 200:
-            return JsonResponse({"data": post_response_json, "success": False}, status=post_response.status_code)
-
-        return JsonResponse({"data": post_response_json, "success": True})
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
 
 
 class CorrectView(View):
@@ -379,7 +379,5 @@ class CorrectView(View):
 
         post_response_json = post_response.json()
 
-        if post_response.status_code != 200:
-            return JsonResponse({"data": post_response_json, "success": False}, status=post_response.status_code)
-
-        return JsonResponse({"data": post_response_json, "success": True})
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
