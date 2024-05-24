@@ -397,9 +397,9 @@ const AI = {
             // const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
             // fragment.append(span)
             diffParts.push(part.added 
-                ? `<span style="color: green; background: rgba(0, 255, 0, 0.2)">${part.value}</span>`
+                ? `<span style="color: green; background: rgba(0, 255, 0, 0.2); padding: 0 3px;">${part.value}</span>`
                 : part.removed
-                    ? `<span style="color: red; background: rgba(255, 0, 0, 0.2)">${part.value}</span>`
+                    ? `<span style="color: red; background: rgba(255, 0, 0, 0.2); padding: 0 3px;">${part.value}</span>`
                     : `${part.value}`)
           })
           // const fragmentHtml = fragment[0].outerHTML
