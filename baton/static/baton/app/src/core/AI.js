@@ -100,7 +100,6 @@ const AI = {
           field: baseId,
           languages: missing,
           defaultLanguage: self.config.defaultLanguage,
-          model: self.config.ai.translationsModel,
         })
       }
     })
@@ -108,7 +107,10 @@ const AI = {
     $.ajax({
       url: this.config.ai.translateApiUrl,
       method: 'POST',
-      data: JSON.stringify(payload),
+      data: JSON.stringify({
+          items: payload,
+          model: this.config.ai.translationsModel,
+      }),
       dataType: 'json',
       contentType: 'application/json',
       headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
@@ -272,8 +274,8 @@ const AI = {
         size: 'md',
         actionBtnLabel: self.t.get('generate'),
         actionBtnCb: async function () {
-          let prompt = $('#ai-image-description').val()
-          let aspectRatio = $('#ai-image-aspect-ratio').val()
+          let prompt = myModal.modalObj.find('#ai-image-description').val()
+          let aspectRatio = myModal.modalObj.find('#ai-image-aspect-ratio').val()
           self.generateImage(field, prompt, aspectRatio, function (image) {
             if (!image) {
               alert(self.t.get('imageGenerationError'))
@@ -282,7 +284,7 @@ const AI = {
             let imageEl = new Image()
             imageEl.src = `data:image/png;base64,${image}`
             $(imageEl).css({ width: '100%', marginTop: '1rem' })
-            $('#ai-image-preview').append(imageEl)
+            myModal.modalObj.find('#ai-image-preview').append(imageEl)
             myModal.modalObj.find('.btn-action').text(self.t.get('useImage'))
             myModal.modalObj.find('.btn-action').off('click')
             myModal.modalObj.find('.btn-action').on('click', function (evt) {
@@ -291,9 +293,10 @@ const AI = {
               // create a blob object
               const blob = self.dataURItoBlob(data)
               // use the Blob to create a File Object
+              const imageName = myModal.modalObj.find('#ai-image-name').val()
               const file = new File(
                 [blob],
-                $('#ai-image-name').val() ? $('#ai-image-name').val() + '.png' : 'image.png',
+                imageName ? imageName + '.png' : 'image.png',
                 { type: 'image/png', lastModified: new Date().getTime() },
               )
               const array_images = [file]

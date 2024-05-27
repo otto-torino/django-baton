@@ -300,6 +300,7 @@ class SummarizeView(View):
             "id": data.get("id"),
             "text": data.get("text"),
             "words": data.get("words"),
+            "model": data.get("model"),
             "useBulletedList": data.get("useBulletedList"),
             "language": data.get("language"),
         }
@@ -332,6 +333,7 @@ class GenerateImageView(View):
             "id": data.get("id"),
             "prompt": data.get("prompt"),
             "format": int(data.get("format")),
+            "model": data.get("model"),
         }
 
         # The API endpoint to communicate with
@@ -361,6 +363,7 @@ class CorrectView(View):
             "id": data.get("id"),
             "text": data.get("text"),
             "language": data.get("language"),
+            "model": data.get("model"),
         }
 
         # The API endpoint to communicate with
