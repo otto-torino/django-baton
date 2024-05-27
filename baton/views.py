@@ -264,8 +264,9 @@ class TranslateView(View):
         return super(TranslateView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
-        payload = { "items": [] }
-        for field in json.loads(request.body):
+        body = json.loads(request.body)
+        payload = { "items": [], "model": body.get("model") }
+        for field in body.get("items"):
             payload["items"].append({
                 "defaultLanguage": field.get("defaultLanguage"),
                 "languages": field.get("languages"),
