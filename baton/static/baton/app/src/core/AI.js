@@ -256,9 +256,9 @@ const AI = {
         <input class="form-control" id="ai-image-name" value="ai_image" />
         <label class="block mb-1 mt-2" style="font-weight: 700">${this.t.get('aspectRatio')}</label>
         <select class="form-select" id="ai-image-aspect-ratio">
-            <option value="1">1:1</option>
-            <option value="2">14:8</option>
-            <option value="3">8:14</option>
+            <option value="1">1024x1024</option>
+            <option value="2">1792x1024</option>
+            <option value="3">1024:1792</option>
         </select>
         <label class="block mt-2 mb-1" style="font-weight: 700">${this.t.get('describeImageContent')}</label>
         <textarea class="form-control" id="ai-image-description"></textarea>
