@@ -8,6 +8,8 @@ Example
 
 This is an example of configuration::
 
+    from baton.ai import AIModels
+
     BATON = {
         'SITE_HEADER': 'Baton',
         'SITE_TITLE': 'Baton',
@@ -37,9 +39,13 @@ This is an example of configuration::
         'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
         'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
         'AI': {
+            'IMAGES_MODEL': AIModels.BATON_DALL_E_3,
+            'SUMMARIZATIONS_MODEL': AIModels.BATON_GPT_4O,
             'ENABLE_TRANSLATIONS': True,
+            'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
             'ENABLE_CORRECTIONS': True,
             'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+            'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5,
         },
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -237,11 +243,11 @@ You can force the light or dark theme, and the theme toggle disappears from the 
 AI
 ----
 
-Django Baton can provide you AI assistance in the admin interface. You can enable the translations feature by setting the `AI` key in the configuration dictionary.    
+Django Baton can provide you AI assistance in the admin interface. You can enable the translations/corrections features by setting the `AI` key in the configuration dictionary. You can also configure here which models to use for each functionality. Please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it).   
 
 .. important:: Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
 
-It's designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+Translations are designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
 If enabled, it will add a ``Translate`` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.
 
@@ -254,6 +260,7 @@ In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATO
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
     'AI': {
         'ENABLE_TRANSLATIONS': True,
+        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5
     },
     # ...
 
@@ -262,6 +269,7 @@ You can also enable the AI corrections feature:::
     # ...
     'AI': {
         'ENABLE_CORRECTIONS': True,
+        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5
         'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
     },
     # ...
@@ -275,6 +283,19 @@ the diff between the original and the corrected text. At that point you can deci
 The default selectors are ``textarea`` and ``input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])``.
 
 There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
+
+Available models
+^^^^^
+
+You can configure your preferred model for each functionality, you may choose between the following:::
+
+    class AIModels:
+        BATON_GPT_3_5 = "gpt-3.5-turbo"
+        BATON_GPT_4_TURBO = 'gpt-4-turbo'
+        BATON_GPT_4O = 'gpt-4o'
+        BATON_DALL_E_3 = 'dall-e-3' # images
+
+We currently support just the ``dall-e-3`` model for images generation.
 
 Menu
 ----

@@ -100,6 +100,7 @@ const AI = {
           field: baseId,
           languages: missing,
           defaultLanguage: self.config.defaultLanguage,
+          model: self.config.ai.translationsModel,
         })
       }
     })
@@ -197,6 +198,7 @@ const AI = {
       words: parseInt(words),
       useBulletedList: useBulletedList,
       language: conf?.language || this.config.defaultLanguage,
+      model: self.config.ai.summarizationsModel,
     }
     // use api
     $.ajax({
@@ -323,6 +325,7 @@ const AI = {
       id: field.attr('id'),
       prompt: prompt,
       format: aspectRatio,
+      model: self.config.ai.imagesModel,
     }
     // use api
     return $.ajax({
@@ -365,6 +368,7 @@ const AI = {
       id: field.attr('id'),
       text,
       language: this.getCorrectionLanguage(field.attr('id')),
+      model: self.config.ai.correctionsModel,
     }
 
     // spinner

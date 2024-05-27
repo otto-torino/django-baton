@@ -145,6 +145,8 @@ that so I wrote this `autodiscover` module which automatically registers all the
 The configuration dictionary must be defined inside your settings:
 
 ``` python
+from baton.ai import AIModels
+
 BATON = {
     'SITE_HEADER': 'Baton',
     'SITE_TITLE': 'Baton',
@@ -173,9 +175,13 @@ BATON = {
     'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
     'AI': {
+        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
         'ENABLE_TRANSLATIONS': True,
+        "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         'ENABLE_CORRECTIONS': True,
         'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+        "CORRECTIONS_MODEL": AIModels.BATON_GPT_3_5,
     },
     'MENU': (
         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -232,7 +238,7 @@ Default value is `True`.
 
 ### <a name="configuration-ai"></a>AI
 
-Django Baton can provide you AI assistance in the admin interface. You can enable the translations and corrections features by setting the `AI` key in the configuration dictionary.    
+Django Baton can provide you AI assistance in the admin interface. You can enable the translations and corrections features by setting the `AI` key in the configuration dictionary. You can also choose which model yo use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
 
 > Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
 
@@ -250,6 +256,7 @@ In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_C
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
     'AI': {
         'ENABLE_TRANSLATIONS': True,
+        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5
     },
     ...
 ```
@@ -260,6 +267,7 @@ You can also enable the AI corrections feature:
     ...
     'AI': {
         'ENABLE_CORRECTIONS': True,
+        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5
         'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
     },
     ...
@@ -274,6 +282,20 @@ The default selectors are `textarea` and `input[type=text]:not(.vDateField):not(
 There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
 
 ![Corrections](docs/images/ai-corrections.png)
+
+#### Available models
+
+You can configure your preferred model for each functionality, you may choose between the following:
+
+```
+class AIModels:
+    BATON_GPT_3_5 = "gpt-3.5-turbo"
+    BATON_GPT_4_TURBO = 'gpt-4-turbo'
+    BATON_GPT_4O = 'gpt-4o'
+    BATON_DALL_E_3 = 'dall-e-3' # images
+```
+
+We currently support just the `dall-e-3` model for images generation.
 
 ### <a name="configuration-menu"></a>MENU
 

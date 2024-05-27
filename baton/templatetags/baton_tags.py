@@ -9,10 +9,12 @@ from django.urls import reverse
 from django import template
 from django.utils.html import escapejs
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 from baton.models import BatonTheme
 
 from ..config import get_config
+from ..ai import AIModels
 
 register = template.Library()
 
@@ -43,6 +45,10 @@ def baton_config():
             "gravatar": reverse('baton-gravatar-json'),
         },
         "ai": {
+            "translationsModel": ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5),
+            "correctionsModel": ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5),
+            "summarizationsModel": ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5),
+            "imagesModel": ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "correctionSelectors": ai_config.get('CORRECTION_SELECTORS', ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"]),
@@ -70,6 +76,18 @@ def baton_config():
         "defaultLanguage": default_language,
         "otherLanguages": other_languages,
     }
+
+    if conf['ai']['translationsModel'] not in AIModels.text_models:
+        raise ImproperlyConfigured('Unsupported AI translation model %s' % conf['ai']['translationsModel'])
+
+    if conf['ai']['correctionsModel'] not in AIModels.text_models:
+        raise ImproperlyConfigured('Unsupported AI correction model %s' % conf['ai']['correctionsModel'])
+
+    if conf['ai']['summarizationsModel'] not in AIModels.text_models:
+        raise ImproperlyConfigured('Unsupported AI summarization model %s' % conf['ai']['summarizationsModel'])
+
+    if conf['ai']['imagesModel'] not in AIModels.image_models:
+        raise ImproperlyConfigured('Unsupported AI image model %s' % conf['ai']['imagesModel'])
 
     return conf
 
