@@ -181,6 +181,8 @@ def baton_ai_stats(context):
     except:
         error = True
 
+    ai_config = get_config('AI')
+
     return {
         'user': user,
         'error': error,
@@ -191,4 +193,8 @@ def baton_ai_stats(context):
         'summarizations': summarizations,
         'corrections': corrections,
         'images': images,
+        'translations_model': ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'corrections_model': ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'summarizations_model': ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'images_model': ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
     }
