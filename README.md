@@ -41,7 +41,7 @@ It also introduces themes, and makes it easier to customize the application, the
     - [AI](#configuration-ai)
     - [Menu](#configuration-menu)
     - [Search Field](#configuration-search-field)
-- [AI](#ai)
+- [Baton AI](#baton-ai)
 - [Page Detection](#page-detection)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
@@ -238,11 +238,28 @@ Default value is `True`.
 
 ### <a name="configuration-ai"></a>AI
 
-Django Baton can provide you AI assistance in the admin interface. You can enable the translations and corrections features by setting the `AI` key in the configuration dictionary. You can also choose which model yo use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections and image generation. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+
+#### Available models
+
+You can configure your preferred model for each functionality, you may choose between the following:
+
+```
+class AIModels:
+    BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
+    BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
+    BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
+    BATON_DALL_E_3 = 'dall-e-3' # images
+```
+
+We currently support just the `dall-e-3` model for images generation.
+
+#### Translations
 
 > Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
 
 The translations feature is designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+
 If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
 Baton will then fill in the fields with the translations.
 
@@ -260,6 +277,8 @@ In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_C
     },
     ...
 ```
+
+#### Corrections
 
 You can also enable the AI corrections feature:
 
@@ -283,19 +302,9 @@ There is another way to trigger the correction in cases the label is not visible
 
 ![Corrections](docs/images/ai-corrections.png)
 
-#### Available models
+#### Summarizations and image generations
 
-You can configure your preferred model for each functionality, you may choose between the following:
-
-```
-class AIModels:
-    BATON_GPT_3_5_TURBO = "gpt-3.5-turbo"
-    BATON_GPT_4_TURBO = 'gpt-4-turbo'
-    BATON_GPT_4O = 'gpt-4o'
-    BATON_DALL_E_3 = 'dall-e-3' # images
-```
-
-We currently support just the `dall-e-3` model for images generation.
+These functionalities area described in detail in the [AI](#baton-ai) section.
 
 ### <a name="configuration-menu"></a>MENU
 
@@ -402,7 +411,7 @@ def admin_search(request):
 
 You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
 
-## <a name="ai"></a>AI
+## <a name="baton-ai"></a>Baton AI
 
 Starting from 4.0.0, the new AI functionalities are available:
 
@@ -410,6 +419,8 @@ Starting from 4.0.0, the new AI functionalities are available:
 - Text corrections
 - Text summarization
 - Image generation
+
+You can choose which AI model to use for each functionality, see [AI configuration](#configuration-ai)
 
 ### <a name="ai-translations"></a>Automatic Translations
 

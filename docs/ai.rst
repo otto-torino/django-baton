@@ -8,6 +8,8 @@ Starting from 4.0.0, the new AI functionalities are available:
 - Text summarization
 - Image generation
 
+You can choose which AI model to use for each functionality, see the Configuration section.
+
 Automatic Translations
 ----------------------
 
