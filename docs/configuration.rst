@@ -45,7 +45,7 @@ This is an example of configuration::
             'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
             'ENABLE_CORRECTIONS': True,
             'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
-            'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5,
+            'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5_TURBO,
         },
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -260,7 +260,7 @@ In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATO
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
     'AI': {
         'ENABLE_TRANSLATIONS': True,
-        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5
+        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
     },
     # ...
 
@@ -269,7 +269,7 @@ You can also enable the AI corrections feature:::
     # ...
     'AI': {
         'ENABLE_CORRECTIONS': True,
-        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5
+        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
         'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
     },
     # ...
@@ -290,7 +290,7 @@ Available models
 You can configure your preferred model for each functionality, you may choose between the following:::
 
     class AIModels:
-        BATON_GPT_3_5 = "gpt-3.5-turbo"
+        BATON_GPT_3_5_TURBO = "gpt-3.5-turbo"
         BATON_GPT_4_TURBO = 'gpt-4-turbo'
         BATON_GPT_4O = 'gpt-4o'
         BATON_DALL_E_3 = 'dall-e-3' # images

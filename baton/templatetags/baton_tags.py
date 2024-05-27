@@ -45,9 +45,9 @@ def baton_config():
             "gravatar": reverse('baton-gravatar-json'),
         },
         "ai": {
-            "translationsModel": ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5),
-            "correctionsModel": ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5),
-            "summarizationsModel": ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5),
+            "translationsModel": ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+            "correctionsModel": ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+            "summarizationsModel": ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
             "imagesModel": ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
