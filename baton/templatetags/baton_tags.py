@@ -10,6 +10,7 @@ from django import template
 from django.utils.html import escapejs
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.module_loading import import_string
 
 from baton.models import BatonTheme
 
@@ -18,6 +19,27 @@ from ..ai import AIModels
 
 register = template.Library()
 
+def get_ai_models(ai_config):
+    if ai_config.get("MODELS"): # function hook
+        fn = import_string(ai_config.get("MODELS"))
+        models = fn()
+        print(models)
+        translations_model = models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        summarizations_model = models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        corrections_model = models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        images_model = models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
+    else: # config
+        translations_model = ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        summarizations_model = ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        corrections_model = ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        images_model = ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
+
+    return {
+        'TRANSLATIONS_MODEL': translations_model,
+        'SUMMARIZATIONS_MODEL': summarizations_model,
+        'CORRECTIONS_MODEL': corrections_model,
+        'IMAGES_MODEL': images_model
+    }
 
 @register.simple_tag
 def baton_config():
@@ -38,6 +60,7 @@ def baton_config():
         pass
 
     ai_config = get_config('AI') or {}
+    ai_models = get_ai_models(ai_config)
 
     conf = {
         "api": {
@@ -45,10 +68,10 @@ def baton_config():
             "gravatar": reverse('baton-gravatar-json'),
         },
         "ai": {
-            "translationsModel": ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-            "correctionsModel": ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-            "summarizationsModel": ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-            "imagesModel": ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
+            "translationsModel": ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+            "correctionsModel": ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+            "summarizationsModel": ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+            "imagesModel": ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "correctionSelectors": ai_config.get('CORRECTION_SELECTORS', ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"]),
@@ -140,7 +163,6 @@ def baton_ai_stats(context):
 
     # The API endpoint to communicate with
     url_post = "https://baton.sqrt64.it/api/v1/stats/"
-    # url_post = "http://192.168.1.245:1323/api/v1/stats/"
 
     # A GET request to the API
     ts = str(int(time.time()))
@@ -182,6 +204,7 @@ def baton_ai_stats(context):
         error = True
 
     ai_config = get_config('AI')
+    ai_models = get_ai_models(ai_config)
 
     return {
         'user': user,
@@ -193,8 +216,8 @@ def baton_ai_stats(context):
         'summarizations': summarizations,
         'corrections': corrections,
         'images': images,
-        'translations_model': ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-        'corrections_model': ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-        'summarizations_model': ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-        'images_model': ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
+        'translations_model': ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'corrections_model': ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'summarizations_model': ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'images_model': ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
     }

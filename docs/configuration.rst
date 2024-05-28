@@ -39,10 +39,11 @@ This is an example of configuration::
         'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
         'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
         'AI': {
+            'MODELS': "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
             'IMAGES_MODEL': AIModels.BATON_DALL_E_3,
             'SUMMARIZATIONS_MODEL': AIModels.BATON_GPT_4O,
-            'ENABLE_TRANSLATIONS': True,
             'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
+            'ENABLE_TRANSLATIONS': True,
             'ENABLE_CORRECTIONS': True,
             'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
             'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5_TURBO,
@@ -259,6 +260,35 @@ You can configure your preferred model for each functionality, you may choose be
 
 We currently support just the ``dall-e-3`` model for images generation.
 
+You can set the models used with  a simple configuration:::
+
+    'AI': {
+        # ...
+        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+        "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        # ...
+    },
+
+Or you can set the path to the function which returns the models dictionary:::
+
+    # config
+    'AI': {
+        # ...
+        "MODELS": "myapp.foo.bar",
+        # ...
+    },
+
+    # myapp/foo.py
+    from baton.ai import AIModels
+    def bar():
+        return {
+            "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+            "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        }
+
+If you don't set any of the models, the default models (`BATON_GPT_3_5_TURBO` and `BATON_DALL_E_3`) will be used.
 
 Translations
 ^^^^^^^^^^^^^
