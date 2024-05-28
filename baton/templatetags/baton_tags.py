@@ -23,7 +23,6 @@ def get_ai_models(ai_config):
     if ai_config.get("MODELS"): # function hook
         fn = import_string(ai_config.get("MODELS"))
         models = fn()
-        print(models)
         translations_model = models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
         summarizations_model = models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
         corrections_model = models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
