@@ -190,8 +190,8 @@ def baton_ai_stats(context):
             error = True
             try:
                 errorMessage = response.json().get('message', None)
-            except:
-                pass
+            except Exception as e:
+                errorMessage = str(e)
         else:
             response_json = response.json()
             budget = round(Decimal(response_json.get('budget', 0.0)), 2)
@@ -199,7 +199,8 @@ def baton_ai_stats(context):
             summarizations = response_json.get('summarizations', {})
             corrections = response_json.get('corrections', {})
             images = response_json.get('images', {})
-    except:
+    except Exception as e:
+        errorMessage = str(e)
         error = True
 
     ai_config = get_config('AI')
