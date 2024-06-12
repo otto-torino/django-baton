@@ -31,7 +31,7 @@ It also introduces themes, and makes it easier to customize the application, the
 
 ---
 
-![Screenshot](docs/images/index-analytics-lg.png)
+![Screenshot](docs/images/baton-ai.gif)
 
 ## Table of contents
 
