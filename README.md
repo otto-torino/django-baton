@@ -2,6 +2,7 @@
 
 ![Version](https://img.shields.io/github/v/tag/otto-torino/django-baton?label=version)
 [![Build status](https://app.travis-ci.com/otto-torino/django-baton.svg?token=fp5hqwJQgwHKLpsjsZ3L&branch=master)](https://travis-ci.com/github/otto-torino/django-baton)
+[![Documentation Status](https://readthedocs.org/projects/django-baton/badge/?version=latest)](https://django-baton.readthedocs.io/en/latest/?badge=latest)
 ![License](https://img.shields.io/pypi/l/django-baton)
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
