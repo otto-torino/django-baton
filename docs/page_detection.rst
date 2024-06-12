@@ -9,6 +9,7 @@ There may be cases in which you'd like to serve such contents at different and c
 For this reason you can inject your custom hook, a javascript function which should return the page type and that receives as first argument the Baton's default function to use as fallback, i.e. ::
 
     <!-- admin/base_site.html -->
+    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
     <script>
         (function () {
             Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()

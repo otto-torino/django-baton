@@ -26,6 +26,9 @@ default_config = {
     'LOGIN_SPLASH': None,
     'SEARCH_FIELD': None,
     'FORCE_THEME': None,
+    'BATON_CLIENT_ID': None,
+    'BATON_CLIENT_SECRET': None,
+    'AI': None,
 }
 
 

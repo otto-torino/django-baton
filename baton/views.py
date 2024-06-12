@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import json
+import hmac
+import base64
+import time
+import requests
 from django.http import JsonResponse
 from django.contrib.admin import site
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ImproperlyConfigured
 from django.views import View
+from django.conf import settings
 
 from .config import get_config
 
@@ -251,4 +257,131 @@ class GetGravatartUrlJsonView(View):
         except Exception:
             return JsonResponse({})
 
+class TranslateView(View):
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args, **kwargs):
+        """ Only staff members can access this view """
+        return super(TranslateView, self).dispatch(*args, **kwargs)
 
+    def post(self, request):
+        body = json.loads(request.body)
+        payload = { "items": [], "model": body.get("model") }
+        for field in body.get("items"):
+            payload["items"].append({
+                "defaultLanguage": field.get("defaultLanguage"),
+                "languages": field.get("languages"),
+                "id": field.get("field"),
+                "text": field.get("text"),
+            })
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/translate/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        # Print the response
+        post_response_json = post_response.json()
+
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
+
+
+class SummarizeView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        payload = {
+            "id": data.get("id"),
+            "text": data.get("text"),
+            "words": data.get("words"),
+            "model": data.get("model"),
+            "useBulletedList": data.get("useBulletedList"),
+            "language": data.get("language"),
+        }
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/summarize/"
+        # url_post = "http://192.168.1.245:1323/api/v1/summarize/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        # Print the response
+        post_response_json = post_response.json()
+
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
+
+
+class GenerateImageView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        payload = {
+            "id": data.get("id"),
+            "prompt": data.get("prompt"),
+            "format": int(data.get("format")),
+            "model": data.get("model"),
+        }
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/image/"
+        # url_post = "http://192.168.1.160:1323/api/v1/image/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        post_response_json = post_response.json()
+
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)
+
+
+class CorrectView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        payload = {
+            "id": data.get("id"),
+            "text": data.get("text"),
+            "language": data.get("language"),
+            "model": data.get("model"),
+        }
+
+        # The API endpoint to communicate with
+        url_post = "https://baton.sqrt64.it/api/v1/correct/"
+        # url_post = "http://192.168.1.245:1323/api/v1/correct/"
+
+        # A POST request to tthe API
+        ts = str(int(time.time()))
+        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        sig = base64.b64encode(h.digest()).decode()
+        post_response = requests.post(url_post, json=payload, headers={
+            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Timestamp': ts,
+            'X-Signature': sig,
+        })
+
+        post_response_json = post_response.json()
+
+        success = post_response.status_code == 200
+        return JsonResponse({"data": post_response_json, "success": success}, status=post_response.status_code)

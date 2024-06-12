@@ -8,6 +8,8 @@ Example
 
 This is an example of configuration::
 
+    from baton.ai import AIModels
+
     BATON = {
         'SITE_HEADER': 'Baton',
         'SITE_TITLE': 'Baton',
@@ -33,6 +35,18 @@ This is an example of configuration::
         'SEARCH_FIELD': {
             'label': 'Search contents...',
             'url': '/search/',
+        },
+        'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
+        'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+        'AI': {
+            'MODELS': "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
+            'IMAGES_MODEL': AIModels.BATON_DALL_E_3,
+            'SUMMARIZATIONS_MODEL': AIModels.BATON_GPT_4O,
+            'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
+            'ENABLE_TRANSLATIONS': True,
+            'ENABLE_CORRECTIONS': True,
+            'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+            'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5_TURBO,
         },
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -226,6 +240,108 @@ Force theme
 You can force the light or dark theme, and the theme toggle disappears from the user area.
 
 **Default**: None
+
+AI
+----
+
+
+Django Baton can provide you AI assistance in the admin interface. You can enable the translations/corrections features by setting the ``AI`` key in the configuration dictionary. You can also configure here which models to use for each functionality. Please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it).   
+
+Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the Baton AI section.
+
+Available models
+^^^^^^^^^^^^^^^^^
+
+You can configure your preferred model for each functionality, you may choose between the following:::
+
+    class AIModels:
+        BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
+        BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
+        BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
+        BATON_DALL_E_3 = 'dall-e-3' # images
+
+We currently support just the ``dall-e-3`` model for images generation.
+
+You can set the models used with  a simple configuration:::
+
+    'AI': {
+        # ...
+        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+        "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        # ...
+    },
+
+Or you can set the path to the function which returns the models dictionary:::
+
+    # config
+    'AI': {
+        # ...
+        "MODELS": "myapp.foo.bar",
+        # ...
+    },
+
+    # myapp/foo.py
+    from baton.ai import AIModels
+    def bar():
+        return {
+            "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+            "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        }
+
+If you don't set any of the models, the default models (`BATON_GPT_3_5_TURBO` and `BATON_DALL_E_3`) will be used.
+
+Translations
+^^^^^^^^^^^^^
+
+.. important:: Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
+
+Translations are designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+
+If enabled, it will add a ``Translate`` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
+Baton will then fill in the fields with the translations.
+
+.. important:: Important! Translate many long texts at once can be slow, so be sure to increase the timeout threshold in your web server configuration! The translate request is performed to the django application which then calls the external translation service, so if you have a small timeout it may happen that the request to the external translation service goes on and you're charged for it but the application closes the request with a 502 error!
+
+In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATON_CLIENT_SECRET`` keys in the configuration dictionary. In order to obtain these keys you must create an account at [Baton](https://baton.sqrt64.it). Please visit the site for more information and pricing::
+
+    # ...
+    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
+    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'AI': {
+        'ENABLE_TRANSLATIONS': True,
+        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
+    },
+    # ...
+
+
+Corrections
+^^^^^^^^^^^
+
+You can also enable the AI corrections feature:::
+
+    # ...
+    'AI': {
+        'ENABLE_CORRECTIONS': True,
+        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
+        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+    },
+    # ...
+
+In this case near the labels of all fields which satisfy one provided selector, and all ckeditor fields, will appear an icon to trigger the AI correction.
+
+If the corrected text is the same as the original one, a check icon will appear near the field, otherwise a modal is open, showing
+
+the diff between the original and the corrected text. At that point you can decide to use the corrected text just by pressing the confirm button.
+
+The default selectors are ``textarea`` and ``input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])``.
+
+There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
+
+Summarizations and image generations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+These functionalities area described in detail in the Baton AI section.
 
 Menu
 ----

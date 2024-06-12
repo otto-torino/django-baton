@@ -6,6 +6,7 @@ from django.contrib.admin.filters import (
     RelatedFieldListFilter,
     RelatedOnlyFieldListFilter
 )
+from .models import BatonTheme
 
 
 class InputFilter(admin.SimpleListFilter):
@@ -13,7 +14,7 @@ class InputFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         # Dummy, required to show the filter.
-        return ((),)
+        return (('all', 'All'),)
 
     def choices(self, changelist):
         # Grab only the "all" option.
@@ -95,3 +96,8 @@ class MultipleChoiceListFilter(admin.SimpleListFilter):
                 'exclude_query_string': amend_query_string(exclude=str(lookup)),
                 'display': title,
             }
+
+@admin.register(BatonTheme)
+class BatonThemeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'active')
+    list_editable = ('active',)

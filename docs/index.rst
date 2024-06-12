@@ -34,6 +34,7 @@ Getting started
 
    installation
    configuration
+   ai
    page_detection
    signals
    js_utilities

@@ -8,7 +8,7 @@ module.exports = {
     extensions: [".js"],
   },
   // library entry point
-  entry: "./src/index.js",
+  entry: ["regenerator-runtime/runtime.js", "./src/index.js"],
   output: {
     path: path.join(__dirname, "dist"),
     publicPath: "/static/baton/app/dist/",

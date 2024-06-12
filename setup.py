@@ -11,7 +11,7 @@ REPO_URL = 'http://github.com/otto-torino/django-baton'
 
 setup(
     name='django-baton',
-    version='3.1.0',
+    version='4.0.0',
     packages=['baton', 'baton.autodiscover', 'baton.templatetags'],
     include_package_data=True,
     license='MIT License',
@@ -21,6 +21,9 @@ setup(
     url=REPO_URL,
     author='abidibo',
     author_email='abidibo@gmail.com',
+    install_requires=[
+        "requests",
+    ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',

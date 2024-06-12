@@ -78,14 +78,14 @@ class TestBatonViews(TestCase):
             response = self.client.get(reverse('baton-app-list-json'))
             self.assertEqual(response.status_code, 200)
             data = json.loads(response.content)
-            self.assertEqual(len(data), 2)
+            self.assertEqual(len(data), 3)
             self.assertEqual(data[0].get('type'), 'app')
             self.assertEqual(data[0].get('label'),
                              'Authentication and Authorization')
             self.assertEqual(data[0].get('children')[0].get('label'), 'Groups')
             self.assertEqual(data[0].get('children')[1].get('label'), 'Users')
-            self.assertEqual(data[1].get('label'),
-                             'News')
+            self.assertEqual(data[1].get('label'), 'Baton')
+            self.assertEqual(data[2].get('label'), 'News')
 
     def test_call_view_user_staff(self):
         self.client.login(username='staff', password='staff')

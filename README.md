@@ -1,11 +1,11 @@
 # django-baton
 
 ![Version](https://img.shields.io/github/v/tag/otto-torino/django-baton?label=version)
-[![Build status](https://travis-ci.com/otto-torino/django-baton.svg?branch=master)](https://travis-ci.com/github/otto-torino/django-baton)
+[![Build status](https://app.travis-ci.com/otto-torino/django-baton.svg?token=fp5hqwJQgwHKLpsjsZ3L&branch=master)](https://travis-ci.com/github/otto-torino/django-baton)
 ![License](https://img.shields.io/pypi/l/django-baton)
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
-A cool, modern and responsive django admin application based on bootstrap 5
+A cool, modern and responsive django admin application based on bootstrap 5, which brings AI in your admin panel.
 
 Documentation: [readthedocs](http://django-baton.readthedocs.io/)
 
@@ -20,23 +20,28 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
-Baton 3.0.* removes the `analyitcs` module!
+Baton 4.0.* introduces a bunch of new AI functionalities!
 
-It also introduces a cool option, which is enabled by default, and displays the changeform submit row fixed at the bottom on large screens.
+- automatic translations with django-modeltranslation
+- text summarization
+- text corrections
+- image generation
 
-It fixes some bugs.
+It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you wanto to change primary and secondary colors or you need heavy customization.
 
 ---
 
-![Screenshot](docs/images/index-analytics-lg.png)
+![Screenshot](docs/images/baton-ai.gif)
 
 ## Table of contents
 
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
+    - [AI](#configuration-ai)
     - [Menu](#configuration-menu)
     - [Search Field](#configuration-search-field)
+- [Baton AI](#baton-ai)
 - [Page Detection](#page-detection)
 - [Signals](#signals)
 - [Js Utilities](#js-utilities)
@@ -48,7 +53,7 @@ It fixes some bugs.
 - [Form Tabs](#form-tabs)
 - [Form Includes](#form-includes)
 - [Collapsable stacked inlines entries](#collapsable-stackedinline)
-- [Customization](#customization)
+- [Themes & Customization](#customization)
 - [Tests](#tests)
 - [Contributing](#contributing)
 - [Screenshots](#screenshots)
@@ -62,7 +67,9 @@ Everything is styled through CSS and when required, JS is used.
 
 - Based on Bootstrap 5 and FontAwesome Free 6
 - Fully responsive
+- AI functionalities: translations, corrections, summarizations, image generation (you need a subscription key)
 - Custom and flexible sidebar menu
+- Themes support
 - Configurable search field
 - Text input filters and dropdown list filters facilities
 - Form tabs out of the box
@@ -72,7 +79,7 @@ Everything is styled through CSS and when required, JS is used.
 - Lazy loading of uploaded images
 - Optional display of changelist filters in a modal
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
-- Customization available by recompiling the js app provided
+- Customization available by editing css vars and/or recompiling the js app provided
 - IT translations provided
 
 Baton is based on the following frontend technologies:
@@ -108,6 +115,10 @@ INSTALLED_APPS = (
 )
 ```
 
+Run migrations
+
+    $ python manage.py migrate
+
 Replace `django.contrib.admin` in your project urls, and add baton urls:
 
 ``` python
@@ -134,6 +145,8 @@ that so I wrote this `autodiscover` module which automatically registers all the
 The configuration dictionary must be defined inside your settings:
 
 ``` python
+from baton.ai import AIModels
+
 BATON = {
     'SITE_HEADER': 'Baton',
     'SITE_TITLE': 'Baton',
@@ -158,6 +171,18 @@ BATON = {
     'SEARCH_FIELD': {
         'label': 'Search contents...',
         'url': '/search/',
+    },
+    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
+    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'AI': {
+        "MODELS": "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
+        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+        "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        'ENABLE_TRANSLATIONS': True,
+        'ENABLE_CORRECTIONS': True,
+        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+        "CORRECTIONS_MODEL": AIModels.BATON_GPT_3_5_TURBO,
     },
     'MENU': (
         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -207,8 +232,116 @@ Default value is `True`.
 - `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
 - `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
+- `BATON_CLIENT_ID`: The client ID of your baton subscription (unleashes AI functionalities). Defaults to `None`
+- `BATON_CLIENT_SECRET`: The client secret of your baton subscription (unleashes AI functionalities). Defaults to `None`
 
-`MENU` and `SEARCH_FIELD` configurations in detail:
+`AI`, `MENU` and `SEARCH_FIELD` configurations in detail:
+
+### <a name="configuration-ai"></a>AI
+
+Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections and image generation. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+
+Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the [AI](#baton-ai) section.
+
+#### Available models
+
+You can configure your preferred model for each functionality, you may choose between the following:
+
+```
+class AIModels:
+    BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
+    BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
+    BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
+    BATON_DALL_E_3 = 'dall-e-3' # images
+```
+
+We currently support just the `dall-e-3` model for images generation.
+
+You can set the models used with  a simple configuration:
+
+```
+    'AI': {
+        # ...
+        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+        "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        # ...
+    },
+```
+
+Or you can set the path to the function which returns the models dictionary:
+
+```
+    # config
+    'AI': {
+        # ...
+        "MODELS": "myapp.foo.bar",
+        # ...
+    },
+
+    # myapp/foo.py
+    from baton.ai import AIModels
+    def bar():
+        return {
+            "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+            "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        }
+```
+
+If you don't set any of the models, the default models (`BATON_GPT_3_5_TURBO` and `BATON_DALL_E_3`) will be used.
+
+#### Translations
+
+> Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
+
+The translations feature is designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+
+If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
+Baton will then fill in the fields with the translations.
+
+> Important! Translate many long texts at once can be slow, so be sure to increase the timeout threshold in your web server configuration! The translate request is performed to the django application which then calls the external translation service, so if you have a small timeout it may happen that the request to the external translation service goes on and you're charged for it but the application closes the request with a 502 error!
+
+In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET` keys in the configuration dictionary. In order to obtain these keys you must create an account at [Baton](https://baton.sqrt64.it). Please visit the site for more information and pricing.
+
+```
+    ...
+    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
+    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'AI': {
+        'ENABLE_TRANSLATIONS': True,
+        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
+    },
+    ...
+```
+
+#### Corrections
+
+You can also enable the AI corrections feature:
+
+```
+    ...
+    'AI': {
+        'ENABLE_CORRECTIONS': True,
+        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
+        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+    },
+    ...
+```
+
+In this case near the labels of all fields which satisfy one provided selector, and all ckeditor fields, will appear an icon to trigger the AI correction.
+If the corrected text is the same as the original one, a check icon will appear near the field, otherwise a modal is open, showing
+the diff between the original and the corrected text. At that point you can decide to use the corrected text just by pressing the confirm button.
+
+The default selectors are `textarea` and `input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])`.
+
+There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
+
+![Corrections](docs/images/ai-corrections.png)
+
+#### Summarizations and image generations
+
+These functionalities are described in detail in the [AI](#baton-ai) section.
 
 ### <a name="configuration-menu"></a>MENU
 
@@ -315,6 +448,153 @@ def admin_search(request):
 
 You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
 
+## <a name="baton-ai"></a>Baton AI
+
+Starting from 4.0.0, the new AI functionalities are available:
+
+- Automatic translations with django-modeltranslation
+- Text corrections
+- Text summarization
+- Image generation
+
+You can choose which AI model to use for each functionality, see [AI configuration](#configuration-ai)
+
+### <a name="ai-translations"></a>Automatic Translations
+
+In the configuration section you can specify if you want to enable the automatic translation with django-modeltranslation. If you enable it, the functionality will be activated sitewide.
+In every add/change form page which contains fields that need to be translated, the `Translate` button will appear in the `object tools` position.
+
+Clicking it all the empty fields that need a translations will be filled with the translation fetched.
+
+All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
+
+### <a name="ai-corrections"></a>Corrections
+
+In the configuration section you can specify if you want to enable the corrections feature. If you enable it, the functionality will be activated sitewide.
+In every add/change form page which contains text fields (also CKEDITOR), an icon will appear near the label to trigger the AI correction.
+See AI Hooks section below if you need to support other wysiwyg editors.
+
+When triggergin the correction there are two possible results:
+
+- the corrected text is the same as the original one: nothing happens, only a green check icon appears near the field
+- the corrected text is different from the original one: a modal is shown with the diff between the original and the corrected text, and the user can decide to use the corrected text.
+
+### <a name="ai-summarization"></a>Text Summarization
+
+In your `ModelAdmin` classes you can define which fields can be summarized to create a content used to fill other model fields, look at the following example:
+
+``` python
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    baton_summarize_fields = {
+        "text_it": [{
+            "target": "abstract_it",
+            "words": 140,
+            "useBulletedList": True,
+            "language": "it",
+        }, {
+            "target": "meta_description_it",
+            "words": 45,
+            "useBulletedList": False,
+        }],
+    }
+```
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- `words`: number of words used in the summary (approximate, it will not be followed strictly)
+- `useBulletedList`: if the summary should be in a bulleted list
+- `language`: the language of the summary, default is your default language
+
+The `words` and `useBulletedList` parameters can be edited int the UI when actually summarizing the text.
+
+With this configuration, two (the number of targets) buttons will appear near the `text_it` field, each one opening a modal dialog with the configuration for the target field.
+In this modal you can edit the `words` and `useBulletedList` parameters and perform the summarization that will be inserted in the target field.
+
+All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
+
+### <a name="ai-image-generation"></a>Image Generation
+
+Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
+The button will open a modal where you can set some options, describe the image you want and generate the image. You can then preview the image and if you like it you can save it in the 
+file field with just one click.
+
+``` python
+from baton.fields import BatonAiImageField
+
+class MyModel(models.Model):
+    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
+```
+
+There is also another way to add the AI image generation functionality to a normal ImageField if you do not want to use the BatonAiImageField model field:
+
+``` html
+<script>
+    Baton.AI.addImageGeneration('{{ widget.name }}');
+</script>
+```
+
+### <a name="ai-stats"></a>Stats widget
+
+Baton provides a new widget which can be used to display stats about AI usage. Just include it in your admin index template:
+
+``` HTML
+{% load baton_tags %}
+
+{% baton_ai_stats %}
+```
+
+![Modal](docs/images/baton-ai-stats.png)
+
+### <a name="ai-hooks"></a>AI Hooks
+
+Baton AI functionalities do their job inspecting fields, retrieving and setting their values. WYSIWYG editors use javascript to sync with the native fields (like a textarea), and every editor behaves differently. Django Baton comes with support for [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor), but in the next future this will change because the package is almost deprecated.
+
+Nevertheless, you can add your own hooks to support every other WYSIWYG editor you desire. When doing this you need to define the following functions, for example in your `admin/base_site.html` template:
+
+``` html
+    <!-- admin/base_site.html -->
+    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
+    <script>
+        (function () {
+            // Get a list of fieldIds of all the editor managed fields, should return an array of ids
+            Baton.AI.getEditorFieldsHook = function () {
+              // i.e. for ckeditor
+              return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+            }
+
+            // Given a field id return the field value and null or undefined if field id is not an editor field
+            Baton.AI.getEditorFieldValueHook = function (fieldId) {
+              // i.e. for ckeditor
+              return window.CKEDITOR?.instances[fieldId]?.getData()
+            }
+
+            // Given a field id and a new value should set the editor field value if it exists and return true
+            // should return false if the field is not an editor field
+            Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
+              // i.e. for ckeditor
+              if (window.CKEDITOR?.instances[fieldId]) {
+                window.CKEDITOR.instances[fieldId].setData(value)
+                return true
+              }
+              return false
+            }
+
+            // Given a field id should render the given checkmark icon to indicate the field is correct if it exists and return true,
+            // should return false if the field is not an editor field
+            Baton.AI.setEditorFieldCorrectHook = function (fieldId, icon) {
+              // i.e. for ckeditor
+              if (window.CKEDITOR?.instances[fieldId]) {
+                $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon) // this uses jQuery
+                return true
+              }
+              return false
+            }
+        })()
+    </script>
+    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
+```
+
 ## <a name="page-detection"></a>Page Detection
 
 Baton triggers some of its functionalities basing upon the current page. For example, it will trigger the tab functionality only when the current page is an add form or change form page.
@@ -327,6 +607,7 @@ For this reason you can inject your custom hook, a javascript function which sho
 ``` html
 <!-- admin/base_site.html -->
 {{ conf | json_script:"baton-config" }}
+<script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
 <script>
     (function () {
         Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
@@ -349,6 +630,7 @@ Currently, Baton emits five types of events:
 - `onNavbarReady`: dispatched when the navbar is fully rendered
 - `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieved async)
 - `onTabsReady`: dispatched when the changeform tabs are fully rendered
+- `onTabChanged`: dispatched when the current changeform tab is changed
 - `onMenuError`: dispatched if the request sent to retrieve menu contents fails
 - `onReady`: dispatched when Baton JS has finished its sync job
 
@@ -802,13 +1084,18 @@ class VideosInline(admin.StackedInline):
     classes = ('collapse-entry', 'expand-first', )
 ```
 
-## <a name="customization"></a>Customization
+## <a name="customization"></a>Themes & Customization
 
-It's easy to heavily customize the appeareance of __baton__. All the stuff is compiled from a modern JS app which resides in `baton/static/baton/app`.
+It's easy to customize the appeareance of __baton__.
+You can override all the css variables, just create a `baton/css/root.css` file (see [here](https://github.com/otto-torino/django-baton/tree/master/baton/static/baton/css/root.css)) and serve it from an app listed before baton in `INSTALLED_APPS`.
+
+You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
+
+If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 
 ![Customization](docs/images/customization.png)
 
-You just need to change the [SASS variables values](https://github.com/otto-torino/django-baton/blob/master/baton/static/baton/app/src/styles/_variables.scss) (and you can also overwrite Bootstrap variables), re-compile, get the compiled JS file, place it in the static folder of your main app,
+Make the changes you want, re-compile, get the compiled JS file, place it in the static folder of your main app,
 and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
 
 So:

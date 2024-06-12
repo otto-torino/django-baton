@@ -1,0 +1,236 @@
+{% load i18n %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="baton-ai-stats">
+    <h2>
+        <a href="https://baton.sqrt64.it/account/" target="_blank">Baton AI</a>
+        <span><i class="fa fa-wallet"></i> € {{ budget }}</span>
+    </h2>
+    {% if error %}
+    <div class="alert alert-warning alert-sm mt-4" role="alert">
+        {% if error_message %}
+            {{ error_message }}
+        {% else %}
+            {% trans "Something went wrong" %}
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="baton-ai-canvas-container">
+        <canvas id="baton-ai-bar-stats"></canvas>
+    </div>
+    <div class="d-flex pt-3 mt-2" style="flex-wrap: wrap; gap: 1rem;border-top: 1px solid rgba(0, 0, 0, 0.1)">
+        <span><strong style="font-weight: 900">Translations model</strong>: {{ translations_model }}</span>
+        <span><strong style="font-weight: 900">Summarizations model</strong>: {{ summarizations_model }}</span>
+        <span><strong style="font-weight: 900">Corrections model</strong>: {{ corrections_model }}</span>
+        <span><strong style="font-weight: 900">Images model</strong>: {{ images_model }}</span>
+    </div>
+    <script>
+(function ($) {
+    let aiChart;
+
+    const drawChart = function (themeMode) {
+        const textColor = themeMode === 'dark' ? '#fff' : '#000';
+        const lightTextColor = themeMode === 'dark' ? '#e7e7e7' : '#010101';
+
+        const ctx = document.getElementById('baton-ai-bar-stats');
+        const today = new Date();
+        const days = []
+        const translations = {{ translations | safe}}
+        const summarizations = {{ summarizations | safe}}
+        const corrections = {{ corrections | safe}}
+        const images = {{ images | safe}}
+        for (let i = 0; i < 15; i++) {
+            days.push(today.toISOString().slice(0, 10))
+            today.setDate(today.getDate() - 1)
+        }
+        const totalCost = []
+        const reversedDays = days.reverse()
+        const translationsApiCalls = []
+        const translationsApiPrice = []
+        const summarizationsApiCalls = []
+        const summarizationsApiPrice = []
+        const correctionsApiCalls = []
+        const correctionsApiPrice = []
+        const imagesApiCalls = []
+        const imagesApiPrice = []
+        reversedDays.forEach((d, idx) => {
+            translationsApiCalls.push(translations[d]?.count || 0)
+            translationsApiPrice.push(translations[d]?.price || 0)
+            summarizationsApiCalls.push(summarizations[d]?.count || 0)
+            summarizationsApiPrice.push(summarizations[d]?.price || 0)
+            correctionsApiCalls.push(corrections[d]?.count || 0)
+            correctionsApiPrice.push(corrections[d]?.price || 0)
+            imagesApiCalls.push(images[d]?.count || 0)
+            imagesApiPrice.push(images[d]?.price || 0)
+            totalCost.push(
+                parseFloat(translations[d]?.price || 0) +
+                parseFloat(summarizations[d]?.price || 0) +
+                parseFloat(corrections[d]?.price || 0) +
+                parseFloat(images[d]?.price || 0) +
+                (idx === 0 ? 0 : totalCost[idx - 1])
+            )
+        })
+        Chart.defaults.font.family = "Dosis"
+        Chart.defaults.font.size = 14
+        Chart.defaults.font.weight = 500
+
+        aiChart = new Chart(ctx, {
+            plugins: [{
+                beforeInit(chart) {
+                    // Get a reference to the original fit function
+                    const originalFit = chart.legend.fit;
+
+                    // Override the fit function
+                    chart.legend.fit = function fit() {
+                      // Call the original function and bind scope in order to use `this` correctly inside it
+                      originalFit.bind(chart.legend)();
+                      // Change the height as suggested in other answers
+                      this.height += 15;
+                    }
+                }
+            }],
+            data: {
+                labels: reversedDays.map(d => d.substr(5)),
+                datasets: [{
+                    type: 'bar',
+                    label: Baton.T.get('TransApiCalls'),
+                    data: translationsApiCalls,
+                    yAxisID: 'y',
+                    backgroundColor: '#3ec6ff'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('TransApiCost'),
+                    data: translationsApiPrice,
+                    yAxisID: 'y1',
+                    backgroundColor: '#5587ff'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('SummApiCalls'),
+                    data: summarizationsApiCalls,
+                    yAxisID: 'y',
+                    backgroundColor: '#6bda82'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('SummApiCost'),
+                    data: summarizationsApiPrice,
+                    yAxisID: 'y1',
+                    backgroundColor: '#09c22f'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('CorrApiCalls'),
+                    data: correctionsApiCalls,
+                    yAxisID: 'y',
+                    backgroundColor: '#e79e9f'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('CorrApiCost'),
+                    data: correctionsApiPrice,
+                    yAxisID: 'y1',
+                    backgroundColor: '#d03d3f'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('ImagesApiCalls'),
+                    data: imagesApiCalls,
+                    yAxisID: 'y',
+                    backgroundColor: '#a4c3d7'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('ImagesApiCost'),
+                    data: imagesApiPrice,
+                    yAxisID: 'y1',
+                    backgroundColor: '#4988ae'
+                },
+                {
+                    type: 'line',
+                    label: Baton.T.get('TotalCost'),
+                    data: totalCost,
+                    yAxisID: 'y1',
+                    fill: true,
+                    backgroundColor: 'rgba(210,210,210,0.4)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        ticks: {
+                            color: lightTextColor
+                        },
+                        title: {
+                            display: true,
+                            text: Baton.T.get('Date'),
+                            font: {
+                                weight: 700
+                            },
+                            color: textColor
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: lightTextColor
+                        },
+                        title: {
+                            display: true,
+                            text: Baton.T.get('Count'),
+                            font: {
+                                weight: 700
+                            },
+                            color: textColor
+                        }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: 'right',
+                        ticks: {
+                            color: lightTextColor
+                        },
+                        title: {
+                            display: true,
+                            text: Baton.T.get('Cost') + ' (€)',
+                            font: {
+                                weight: 700
+                            },
+                            color: textColor
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: lightTextColor
+                        },
+                        position: 'right',
+                    }
+                }
+            }
+        });
+    }
+
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === "attributes") {
+                const theme = $('html').attr('data-bs-theme');
+                console.log('DRAWING CHART', theme)
+                aiChart.destroy();
+                drawChart(theme); 
+            }
+        });
+    });
+
+    observer.observe($('html')[0], {
+      attributes: true //configure it to listen to attribute changes
+    });
+
+    drawChart($('html').attr('data-bs-theme'));
+})(Baton.jQuery)
+    </script>
+    {% endif %}
+</div>

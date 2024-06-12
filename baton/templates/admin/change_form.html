@@ -1,4 +1,6 @@
 {% extends 'admin/change_form.html' %}
+{% load baton_tags %}
+
 {% block content %}{{ block.super }}
 
 {% for template, field, position in adminform.model_admin.baton_form_includes %}
@@ -13,6 +15,18 @@
     <template id="template-object-tools" data-position="{{ adminform.model_admin.baton_form_object_tools_include.1 }}">
         {% include adminform.model_admin.baton_form_object_tools_include.0 %}
     </template>
+{% endif %}
+
+{% if adminform.model_admin.baton_summarize_fields %}
+    {% for field, items in adminform.model_admin.baton_summarize_fields.items %}
+        {% for item in items %}
+            <script>
+                Baton.Dispatcher.register('onReady', function () {
+                    Baton.AI.addSummarization('{{ field }}', {{ item|to_json|safe }});
+                })
+            </script>
+        {% endfor %}
+    {% endfor %}
 {% endif %}
 
 {% endblock %}

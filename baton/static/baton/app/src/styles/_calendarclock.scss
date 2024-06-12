@@ -7,8 +7,8 @@
   font-size: 12px;
   width: 19em;
   text-align: center;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bs-baton-calendar-bg);
+  border: 1px solid var(--bs-baton-calendar-bg);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   overflow: hidden;
@@ -35,7 +35,7 @@
   margin: 0;
   padding: 0;
   border-collapse: collapse;
-  background: white;
+  background: var(--bs-baton-content-bg);
   width: 100%;
 
   caption {
@@ -48,29 +48,31 @@
   margin: 0;
   text-align: center;
   border-top: none;
-  background: #f5dd5d;
+  background: var(--bs-baton-calendar-header-bg);
   font-weight: 700;
   font-size: 12px;
-  color: #333;
+  color: var(--bs-baton-calendar-header-color);
 }
 
 .calendar th {
   padding: 8px 5px;
-  background: #f8f8f8;
-  border-bottom: 1px solid #ddd;
+  background: var(--bs-baton-calendar-cell-th-bg);
+  border-bottom: 1px solid var(--bs-baton-calendar-cell-th-border-color);
   font-weight: 400;
   font-size: 12px;
   text-align: center;
-  color: #666;
+  color: var(--baton-calendar-cell-color);
 }
 
 .calendar td {
+  background: var(--bs-baton-calendar-cell-bg);
   font-weight: 400;
   font-size: 12px;
   text-align: center;
   padding: 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--bs-baton-calendar-cell-td-border-color);
   border-bottom: none;
+  color: var(--baton-calendar-cell-color);
 }
 
 .calendar td.selected a {
@@ -79,7 +81,7 @@
 }
 
 .calendar td.nonday {
-  background: #f8f8f8;
+  background: var(--bs-baton-calendar-cell-nonday-bg);
 }
 
 .calendar td.today a {
@@ -92,7 +94,7 @@
   font-weight: 400;
   padding: 6px;
   text-decoration: none;
-  color: #444;
+  color: var(--baton-calendar-cell-color);
 }
 
 .calendar td a:focus,
@@ -125,12 +127,15 @@
 }
 
 .calendar-shortcuts {
-  background: white;
-  border-top: 1px solid #eee;
+  background: var(--bs-baton-calendar-shortcuts-bg);
+  border-top: 1px solid var(--bs-baton-calendar-shortcuts-bg);
   font-size: 11px;
   line-height: 11px;
   padding: 8px 0;
-  color: #ccc;
+
+  a {
+    color: var(--bs-baton-calendar-shortcuts-color);
+  }
 }
 
 .calendarbox .calendarnav-previous,
@@ -140,7 +145,7 @@
   padding: 0;
   position: absolute;
   text-indent: -9999px;
-  top: 14px;
+  top: 10px;
   width: 15px;
 }
 
@@ -168,14 +173,17 @@
   margin: 0;
   padding: 4px 0;
   font-size: 12px;
-  background: #eee;
-  border-top: 1px solid #ddd;
-  color: #333;
+  background: var(--bs-baton-calendar-cancel-bg);
+  border-top: 1px solid var(--bs-baton-calendar-cancel-bg);
+
+  a {
+    color: var(--bs-baton-calendar-cancel-color);
+  }
 }
 
 .calendar-cancel:focus,
 .calendar-cancel:hover {
-  background: #ddd;
+  opacity: 0.8;
 }
 
 .calendar-cancel a {

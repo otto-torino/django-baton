@@ -3,6 +3,7 @@ include README.md
 recursive-include baton/static *
 recursive-include baton/templates *
 recursive-include baton/locale *
+recursive-include baton/migrations *
 
 recursive-exclude * __pycache__
 recursive-exclude * *.pyc

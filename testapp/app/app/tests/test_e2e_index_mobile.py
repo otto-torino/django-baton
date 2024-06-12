@@ -87,7 +87,7 @@ class TestBatonIndexMobile(TestCase):
         modules = self.driver.find_elements(
             By.CSS_SELECTOR,
             "#content-main .module")
-        self.assertEqual(len(modules), 2)
+        self.assertEqual(len(modules), 3)
 
     def test_footer(self):
         # Wait until baton is ready
