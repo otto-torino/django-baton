@@ -57,6 +57,7 @@ It also introduces themes, and makes it easier to customize the application, the
 - [Themes & Customization](#customization)
 - [Tests](#tests)
 - [Contributing](#contributing)
+- [Star History](#star_history)
 - [Screenshots](#screenshots)
 
 ## <a name="features"></a>Features
@@ -1160,6 +1161,10 @@ Now you can generate the documentation in order to check it. Inside the root dir
 ## <a name="contributing"></a>Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## <a name="star_history"></a>Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
 
 ## <a name="screenshots"></a>Screenshots
 
