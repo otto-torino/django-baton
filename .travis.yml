@@ -6,11 +6,7 @@ python:
 install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
-  - pip install google-api-core==1.23.0
-  - pip install google-api-python-client==1.12.4
-  - pip install google-auth==1.22.1
-  - pip install google-auth-httplib2==0.0.4
-  - pip install webdriver-manager
+  - pip install webdriver-manager==4.0.1
   - pip install packaging
   - pip install python-dotenv
   - pip install django-tinymce
@@ -26,10 +22,12 @@ install:
   - pip install requests
   - pip install svglib
   - django-admin --version
-  - pip install selenium
+  - pip install selenium==4.22.0
 before_script:
   - cd testapp/app && python manage.py migrate && python manage.py runserver &
   - sleep 3
+addons:
+  chrome: stable
 env:
   global:
     - DJANGO_VERSION='Django>=2.2,<3.0'
