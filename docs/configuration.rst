@@ -41,7 +41,7 @@ This is an example of configuration::
         'AI': {
             'MODELS': "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
             'IMAGES_MODEL': AIModels.BATON_DALL_E_3,
-            'SUMMARIZATIONS_MODEL': AIModels.BATON_GPT_4O,
+            'SUMMARIZATIONS_MODEL': AIModels.BATON_GPT_4O_MINI,
             'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
             'ENABLE_TRANSLATIONS': True,
             'ENABLE_CORRECTIONS': True,
@@ -258,6 +258,7 @@ You can configure your preferred model for each functionality, you may choose be
         BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
         BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
         BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
+        BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations and corrections
         BATON_DALL_E_3 = 'dall-e-3' # images
 
 We currently support just the ``dall-e-3`` model for images generation.
@@ -267,7 +268,7 @@ You can set the models used with  a simple configuration:::
     'AI': {
         # ...
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
-        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         # ...
     },
@@ -286,11 +287,11 @@ Or you can set the path to the function which returns the models dictionary:::
     def bar():
         return {
             "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
-            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O,
+            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
             "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         }
 
-If you don't set any of the models, the default models (`BATON_GPT_3_5_TURBO` and `BATON_DALL_E_3`) will be used.
+If you don't set any of the models, the default models (`BATON_GPT_4O_MINI` and `BATON_DALL_E_3`) will be used.
 
 Translations
 ^^^^^^^^^^^^^

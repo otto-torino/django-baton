@@ -216,8 +216,8 @@ def baton_ai_stats(context):
         'summarizations': summarizations,
         'corrections': corrections,
         'images': images,
-        'translations_model': ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-        'corrections_model': ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-        'summarizations_model': ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+        'translations_model': ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
+        'corrections_model': ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
+        'summarizations_model': ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
         'images_model': ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
     }
