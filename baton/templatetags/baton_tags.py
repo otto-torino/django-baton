@@ -23,14 +23,14 @@ def get_ai_models(ai_config):
     if ai_config.get("MODELS"): # function hook
         fn = import_string(ai_config.get("MODELS"))
         models = fn()
-        translations_model = models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
-        summarizations_model = models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
-        corrections_model = models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        translations_model = models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
+        summarizations_model = models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
+        corrections_model = models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         images_model = models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
     else: # config
-        translations_model = ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
-        summarizations_model = ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
-        corrections_model = ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO)
+        translations_model = ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
+        summarizations_model = ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
+        corrections_model = ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         images_model = ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
 
     return {
@@ -67,9 +67,9 @@ def baton_config():
             "gravatar": reverse('baton-gravatar-json'),
         },
         "ai": {
-            "translationsModel": ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-            "correctionsModel": ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
-            "summarizationsModel": ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_3_5_TURBO),
+            "translationsModel": ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
+            "correctionsModel": ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
+            "summarizationsModel": ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
             "imagesModel": ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
