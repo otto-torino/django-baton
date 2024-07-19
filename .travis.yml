@@ -26,6 +26,8 @@ install:
 before_script:
   - cd testapp/app && python manage.py migrate && python manage.py runserver &
   - sleep 3
+addons:
+  chrome: stable
 env:
   global:
     - DJANGO_VERSION='Django>=2.2,<3.0'
