@@ -112,6 +112,16 @@ const ChangeList = {
     const self = this
     const qs = []
 
+    // any multiple choice list? These cause a page reload on click, but at least we keep the values
+    // issue #292
+    const urlParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlParams.entries());
+    Object.keys(params).forEach((key) => {
+      if (/__in$/.test(key)) {
+        qs.push(`${key}=${params[key]}`)
+      }
+    })
+
     const dropdowns = wrapper.find('select')
     const textInputs = wrapper.find('input').not('[type=hidden]')
 

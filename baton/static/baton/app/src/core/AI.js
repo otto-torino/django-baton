@@ -4,6 +4,7 @@ import Translator from './i18n'
 const Diff = require('diff')
 
 const AI = {
+  editorFields: [],
   /**
    * AI component
    *
@@ -12,6 +13,7 @@ const AI = {
   init: function (config, page) {
     this.t = new Translator($('html').attr('lang'))
     this.config = config
+    this.editorFields = this.getEditorFields()
     if (config.ai.enableTranslations && (page === 'change_form' || page === 'add_form')) {
       this.activateTranslations()
     }
@@ -20,7 +22,7 @@ const AI = {
     }
   },
   decodeHtml(html) {
-    let txt = document.createElement("textarea")
+    let txt = document.createElement('textarea')
     txt.innerHTML = html
     return txt.value
   },
@@ -75,13 +77,15 @@ const AI = {
       .filter((_, el) => $(el).val() !== '')
       .toArray()
       .map((el) => $(el).attr('id'))
-    if (window.CKEDITOR) {
-      Object.keys(window.CKEDITOR.instances).forEach(function (fieldId) {
-        if (window.CKEDITOR.instances[fieldId].getData() !== '') {
-          fieldsIds.push(fieldId)
-        }
-      })
-    }
+    this.editorFields.forEach(function (fieldId) {
+      if (
+        !fieldId.includes('__prefix__') &&
+        fieldId.includes(`_${self.config.defaultLanguage}`) &&
+        self.getEditorFieldValue(fieldId) !== ''
+      ) {
+        fieldsIds.push(fieldId)
+      }
+    })
     fieldsIds = [...new Set(fieldsIds)]
 
     fieldsIds.forEach(function (fieldId) {
@@ -94,7 +98,7 @@ const AI = {
         }
       })
       if (missing.length > 0) {
-        const html = window.CKEDITOR?.instances[`${baseId}_${self.config.defaultLanguage}`]?.getData()
+        const html = self.getEditorFieldValue(`${baseId}_${self.config.defaultLanguage}`)
         payload.push({
           text: html ? self.decodeHtml(html) : $(`#${baseId}_${self.config.defaultLanguage}`).val(),
           field: baseId,
@@ -108,8 +112,8 @@ const AI = {
       url: this.config.ai.translateApiUrl,
       method: 'POST',
       data: JSON.stringify({
-          items: payload,
-          model: this.config.ai.translationsModel,
+        items: payload,
+        model: this.config.ai.translationsModel,
       }),
       dataType: 'json',
       contentType: 'application/json',
@@ -119,14 +123,12 @@ const AI = {
         try {
           ;(data.data?.items || []).forEach(function (item) {
             const key = `${item.id}_${item.language}`
-            if (window.CKEDITOR?.instances[key]) {
-              window.CKEDITOR.instances[key].setData(item.translation)
-            } else {
+            if (!self.setEditorFieldValue(key, item.translation)) {
               $('#' + key).val(item.translation)
             }
           })
           overlay.remove()
-        } catch (e) {
+        } catch (err) {
           console.log(err)
           alert(self.t.get('error') + ': ' + err)
           overlay.remove()
@@ -140,7 +142,6 @@ const AI = {
   },
   addSummarization(fieldName, conf) {
     var self = this
-    console.info('Baton:', conf, this.t)
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
     const summarizeButton = $('<a />', { class: 'btn btn-sm btn-secondary mb-2', href: '#' })
@@ -193,7 +194,7 @@ const AI = {
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     // retrieve necessary translations
-    const html = window.CKEDITOR?.instances[field.attr('id')]?.getData()
+    const html = this.getEditorFieldValue(field.attr('id'))
     const payload = {
       id: field.attr('id'),
       text: html ? this.decodeHtml(html) : $(`#${field.attr('id')}`).val(),
@@ -212,11 +213,8 @@ const AI = {
       headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
     })
       .done(function (data) {
-                console.log('DATA', data) // eslint-disable-line
         try {
-          if (window.CKEDITOR?.instances[targetId]) {
-            window.CKEDITOR.instances[targetId].setData(data.data.summary)
-          } else {
+          if (!self.setEditorFieldValue(targetId, data.data.summary)) {
             $('#' + targetId).val(data.data.summary)
           }
           overlay.remove()
@@ -294,11 +292,10 @@ const AI = {
               const blob = self.dataURItoBlob(data)
               // use the Blob to create a File Object
               const imageName = myModal.modalObj.find('#ai-image-name').val()
-              const file = new File(
-                [blob],
-                imageName ? imageName + '.png' : 'image.png',
-                { type: 'image/png', lastModified: new Date().getTime() },
-              )
+              const file = new File([blob], imageName ? imageName + '.png' : 'image.png', {
+                type: 'image/png',
+                lastModified: new Date().getTime(),
+              })
               const array_images = [file]
 
               // modify the input content to be submited
@@ -393,14 +390,12 @@ const AI = {
           const checkIcon = $('<i />', {
             class: 'fa fa-check',
           }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
-          if (window.CKEDITOR?.instances[$(field).attr('id')]) {
-            $(field).parent('.django-ckeditor-widget').after(checkIcon)
-          } else {
+          if (!self.setEditorFieldCorrect($(field).attr('id'), checkIcon)) {
             $(field).after(checkIcon)
           }
         } else if (data?.data?.text) {
           const diff = Diff.diffChars(text, data?.data?.text)
-          // const fragment = $('<div />') // use fragment if escaping all html 
+          // const fragment = $('<div />') // use fragment if escaping all html
 
           const diffParts = []
           diff.forEach((part) => {
@@ -410,11 +405,13 @@ const AI = {
             // const fontWeight = part.added ? '700' : part.removed ? '700' : '400'
             // const span = $('<span />').css({ color: color, fontWeight: fontWeight }).text(part.value)
             // fragment.append(span)
-            diffParts.push(part.added 
+            diffParts.push(
+              part.added
                 ? `<span style="color: green; background: rgba(0, 255, 0, 0.2); padding: 0 3px;">${part.value}</span>`
                 : part.removed
-                    ? `<span style="color: red; background: rgba(255, 0, 0, 0.2); padding: 0 3px;">${part.value}</span>`
-                    : `${part.value}`)
+                  ? `<span style="color: red; background: rgba(255, 0, 0, 0.2); padding: 0 3px;">${part.value}</span>`
+                  : `${part.value}`,
+            )
           })
           // const fragmentHtml = fragment[0].outerHTML
           const content = `
@@ -440,9 +437,7 @@ const AI = {
             actionBtnLabel: self.t.get('useCorrection'),
             actionBtnCb: function () {
               const fieldId = $(field).attr('id')
-              if (window.CKEDITOR?.instances[fieldId]) {
-                window.CKEDITOR.instances[fieldId].setData(data.data.text)
-              } else {
+              if (!self.setEditorFieldValue(fieldId, data.data.text)) {
                 $(field).val(data.data.text)
               }
               myModal.close()
@@ -485,15 +480,12 @@ const AI = {
       const fieldId = $(this).attr('for')
       const field = $(`#${fieldId}`)
 
-      if (
-        window.CKEDITOR?.instances[fieldId] ||
-        self.isEnabledCorrectionField(field)
-      ) {
+      if (self.editorFields.includes(fieldId) || self.isEnabledCorrectionField(field)) {
         const icon = $('<a class="fa-solid fa-spell-check me-2 text-decoration-none" href="javascript:void(0)"></a>')
         icon.on('click', function () {
           let text
-          if (window.CKEDITOR?.instances[fieldId]) {
-            text = self.decodeHtml(window.CKEDITOR?.instances[fieldId]?.getData())
+          if (self.editorFields.includes(fieldId)) {
+            text = self.decodeHtml(self.getEditorFieldValue(fieldId))
           } else if (field.attr('type') === 'text' || field.prop('tagName') === 'TEXTAREA') {
             text = $(field).val()
           }
@@ -509,8 +501,8 @@ const AI = {
         const field = $(this)
         const fieldId = field.attr('id')
         let text
-        if (window.CKEDITOR?.instances[fieldId]) {
-          text = window.CKEDITOR?.instances[fieldId]?.getData()
+        if (self.editorFields.includes(fieldId)) {
+          text = self.getEditorFieldValue(fieldId)
         } else if (field.attr('type') === 'text' || field.prop('tagName') === 'TEXTAREA') {
           text = $(field).val()
         }
@@ -520,6 +512,44 @@ const AI = {
       }
     })
   },
+  // hooks
+  // Get editor fields, should return a list fields ids
+  getEditorFields: function () {
+    if (this.getEditorFieldsHook) {
+      return this.getEditorFieldsHook()
+    }
+
+    return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+  },
+  // Given a field id return the field value and null or undefined if field id is not an editor field
+  getEditorFieldValue: function (fieldId) {
+    if (this.getEditorFieldValueHook) {
+      return this.getEditorFieldValueHook(fieldId)
+    }
+    return window.CKEDITOR?.instances[fieldId]?.getData()
+  },
+  // Given a field id and a new value should set the editor field value if it exists and return true, false otherwise
+  setEditorFieldValue: function (fieldId, value) {
+    if (this.setEditorFieldValueHook) {
+      return this.setEditorFieldValueHook(fieldId, value)
+    }
+    if (window.CKEDITOR?.instances[fieldId]) {
+      window.CKEDITOR.instances[fieldId].setData(value)
+      return true
+    }
+    return false
+  },
+  // Given a field id should render the given icon to indicate the field is correct if it exists and return true, false otherwise
+  setEditorFieldCorrect: function (fieldId, icon) {
+    if (this.setEditorFieldCorrectHook) {
+      return this.setEditorFieldCorrectHook(fieldId, icon)
+    }
+    if (window.CKEDITOR?.instances[fieldId]) {
+      $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon)
+      return true
+    }
+    return false
+  }
 }
 
 export default AI

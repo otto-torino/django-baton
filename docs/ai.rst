@@ -18,13 +18,14 @@ In every add/change form page which contains fields that need to be translated, 
 
 Clicking it all the empty fields that need a translations will be filled with the translation fetched.
 
-All default fields and CKEDITOR fields are supported.
+All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
 
 Corrections
 -----------
 
 In the configuration section you can specify if you want to enable the corrections feature. If you enable it, the functionality will be activated sitewide.
 In every add/change form page which contains text fields (also CKEDITOR), an icon will appear near the label to trigger the AI correction.
+See AI Hooks section below if you need to support other wysiwyg editors.
 
 When triggering the correction there are two possible results:
 
@@ -74,6 +75,8 @@ The ``words`` and ``useBulletedList`` parameters can be edited int the UI when a
 With this configuration, two (the number of targets) buttons will appear near the ``text_it`` field, each one opening a modal dialog with the configuration for the target field.
 In this modal you can edit the ``words`` and ``useBulletedList`` parameters and perform the summarization that will be inserted in the target field.
 
+All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
+
 Image Generation
 ----------------
 
@@ -102,3 +105,51 @@ Baton provides a new widget which can be used to display stats about AI usage. J
     {% baton_ai_stats %}
 
 .. image:: images/baton-ai-stats.png
+
+AI Hooks
+----------------
+
+Baton AI functionalities do their job inspecting fields, retrieving and setting their values. WYSIWYG editors use javascript to sync with the native fields (like a textarea), and every editor behaves differently. Django Baton comes with support for [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor), but in the next future this will change because the package is almost deprecated.
+
+Nevertheless, you can add your own hooks to support every other WYSIWYG editor you desire. When doing this you need to define the following functions, for example in your `admin/base_site.html` template:::
+
+    <!-- admin/base_site.html -->
+    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
+    <script>
+        (function () {
+            // Get a list of fieldIds of all the editor managed fields, should return an array of ids
+            Baton.AI.getEditorFieldsHook = function () {
+              // i.e. for ckeditor
+              return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+            }
+
+            // Given a field id return the field value and null or undefined if field id is not an editor field
+            Baton.AI.getEditorFieldValueHook = function (fieldId) {
+              // i.e. for ckeditor
+              return window.CKEDITOR?.instances[fieldId]?.getData()
+            }
+
+            // Given a field id and a new value should set the editor field value if it exists and return true
+            // should return false if the field is not an editor field
+            Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
+              // i.e. for ckeditor
+              if (window.CKEDITOR?.instances[fieldId]) {
+                window.CKEDITOR.instances[fieldId].setData(value)
+                return true
+              }
+              return false
+            }
+
+            // Given a field id should render the given checkmark icon to indicate the field is correct if it exists and return true,
+            // should return false if the field is not an editor field
+            Baton.AI.setEditorFieldCorrectHook = function (fieldId, icon) {
+              // i.e. for ckeditor
+              if (window.CKEDITOR?.instances[fieldId]) {
+                $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon) // this uses jQuery
+                return true
+              }
+              return false
+            }
+        })()
+    </script>
+    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
