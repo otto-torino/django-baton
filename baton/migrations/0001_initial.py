@@ -13,18 +13,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="BatonTheme",
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("name", models.CharField(max_length=255, verbose_name="Name")),
-                ("theme", models.TextField(verbose_name="Theme")),
-                ("active", models.BooleanField(default=False, verbose_name="Active")),
+                ("id", models.AutoField(primary_key=True, serialize=False, verbose_name="id")),
+                ("name", models.CharField(max_length=255, verbose_name="name")),
+                ("theme", models.TextField(verbose_name="theme")),
+                ("active", models.BooleanField(default=False, verbose_name="active")),
             ],
+            options={
+                'verbose_name': 'admin theme',
+                'verbose_name_plural': 'admin themes'
+            }
         ),
     ]
