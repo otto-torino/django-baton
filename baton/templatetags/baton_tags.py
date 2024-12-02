@@ -165,7 +165,7 @@ def baton_ai_stats(context):
 
     # A GET request to the API
     ts = str(int(time.time()))
-    h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+    h = hmac.new(settings.BATON.get('BATON_CLIENT_SECRET').encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
     sig = base64.b64encode(h.digest()).decode()
 
     error = False
@@ -180,7 +180,7 @@ def baton_ai_stats(context):
 
     try:
         response = requests.get(url_post, headers={
-            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Client-Id': settings.BATON.get('BATON_CLIENT_ID'),
             'X-Timestamp': ts,
             'X-Signature': sig,
         })
