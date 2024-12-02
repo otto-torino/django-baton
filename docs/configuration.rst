@@ -259,7 +259,7 @@ You can configure your preferred model for each functionality, you may choose be
         BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
         BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
         BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
-        BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, corrections and vision
+        BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, corrections and image vision
         BATON_DALL_E_3 = 'dall-e-3' # images
 
 We currently support just the ``dall-e-3`` model for images generation.
@@ -343,8 +343,8 @@ The default selectors are ``textarea`` and ``input[type=text]:not(.vDateField):n
 
 There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
 
-Summarizations and image generations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Summarizations, image vision and generation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 These functionalities area described in detail in the Baton AI section.
 
 Menu

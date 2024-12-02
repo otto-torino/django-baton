@@ -152,7 +152,7 @@ const AI = {
     const self = this
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
-    const visionButton = $('<a />', { class: 'btn btn-sm btn-secondary mb-2', href: '#' })
+    const visionButton = $('<a />', { class: 'btn btn-sm btn-secondary me-2 mt-1', href: '#' })
       .on('click', function () {
         self.handleVision(field, conf)
       })

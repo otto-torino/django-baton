@@ -69,7 +69,7 @@ Everything is styled through CSS and when required, JS is used.
 
 - Based on Bootstrap 5 and FontAwesome Free 6
 - Fully responsive
-- AI functionalities: translations, corrections, summarizations, image generation (you need a subscription key)
+- AI functionalities: translations, corrections, summarizations, image description and generation (you need a subscription key)
 - Custom and flexible sidebar menu
 - Themes support
 - Configurable search field
@@ -255,11 +255,11 @@ class AIModels:
     BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
     BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
     BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
-    BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations and corrections
+    BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, image vision and corrections
     BATON_DALL_E_3 = 'dall-e-3' # images
 ```
 
-We currently support just the `dall-e-3` model for images generation.
+We currently support just the `dall-e-3` model for images generation and the `gpt-4o-mini` model for image vision.
 
 You can set the models used with  a simple configuration:
 
@@ -345,7 +345,7 @@ There is another way to trigger the correction in cases the label is not visible
 
 ![Corrections](docs/images/ai-corrections.png)
 
-#### Summarizations and image generations
+#### Summarizations, image vision and generation
 
 These functionalities are described in detail in the [AI](#baton-ai) section.
 
@@ -518,6 +518,29 @@ With this configuration, two (the number of targets) buttons will appear near th
 In this modal you can edit the `words` and `useBulletedList` parameters and perform the summarization that will be inserted in the target field.
 
 All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
+
+### <a name="ai-vision"></a>Image vision
+
+In your `ModelAdmin` classes you can define which images can be described in order to generate an alt text, look at the following example:
+
+``` python
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    baton_vision_fields = {
+        "image": [{
+            "target": "image_alt",
+            "chars": 80,
+            "language": "en",
+        }],
+    }
+```
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
+- `language`: the language of the summary, default is your default language
+
+With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
 
 ### <a name="ai-image-generation"></a>Image Generation
 

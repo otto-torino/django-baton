@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 9242880
+
 # Application definition
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

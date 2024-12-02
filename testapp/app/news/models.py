@@ -4,6 +4,7 @@ from tinymce.models import HTMLField
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
+from baton.fields import BatonAiImageField
 
 class Activity(models.Model):
     FAVORITE = 'F'
@@ -59,7 +60,7 @@ class News(models.Model):
     datetime = models.DateTimeField('datetime', blank=True, null=True, help_text='insert date')
     title = models.CharField('title', max_length=50, help_text='please insert a cool title')
     link = models.URLField('link', blank=True, null=True)
-    image = models.ImageField(upload_to='news/img', null=True, blank=True)
+    image = BatonAiImageField(upload_to='news/img', null=True, blank=True)
     image_alt = models.CharField('image alt', max_length=50, blank=True, null=True)
     content = HTMLField(verbose_name='content', help_text='html is supported')
     summary = HTMLField('summary', blank=True, null=True)
