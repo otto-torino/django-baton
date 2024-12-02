@@ -21,6 +21,8 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
+Baton 4.2.0 introduces the use of computer vision to generate alt attributes for images.
+
 Baton 4.0.* introduces a bunch of new AI functionalities!
 
 - automatic translations with django-modeltranslation
