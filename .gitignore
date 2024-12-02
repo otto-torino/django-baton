@@ -8,6 +8,7 @@ baton/static/baton/app/npm-debug.log
 baton/static/baton/app/node_modules
 build/
 /dist/
+testapp/app/.env
 tags
 tags.lock
 tags.temp
