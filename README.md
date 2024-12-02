@@ -28,6 +28,7 @@ Baton 4.0.* introduces a bunch of new AI functionalities!
 - automatic translations with django-modeltranslation
 - text summarization
 - text corrections
+- image vision
 - image generation
 
 It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you wanto to change primary and secondary colors or you need heavy customization.
