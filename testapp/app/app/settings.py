@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +34,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 INSTALLED_APPS = [
     'app',
     'baton',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -113,6 +116,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 BATON = {
+    'BATON_CLIENT_ID': os.getenv('BATON_CLIENT_ID'),
+    'BATON_CLIENT_SECRET': os.getenv('BATON_CLIENT_SECRET'),
+    "AI": {
+        "ENABLE_TRANSLATIONS": True,
+        "ENABLE_CORRECTIONS": True,
+        "CORRECTION_SELECTORS": ["textarea"],
+    },
     'SITE_HEADER': 'Baton Test App',
     'SITE_TITLE': 'Baton Test App',
     'INDEX_TITLE': 'Baton administration',
@@ -202,15 +212,17 @@ BATON = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
+LANGUAGES = (
+    ("en", "ENG"),
+    ("it", "ITA"),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

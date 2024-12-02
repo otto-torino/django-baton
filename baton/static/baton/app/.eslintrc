@@ -16,8 +16,7 @@
   },
   "rules": {
     "no-unused-vars": "error",
-    "no-console": "error",
-    "space-before-function-paren": "never",
+    "no-console": "off",
     "comma-dangle": [2, "only-multiline"],
     "react/react-in-jsx-scope": "off",
     "array-bracket-newline": "off",

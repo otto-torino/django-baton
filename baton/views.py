@@ -15,6 +15,9 @@ from django.conf import settings
 
 from .config import get_config
 
+BATON_AI_API_BASE_PATH = 'https://baton.sqrt64.it/api/v1'
+# BATON_AI_API_BASE_PATH = 'http://localhost:1323/api/v1'
+
 
 class GetAppListJsonView(View):
 
@@ -275,14 +278,14 @@ class TranslateView(View):
             })
 
         # The API endpoint to communicate with
-        url_post = "https://baton.sqrt64.it/api/v1/translate/"
+        url_post = f"{BATON_AI_API_BASE_PATH}/translate/"
 
         # A POST request to tthe API
         ts = str(int(time.time()))
-        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        h = hmac.new(settings.BATON.get('BATON_CLIENT_SECRET').encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
         sig = base64.b64encode(h.digest()).decode()
         post_response = requests.post(url_post, json=payload, headers={
-            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Client-Id': settings.BATON.get('BATON_CLIENT_ID'),
             'X-Timestamp': ts,
             'X-Signature': sig,
         })
@@ -307,15 +310,15 @@ class SummarizeView(View):
         }
 
         # The API endpoint to communicate with
-        url_post = "https://baton.sqrt64.it/api/v1/summarize/"
+        url_post = f"{BATON_AI_API_BASE_PATH}/summarize/"
         # url_post = "http://192.168.1.245:1323/api/v1/summarize/"
 
         # A POST request to tthe API
         ts = str(int(time.time()))
-        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        h = hmac.new(settings.BATON.get('BATON_CLIENT_SECRET').encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
         sig = base64.b64encode(h.digest()).decode()
         post_response = requests.post(url_post, json=payload, headers={
-            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Client-Id': settings.BATON.get('BATON_CLIENT_ID'),
             'X-Timestamp': ts,
             'X-Signature': sig,
         })
@@ -338,15 +341,15 @@ class GenerateImageView(View):
         }
 
         # The API endpoint to communicate with
-        url_post = "https://baton.sqrt64.it/api/v1/image/"
+        url_post = f"{BATON_AI_API_BASE_PATH}/image/"
         # url_post = "http://192.168.1.160:1323/api/v1/image/"
 
         # A POST request to tthe API
         ts = str(int(time.time()))
-        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        h = hmac.new(settings.BATON.get('BATON_CLIENT_SECRET').encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
         sig = base64.b64encode(h.digest()).decode()
         post_response = requests.post(url_post, json=payload, headers={
-            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Client-Id': settings.BATON.get('BATON_CLIENT_ID'),
             'X-Timestamp': ts,
             'X-Signature': sig,
         })
@@ -368,15 +371,15 @@ class CorrectView(View):
         }
 
         # The API endpoint to communicate with
-        url_post = "https://baton.sqrt64.it/api/v1/correct/"
+        url_post = f"{BATON_AI_API_BASE_PATH}/correct/"
         # url_post = "http://192.168.1.245:1323/api/v1/correct/"
 
         # A POST request to tthe API
         ts = str(int(time.time()))
-        h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+        h = hmac.new(settings.BATON.get('BATON_CLIENT_SECRET').encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
         sig = base64.b64encode(h.digest()).decode()
         post_response = requests.post(url_post, json=payload, headers={
-            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Client-Id': settings.BATON.get('BATON_CLIENT_ID'),
             'X-Timestamp': ts,
             'X-Signature': sig,
         })
