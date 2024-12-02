@@ -1,0 +1,60 @@
+@font-face {
+	font-family: 'Yekan';
+    src:		url('../../app/dist/7a71a48e0bbd982d07192d15f.ttf') format('truetype');
+    font-weight: normal;
+	font-style: normal;
+	text-rendering: optimizeLegibility;
+	font-display: auto;
+}
+
+*, body, h1, h2, h3, h4, h5, h6, p, a, input, input::placeholder, select, option {
+	font-family: "Yekan";
+}
+.sidebar-menu ul li a i::before{
+    margin-left: 12px;
+}
+
+.sidebar-menu ul span.has-children i::before{
+    margin-left: 12px;
+}
+.sidebar-menu .active:not(.with-active) a {
+    margin-left: 0!important;
+}
+.sidebar-menu ul span.has-children::after, .sidebar-menu ul a.has-children::after{
+    float: left!important;
+    rotate: 180deg;
+ }
+
+.change-list .changelist-filter-toggler.with-actions, .change-list .changelist-filter-toggler {
+    position: static!important;
+    float: left!important;
+}
+
+.change-form #content form.baton-fixed-submit-row .submit-row{
+    left: 0!important;
+}
+
+#content form .submit-row input[type=submit] {
+    margin: 0 10px;
+}
+
+.dashboard .actionlist li::before {
+    right: -18px;
+}
+
+.dashboard .actionlist {
+    border-left: none!important;
+    border-right: 5px solid var(--bs-baton-dashboard-action-list-border-color);
+    list-style-type: none;
+    margin-right: .5rem;
+    margin-top: 1.5rem;
+    padding-right: 0;
+}
+
+.change-form #content form label{
+ text-align: right;
+}
+
+#login-form {
+ direction: ltr;
+}
