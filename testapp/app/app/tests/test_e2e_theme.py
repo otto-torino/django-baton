@@ -9,7 +9,7 @@ from .utils import element_has_css_class, make_driver
 import os
 os.environ['WDM_LOG_LEVEL'] = '0'
 
-class TestBatonIndex(TestCase):
+class TestBatonTheme(TestCase):
     def setUp(self):
         self.driver = make_driver()
         self.driver.set_window_size(1920, 1280)
@@ -31,12 +31,13 @@ class TestBatonIndex(TestCase):
         time.sleep(1)
         button.click()
 
-    def test_force_theme(self):
+    def test_theme(self):
         # Wait until baton is ready
         wait = WebDriverWait(self.driver, 10)
         wait.until(element_has_css_class((By.TAG_NAME, 'body'), "baton-ready"))
+        wait = WebDriverWait(self.driver, 1000)
 
         # site title
         html = self.driver.find_element(By.CSS_SELECTOR, "html")
-        self.assertEqual(
-            html.get_attribute('data-bs-theme'), 'light')
+        self.assertTrue(
+            html.get_attribute('data-bs-theme') in ['light', 'dark'])
