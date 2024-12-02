@@ -670,6 +670,10 @@
   fieldset.collapse {
     display: block;
 
+    summary { // Django 5.1
+      display: block;
+    }
+
     h2 {
       align-items: center;
       cursor: pointer;

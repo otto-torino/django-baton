@@ -45,12 +45,15 @@
 
   .collapse-entry {
     summary { // Django 5.1
-      display: flex;
+      display: block;
     }
 
     h2, h3 { /* django 5.1 uses a h2 */
       cursor: pointer;
       margin: .5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       .entry-collapse-toggler {
         margin-left: 1rem !important;
