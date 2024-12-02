@@ -179,6 +179,7 @@ BATON = {
     'AI': {
         "MODELS": "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         'ENABLE_TRANSLATIONS': True,
@@ -266,6 +267,7 @@ You can set the models used with  a simple configuration:
     'AI': {
         # ...
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         # ...
@@ -287,6 +289,7 @@ Or you can set the path to the function which returns the models dictionary:
     def bar():
         return {
             "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+            "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
             "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
             "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         }
@@ -562,22 +565,22 @@ Nevertheless, you can add your own hooks to support every other WYSIWYG editor y
         (function () {
             // Get a list of fieldIds of all the editor managed fields, should return an array of ids
             Baton.AI.getEditorFieldsHook = function () {
-              // i.e. for ckeditor
-              return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+              // i.e. for tinyMCE
+              return window.tinyMCE ? window.tinyMCE.get().map((f) => f.id) : []
             }
 
             // Given a field id return the field value and null or undefined if field id is not an editor field
             Baton.AI.getEditorFieldValueHook = function (fieldId) {
-              // i.e. for ckeditor
-              return window.CKEDITOR?.instances[fieldId]?.getData()
+              // i.e. for tinyMCE
+              return window.tinyMCE ? window.tinyMCE.get(fieldId).getContent() : null
             }
 
             // Given a field id and a new value should set the editor field value if it exists and return true
             // should return false if the field is not an editor field
             Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
-              // i.e. for ckeditor
-              if (window.CKEDITOR?.instances[fieldId]) {
-                window.CKEDITOR.instances[fieldId].setData(value)
+              // i.e. for tinyMCE
+              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
+                window.tinyMCE.get(fieldId).setContent(value)
                 return true
               }
               return false
@@ -586,9 +589,9 @@ Nevertheless, you can add your own hooks to support every other WYSIWYG editor y
             // Given a field id should render the given checkmark icon to indicate the field is correct if it exists and return true,
             // should return false if the field is not an editor field
             Baton.AI.setEditorFieldCorrectHook = function (fieldId, icon) {
-              // i.e. for ckeditor
-              if (window.CKEDITOR?.instances[fieldId]) {
-                $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon) // this uses jQuery
+              // i.e. for tinyMCE
+              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
+                Baton.jQuery(`#${fieldId}`).parent().after(icon) // this uses jQuery
                 return true
               }
               return false

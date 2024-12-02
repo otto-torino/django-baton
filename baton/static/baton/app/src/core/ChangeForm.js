@@ -211,7 +211,6 @@ const ChangeForm = {
     $('#content-main form').addClass('baton-fixed-submit-row')
     const footerHeight = $('.site-footer').outerHeight()
     const fixPosition = function () {
-      console.log('footer height', footerHeight, $(window).scrollTop(), $(window).height(), $(document).height()) // eslint-disable-line
       if ($(window).scrollTop() + $(window).height() > $(document).height() - footerHeight + 2) {
         $('form .submit-row').css('padding-bottom', `calc(${footerHeight}px + 1rem)`)
       } else {

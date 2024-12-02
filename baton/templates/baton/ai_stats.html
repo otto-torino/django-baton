@@ -21,6 +21,7 @@
         <span><strong style="font-weight: 900">Translations model</strong>: {{ translations_model }}</span>
         <span><strong style="font-weight: 900">Summarizations model</strong>: {{ summarizations_model }}</span>
         <span><strong style="font-weight: 900">Corrections model</strong>: {{ corrections_model }}</span>
+        <span><strong style="font-weight: 900">Vision model</strong>: {{ vision }}</span>
         <span><strong style="font-weight: 900">Images model</strong>: {{ images_model }}</span>
     </div>
     <script>
@@ -37,6 +38,7 @@
         const translations = {{ translations | safe}}
         const summarizations = {{ summarizations | safe}}
         const corrections = {{ corrections | safe}}
+        const vision = {{ vision | safe}}
         const images = {{ images | safe}}
         for (let i = 0; i < 15; i++) {
             days.push(today.toISOString().slice(0, 10))
@@ -50,6 +52,8 @@
         const summarizationsApiPrice = []
         const correctionsApiCalls = []
         const correctionsApiPrice = []
+        const visionApiCalls = []
+        const visionApiPrice = []
         const imagesApiCalls = []
         const imagesApiPrice = []
         reversedDays.forEach((d, idx) => {
@@ -59,12 +63,15 @@
             summarizationsApiPrice.push(summarizations[d]?.price || 0)
             correctionsApiCalls.push(corrections[d]?.count || 0)
             correctionsApiPrice.push(corrections[d]?.price || 0)
+            visionApiCalls.push(vision[d]?.count || 0)
+            visionApiPrice.push(vision[d]?.price || 0)
             imagesApiCalls.push(images[d]?.count || 0)
             imagesApiPrice.push(images[d]?.price || 0)
             totalCost.push(
                 parseFloat(translations[d]?.price || 0) +
                 parseFloat(summarizations[d]?.price || 0) +
                 parseFloat(corrections[d]?.price || 0) +
+                parseFloat(vision[d]?.price || 0) +
                 parseFloat(images[d]?.price || 0) +
                 (idx === 0 ? 0 : totalCost[idx - 1])
             )
@@ -131,6 +138,20 @@
                     data: correctionsApiPrice,
                     yAxisID: 'y1',
                     backgroundColor: '#d03d3f'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('VisionApiCalls'),
+                    data: visionApiCalls,
+                    yAxisID: 'y',
+                    backgroundColor: '#2acf87'
+                },
+                {
+                    type: 'bar',
+                    label: Baton.T.get('VisionApiCost'),
+                    data: visionApiPrice,
+                    yAxisID: 'y1',
+                    backgroundColor: '#1d8d4e'
                 },
                 {
                     type: 'bar',

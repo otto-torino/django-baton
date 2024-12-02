@@ -29,4 +29,16 @@
     {% endfor %}
 {% endif %}
 
+{% if adminform.model_admin.baton_vision_fields %}
+    {% for field, items in adminform.model_admin.baton_vision_fields.items %}
+        {% for item in items %}
+            <script>
+                Baton.Dispatcher.register('onReady', function () {
+                    Baton.AI.addVision('{{ field }}', {{ item|to_json|safe }});
+                })
+            </script>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
 {% endblock %}

@@ -121,7 +121,6 @@ BATON = {
     "AI": {
         "ENABLE_TRANSLATIONS": True,
         "ENABLE_CORRECTIONS": True,
-        "CORRECTION_SELECTORS": ["textarea"],
     },
     'SITE_HEADER': 'Baton Test App',
     'SITE_TITLE': 'Baton Test App',

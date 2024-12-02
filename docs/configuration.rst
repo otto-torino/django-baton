@@ -41,6 +41,7 @@ This is an example of configuration::
         'AI': {
             'MODELS': "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
             'IMAGES_MODEL': AIModels.BATON_DALL_E_3,
+            'VISION_MODEL': AIModels.BATON_GPT_4O_MINI,
             'SUMMARIZATIONS_MODEL': AIModels.BATON_GPT_4O_MINI,
             'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
             'ENABLE_TRANSLATIONS': True,
@@ -258,7 +259,7 @@ You can configure your preferred model for each functionality, you may choose be
         BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
         BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
         BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
-        BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations and corrections
+        BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, corrections and vision
         BATON_DALL_E_3 = 'dall-e-3' # images
 
 We currently support just the ``dall-e-3`` model for images generation.
@@ -267,6 +268,7 @@ You can set the models used with  a simple configuration:::
 
     'AI': {
         # ...
+        "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
@@ -286,6 +288,7 @@ Or you can set the path to the function which returns the models dictionary:::
     from baton.ai import AIModels
     def bar():
         return {
+            "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
             "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
             "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
             "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
