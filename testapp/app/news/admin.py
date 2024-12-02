@@ -6,6 +6,7 @@ from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, MultipleChoiceListFilter
 from rangefilter.filters import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
+from modeltranslation.admin import TranslationAdmin
 
 from .forms import ActivityForm
 from .models import News, Category, Attachment, Video, Activity
@@ -72,7 +73,7 @@ class StatusListFilter(MultipleChoiceListFilter):
         return News.Status.choices
 
 @admin.register(News)
-class NewsAdmin(ImportExportModelAdmin):
+class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
     list_per_page = 2
     list_display = (
         'title',
@@ -101,13 +102,13 @@ class NewsAdmin(ImportExportModelAdmin):
 
         }),
         ('Main', {
-            'fields': (('category', 'title'), 'link', 'content', 'status', ),
+            'fields': (('category', 'title'), 'link', 'content', 'summary', 'status', ),
             'classes': ('tab-fs-content', ),
             'description': 'This is a description text'
 
         }),
         ('Media', {
-            'fields': ('image', ),
+            'fields': ('image', 'image_alt', ),
             'classes': ('collapse', ),
         }),
         ('Flags', {
@@ -144,6 +145,23 @@ class NewsAdmin(ImportExportModelAdmin):
     baton_cl_filters_includes = [
         ('news/admin_cl_filters_top_include.html', 'top', ),
     ]
+
+    # baton_summarize_fields = {
+    #     "content_en": [{
+    #         "target": "summary",
+    #         "words": 140,
+    #         "useBulletedList": True,
+    #         "language": "en",
+    #     }],
+    # }
+
+    baton_vision_fields = {
+        "image": [{
+            "target": "image_alt",
+            "chars": 20,
+            "language": "en",
+        }],
+    }
 
     def get_category(self, instance):
         return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))

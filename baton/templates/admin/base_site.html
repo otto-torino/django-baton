@@ -1,9 +1,10 @@
 {% extends "admin/base.html" %}
 {% load static baton_tags %}
 {% load i18n %}
-
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock title %}
-
+{% block title %}
+    {% if subtitle %}{{ subtitle }} |{% endif %}
+    {{ title }} | {{ site_title|default:_("Django site admin") }}
+{% endblock title %}
 {% block extrahead %}
     {{ block.super }}
     {% baton_config as conf %}
@@ -22,14 +23,14 @@
     <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
     {% baton_theme %}
 {% endblock extrahead %}
-
 {% block branding %}
-<div class="baton-startup-overlay"></div>
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+    <div class="baton-startup-overlay"></div>
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">{{ site_header|default:_("Django administration") }}</a>
+    </h1>
 {% endblock branding %}
-
-{% block nav-global %}{% endblock nav-global %}
-
+{% block nav-global %}
+{% endblock nav-global %}
 {% block footer %}
     {% footer %}
 {% endblock footer %}

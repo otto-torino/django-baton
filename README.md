@@ -21,6 +21,8 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
+Baton 4.2.0 introduces the use of computer vision to generate alt attributes for images.
+
 Baton 4.0.* introduces a bunch of new AI functionalities!
 
 - automatic translations with django-modeltranslation
@@ -69,7 +71,7 @@ Everything is styled through CSS and when required, JS is used.
 
 - Based on Bootstrap 5 and FontAwesome Free 6
 - Fully responsive
-- AI functionalities: translations, corrections, summarizations, image generation (you need a subscription key)
+- AI functionalities: translations, corrections, summarizations, image description and generation (you need a subscription key)
 - Custom and flexible sidebar menu
 - Themes support
 - Configurable search field
@@ -179,6 +181,7 @@ BATON = {
     'AI': {
         "MODELS": "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         'ENABLE_TRANSLATIONS': True,
@@ -254,11 +257,11 @@ class AIModels:
     BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
     BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
     BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
-    BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations and corrections
+    BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, image vision and corrections
     BATON_DALL_E_3 = 'dall-e-3' # images
 ```
 
-We currently support just the `dall-e-3` model for images generation.
+We currently support just the `dall-e-3` model for images generation and the `gpt-4o-mini` model for image vision.
 
 You can set the models used with  a simple configuration:
 
@@ -266,6 +269,7 @@ You can set the models used with  a simple configuration:
     'AI': {
         # ...
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         # ...
@@ -287,6 +291,7 @@ Or you can set the path to the function which returns the models dictionary:
     def bar():
         return {
             "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+            "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
             "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
             "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         }
@@ -342,7 +347,7 @@ There is another way to trigger the correction in cases the label is not visible
 
 ![Corrections](docs/images/ai-corrections.png)
 
-#### Summarizations and image generations
+#### Summarizations, image vision and generation
 
 These functionalities are described in detail in the [AI](#baton-ai) section.
 
@@ -516,6 +521,29 @@ In this modal you can edit the `words` and `useBulletedList` parameters and perf
 
 All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
 
+### <a name="ai-vision"></a>Image vision
+
+In your `ModelAdmin` classes you can define which images can be described in order to generate an alt text, look at the following example:
+
+``` python
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    baton_vision_fields = {
+        "image": [{
+            "target": "image_alt",
+            "chars": 80,
+            "language": "en",
+        }],
+    }
+```
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
+- `language`: the language of the summary, default is your default language
+
+With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
+
 ### <a name="ai-image-generation"></a>Image Generation
 
 Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
@@ -562,22 +590,22 @@ Nevertheless, you can add your own hooks to support every other WYSIWYG editor y
         (function () {
             // Get a list of fieldIds of all the editor managed fields, should return an array of ids
             Baton.AI.getEditorFieldsHook = function () {
-              // i.e. for ckeditor
-              return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+              // i.e. for tinyMCE
+              return window.tinyMCE ? window.tinyMCE.get().map((f) => f.id) : []
             }
 
             // Given a field id return the field value and null or undefined if field id is not an editor field
             Baton.AI.getEditorFieldValueHook = function (fieldId) {
-              // i.e. for ckeditor
-              return window.CKEDITOR?.instances[fieldId]?.getData()
+              // i.e. for tinyMCE
+              return window.tinyMCE ? window.tinyMCE.get(fieldId).getContent() : null
             }
 
             // Given a field id and a new value should set the editor field value if it exists and return true
             // should return false if the field is not an editor field
             Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
-              // i.e. for ckeditor
-              if (window.CKEDITOR?.instances[fieldId]) {
-                window.CKEDITOR.instances[fieldId].setData(value)
+              // i.e. for tinyMCE
+              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
+                window.tinyMCE.get(fieldId).setContent(value)
                 return true
               }
               return false
@@ -586,9 +614,9 @@ Nevertheless, you can add your own hooks to support every other WYSIWYG editor y
             // Given a field id should render the given checkmark icon to indicate the field is correct if it exists and return true,
             // should return false if the field is not an editor field
             Baton.AI.setEditorFieldCorrectHook = function (fieldId, icon) {
-              // i.e. for ckeditor
-              if (window.CKEDITOR?.instances[fieldId]) {
-                $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon) // this uses jQuery
+              // i.e. for tinyMCE
+              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
+                Baton.jQuery(`#${fieldId}`).parent().after(icon) // this uses jQuery
                 return true
               }
               return false

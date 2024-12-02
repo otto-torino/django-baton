@@ -27,17 +27,20 @@ def get_ai_models(ai_config):
         summarizations_model = models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         corrections_model = models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         images_model = models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
+        vision_model = models.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI)
     else: # config
         translations_model = ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         summarizations_model = ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         corrections_model = ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         images_model = ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
+        vision_model = ai_config.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI)
 
     return {
         'TRANSLATIONS_MODEL': translations_model,
         'SUMMARIZATIONS_MODEL': summarizations_model,
         'CORRECTIONS_MODEL': corrections_model,
-        'IMAGES_MODEL': images_model
+        'IMAGES_MODEL': images_model,
+        'VISION_MODEL': vision_model
     }
 
 @register.simple_tag
@@ -71,11 +74,13 @@ def baton_config():
             "correctionsModel": ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
             "summarizationsModel": ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
             "imagesModel": ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
+            "visionModel": ai_models.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "correctionSelectors": ai_config.get('CORRECTION_SELECTORS', ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"]),
             "translateApiUrl": reverse('baton-translate'),
             "summarizeApiUrl": reverse('baton-summarize'),
+            "visionApiUrl": reverse('baton-vision'),
             "generateImageApiUrl": reverse('baton-generate-image'),
             "correctApiUrl": reverse('baton-correct'),
         },
@@ -162,10 +167,11 @@ def baton_ai_stats(context):
 
     # The API endpoint to communicate with
     url_post = "https://baton.sqrt64.it/api/v1/stats/"
+    # url_post = "http://localhost:1323/api/v1/stats/"
 
     # A GET request to the API
     ts = str(int(time.time()))
-    h = hmac.new(settings.BATON_AI_CLIENT_SECRET.encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
+    h = hmac.new(settings.BATON.get('BATON_CLIENT_SECRET').encode('utf-8'), ts.encode('utf-8'), hashlib.sha256)
     sig = base64.b64encode(h.digest()).decode()
 
     error = False
@@ -175,12 +181,13 @@ def baton_ai_stats(context):
     translations = {}
     summarizations = {}
     corrections = {}
+    vision = {}
     images = {}
     response_json = {}
 
     try:
         response = requests.get(url_post, headers={
-            'X-Client-Id': settings.BATON_AI_CLIENT_ID,
+            'X-Client-Id': settings.BATON.get('BATON_CLIENT_ID'),
             'X-Timestamp': ts,
             'X-Signature': sig,
         })
@@ -197,6 +204,7 @@ def baton_ai_stats(context):
             budget = round(Decimal(response_json.get('budget', 0.0)), 2)
             translations = response_json.get('translations', {})
             summarizations = response_json.get('summarizations', {})
+            vision = response_json.get('vision', {})
             corrections = response_json.get('corrections', {})
             images = response_json.get('images', {})
     except Exception as e:
@@ -215,9 +223,11 @@ def baton_ai_stats(context):
         'translations': translations,
         'summarizations': summarizations,
         'corrections': corrections,
+        'vision': vision,
         'images': images,
         'translations_model': ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
         'corrections_model': ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
         'summarizations_model': ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
         'images_model': ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
+        'vision_model': ai_models.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI),
     }

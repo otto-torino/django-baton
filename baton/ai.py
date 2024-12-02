@@ -14,3 +14,6 @@ class AIModels:
     image_models = [
         BATON_DALL_E_3,
     ]
+    vision_models = [
+        BATON_GPT_4O_MINI,
+    ]

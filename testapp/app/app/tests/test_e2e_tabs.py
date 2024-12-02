@@ -75,7 +75,7 @@ class TestBatonTabs(TestCase):
         self.assertEqual(description_att.get_attribute('innerText'), 'Add as many attachments as you want')
 
         # tabs groups && inlines
-        attachments_summary = self.driver.find_element(By.ID, 'id_attachments_summary')
+        attachments_summary = self.driver.find_element(By.ID, 'id_attachments_summary_en')
         self.assertEqual(attachments_summary.is_displayed(), True)
         inlines = self.driver.find_element(By.CSS_SELECTOR, '#group-fs-attachments--inline-attachments .inline-related .module')
         inline_title = inlines.find_element(By.TAG_NAME, 'h2')

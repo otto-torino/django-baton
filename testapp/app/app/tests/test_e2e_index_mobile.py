@@ -64,8 +64,8 @@ class TestBatonIndexMobile(TestCase):
                          'Change password')
         self.assertEqual(user_dropdown_menu[3].get_attribute('innerHTML'),
                          'Log out')
-        self.assertEqual(user_dropdown_menu[4].get_attribute('innerHTML'),
-                         'Dark theme')
+        self.assertEqual(user_dropdown_menu[4].get_attribute('innerHTML').replace("Light ", "").replace("Dark ", ""), # don't know system theme
+                         'theme')
 
     def test_content(self):
         # Wait until baton is ready

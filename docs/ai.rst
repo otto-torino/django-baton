@@ -77,6 +77,29 @@ In this modal you can edit the ``words`` and ``useBulletedList`` parameters and 
 
 All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
 
+Image Vision
+------------
+
+In your ``ModelAdmin`` classes you can define which images can be described in order to generate an alt text, look at the following example:::
+
+    class MyModelAdmin(admin.ModelAdmin):
+        # ...
+        baton_vision_fields = {
+            "image": [{
+                "target": "image_alt",
+                "chars": 80,
+                "language": "en",
+            }],
+        }
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- ``chars``: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
+- ``language``: the language of the summary, default is your default language
+
+With this configuration, one (the number of targets) button will appear near the ``image`` field, clicking it the calculated image alt text will be inserted in the ``image_alt`` field.
+
+
 Image Generation
 ----------------
 

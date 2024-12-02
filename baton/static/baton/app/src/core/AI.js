@@ -22,9 +22,17 @@ const AI = {
     }
   },
   decodeHtml(html) {
-    let txt = document.createElement('textarea')
+    const txt = document.createElement('textarea')
     txt.innerHTML = html
     return txt.value
+  },
+  getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = (error) => reject(error)
+    })
   },
   activateTranslations: function () {
     // check if form has fields that need translation
@@ -64,7 +72,7 @@ const AI = {
     }
   },
   translate: function () {
-    var self = this
+    const self = this
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
     const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
@@ -140,8 +148,77 @@ const AI = {
         overlay.remove()
       })
   },
+  addVision(fieldName, conf) {
+    const self = this
+    const field = $(`#id_${fieldName}`)
+    const targetLabel = $(`label[for="id_${conf.target}"]`)
+    const visionButton = $('<a />', { class: 'btn btn-sm btn-secondary me-2 mt-1', href: '#' })
+      .on('click', function () {
+        self.handleVision(field, conf)
+      })
+      .prepend($('<i />', { class: 'fa fa-image' }))
+      .append($('<span />').text(` ${this.t.get('generateAltText')}: ${targetLabel.text().replace(':', '')}`))
+
+    field.after(visionButton)
+  },
+  handleVision: async function (field, conf) {
+    const self = this
+    if (!conf.target) {
+      return
+    }
+    const targetId = `id_${conf.target}`
+    const chars = conf?.chars || 100
+
+    // spinner
+    const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
+    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
+
+    const relativePath = $(field).parent().find('a').attr('href')
+
+    let url
+    if ($(field).prop('files').length > 0) {
+      const file = $(field).prop('files')[0]
+      url = await this.getBase64(file)
+    } else if (relativePath !== '#') {
+      url = window.location.origin + relativePath
+    }
+
+    const payload = {
+      id: field.attr('id'),
+      url: url,
+      chars: parseInt(chars),
+      language: conf?.language || this.config.defaultLanguage,
+      model: self.config.ai.visionModel,
+    }
+    // use api
+    $.ajax({
+      url: this.config.ai.visionApiUrl,
+      method: 'POST',
+      data: JSON.stringify(payload),
+      dataType: 'json',
+      contentType: 'application/json',
+      headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
+    })
+      .done(function (data) {
+        try {
+          $('#' + targetId).val(data.data.description)
+          overlay.remove()
+        } catch (err) {
+          console.log(err)
+          alert(self.t.get('error') + ': ' + err)
+          overlay.remove()
+          return null
+        }
+      })
+      .fail(function (err) {
+        console.log(err)
+        overlay.remove()
+        alert(self.t.get('aiApiError') + ': ' + (err.responseJSON?.data?.message || err.statusText))
+      })
+  },
   addSummarization(fieldName, conf) {
-    var self = this
+    const self = this
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
     const summarizeButton = $('<a />', { class: 'btn btn-sm btn-secondary mb-2', href: '#' })
@@ -149,13 +226,13 @@ const AI = {
         self.handleSummarization(field, targetLabel, conf)
       })
       .prepend($('<i />', { class: 'fa fa-rocket' }))
-      .append($('<span />').text(` ${this.t.get('generateSummary')}: ${targetLabel.text()}`))
+      .append($('<span />').text(` ${this.t.get('generateSummary')}: ${targetLabel.text().replace(':', '')}`))
 
     field.after(summarizeButton)
   },
   handleSummarization(field, targetLabel, conf) {
-    var self = this
-    let content = `
+    const self = this
+    const content = `
 <div>
 <label for="words" class="mb-2" style="font-weight: 700">${this.t.get('words')}</label>
 <input type="number" name="words" id="${field.attr('id')}_words" value="${conf?.words || 100}" class="form-control" />
@@ -167,7 +244,7 @@ const AI = {
     } class="form-check-input" />
 </div>
 `
-    let myModal = new Baton.Modal({
+    const myModal = new Baton.Modal({
       title: this.t.get('generateSummary') + ' - ' + targetLabel.text(),
       size: 'md',
       actionBtnLabel: this.t.get('generate'),
@@ -180,7 +257,7 @@ const AI = {
     myModal.open()
   },
   summarize: function (field, conf, modal) {
-    var self = this
+    const self = this
     const targetId = `id_${conf.target}`
     const words = modal.modalObj.find(`#${field.attr('id')}_words`).val()
     if (words === '' || !conf.target) {
@@ -218,7 +295,7 @@ const AI = {
             $('#' + targetId).val(data.data.summary)
           }
           overlay.remove()
-        } catch (e) {
+        } catch (err) {
           console.log(err)
           alert(self.t.get('error') + ': ' + err)
           overlay.remove()
@@ -264,22 +341,22 @@ const AI = {
         </div>
         `
 
-    var self = this
+    const self = this
     $(generateImageButton).on('click', function () {
-      let myModal = new Baton.Modal({
+      const myModal = new Baton.Modal({
         title: self.t.get('generateImageFromAI'),
         content: content,
         size: 'md',
         actionBtnLabel: self.t.get('generate'),
         actionBtnCb: async function () {
-          let prompt = myModal.modalObj.find('#ai-image-description').val()
-          let aspectRatio = myModal.modalObj.find('#ai-image-aspect-ratio').val()
+          const prompt = myModal.modalObj.find('#ai-image-description').val()
+          const aspectRatio = myModal.modalObj.find('#ai-image-aspect-ratio').val()
           self.generateImage(field, prompt, aspectRatio, function (image) {
             if (!image) {
               alert(self.t.get('imageGenerationError'))
               return
             }
-            let imageEl = new Image()
+            const imageEl = new Image()
             imageEl.src = `data:image/png;base64,${image}`
             $(imageEl).css({ width: '100%', marginTop: '1rem' })
             myModal.modalObj.find('#ai-image-preview').append(imageEl)
@@ -313,7 +390,7 @@ const AI = {
     })
   },
   generateImage: function (field, prompt, aspectRatio, cb) {
-    var self = this
+    const self = this
     const csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
@@ -363,7 +440,7 @@ const AI = {
     return new_input.files
   },
   correct: function (field, text) {
-    var self = this
+    const self = this
     const payload = {
       id: field.attr('id'),
       text,
@@ -430,7 +507,7 @@ const AI = {
 </div>
 </div>
 `
-          let myModal = new Baton.Modal({
+          const myModal = new Baton.Modal({
             title: self.t.get('Correction'),
             content: content,
             size: 'xl',
@@ -466,7 +543,7 @@ const AI = {
     return locale
   },
   isEnabledCorrectionField: function (field) {
-    for (let selector of this.config.ai.correctionSelectors) {
+    for (const selector of this.config.ai.correctionSelectors) {
       if ($(field).is(selector)) {
         return true
       }
@@ -474,7 +551,7 @@ const AI = {
     return false
   },
   activateCorrections: function () {
-    var self = this
+    const self = this
     // check if form has fields that need translation
     $('label[for]').each(function () {
       const fieldId = $(this).attr('for')
@@ -549,7 +626,7 @@ const AI = {
       return true
     }
     return false
-  }
+  },
 }
 
 export default AI

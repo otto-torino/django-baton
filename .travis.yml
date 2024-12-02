@@ -6,7 +6,7 @@ python:
 install:
   - pip install --upgrade pip
   - pip install $DJANGO_VERSION --upgrade
-  - pip install webdriver-manager==4.0.1
+  - pip install webdriver-manager==4.0.2
   - pip install packaging
   - pip install python-dotenv
   - pip install django-tinymce
@@ -18,6 +18,7 @@ install:
   - pip install docutils
   - pip install easy_thumbnails
   - pip install django-mptt
+  - pip install django-modeltranslation
   - pip install reportlab
   - pip install requests
   - pip install svglib
