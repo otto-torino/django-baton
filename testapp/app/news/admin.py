@@ -6,6 +6,7 @@ from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, MultipleChoiceListFilter
 from rangefilter.filters import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
+from modeltranslation.admin import TranslationAdmin
 
 from .forms import ActivityForm
 from .models import News, Category, Attachment, Video, Activity
@@ -72,7 +73,7 @@ class StatusListFilter(MultipleChoiceListFilter):
         return News.Status.choices
 
 @admin.register(News)
-class NewsAdmin(ImportExportModelAdmin):
+class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
     list_per_page = 2
     list_display = (
         'title',
