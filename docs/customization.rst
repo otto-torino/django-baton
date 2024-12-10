@@ -93,6 +93,6 @@ You can also perform live development, in this case:
 
 - start the webpack development server ::
 
-    $ npm run dev
+    $ npm run dev:baton
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.

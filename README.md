@@ -1142,7 +1142,7 @@ So:
 If you want to test your live changes, just start the webpack dev server:
 
     $ cd django-baton/baton/static/baton/app/
-    $ npm run dev
+    $ npm run dev:baton
 
 And inside the `base_site.html` template, make these changes:
 
@@ -1170,7 +1170,7 @@ Switch the baton js path in `base_site.html`
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
     <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
-Start the js app in watch mode
+Start both the django testapp and the js app (the last one in watch mode):
 
     $ cd baton/static/baton/app
     $ npm install
