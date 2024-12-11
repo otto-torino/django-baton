@@ -54,6 +54,10 @@ input[type=checkbox] {
   clear: both;
 }
 
+.hidden {
+  display: none !important;
+}
+
 // remove django 3.1 sidebar
 #toggle-nav-sidebar,
 #nav-sidebar {
