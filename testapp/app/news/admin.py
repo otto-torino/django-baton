@@ -108,7 +108,7 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
 
         }),
         ('Media', {
-            'fields': ('image', 'image_alt', ),
+            'fields': ('image', 'image_alt', 'image_subject_location', ),
             'classes': ('collapse', ),
         }),
         ('Flags', {
@@ -155,13 +155,13 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
     #     }],
     # }
 
-    baton_vision_fields = {
-        "image": [{
-            "target": "image_alt",
-            "chars": 20,
-            "language": "en",
-        }],
-    }
+    # baton_vision_fields = {
+    #     "image": [{
+    #         "target": "image_alt",
+    #         "chars": 20,
+    #         "language": "en",
+    #     }],
+    # }
 
     def get_category(self, instance):
         return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))

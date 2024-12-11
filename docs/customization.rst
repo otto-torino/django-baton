@@ -9,6 +9,8 @@ You can override all the css variables, just create a `baton/css/root.css` file 
 
 You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
 
+.. important:: You can find ready to use themes and new ideas at `otto-torino/django-baton-themes <https://github.com/otto-torino/django-baton-themes>`_
+
 If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 
 The Baton js app
@@ -93,6 +95,6 @@ You can also perform live development, in this case:
 
 - start the webpack development server ::
 
-    $ npm run dev
+    $ npm run dev:baton
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.

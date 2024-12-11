@@ -9,26 +9,26 @@ msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-11 10:47+0100\n"
-"PO-Revision-Date: 2017-02-12 17:00+0100\n"
-"Last-Translator: Stefano Contini <abidibo@gmail.com>\n"
-"Language-Team: it <LL@li.org>\n"
-"Language: it\n"
+"PO-Revision-Date: 2024-09-12 17:00+0100\n"
+"Last-Translator: Your Name <your.email@example.com>\n"
+"Language-Team: fa <LL@li.org>\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: config.py:9
 msgid "Site administration"
-msgstr "Amministrazione sito"
+msgstr "مدیریت سایت"
 
 #: config.py:10
 msgid "Menu"
-msgstr "Menu"
+msgstr "منو"
 
 #: fields.py:75
 msgid "Drag the circle or click on the image to set the image subject"
-msgstr "Trascina il cerchio o clicca sull'immagine per impostare la posizione del soggetto"
+msgstr "دایره را بکشید یا بر روی تصویر کلیک کنید تا موضوع تصویر تنظیم شود"
 
 #: models.py:5
 msgid "id"
@@ -42,71 +42,75 @@ msgstr ""
 #, fuzzy
 #| msgid "Theme"
 msgid "theme"
-msgstr "Tema"
+msgstr "قالب"
 
 #: models.py:8
 #, fuzzy
 #| msgid "Active"
 msgid "active"
-msgstr "Attivo"
+msgstr "فعال"
 
 #: models.py:20
+#, fuzzy
+#| msgid "Light theme"
 msgid "admin theme"
-msgstr ""
+msgstr "تم روشن"
 
 #: models.py:21
+#, fuzzy
+#| msgid "Light theme"
 msgid "admin themes"
-msgstr ""
+msgstr "تم روشن"
 
 #: templates/admin/base_site.html:6
 msgid "Django site admin"
-msgstr "Amministrazione sito django"
+msgstr "مدیر سایت جنگو"
 
 #: templates/admin/base_site.html:34
 msgid "Django administration"
-msgstr "Amministrazione django"
+msgstr "مدیریت جنگو"
 
 #: templates/admin/filer/folder/directory_listing.html:4
 msgid "Folders"
-msgstr "Cartelle"
+msgstr "پوشه‌ها"
 
 #: templates/admin/filter.html:2 templates/baton/filters/dropdown_filter.html:6
 #: templates/baton/filters/input_filter.html:4
 #: templates/baton/filters/multiple_choice_filter.html:2
 #, python-format
 msgid " By %(filter_title)s "
-msgstr "Per %(filter_title)s"
+msgstr " بر اساس %(filter_title)s "
 
 #: templates/baton/ai_stats.html:13
 msgid "Something went wrong"
-msgstr "Qualcosa è andato storto"
+msgstr "مشکلی پیش آمد"
 
 #: templates/baton/filters/input_filter.html:18
 #: templates/baton/filters/input_filter.html:31
 msgid "type and press enter..."
-msgstr "digita e premi invio..."
+msgstr "تایپ کنید و اینتر را بزنید..."
 
 #: templates/baton/filters/input_filter.html:22
 msgid "Reset"
-msgstr ""
+msgstr "بازنشانی"
 
 #: templates/baton/footer.html:7
 msgid "Support"
-msgstr "Supporto"
+msgstr "پشتیبانی"
 
 #: templates/baton/footer.html:17
 #, python-format
 msgid "Developed by %(powered_by)s"
-msgstr "Sviluppato da %(powered_by)s"
+msgstr "توسعه داده شده توسط %(powered_by)s"
 
 #~ msgid "Name"
-#~ msgstr "Nome"
+#~ msgstr "نام"
 
-#~ msgid "close"
-#~ msgstr "chiudi"
+#~ msgid "Baton"
+#~ msgstr "باتون"
 
-#~ msgid "save"
-#~ msgstr "salva"
+#~ msgid "Filter"
+#~ msgstr "فیلتر"
 
-#~ msgid "Remove"
-#~ msgstr "Rimuovi"
+#~ msgid " Search contents... "
+#~ msgstr " جستجوی محتوا... "

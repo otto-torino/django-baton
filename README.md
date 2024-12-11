@@ -21,6 +21,8 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
+Baton 4.2.1 integrates the computer vision in the `BatonAiImageField`, fixes some minor styling issues and includes some PR.
+
 Baton 4.2.0 introduces the use of computer vision to generate alt attributes for images.
 
 Baton 4.0.* introduces a bunch of new AI functionalities!
@@ -28,9 +30,13 @@ Baton 4.0.* introduces a bunch of new AI functionalities!
 - automatic translations with django-modeltranslation
 - text summarization
 - text corrections
+- image vision
 - image generation
 
 It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you wanto to change primary and secondary colors or you need heavy customization.
+
+> New!
+> Take a look at the new `django-baton-themes` repo: [django-baton-themes](https://github.com/otto-torino/django-baton-themes)
 
 ---
 
@@ -84,7 +90,7 @@ Everything is styled through CSS and when required, JS is used.
 - Optional display of changelist filters in a modal
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Customization available by editing css vars and/or recompiling the js app provided
-- IT translations provided
+- IT ad FA translations provided
 
 Baton is based on the following frontend technologies:
 
@@ -178,6 +184,7 @@ BATON = {
     },
     'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'IMAGE_PREVIEW_WIDTH': 200,
     'AI': {
         "MODELS": "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
@@ -239,12 +246,13 @@ Default value is `True`.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
 - `BATON_CLIENT_ID`: The client ID of your baton subscription (unleashes AI functionalities). Defaults to `None`
 - `BATON_CLIENT_SECRET`: The client secret of your baton subscription (unleashes AI functionalities). Defaults to `None`
+- `IMAGE_PREVIEW_WIDTH`: The default image width in pixels of the preview shown to set the subject location of the `BatonAiImageField`. Defaults to `200`
 
 `AI`, `MENU` and `SEARCH_FIELD` configurations in detail:
 
 ### <a name="configuration-ai"></a>AI
 
-Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections and image generation. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections, image generation and image vision. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
 
 Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the [AI](#baton-ai) section.
 
@@ -521,29 +529,6 @@ In this modal you can edit the `words` and `useBulletedList` parameters and perf
 
 All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
 
-### <a name="ai-vision"></a>Image vision
-
-In your `ModelAdmin` classes you can define which images can be described in order to generate an alt text, look at the following example:
-
-``` python
-class MyModelAdmin(admin.ModelAdmin):
-    # ...
-    baton_vision_fields = {
-        "image": [{
-            "target": "image_alt",
-            "chars": 80,
-            "language": "en",
-        }],
-    }
-```
-
-You have to specify the target field name. You can also optionally specify the follwing parameters:
-
-- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
-- `language`: the language of the summary, default is your default language
-
-With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
-
 ### <a name="ai-image-generation"></a>Image Generation
 
 Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
@@ -564,6 +549,57 @@ There is also another way to add the AI image generation functionality to a norm
     Baton.AI.addImageGeneration('{{ widget.name }}');
 </script>
 ```
+
+Baton also integrates the functionality of [django-subject-imagefield](https://github.com/otto-torino/django-subject-imagefield/), so you can specify a `subject_location` field that will store the percentage coordinated of the subject of the image, and in editing mode a point will appear on the image preview in order to let you change this position:
+
+``` python
+from baton.fields import BatonAiImageField
+
+class MyModel(models.Model):
+    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", subject_location_field='subject_location')
+    subject_location = models.CharField(max_length=7, default="50,50")
+```
+
+You can configure the width of the preview image through the settings `IMAGE_PREVIEW_WIDTH` which by default equals `200`.
+
+Check the `django-subject-imagefield` documentation for more details and properties.
+
+### <a name="ai-vision"></a>Image vision
+There are two ways to activate image vision functionality in Baton, both allow to generate an alt text for the image through the AI.
+
+The first way is to just use the `BatonAiImageField` and define the `alt_field` attribute (an optionally `alt_chars`, `alt_language`)
+
+``` python
+from baton.fields import BatonAiImageField
+
+class MyModel(models.Model):
+    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", alt_field="image_alt", alt_chars=20, alt_language="en")
+    image_alt = models.CharField(max_length=40, blank=True)
+```
+
+This method will work only when images are inside inlines.
+
+The second method consists in defining in the `ModelAdmin` classes which images can be described in order to generate an alt text, look at the following example:
+
+``` python
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    baton_vision_fields = {
+        "#id_image": [{ # key must be a selector (useful for inlines)
+            "target": "image_alt", # target should be the name of a field of the same model
+            "chars": 80,
+            "language": "en",
+        }],
+    }
+```
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
+- `language`: the language of the summary, default is your default language
+
+With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
+Even this methos should work for inline images.
 
 ### <a name="ai-stats"></a>Stats widget
 
@@ -1122,6 +1158,9 @@ You can override all the css variables, just create a `baton/css/root.css` file 
 
 You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
 
+> New!
+> You may find ready to use themes and ideas [here](https://github.com/otto-torino/django-baton-themes).
+
 If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 
 ![Customization](docs/images/customization.png)
@@ -1141,7 +1180,7 @@ So:
 If you want to test your live changes, just start the webpack dev server:
 
     $ cd django-baton/baton/static/baton/app/
-    $ npm run dev
+    $ npm run dev:baton
 
 And inside the `base_site.html` template, make these changes:
 
@@ -1169,7 +1208,7 @@ Switch the baton js path in `base_site.html`
     <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
     <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
 
-Start the js app in watch mode
+Start both the django testapp and the js app (the last one in watch mode):
 
     $ cd baton/static/baton/app
     $ npm install
@@ -1196,6 +1235,8 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md)
 [![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
 
 ## <a name="screenshots"></a>Screenshots
+
+Actually the following  screenshots are not always up to date, better to visit the [demo site](https://django-baton.sqrt64.it/)
 
 ![Screenshot](docs/screenshots/mobile_mix.jpg)
 

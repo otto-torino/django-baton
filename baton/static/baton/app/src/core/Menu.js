@@ -291,7 +291,7 @@ const Menu = {
   setHeight: function () {
     const height = $(window).height() - $('#header').height() - 19 // nav padding and border
     this.menu.css('min-height', height + 'px')
-    $('#content').css('padding-bottom', $('#footer').height() + 20 + 'px')
+    $('#content').css('padding-bottom', $('.site-footer').height() + 20 + 'px')
   },
   render: function (data) {
     const self = this

@@ -8,6 +8,7 @@
   word-spacing: 5px;
 
   a {
+    color: var(--bs-baton-breadcrumbs-link-color);
     &:first-child {
       &::before {
         @extend %font-awesome;

@@ -72,7 +72,7 @@ Ready to contribute? Here's how to set up `django-baton` for local development.
     <script src="http://localhost:8080/dist/baton.min.js"></script>
     ```
 
-    Start the js app in watch mode::
+    Start both the django testapp and the js app (the last one in watch mode)::
 
     ```
     $ cd baton/static/baton/app

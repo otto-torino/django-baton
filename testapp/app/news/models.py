@@ -21,6 +21,9 @@ class Activity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity_type = models.CharField(max_length=1, choices=ACTIVITY_TYPES)
     date = models.DateTimeField(auto_now_add=True)
+    image = BatonAiImageField(upload_to='activity/img', alt_field='image_alt', subject_location_field='image_subject_location', null=True, blank=True)
+    image_alt = models.CharField('image alt', max_length=50, blank=True, null=True)
+    image_subject_location = models.CharField('image subject location', max_length=7, blank=True, null=True, default='50,50')
 
     # Below the mandatory fields for generic relation
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -60,8 +63,9 @@ class News(models.Model):
     datetime = models.DateTimeField('datetime', blank=True, null=True, help_text='insert date')
     title = models.CharField('title', max_length=50, help_text='please insert a cool title')
     link = models.URLField('link', blank=True, null=True)
-    image = BatonAiImageField(upload_to='news/img', null=True, blank=True)
+    image = BatonAiImageField(upload_to='news/img', alt_field='image_alt', subject_location_field='image_subject_location', null=True, blank=True)
     image_alt = models.CharField('image alt', max_length=50, blank=True, null=True)
+    image_subject_location = models.CharField('image subject location', max_length=7, blank=True, null=True, default='50,50')
     content = HTMLField(verbose_name='content', help_text='html is supported')
     summary = HTMLField('summary', blank=True, null=True)
     share = models.BooleanField(default=False)
