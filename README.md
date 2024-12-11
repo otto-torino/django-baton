@@ -21,6 +21,8 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
+Baton 4.2.1 integrates the computer vision in the `BatonAiImageField`, fixes some minor styling issues and includes some PR.
+
 Baton 4.2.0 introduces the use of computer vision to generate alt attributes for images.
 
 Baton 4.0.* introduces a bunch of new AI functionalities!
@@ -32,6 +34,9 @@ Baton 4.0.* introduces a bunch of new AI functionalities!
 - image generation
 
 It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you wanto to change primary and secondary colors or you need heavy customization.
+
+> New!
+> Take a look at the new `django-baton-themes` repo: [django-baton-themes](https://github.com/otto-torino/django-baton-themes)
 
 ---
 
@@ -1153,6 +1158,9 @@ You can override all the css variables, just create a `baton/css/root.css` file 
 
 You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
 
+> New!
+> You may find ready to use themes and ideas [here](https://github.com/otto-torino/django-baton-themes).
+
 If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
 
 ![Customization](docs/images/customization.png)
@@ -1227,6 +1235,8 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md)
 [![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
 
 ## <a name="screenshots"></a>Screenshots
+
+Actually the following  screenshots are not always up to date, better to visit the [demo site](https://django-baton.sqrt64.it/)
 
 ![Screenshot](docs/screenshots/mobile_mix.jpg)
 
