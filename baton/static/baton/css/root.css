@@ -72,6 +72,7 @@
 
     /* breadcrumbs */
     --bs-baton-breadcrumbs-bg: #f0f0f0;
+    --bs-baton-breadcrumbs-link-color: #a92434;
     --bs-baton-breadcrumbs-color: #222;
 
     /* changelist */
@@ -251,6 +252,7 @@
 
     /* breadcrumbs */
     --bs-baton-breadcrumbs-bg: #212121;
+    --bs-baton-breadcrumbs-link-color: #cb7c85;
     --bs-baton-breadcrumbs-color: #aaa;
 
     /* changelist */
