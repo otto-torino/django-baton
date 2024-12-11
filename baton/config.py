@@ -11,6 +11,7 @@ default_config = {
     'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
     'COPYRIGHT': 'copyright © 2022 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
     'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+    'IMAGE_PREVIEW_WIDTH': 200,
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,

@@ -1,6 +1,6 @@
 {% load i18n %}
-{% if widget.is_initial %}<div class="file-upload">{{ widget.initial_text }}: <a {% if widget.attrs.subject_location_field %}onclick="window.open('{{ widget.value.url }}')" href="javascript:void(0)"{% else %}href="{{ widget.value.url }}"{% endif %}>{{ widget.value }}</a>{% if widget.attrs.subject_location_field %}<br /><div class="subject-image-preview" id="subject-image-preview-{{ widget.attrs.id }}" style="display: inline-block; position: relative; margin-bottom: 1rem;"><img draggable="false" style="width: {{ widget.attrs.preview_width }}px;user-select: none;" src="{{ widget.value.url }}" /></div>{% endif %}{% if not widget.required %}
-<span class="clearable-file-input">
+{% if widget.is_initial %}<div class="file-upload">{{ widget.initial_text }}: <a data-url="{{ widget.value.url }}" {% if widget.attrs.subject_location_field %}onclick="window.open('{{ widget.value.url }}')" href="javascript:void(0)"{% else %}href="{{ widget.value.url }}"{% endif %}>{{ widget.value }}</a>{% if widget.attrs.subject_location_field %}<br /><div class="subject-image-preview" id="subject-image-preview-{{ widget.attrs.id }}" style="display: inline-block; position: relative; margin-bottom: 1rem;"><img draggable="false" style="width: {{ widget.attrs.preview_width }}px;user-select: none;" src="{{ widget.value.url }}" /></div>{% endif %}{% if not widget.required %}
+<span class="clearable-file-input" style="display: block">
 <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
 <label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label></span>{% endif %}<br>
 {{ widget.input_text }}:{% endif %}
@@ -8,5 +8,142 @@
 <script>
     Baton.Dispatcher.register('onReady', function () {
         Baton.AI.addImageGeneration('{{ widget.name }}')
+        {% if widget.attrs.alt_field %}
+            Baton.AI.addVision('#{{ widget.attrs.id }}', {target: '{{ widget.attrs.alt_field }}', chars: '{{ widget.attrs.alt_chars }}', language: '{{ widget.attrs.alt_language }}'})
+        {% endif %}
     })
 </script>
+
+{% if widget.attrs.subject_location_field %}
+<script>
+(function ($) {
+    var PIN; // draggable element to get the subject
+    var PIN_DIM = 20; // pin dimensions
+    var PREVIEW; // preview element
+    var POSITION_INPUT; // input storing the subject position
+    var WIDTH, HEIGHT; // width and height of the preview image
+
+    // from top left edge pin coordinates to center coordinates
+    var toCenterCoordinates = function (pinCoords) {
+        return { left: pinCoords.left + PIN_DIM / 2, top: pinCoords.top + PIN_DIM / 2 };
+    };
+
+    // from center coordinates to top left edge pin coordinates
+    var toEdgeCoordinates = function (pointerCoords) {
+        return { left: pointerCoords.left - PIN_DIM/2, top: pointerCoords.top - PIN_DIM / 2 };
+    }
+
+    // conversion from percentage to preview coords
+    var percToPreviewCoordinates = function (perc) {
+        return { left: perc.left * WIDTH / 100, top: perc.top * HEIGHT / 100 }
+    }
+
+    var previewToPercCoordinates = function (preview) {
+        return { left: preview.left * 100 / WIDTH, top: preview.top * 100 / HEIGHT }
+    }
+
+    var updateInputPosition = function (perc) {
+        if (perc === undefined && !POSITION_INPUT.val()) {
+            // to the center
+            perc = { left: 50, top: 50 };
+        }
+        if (perc) {
+            // let's round
+            perc = { top: Math.round(perc.top), left: Math.round(perc.left) };
+            POSITION_INPUT.val(perc.left + ',' + perc.top);
+        } else {
+            var parts = POSITION_INPUT.val().split(',');
+            perc = { left: parts[0], top: parts[1] };
+        }
+
+        return perc;
+    }
+
+    // let's work in pointer coordinates
+    function handle_mousedown (e) {
+        window.my_dragging = {};
+        my_dragging.pageX0 = e.pageX;
+        my_dragging.pageY0 = e.pageY;
+        my_dragging.elem = this;
+        my_dragging.offset0 = toCenterCoordinates($(this).position(PREVIEW));
+        function handle_dragging (e) {
+            // constrain left and top to image size
+            var left = Math.min(Math.max(my_dragging.offset0.left + (e.pageX - my_dragging.pageX0), 0), WIDTH);
+            var top = Math.min(Math.max(my_dragging.offset0.top + (e.pageY - my_dragging.pageY0), 0), HEIGHT);
+            $(my_dragging.elem).css(toEdgeCoordinates({ top: top, left: left }));
+            // let's store in original coordinates
+            updateInputPosition(previewToPercCoordinates({ left: left, top: top }));
+        }
+        function handle_mouseup(e) {
+            $('body')
+            .off('mousemove', handle_dragging)
+            .off('mouseup', handle_mouseup);
+        }
+        $('body')
+            .on('mouseup', handle_mouseup)
+            .on('mousemove', handle_dragging);
+    }
+
+    function init() {
+        var image = new Image();
+        var updatePinPosition = function () {
+            HEIGHT = PREVIEW.height();
+            WIDTH = PREVIEW.width();
+            // get real size
+            var position =  updateInputPosition();
+            var initPinPosition = toEdgeCoordinates(percToPreviewCoordinates(position));
+            if (!PIN) PIN = $('<div />')
+            PIN.css({
+                background: 'black',
+                border: '6px double white',
+                width: PIN_DIM + 'px',
+                height: PIN_DIM + 'px',
+                'border-radius': '50%',
+                position: 'absolute',
+                top: initPinPosition.top,
+                left: initPinPosition.left,
+                'user-select': 'none'
+            }).appendTo(PREVIEW);
+            PIN.mousedown(handle_mousedown);
+        };
+        image.onload = updatePinPosition;
+        image.src = '{{ widget.value.url }}';
+        var foo = document.getElementById("subject-image-preview-{{ widget.attrs.id }}");
+        if (foo) {
+            var observer = new ResizeObserver(function(entries) {
+            entries.forEach(function(entry) {
+                updatePinPosition()
+            });
+            });
+            observer.observe(foo);
+        }
+    }
+
+    $(document).ready(function () {
+        PREVIEW = $('#subject-image-preview-{{ widget.attrs.id }}').on('click', function (e) {
+            var offset = $(this).offset();
+            var left = Math.min(Math.max(e.pageX - offset.left, 0), WIDTH);
+            var top = Math.min(Math.max(e.pageY - offset.top, 0), HEIGHT);
+            PIN.css(toEdgeCoordinates({ top: top, left: left }));
+            // let's store in original coordinates
+            updateInputPosition(previewToPercCoordinates({ left: left, top: top }));
+
+        });
+        // inline?
+        var lastDash = '{{ widget.attrs.id }}'.lastIndexOf('-');
+        if (lastDash !== -1) {
+            var prefix = '{{ widget.attrs.id }}'.substr(0, lastDash);
+            POSITION_INPUT = $('#' + prefix + '-{{ widget.attrs.subject_location_field }}')
+        } else {
+            POSITION_INPUT = $('#id_{{ widget.attrs.subject_location_field }}')
+        }
+        POSITION_INPUT.on('blur', function () {
+            var parts = $(this).val().split(',');
+            PIN.css(toEdgeCoordinates(percToPreviewCoordinates({ left: parts[0], top: parts[1] })));
+        });
+
+        init();
+    })
+})(django.jQuery)
+</script>
+{% endif %}

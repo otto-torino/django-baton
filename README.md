@@ -245,7 +245,7 @@ Default value is `True`.
 
 ### <a name="configuration-ai"></a>AI
 
-Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections and image generation. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections, image generation and image vision. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
 
 Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the [AI](#baton-ai) section.
 
@@ -522,29 +522,6 @@ In this modal you can edit the `words` and `useBulletedList` parameters and perf
 
 All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
 
-### <a name="ai-vision"></a>Image vision
-
-In your `ModelAdmin` classes you can define which images can be described in order to generate an alt text, look at the following example:
-
-``` python
-class MyModelAdmin(admin.ModelAdmin):
-    # ...
-    baton_vision_fields = {
-        "image": [{
-            "target": "image_alt",
-            "chars": 80,
-            "language": "en",
-        }],
-    }
-```
-
-You have to specify the target field name. You can also optionally specify the follwing parameters:
-
-- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
-- `language`: the language of the summary, default is your default language
-
-With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
-
 ### <a name="ai-image-generation"></a>Image Generation
 
 Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
@@ -565,6 +542,43 @@ There is also another way to add the AI image generation functionality to a norm
     Baton.AI.addImageGeneration('{{ widget.name }}');
 </script>
 ```
+
+### <a name="ai-vision"></a>Image vision
+There are two ways to activate image vision functionality in Baton, both allow to generate an alt text for the image through the AI.
+
+The first way is to just use the `BatonAiImageField` and define the `alt_field` attribute (an optionally `alt_chars`, `alt_language`)
+
+``` python
+from baton.fields import BatonAiImageField
+
+class MyModel(models.Model):
+    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", alt_field="image_alt", alt_chars=20, alt_language="en")
+    image_alt = models.CharField(max_length=40, blank=True)
+```
+
+This method will work only when images are inside inlines.
+
+The second method consists in defining in the `ModelAdmin` classes which images can be described in order to generate an alt text, look at the following example:
+
+``` python
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    baton_vision_fields = {
+        "#id_image": [{ # key must be a selector (useful for inlines)
+            "target": "image_alt", # target should be the name of a field of the same model
+            "chars": 80,
+            "language": "en",
+        }],
+    }
+```
+
+You have to specify the target field name. You can also optionally specify the follwing parameters:
+
+- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
+- `language`: the language of the summary, default is your default language
+
+With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
+Even this methos should work for inline images.
 
 ### <a name="ai-stats"></a>Stats widget
 

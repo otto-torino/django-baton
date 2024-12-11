@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-20 14:33+0200\n"
+"POT-Creation-Date: 2024-12-11 10:47+0100\n"
 "PO-Revision-Date: 2017-02-12 17:00+0100\n"
 "Last-Translator: Stefano Contini <abidibo@gmail.com>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -26,23 +26,43 @@ msgstr "Amministrazione sito"
 msgid "Menu"
 msgstr "Menu"
 
+#: fields.py:75
+msgid "Drag the circle or click on the image to set the image subject"
+msgstr "Trascina il cerchio o clicca sull'immagine per impostare la posizione del soggetto"
+
 #: models.py:5
-msgid "Name"
-msgstr "Nome"
+msgid "id"
+msgstr ""
 
 #: models.py:6
-msgid "Theme"
-msgstr "Tema"
+msgid "name"
+msgstr ""
 
 #: models.py:7
-msgid "Active"
+#, fuzzy
+#| msgid "Theme"
+msgid "theme"
+msgstr "Tema"
+
+#: models.py:8
+#, fuzzy
+#| msgid "Active"
+msgid "active"
 msgstr "Attivo"
 
-#: templates/admin/base_site.html:5
+#: models.py:20
+msgid "admin theme"
+msgstr ""
+
+#: models.py:21
+msgid "admin themes"
+msgstr ""
+
+#: templates/admin/base_site.html:6
 msgid "Django site admin"
 msgstr "Amministrazione sito django"
 
-#: templates/admin/base_site.html:27
+#: templates/admin/base_site.html:34
 msgid "Django administration"
 msgstr "Amministrazione django"
 
@@ -78,6 +98,9 @@ msgstr "Supporto"
 #, python-format
 msgid "Developed by %(powered_by)s"
 msgstr "Sviluppato da %(powered_by)s"
+
+#~ msgid "Name"
+#~ msgstr "Nome"
 
 #~ msgid "close"
 #~ msgstr "chiudi"

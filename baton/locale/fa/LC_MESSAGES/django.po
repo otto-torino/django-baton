@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-13 03:26+0330\n"
+"POT-Creation-Date: 2024-12-11 10:47+0100\n"
 "PO-Revision-Date: 2024-09-12 17:00+0100\n"
 "Last-Translator: Your Name <your.email@example.com>\n"
 "Language-Team: fa <LL@li.org>\n"
@@ -25,6 +25,10 @@ msgstr "مدیریت سایت"
 #: config.py:10
 msgid "Menu"
 msgstr "منو"
+
+#: fields.py:75
+msgid "Drag the circle or click on the image to set the image subject"
+msgstr "دایره را بکشید یا بر روی تصویر کلیک کنید تا موضوع تصویر تنظیم شود"
 
 #: models.py:5
 msgid "id"
@@ -58,11 +62,11 @@ msgstr "تم روشن"
 msgid "admin themes"
 msgstr "تم روشن"
 
-#: templates/admin/base_site.html:5
+#: templates/admin/base_site.html:6
 msgid "Django site admin"
 msgstr "مدیر سایت جنگو"
 
-#: templates/admin/base_site.html:32
+#: templates/admin/base_site.html:34
 msgid "Django administration"
 msgstr "مدیریت جنگو"
 
@@ -99,14 +103,14 @@ msgstr "پشتیبانی"
 msgid "Developed by %(powered_by)s"
 msgstr "توسعه داده شده توسط %(powered_by)s"
 
-msgid "Name"
-msgstr "نام"
+#~ msgid "Name"
+#~ msgstr "نام"
 
-msgid "Baton"
-msgstr "باتون"
+#~ msgid "Baton"
+#~ msgstr "باتون"
 
-msgid "Filter"
-msgstr "فیلتر"
+#~ msgid "Filter"
+#~ msgstr "فیلتر"
 
-msgid " Search contents... "
-msgstr " جستجوی محتوا... "
+#~ msgid " Search contents... "
+#~ msgstr " جستجوی محتوا... "

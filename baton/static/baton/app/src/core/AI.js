@@ -148,25 +148,51 @@ const AI = {
         overlay.remove()
       })
   },
-  addVision(fieldName, conf) {
+  addVision (fieldSelector, conf) {
     const self = this
-    const field = $(`#id_${fieldName}`)
-    const targetLabel = $(`label[for="id_${conf.target}"]`)
-    const visionButton = $('<a />', { class: 'btn btn-sm btn-secondary me-2 mt-1', href: '#' })
-      .on('click', function () {
-        self.handleVision(field, conf)
-      })
-      .prepend($('<i />', { class: 'fa fa-image' }))
-      .append($('<span />').text(` ${this.t.get('generateAltText')}: ${targetLabel.text().replace(':', '')}`))
+    const fields = $(fieldSelector)
 
-    field.after(visionButton)
+    fields.each(function (_, f) {
+      const field = $(f)
+      let target = null
+      const id = field.attr('id')
+      // inline?
+      const lastDash = id.lastIndexOf('-')
+      if (lastDash !== -1) {
+        const prefix = id.substr(0, lastDash)
+        target = $('#' + prefix + '-' + conf.target)
+      } else {
+        target = $('#id_' + conf.target)
+      }
+      const targetLabel = $(`label[for="${target.attr('id')}"]`)
+      const visionButton = $('<a />', { class: 'btn btn-sm btn-secondary me-2 mt-1', href: '#' })
+        .on('click', function () {
+          self.handleVision(field, conf)
+        })
+        .prepend($('<i />', { class: 'fa fa-image' }))
+        .append($('<span />').text(` ${self.t.get('generateAltText')}: ${targetLabel.text().replace(':', '')}`))
+      field.after(visionButton)
+    })
   },
-  handleVision: async function (field, conf) {
+  handleVision: async function (f, conf) {
     const self = this
     if (!conf.target) {
       return
     }
-    const targetId = `id_${conf.target}`
+
+    const field = $(f)
+    let target = null
+    const id = field.attr('id')
+    // inline?
+    const lastDash = id.lastIndexOf('-')
+    if (lastDash !== -1) {
+      const prefix = id.substr(0, lastDash)
+      target = $('#' + prefix + '-' + conf.target)
+    } else {
+      target = $('#id_' + conf.target)
+    }
+
+    const targetId = target.attr('id')
     const chars = conf?.chars || 100
 
     // spinner
@@ -174,7 +200,7 @@ const AI = {
     const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
-    const relativePath = $(field).parent().find('a').attr('href')
+    const relativePath = $(field).parent().find('a').attr('data-url') || $(field).parent().find('a').attr('href')
 
     let url
     if ($(field).prop('files').length > 0) {
