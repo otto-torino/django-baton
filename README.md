@@ -90,7 +90,7 @@ Everything is styled through CSS and when required, JS is used.
 - Optional display of changelist filters in a modal
 - Optional use of changelist filters as a form (combine some filters at once and perform the search action)
 - Customization available by editing css vars and/or recompiling the js app provided
-- IT translations provided
+- IT ad FA translations provided
 
 Baton is based on the following frontend technologies:
 
