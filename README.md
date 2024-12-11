@@ -179,6 +179,7 @@ BATON = {
     },
     'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'IMAGE_PREVIEW_WIDTH': 200,
     'AI': {
         "MODELS": "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
@@ -240,6 +241,7 @@ Default value is `True`.
 - `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
 - `BATON_CLIENT_ID`: The client ID of your baton subscription (unleashes AI functionalities). Defaults to `None`
 - `BATON_CLIENT_SECRET`: The client secret of your baton subscription (unleashes AI functionalities). Defaults to `None`
+- `IMAGE_PREVIEW_WIDTH`: The default image width in pixels of the preview shown to set the subject location of the `BatonAiImageField`. Defaults to `200`
 
 `AI`, `MENU` and `SEARCH_FIELD` configurations in detail:
 
@@ -542,6 +544,20 @@ There is also another way to add the AI image generation functionality to a norm
     Baton.AI.addImageGeneration('{{ widget.name }}');
 </script>
 ```
+
+Baton also integrates the functionality of [django-subject-imagefield](https://github.com/otto-torino/django-subject-imagefield/), so you can specify a `subject_location` field that will store the percentage coordinated of the subject of the image, and in editing mode a point will appear on the image preview in order to let you change this position:
+
+``` python
+from baton.fields import BatonAiImageField
+
+class MyModel(models.Model):
+    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", subject_location_field='subject_location')
+    subject_location = models.CharField(max_length=7, default="50,50")
+```
+
+You can configure the width of the preview image through the settings `IMAGE_PREVIEW_WIDTH` which by default equals `200`.
+
+Check the `django-subject-imagefield` documentation for more details and properties.
 
 ### <a name="ai-vision"></a>Image vision
 There are two ways to activate image vision functionality in Baton, both allow to generate an alt text for the image through the AI.

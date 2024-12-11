@@ -38,6 +38,7 @@ This is an example of configuration::
         },
         'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
         'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+        'IMAGE_PREVIEW_WIDTH': 200,
         'AI': {
             'MODELS': "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
             'IMAGES_MODEL': AIModels.BATON_DALL_E_3,
@@ -241,6 +242,11 @@ Force theme
 You can force the light or dark theme, and the theme toggle disappears from the user area.
 
 **Default**: None
+
+Image preview width
+-----------------------
+
+The default image width in pixels of the preview shown to set the subject location of the ``BatonAiImageField``. Defaults to ``200``
 
 AI
 ----

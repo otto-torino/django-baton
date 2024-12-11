@@ -97,6 +97,18 @@ There is also another way to add the AI image generation functionality to a norm
     </script>
 
 
+Baton also integrates the functionality of `django-subject-imagefield <https://github.com/otto-torino/django-subject-imagefield>`_, so you can specify a `subject_location` field that will store the percentage coordinated of the subject of the image, and in editing mode a point will appear on the image preview in order to let you change this position::
+
+    from baton.fields import BatonAiImageField
+
+    class MyModel(models.Model):
+        image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", subject_location_field='subject_location')
+        subject_location = models.CharField(max_length=7, default="50,50")
+
+You can configure the width of the preview image through the settings ``IMAGE_PREVIEW_WIDTH`` which by default equals ``200``.
+
+Check the ``django-subject-imagefield`` documentation for more details and properties.
+
 Image Vision
 ------------
 
