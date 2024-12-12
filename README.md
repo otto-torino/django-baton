@@ -33,7 +33,7 @@ Baton 4.0.* introduces a bunch of new AI functionalities!
 - image vision
 - image generation
 
-It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you wanto to change primary and secondary colors or you need heavy customization.
+It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you want to change primary and secondary colors or you need heavy customization.
 
 > New!
 > Take a look at the new `django-baton-themes` repo: [django-baton-themes](https://github.com/otto-torino/django-baton-themes)

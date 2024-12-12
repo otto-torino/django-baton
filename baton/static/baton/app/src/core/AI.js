@@ -170,7 +170,7 @@ const AI = {
           self.handleVision(field, conf)
         })
         .prepend($('<i />', { class: 'fa fa-image' }))
-        .append($('<span />').text(` ${self.t.get('generateAltText')}: ${targetLabel.text().replace(':', '')}`))
+        .append($('<span />').text(` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`))
       field.after(visionButton)
     })
   },
