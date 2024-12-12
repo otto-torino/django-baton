@@ -21,7 +21,7 @@
         <span><strong style="font-weight: 900">Translations model</strong>: {{ translations_model }}</span>
         <span><strong style="font-weight: 900">Summarizations model</strong>: {{ summarizations_model }}</span>
         <span><strong style="font-weight: 900">Corrections model</strong>: {{ corrections_model }}</span>
-        <span><strong style="font-weight: 900">Vision model</strong>: {{ vision }}</span>
+        <span><strong style="font-weight: 900">Vision model</strong>: {{ vision_model }}</span>
         <span><strong style="font-weight: 900">Images model</strong>: {{ images_model }}</span>
     </div>
     <script>
@@ -239,7 +239,6 @@
         mutations.forEach(function(mutation) {
             if (mutation.type === "attributes") {
                 const theme = $('html').attr('data-bs-theme');
-                console.log('DRAWING CHART', theme)
                 aiChart.destroy();
                 drawChart(theme); 
             }
