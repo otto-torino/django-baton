@@ -186,7 +186,7 @@
   #changelist-filter {
     @include make-col(12);
     max-width: 100%;
-    order: 2;
+    order: 3;
     @extend .rounded;
     background: var(--bs-baton-changelist-toolbar-bg);
     margin-top: 1.5rem;
@@ -196,14 +196,16 @@
       max-width: 99%;
       display: none;
     }
+    font-size: 1rem;
 
     h2 {
       background: $filters-title-bg;
       color: $filters-title-color;
-      font-size: $h2-size;
+      font-size: 1rem;
       margin-bottom: 0;
       padding: .5rem 1rem;
-      display: none;
+    border-radius: 10px;
+    
     }
 
     #changelist-filter-clear {
@@ -223,7 +225,7 @@
 
     h3 {
       font-size: 0.9rem;
-      margin-top: 0;
+      margin-top: 1rem;
       margin-bottom: 0;
       padding: 0 1rem;
 
@@ -273,18 +275,16 @@
   &.changelist-filter-active {
     #changelist-filter {
       @include media-breakpoint-up(lg) {
-        @include make-col(12);
+        @include make-col(2);
         max-height: 100%;
-        display: flex;
-        align-items: center;
-        padding-bottom: 1rem;
-        padding-top: 1rem;
+        display: block;
+      
       }
     }
 
     #changelist-form {
       @include media-breakpoint-up(lg) {
-        @include make-col(12);
+        @include make-col(10);
       }
     }
   }
@@ -499,6 +499,7 @@
 
     input[type='reset'] {
       @extend .btn-secondary;
+      color: #fff;
     }
   }
 }

@@ -1,20 +1,179 @@
 // bootstrap
-$primary: #002253;
-$secondary: #002253;
-$info: #002253;
-// fonts
+$base: #ff4d00;
+$primary: #2f2e41;
+$secondary: #ff4d00;
+$accent: #ff4d00;
 $font-family-sans-serif: 'Open Sans', sans-serif !default;
+$font-size-base: 0.875rem;
 
 // fonts
 $h1-size: 1.6rem;
 $h2-size: 1.4rem;
 $h3-size: 1.2rem;
 
-$font-size-base: 0.9375rem !default;
-$table-striped-bg: #fff !default;
-$border-radius: 1rem !default;
+// utils
+$transparent: transparent;
+$warning-fg: #ff4d00;
+$danger-fg: #dc3545;
 
-$input-border-radius: 4px;
-$input-border-width: 1px;
+// login
+$login-bg: #fff;
+$password-visibility-toggler-icon-fg: #999;
+
+// navbar
+$navbar-bg: #1c2429;
+$navbar-link-color: #fff;
+$navbar-dropdown-link-color: #000;
+$navbar-link-color-hover: #ff4d00;
+$navbar-color: #fff;
+$navbar-mobile-pane-bg: #263238;
+
+// footer
+$footer-bg: #1c2429;
+$footer-link-color: $accent;
+$footer-link-color-hover: darken($accent, 10%);
+$footer-color: #fff;
+$footer-border-color: #fff;
+$footer-support-fg: #1c2429;
+
+// menu
+$menu-bg: #2f2e41;
+$menu-color: #fff;
+$menu-branding-color: #fff;
+$gravatar-border-color: #2f2e41;
+$user-links-fg: #ff4d00;
+$menu-link-color: rgba(255, 255, 255, .75);
+$menu-link-hover-color: #ff8f5e;
+$menu-li-hover-bg: #2b2a3b;
+$menu-li-border-color: #201f2c;
+$menu-active-voice-bg: #2b2a3b;
+$menu-active-voice-color: #ff8f5e;
+$menu-active-voice-border-color: #2b2a3b;
+$menu-mobile-title-bg: #37474f;
+$menu-mobile-title-color: #fff;
+$menu-mobile-title-border-color: rgba(255, 255, 255, .2);
+$menu-mobile-back-bg: #242332;
+$menu-selected-sub-bg: #3a3950;
+$menu-title-bg: #2d3940;
+$menu-voice-title-color: #fff;
+$menu-voice-title-bg: #3f3d56;
+$menu-active-bg: transparent;
+$menu-branding-bg: #2f2e41;
+
+// search field
+$search-field-input-bg: #45435f;
+$search-field-input-border-color: #2f2e41;
+$search-field-color: #fff;
+$search-field-datalist-bg: #242332;
+$search-field-icon-color: #004956;
+$search-field-link-color: #fff;
+$search-field-selected-bg: #5a587d;
+$search-field-selected-color: #fff;
+
+// dashboard
+$dashboard-bg: #fff;
+$dashboard-title-bg: #fff;
+$dashboard-module-bg: #fff;
+$dashboard-module-border-color: transparent;
+$dashboard-caption-bg: #fff;
+$dashboard-caption-color: #2f2e41;
+$dashboard-icon-color: #ff4d00;
+$dashboard-delete-bg: #dc3545;
+$dashboard-add-bg: #1c2429;
+$dashboard-change-bg: #0d6efd;
+
+// breadcrumbs
+$breadcrumbs-bg: #fff;
+$breadcrumbs-border-color: #ced4da;
+
+// content
+$content-bg: #fff;
+
+// changelist
+$changelist-bg: #fff;
+$changelist-border-color: #dee2e6;
+$toolbar-bg: #fff;
+$toolbar-btn-bg: #fff;
+$toolbar-btn-hover-bg: #fff;
+$sort-icon-color: #6c757d;
+$filter-toggler-color: #3d3c3c;
+$filter-toggler-bg: #004956;
+$filters-bg: #fff;
+$filters-title-bg: #2f2e41;
+$filters-title-color: #fff;
+$filter-selected-border-color: $base;
+$filters-clear-bg: #004956;
+$rl-head-bg: #fff;
+$rl-head-color: #2f2e41;
+$rl-tr-odd-bg: #fafafa;
+$rl-tr-odd-color: #2f2e41;
+$rl-tr-selected-bg-color: #ffdbcc;
+$rl-tr-selected-bg: #ffdbcc;
+$rl-tr-selected-color: #2f2e41;
+
+// changeform
+$changeform-bg: #fff;
+$changeform-border-color: #dee2e6;
+$collapse-entry-icon-color: #6c757d;
+$state-danger-bg: #ffefef;
+$field-bg: #fff;
+$field-row-error-bg: #ffefef;
+$fieldset-title-bg: #fff;
+$fieldset-nested-title-bg: #fff;
+$inline-related-title-bg: #fff;
+$inline-related-title-border-color: #dee2e6;
+$inline-related-title-border-top-color: #dee2e6;
+$inline-changelink-bg: #ffdbcc;
+$inline-tabular-original-bg: #fff;
+$inline-tabular-original-border-color: #dee2e6;
+$help-text-color: #0d6efd;
+$clockbox-title-bg: #fff;
+$clockbox-title-border-color: #dee2e6;
+
+// changeform spinner
+$spinner-overlay-bg: rgba(255, 255, 255, .8);
+$spinner-overlay-fg: #2f2e41;
+
+// form components
+$selector-item-border-color: #dee2e6;
+$selector-available-title-bg: #fff;
+$selector-chosen-title-bg: #fff;
+$selector-chooser-bg: #fff;
+
+// changehistory
+$changehistory-bg: #fff;
+$changehistory-border-color: #dee2e6;
+
+// pagination
+$pag-bg: #fff;
+$pag-hover-bg: #fff;
+$pag-border-color: #dee2e6;
+$pag-color: #2f2e41;
+$pag-selected-bg: #2f2e41;
+$pag-selected-color: #fff;
+$pag-selected-border-color: #2f2e41;
+
+// delete confirmation
+$delete-confirmation-bg: #fff;
+$delete-confirmation-border-color: #dee2e6;
+
+// analytics
+$chart-bg: #fff;
+$chart-border-color: #dee2e6;
+
+// modal
+$modal-back-btn-bg: #0d6efd;
+$modal-back-btn-fg: #fff;
+
+// admindocs
+$admindocs-module-bg: #fff;
+$admindocs-module-header-bg: #fff;
+$admindocs-module-header-border-color: #dee2e6;
+$admindocs-simple-bg: #fff;
+$admindocs-pre-bg: #212529;
+$admindocs-pre-color: #fff;
+$admindocs-table-border-color: #dee2e6;
 
 
+$input-btn-padding-y:         .75rem !default;
+$input-bg: #f1f2f8 !default;

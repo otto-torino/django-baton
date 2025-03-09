@@ -26,3 +26,7 @@ $fa-font-path: '../../node_modules/@fortawesome/fontawesome-free/webfonts';
 @import 'analytics';
 @import 'admindocs';
 @import 'filer';
+@import 'blackbox_overrides';
+
+@import '../../node_modules/select2/src/scss/core.scss';
+@import '../../node_modules/select2-bootstrap-5-theme/src/select2-bootstrap-5-theme.scss';

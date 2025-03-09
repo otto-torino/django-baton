@@ -138,7 +138,7 @@ body:not(.menu-mobile) {
       }
 
       &::after {
-        color: var(--bs-baton-menu-user-links-color);
+        color: $menu-active-voice-color;
         font-size: 0.9rem;
         display: inline-block;
         margin: 0 .6rem;
@@ -429,6 +429,7 @@ body:not(.menu-mobile) {
   .active:not(.with-active) {
     @include media-breakpoint-up(lg) {
       background: $menu-active-voice-bg !important;
+      color: $menu-active-voice-color !important;
       border-left: 5px solid $menu-active-voice-border-color;
       position: relative;
       a {

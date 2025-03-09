@@ -1,5 +1,6 @@
 // jQuery is provided by webpack provider plugin
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import 'select2' // Import Select2 JavaScript
 import './styles/baton.scss'
 
 import Dispatcher from 'js-event-dispatcher/dist/EventDispatcher'
