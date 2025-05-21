@@ -186,11 +186,10 @@ const Menu = {
               data.data.forEach(
                 (r, index) =>
                   dataList.append(`
-                <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${
-                    r.url
-                  }'" data-url="${r.url}"><a href="${r.url}">${r.label}</a>${
-                    r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''
-                  }</div>`), // eslint-disable-line
+                    <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}">
+                        <a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}
+                    </div>`
+                ), // eslint-disable-line
               )
             })
             .fail((jqxhr, textStatus, err) => {
@@ -204,7 +203,7 @@ const Menu = {
       }
     }
     field.on('keyup', keyUpHandler)
-    field.on('blur', (_) => setTimeout(() => dataList.hide(), 150))
+    field.on('blur', (_) => setTimeout(() => dataList.hide(), 250))
     field.on('focus', (_) => dataList.show())
 
     $('#user-tools-sidebar').after(container.append([field, dataList]))

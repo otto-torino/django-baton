@@ -75,14 +75,14 @@
       width: 100%;
     }
 
-    >div:not(.flex-container),
+    > div:not(.flex-container),
     .flex-container {
       align-items: flex-start;
       display: flex;
       flex: 1;
       flex-direction: row;
       flex-wrap: wrap;
-      gap: .5rem;
+      gap: 0.5rem;
 
       &.form-multiline {
         margin-left: 0%;
@@ -150,7 +150,7 @@
         margin: 0 10px;
       }
 
-      a+a {
+      a + a {
         @extend .me-3;
       }
 
@@ -169,8 +169,8 @@
     .datetimeshortcuts {
       align-self: center;
 
-      +.newline,
-      +br {
+      + .newline,
+      + br {
         content: '';
         display: block;
         height: 0.5rem;
@@ -199,11 +199,11 @@
     // ckeditor
     .cke {
       + a {
-        margin-top: .5rem;
+        margin-top: 0.5rem;
 
         + a {
-          margin-top: .5rem;
-          margin-left: .5rem;
+          margin-top: 0.5rem;
+          margin-left: 0.5rem;
         }
       }
     }
@@ -215,8 +215,7 @@
 
       +p
 
-      /* django 1.11 */
-        {
+      /* django 1.11 */ {
         flex-basis: 100%;
         margin-left: 0 !important;
 
@@ -484,7 +483,6 @@
   }
 
   .tabular.inline-related {
-
     input[type='text'],
     input[type='number'],
     input[type='email'],
@@ -559,7 +557,7 @@
       margin-left: 10% !important;
     }
 
-    >ul {
+    > ul {
       padding-left: 1.2rem;
     }
   }
@@ -615,7 +613,7 @@
       }
     }
 
-    >a {
+    > a {
       margin-bottom: 15px;
       margin-left: 0.25rem;
       order: 1;
@@ -670,7 +668,8 @@
   fieldset.collapse {
     display: block;
 
-    summary { // Django 5.1
+    summary {
+      // Django 5.1
       display: block;
     }
 
@@ -705,18 +704,18 @@
     margin-right: 0;
   }
 
-  fieldset>h2 {
+  fieldset > h2 {
     background: var(--bs-baton-changeform-fieldset-title-bg);
     font-size: $h2-size;
     margin-bottom: 0;
     padding: 5px 10px;
 
-    +.form-row {
+    + .form-row {
       margin-top: 15px;
     }
   }
 
-  fieldset fieldset>h2 {
+  fieldset fieldset > h2 {
     background: var(--bs-baton-changeform-fieldset-nested-title-bg);
   }
 
@@ -763,7 +762,7 @@
       }
       */
 
-      >.delete {
+      > .delete {
         label {
           margin-bottom: 0;
         }
@@ -774,7 +773,7 @@
       background: var(--bs-baton-changeform-field-row-error-bg);
     }
 
-    >.module {
+    > .module {
       // @extend .table-responsive;
       position: relative;
     }
@@ -827,8 +826,8 @@
           }
         }
 
-        &+td,
-        &+th {
+        & + td,
+        & + th {
           border-left: 0px;
         }
       }
@@ -912,7 +911,7 @@
     }
   }
 
-  .wrapped-fields-container>* {
+  .wrapped-fields-container > * {
     flex-grow: 0 !important;
   }
 
@@ -937,7 +936,7 @@
         width: auto;
       }
 
-      label+*:not(.datetime) {
+      label + *:not(.datetime) {
         display: inline-block;
       }
     }

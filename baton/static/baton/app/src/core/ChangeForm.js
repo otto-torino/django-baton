@@ -35,6 +35,7 @@ const ChangeForm = {
     if (opts.enableImagesPreview) {
       this.lazyLoadImages()
     }
+    this.fixCollapseDetails() // with Django 5.1 a collapse-entry class causes details/summary markup to appear
     this.activateEntryCollapsing()
     this.changeFieldsetCollapseStyle()
     this.fixExpandFirstErrorCollapsing()
@@ -131,6 +132,9 @@ const ChangeForm = {
         }
       }
     })
+  },
+  fixCollapseDetails: function () {
+    const details = $('fieldset:not(.collapse) details').attr('open', 'open')
   },
   activateEntryCollapsing: function () {
     $('.collapse-entry h3, .collapse-entry h2')
