@@ -454,9 +454,11 @@
     width: auto !important;
   }
 
+  input[type='email']:not([size]),
+  input[type='url']:not([size]),
   input[type='text']:not([size]) {
     @include media-breakpoint-up(md) {
-      min-width: 240px;
+      min-width: 320px;
     }
   }
 
