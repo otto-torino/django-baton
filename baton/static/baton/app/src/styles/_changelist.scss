@@ -24,7 +24,8 @@
     flex-wrap: wrap;
     overflow: hidden;
 
-    .changelist-form-container { // django 3.1.1
+    .changelist-form-container {
+      // django 3.1.1
       display: flex;
       flex: 0 0 100%;
       flex-wrap: wrap;
@@ -40,10 +41,11 @@
       margin-bottom: 0;
       padding-left: 0;
 
-      > a, > li {
-        background: rgba(0, 0, 0, .1);
+      > a,
+      > li {
+        background: rgba(0, 0, 0, 0.1);
         display: inline-block;
-        padding: .2rem 1rem;
+        padding: 0.2rem 1rem;
 
         &.date-back,
         &.date-back a {
@@ -81,10 +83,10 @@
     }
 
     #result_list {
-      input[type=text],
-      input[type=number],
-      input[type=email],
-      input[type=date] {
+      input[type='text'],
+      input[type='number'],
+      input[type='email'],
+      input[type='date'] {
         @extend .form-control;
         display: inline;
         height: 28px;
@@ -115,13 +117,12 @@
       text-align: right;
     }
 
-    input[type=text] {
+    input[type='text'] {
       @extend .form-control;
-      @extend .form-control-sm;
       max-width: 160px;
     }
 
-    input[type=submit] {
+    input[type='submit'] {
       @extend .btn;
       @extend .btn-sm;
       @extend .ms-2;
@@ -146,7 +147,7 @@
 
   .changelist-filter-toggler {
     @extend .btn;
-    @extend .btn-info;
+    @extend .btn-secondary;
     align-items: center;
     cursor: pointer;
     display: inline;
@@ -175,10 +176,9 @@
 
       @include media-breakpoint-up(sm) {
         display: inline-block;
-        margin-left: .5rem;
+        margin-left: 0.5rem;
       }
     }
-
   }
 
   #changelist-filter {
@@ -199,21 +199,20 @@
       color: var(--bs-baton-changelist-filters-title-color);
       font-size: $h2-size;
       margin-bottom: 0;
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
     }
 
     #changelist-filter-clear {
       background: var(--bs-baton-changelist-filters-clear-bg);
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-bottom: 0;
       margin-top: 0;
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
 
       a {
         color: var(--bs-baton-changelist-filters-title-color);
       }
     }
-
 
     h3 {
       font-size: $h3-size;
@@ -227,7 +226,7 @@
 
     ul {
       list-style-type: none;
-      padding-left: 15px;
+      padding-left: 25px;
       padding-right: 15px;
 
       .selected {
@@ -245,11 +244,16 @@
       .select2-selection {
         max-width: 100% !important;
         width: 226px !important;
+        height: 38px !important;
       }
       .select2-container--focus,
       .select2-selection--single:focus {
         border-radius: 2px;
-        box-shadow: 0 0 0 0.25rem rgba(127, 27, 39, .25) !important;
+        box-shadow: 0 0 0 0.25rem rgba(127, 27, 39, 0.25) !important;
+      }
+      .select2-selection__arrow {
+        top: 3px !important;
+        right: 10px !important;
       }
     }
   }
@@ -285,7 +289,7 @@
     max-width: 100% !important;
     max-height: 100% !important;
     order: 0 !important;
-    padding: .5rem 0 !important;
+    padding: 0.5rem 0 !important;
     width: auto !important;
 
     select {
@@ -354,9 +358,8 @@
 
     select {
       @extend .form-select;
-      @extend .form-select-sm;
       -moz-appearance: none;
-      text-indent: .01px;
+      text-indent: 0.01px;
       text-overflow: clip;
     }
   }
@@ -380,7 +383,9 @@
         color: var(--bs-baton-changelist-rl-tr-odd-color);
       }
 
-      tbody tr.selected, tbody tr.selected td, tbody tr.selected th {
+      tbody tr.selected,
+      tbody tr.selected td,
+      tbody tr.selected th {
         background: var(--bs-baton-changelist-rl-tr-selected-bg) !important;
         color: var(--bs-baton-changelist-rl-tr-selected-color);
       }
@@ -395,7 +400,7 @@
 
       th,
       td {
-        padding: .3rem;
+        padding: 0.3rem;
       }
     }
 
@@ -455,7 +460,6 @@
 
   .admindatefilter {
     border-bottom: 0 !important;
-    margin-right: 15px;
     padding-bottom: 0;
     position: relative;
 
@@ -468,9 +472,12 @@
       right: 2rem;
     }
 
+    .date-icon {
+      right: 20px !important;
+    }
+
     input[type='text'] {
       @extend .form-control;
-      @extend .form-control-sm;
       flex-grow: 1;
     }
 
@@ -482,5 +489,14 @@
     input[type='reset'] {
       @extend .btn-secondary;
     }
+  }
+}
+
+#changelist-filter-extra-actions {
+  a {
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .btn-secondary;
+    margin: 1rem 0;
   }
 }

@@ -13,7 +13,7 @@
                     {% endfor %}
 
                     <input  type="text"
-                            class="form-control form-control-sm"
+                            class="form-control"
                             value="{{ spec.value|default_if_none:'' }}"
                             placeholder="{% trans "type and press enter..."%}"
                             name="{{ spec.parameter_name }}"/>
@@ -26,7 +26,7 @@
             {% endwith %}
         {% else %}
             <input  type="text"
-                    class="form-control form-control-sm"
+                    class="form-control"
                     value="{{ spec.value|default_if_none:'' }}"
                     placeholder="{% trans "type and press enter..."%}"
                     name="{{ spec.parameter_name }}"/>

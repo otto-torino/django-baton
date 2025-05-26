@@ -1,20 +1,13 @@
 @font-face {
-  font-family: 'Dosis';
+  font-family: 'Inter Variable';
+  src: url('../fonts/InterTight-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900; /* Specifies the available weight range */
   font-style: normal;
-  font-weight: 300;
-  src: url('../fonts/Dosis-Light.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/Dosis-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 700;
-  src: url('../fonts/Dosis-Bold.ttf') format('truetype');
+  font-family: 'Inter Variable';
+  src: url('../fonts/InterTight-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900; /* Specifies the available weight range for italics */
+  font-style: italic;
 }

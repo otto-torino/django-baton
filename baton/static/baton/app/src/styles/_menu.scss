@@ -28,7 +28,7 @@ body:not(.menu-mobile) {
   padding: 0;
   position: fixed;
   top: 0;
-  transition: left .4s ease-out;
+  transition: left 0.4s ease-out;
   z-index: 1002;
 
   @include media-breakpoint-up(lg) {
@@ -69,7 +69,7 @@ body:not(.menu-mobile) {
 
     .user-links {
       height: 38px;
-      transition: height .2s linear;
+      transition: height 0.2s linear;
     }
 
     .user-area-toggler {
@@ -101,7 +101,7 @@ body:not(.menu-mobile) {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
     }
 
     a {
@@ -113,7 +113,7 @@ body:not(.menu-mobile) {
           @extend %font-awesome-family;
         }
 
-        &[href*=doc] {
+        &[href*='doc'] {
           &::after {
             content: '\f02d' !important;
             @extend %font-awesome-family;
@@ -156,13 +156,13 @@ body:not(.menu-mobile) {
         color: var(--bs-baton-menu-user-links-color);
         font-size: 1.3rem;
         display: inline-block;
-        margin: 0 .6rem;
+        margin: 0 0.6rem;
       }
     }
   }
 
   .search-field-tool {
-    margin: .5rem 1rem;
+    margin: 0.5rem 1rem;
     position: relative;
 
     input {
@@ -182,8 +182,8 @@ body:not(.menu-mobile) {
       content: '\f002';
       @extend %font-awesome-family;
       position: absolute;
-      right: .5rem;
-      top: .2rem;
+      right: 0.5rem;
+      top: 0.4rem;
     }
 
     &.loading {
@@ -206,11 +206,11 @@ body:not(.menu-mobile) {
         cursor: pointer;
         display: flex;
         flex-direction: row;
-        font-size: .9rem;
+        font-size: 0.9rem;
         justify-content: space-between;
         max-height: 50vh;
         overflow: auto;
-        padding: .5rem;
+        padding: 0.5rem;
 
         &.selected {
           background: var(--bs-baton-search-field-selected-bg);
@@ -219,7 +219,6 @@ body:not(.menu-mobile) {
           a {
             color: var(--bs-baton-search-field-selected-color);
           }
-
         }
 
         a {
@@ -229,7 +228,7 @@ body:not(.menu-mobile) {
 
         i {
           color: var(--bs-baton-search-field-icon-color);
-          font-size: .9rem;
+          font-size: 0.9rem;
         }
       }
     }
@@ -274,7 +273,6 @@ body:not(.menu-mobile) {
     top: 0;
     width: 100%;
     z-index: 10;
-
 
     @include media-breakpoint-up(lg) {
       height: auto;
@@ -340,7 +338,7 @@ body:not(.menu-mobile) {
   .depth-1 {
     display: block;
     margin-left: -100%;
-    transition: margin-left .0s linear;
+    transition: margin-left 0s linear;
 
     @include media-breakpoint-up(lg) {
       display: none;
@@ -357,7 +355,6 @@ body:not(.menu-mobile) {
       padding-left: 0;
     }
   }
-
 
   .open {
     @include media-breakpoint-up(lg) {

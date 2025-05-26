@@ -11,7 +11,6 @@ body.page-changehistory #content-main {
 
     table {
       @extend .table;
-      @extend .table-bordered;
       @extend .table-striped;
       margin-bottom: 0;
 
@@ -27,7 +26,7 @@ body.page-changehistory #content-main {
 
       td,
       th {
-        padding: .3rem;
+        padding: 0.3rem;
       }
     }
   }

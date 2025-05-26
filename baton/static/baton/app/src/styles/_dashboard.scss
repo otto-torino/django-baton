@@ -1,6 +1,5 @@
 // scss-lint:disable PlaceholderInExtend IdSelector SelectorDepth NestingDepth ImportantRule
 .dashboard {
-
   #content {
     background: var(--bs-baton-dashboard-bg);
   }
@@ -30,7 +29,7 @@
         @include make-col(6);
       }
 
-      @media(min-width: 1600px) {
+      @media (min-width: 1600px) {
         @include make-col(4);
       }
     }
@@ -42,7 +41,7 @@
 
       tbody {
         border-top: 0px !important;
-        font-size: .9rem;
+        font-size: 0.9rem;
       }
 
       th {
@@ -52,7 +51,6 @@
       td {
         white-space: nowrap;
       }
-
     }
   }
 
@@ -82,10 +80,11 @@
 
       background: var(--bs-baton-dashboard-module-bg);
       border: 1px solid var(--bs-baton-dashboard-module-border-color);
+      border-radius: var(--bs-baton-dashboard-module-border-radius);
     }
 
     .actionlist {
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -95,6 +94,7 @@
     background: var(--bs-baton-dashboard-caption-bg);
     border: 1px solid var(--bs-baton-dashboard-module-border-color);
     caption-side: top;
+    border-radius: var(--bs-baton-dashboard-module-border-radius) var(--bs-baton-dashboard-module-border-radius) 0 0;
 
     a {
       color: var(--bs-baton-dashboard-caption-color);
@@ -104,14 +104,16 @@
   .actionlist {
     border-left: 5px solid var(--bs-baton-dashboard-action-list-border-color);
     list-style-type: none;
-    margin-left: .5rem;
+    margin-left: 0.5rem;
     margin-top: 1.5rem;
     padding-left: 0;
     position: relative;
 
-
     &::after {
-      background-image: linear-gradient(var(--bs-baton-dashboard-action-list-border-color) 50%, rgba(255, 255, 255, 0) 0%);
+      background-image: linear-gradient(
+        var(--bs-baton-dashboard-action-list-border-color) 50%,
+        rgba(255, 255, 255, 0) 0%
+      );
       background-position: center;
       background-repeat: repeat-y;
       background-size: 5px 13px;
@@ -190,25 +192,24 @@
       content: '\f390';
     }
   }
-
 }
 
 // Baton AI stats
 .baton-ai-stats {
-    background: var(--bs-baton-dashboard-module-bg);
-    margin: 0 0 1.5rem;
-    padding: 1rem;
-    width: 100%;
+  background: var(--bs-baton-dashboard-module-bg);
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  width: 100%;
 
-    h2 {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
+  h2 {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
 
-    .baton-ai-canvas-container {
-      height: 360px;
-    }
+  .baton-ai-canvas-container {
+    height: 360px;
+  }
 }

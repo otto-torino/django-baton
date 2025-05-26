@@ -88,16 +88,21 @@ const Menu = {
     let self = this
     if (!config.forceTheme) {
       const currentTheme = $('html').attr('data-bs-theme')
-      const themeToggler = $('<a />', { class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler' })
-        .css('cursor', 'pointer').attr('title', self.t.get(currentTheme === 'dark' ? 'lightTheme' : 'darkTheme'))
+      const themeToggler = $('<a />', {
+        class: currentTheme === 'dark' ? 'theme-light theme-link-toggler' : 'theme-dark theme-link-toggler',
+      })
+        .css('cursor', 'pointer')
+        .attr('title', self.t.get(currentTheme === 'dark' ? 'lightTheme' : 'darkTheme'))
         .on('click', function () {
-          const currentTheme = $('html').attr('data-bs-theme');
-          $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-          $('html').attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
-          $(this).removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark').addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light');
-          $(this).attr('title', self.t.get(currentTheme === 'dark' ? 'darkTheme' : 'lightTheme'));
-          $(this).attr('data-bs-original-title', self.t.get(currentTheme === 'dark' ? 'darkTheme' : 'lightTheme'));
-          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
+          const currentTheme = $('html').attr('data-bs-theme')
+          $('html').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark')
+          $('html').attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark')
+          $(this)
+            .removeClass(currentTheme === 'dark' ? 'theme-light' : 'theme-dark')
+            .addClass(currentTheme === 'dark' ? 'theme-dark' : 'theme-light')
+          $(this).attr('title', self.t.get(currentTheme === 'dark' ? 'darkTheme' : 'lightTheme'))
+          $(this).attr('data-bs-original-title', self.t.get(currentTheme === 'dark' ? 'darkTheme' : 'lightTheme'))
+          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark')
         })
       if ($('.user-links').find('.theme-link-toggler').length === 0) {
         $('.user-links').prepend(themeToggler)
@@ -113,7 +118,7 @@ const Menu = {
     const container = $('<div />', { class: 'search-field-tool' })
 
     const field = $('<input />', {
-      class: 'form-control form-control-sm',
+      class: 'form-control',
       type: 'text',
       list: 'admin-search-datalist',
       placeholder: this.searchField.label || this.t('search'),
@@ -188,8 +193,7 @@ const Menu = {
                   dataList.append(`
                     <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}">
                         <a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}
-                    </div>`
-                ), // eslint-disable-line
+                    </div>`), // eslint-disable-line
               )
             })
             .fail((jqxhr, textStatus, err) => {

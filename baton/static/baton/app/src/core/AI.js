@@ -148,7 +148,7 @@ const AI = {
         overlay.remove()
       })
   },
-  addVision (fieldSelector, conf) {
+  addVision(fieldSelector, conf) {
     const self = this
     const fields = $(fieldSelector)
 
@@ -165,12 +165,16 @@ const AI = {
         target = $('#id_' + conf.target)
       }
       const targetLabel = $(`label[for="${target.attr('id')}"]`)
-      const visionButton = $('<a />', { class: 'btn btn-sm btn-secondary me-2 mt-1', href: '#' })
+      const visionButton = $('<a />', { class: 'btn btn-sm btn-primary me-2 mt-1', href: '#' })
         .on('click', function () {
           self.handleVision(field, conf)
         })
         .prepend($('<i />', { class: 'fa fa-image' }))
-        .append($('<span />').text(` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`))
+        .append(
+          $('<span />').text(
+            ` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`,
+          ),
+        )
       field.after(visionButton)
     })
   },
@@ -247,7 +251,7 @@ const AI = {
     const self = this
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
-    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-secondary mb-2', href: '#' })
+    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: '#' })
       .on('click', function () {
         self.handleSummarization(field, targetLabel, conf)
       })
@@ -343,7 +347,7 @@ const AI = {
 
     const generateImageButton = $('<a />', {
       id: `generate-image-${fieldName}`,
-      class: 'btn btn-sm btn-secondary mt-1',
+      class: 'btn btn-sm btn-primary mt-1',
       href: '#',
     })
       .prepend($('<i />', { class: 'fa fa-rocket' }))
