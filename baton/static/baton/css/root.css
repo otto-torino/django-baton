@@ -294,7 +294,7 @@
     --bs-baton-changelist-rl-head-bg: transparent;
     --bs-baton-changelist-rl-head-color: inherit;
     --bs-baton-changelist-rl-tr-odd-bg: rgba(0, 0, 0, .05);
-    --bs-baton-changelist-rl-tr-odd-color: inherit;
+    --bs-baton-changelist-rl-tr-odd-color: #fff;
     --bs-baton-changelist-rl-tr-selected-bg: #363636;
     --bs-baton-changelist-rl-tr-selected-color: inherit;
 
