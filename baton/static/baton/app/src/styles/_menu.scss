@@ -338,6 +338,7 @@ body:not(.menu-mobile) {
 
     @include media-breakpoint-up(lg) {
       li.title + li:not(.title),
+      li.title + li:not(.title) + li:not(.title),
       .title > .depth-1 {
         border-left: 1px solid var(--bs-baton-menu-depth1-border-color) !important;
         margin-left: 1.5rem;
