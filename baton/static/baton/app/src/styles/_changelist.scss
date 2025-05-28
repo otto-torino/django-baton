@@ -385,21 +385,11 @@
 
     table {
       @extend .table;
+      @extend .table-striped;
 
-      thead > tr th {
-        background: var(--bs-baton-changelist-rl-head-bg) !important;
-        color: var(--bs-baton-changelist-rl-head-color) !important;
-      }
-
-      tbody tr:nth-child(2n + 1) th,
-      tbody tr:nth-child(2n + 1) td {
-        background: var(--bs-baton-changelist-rl-tr-odd-bg) !important;
-        color: var(--bs-baton-changelist-rl-tr-odd-color) !important;
-      }
-
-      tbody tr.selected,
-      tbody tr.selected td,
-      tbody tr.selected th {
+      > tbody > tr.selected > td,
+      > tbody > tr.selected > th {
+        --bs-table-striped-bg: var(--bs-baton-changelist-rl-tr-selected-bg);
         background: var(--bs-baton-changelist-rl-tr-selected-bg) !important;
         color: var(--bs-baton-changelist-rl-tr-selected-color);
       }
