@@ -1,11 +1,11 @@
 /* BATON, BS */
 .nav, [data-bs-theme="light"] {
-    --bs-nav-link-color: #2563eb;
+    --bs-nav-link-color: #2866ee;
 }
 :root, [data-bs-theme="light"] {
     /* main */
     --bs-primary: #208075;
-    --bs-secondary: #2563eb;
+    --bs-secondary: #2866ee;
     --bs-success: #2ECC71;
     --border-color: #dee2e6;
     --bs-baton-body-bg: #F8F9FA;
@@ -42,9 +42,9 @@
     /* navbar */
     --bs-baton-navbar-bg: #E9ECEF;
     --bs-baton-navbar-color: #212529;
-    --bs-baton-navbar-toggler-color: #2563eb;
+    --bs-baton-navbar-toggler-color: #2866ee;
     --bs-baton-navbar-link-color: #212529;
-    --bs-baton-navbar-link-hover-color: #2563eb;
+    --bs-baton-navbar-link-hover-color: #2866ee;
     --bs-baton-navbar-dropdown-link-color: #000;
 
     /* menu */
@@ -59,7 +59,7 @@
     --bs-baton-menu-link-hover-color: #212529;
     --bs-baton-menu-li-hover-bg: #E9ECEF;
     --bs-baton-menu-active-voice-bg: #E9ECEF;
-    --bs-baton-menu-active-voice-color: #2563eb;
+    --bs-baton-menu-active-voice-color: #2866ee;
     --bs-baton-menu-active-voice-border-color: transparent;
     --bs-baton-menu-mobile-title-bg: #DEE2E6;
     --bs-baton-menu-mobile-title-color: #212529;
@@ -77,7 +77,7 @@
     --bs-baton-search-field-color: #000;
     --bs-baton-search-field-datalist-bg: #fff;
     --bs-baton-search-field-icon-color: #f97316;
-    --bs-baton-search-field-link-color: #2563eb;
+    --bs-baton-search-field-link-color: #2866ee;
     --bs-baton-search-field-selected-bg: #F8F9FA;
     --bs-baton-search-field-selected-color: #000;
 
@@ -179,7 +179,7 @@
     /* footer */
     --bs-baton-footer-bg: #F8F9FA;
     --bs-baton-footer-color: #000;
-    --bs-baton-footer-link-color: #2563eb;
+    --bs-baton-footer-link-color: #2866ee;
     --bs-baton-footer-link-hover-color: #09126d;
     --bs-baton-footer-support-color: #fff;
     --bs-baton-footer-support-bg: #6C757D;
@@ -187,14 +187,19 @@
 }
 
 
-.nav, [data-bs-theme="dark"] {
-    --bs-nav-link-color: #2563eb;
+[data-bs-theme="dark"] .nav {
+    --bs-nav-link-color: #2866ee;
+}
+
+[data-bs-theme="dark"] .nav-tabs {
+  --bs-nav-tabs-link-active-bg: #1f1f1f;
+  --bs-nav-tabs-link-active-border-color: var(--bs-border-color) var(--bs-border-color) #1f1f1f;
 }
 
 [data-bs-theme="dark"] {
     /* main */
     --bs-primary: #208075;
-    --bs-secondary: #2563eb;
+    --bs-secondary: #2866ee;
     --body-bg: #202020;
     --bs-success: #2ECC71;
     --border-color: #495057;
@@ -249,7 +254,7 @@
     --bs-baton-menu-link-hover-color: #E9ECEF;
     --bs-baton-menu-li-hover-bg: #161c20;
     --bs-baton-menu-active-voice-bg: #161c20;
-    --bs-baton-menu-active-voice-color: #2563eb;
+    --bs-baton-menu-active-voice-color: #2866ee;
     --bs-baton-menu-active-voice-border-color: #161c20;
     --bs-baton-menu-mobile-title-bg: #1a1a1a;
     --bs-baton-menu-mobile-title-color: #DEE2E6;
@@ -279,7 +284,7 @@
     /* changelist */
     --bs-baton-changelist-bg: #252525;
     --bs-baton-changelist-border-color: #202020;
-    --bs-baton-changelist-toolbar-bg: #2a2a2a;
+    --bs-baton-changelist-toolbar-bg: #1c1c1c;
     --bs-baton-changelist-toolbar-btn-bg: rgba(0, 0, 0, .2);
     --bs-baton-changelist-toolbar-btn-color: #fff;
     --bs-baton-changelist-toolbar-btn-hover-bg: #111;
@@ -295,10 +300,10 @@
     --bs-baton-changelist-rl-tr-selected-color: inherit;
 
     /* changeform */
-    --bs-baton-changeform-bg: #252525;
+    --bs-baton-changeform-bg: #1f1f1f;
     --bs-baton-changeform-border-color: #202020;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
-    --bs-baton-changeform-field-bg: #252525;
+    --bs-baton-changeform-field-bg: #1f1f1f;
     --bs-baton-changeform-field-row-error-bg: #843434;
     --bs-baton-changeform-fieldset-title-bg: #3D255A;
     --bs-baton-changeform-fieldset-nested-title-bg: #27080c;
@@ -369,7 +374,7 @@
     /* footer */
     --bs-baton-footer-bg: #1e1e1e;
     --bs-baton-footer-color: #fff;
-    --bs-baton-footer-link-color: #2563eb;
+    --bs-baton-footer-link-color: #2866ee;
     --bs-baton-footer-link-hover-color: #2a68f1;
     --bs-baton-footer-support-color: #fff;
     --bs-baton-footer-support-bg: #111;
