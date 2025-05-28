@@ -153,6 +153,7 @@ BATON = {
             "type": "title",
             "label": "System",
             "apps": ("auth",),
+            "icon": "fa fa-lock",
         },
         {
             "type": "app",
