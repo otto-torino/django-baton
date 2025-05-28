@@ -80,7 +80,12 @@
       &.form-multiline {
         margin-left: 0%;
         display: flex;
+        flex-direction: column;
         gap: 0.5rem;
+
+        @include media-breakpoint-up(md) {
+          flex-direction: row;
+        }
       }
 
       &.checkbox-row {
@@ -237,6 +242,12 @@
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
+
+      input[type='text'] {
+        width: auto;
+        min-width: auto;
+        flex-grow: 1;
+      }
 
       &.stacked {
         flex-direction: column;
@@ -458,7 +469,8 @@
   input[type='url']:not([size]),
   input[type='text']:not([size]) {
     @include media-breakpoint-up(md) {
-      min-width: 320px;
+      width: 500px;
+      max-width: 100%;
     }
   }
 

@@ -37,8 +37,8 @@ const Menu = {
     const container = $('<div/>', { class: 'container-fluid' })
     $('#footer').before(container)
     const row = $('<div/>', { class: 'row' }).appendTo(container)
-    this.menu = $('<nav/>', { class: 'col-lg-2 sidebar-menu' }).appendTo(row)
-    $('#content').addClass('col-lg-10').prepend($('.breadcrumbs')).appendTo(row)
+    this.menu = $('<nav/>', { class: 'col-lg-3 col-xl-2 sidebar-menu' }).appendTo(row)
+    $('#content').addClass('col-lg-9 col-xl-10').prepend($('.breadcrumbs')).appendTo(row)
 
     $('#content > h1').after($('.messagelist'))
 

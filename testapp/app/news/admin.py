@@ -139,8 +139,8 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
             "Main",
             {
                 "fields": (
-                    ("category", "title"),
-                    "link",
+                    ("category", "link"),
+                    "title",
                     "content",
                     "summary",
                     "status",

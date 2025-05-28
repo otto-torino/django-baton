@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -21,77 +22,80 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'm5%-jr^27gr893xb%ey^%+2de#y844-oi5y1_!%h%^+1*bz5gj'
+SECRET_KEY = "m5%-jr^27gr893xb%ey^%+2de#y844-oi5y1_!%h%^+1*bz5gj"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "192.168.1.245",
+    "localhost",
+]
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 9242880
 
 # Application definition
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 INSTALLED_APPS = [
-    'app',
-    'baton',
-    'modeltranslation',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admindocs',
-    'django_select2',
-    'easy_thumbnails',
-    'admin_auto_filters',
-    'rangefilter',
-    'import_export',
-    'tinymce',
-    'mptt',
-    'news',
-    'baton.autodiscover',
+    "app",
+    "baton",
+    "modeltranslation",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.admindocs",
+    "django_select2",
+    "easy_thumbnails",
+    "admin_auto_filters",
+    "rangefilter",
+    "import_export",
+    "tinymce",
+    "mptt",
+    "news",
+    "baton.autodiscover",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'app.urls'
+ROOT_URLCONF = "app.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'app.wsgi.application'
+WSGI_APPLICATION = "app.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 
@@ -100,112 +104,97 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 BATON = {
-    'BATON_CLIENT_ID': os.getenv('BATON_CLIENT_ID'),
-    'BATON_CLIENT_SECRET': os.getenv('BATON_CLIENT_SECRET'),
+    "BATON_CLIENT_ID": os.getenv("BATON_CLIENT_ID"),
+    "BATON_CLIENT_SECRET": os.getenv("BATON_CLIENT_SECRET"),
     "AI": {
         "ENABLE_TRANSLATIONS": True,
         "ENABLE_CORRECTIONS": True,
     },
-    'SITE_HEADER': 'Baton Test App',
-    'SITE_TITLE': 'Baton Test App',
-    'INDEX_TITLE': 'Baton administration',
-    'SUPPORT_HREF': 'mailto:mail@otto.to.it',
-    'COPYRIGHT': 'copyright © 2024 <a href="https://www.otto.to.it">Otto srl</a>',  # noqa
-    'POWERED_BY': 'Otto srl',
-    'CONFIRM_UNSAVED_CHANGES': False,
-    'SHOW_MULTIPART_UPLOADING': True,
-    'ENABLE_IMAGES_PREVIEW': True,
-    'CHANGELIST_FILTERS_IN_MODAL': True,
-    'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
-    'CHANGELIST_FILTERS_FORM': True,
-    'CHANGEFORM_FIXED_SUBMIT_ROW': True,
-    'COLLAPSABLE_USER_AREA': False,
-    'MENU_ALWAYS_COLLAPSED': False,
-    'MESSAGES_TOASTS': ['error'],
-    'GRAVATAR_DEFAULT_IMG': 'robohash',
-    'GRAVATAR_ENABLED': True,
-    'FORCE_THEME': None,
-    'LOGIN_SPLASH': '/static/app/bg.jpg',
-    'SEARCH_FIELD': {
-        'label': 'Search news',
-        'url': '/admin/search/',
+    "SITE_HEADER": "Baton Test App",
+    "SITE_TITLE": "Baton Test App",
+    "INDEX_TITLE": "Baton administration",
+    "SUPPORT_HREF": "mailto:mail@otto.to.it",
+    "COPYRIGHT": 'copyright © 2024 <a href="https://www.otto.to.it">Otto srl</a>',  # noqa
+    "POWERED_BY": "Otto srl",
+    "CONFIRM_UNSAVED_CHANGES": False,
+    "SHOW_MULTIPART_UPLOADING": True,
+    "ENABLE_IMAGES_PREVIEW": True,
+    "CHANGELIST_FILTERS_IN_MODAL": True,
+    "CHANGELIST_FILTERS_ALWAYS_OPEN": False,
+    "CHANGELIST_FILTERS_FORM": True,
+    "CHANGEFORM_FIXED_SUBMIT_ROW": True,
+    "COLLAPSABLE_USER_AREA": False,
+    "MENU_ALWAYS_COLLAPSED": False,
+    "MESSAGES_TOASTS": ["error"],
+    "GRAVATAR_DEFAULT_IMG": "robohash",
+    "GRAVATAR_ENABLED": True,
+    "FORCE_THEME": None,
+    "LOGIN_SPLASH": "/static/app/bg.jpg",
+    "SEARCH_FIELD": {
+        "label": "Search news",
+        "url": "/admin/search/",
     },
-    'MENU': (
+    "MENU": (
         {
-            'type': 'title',
-            'label': 'System',
-            'apps': ('auth', ),
+            "type": "title",
+            "label": "System",
+            "apps": ("auth",),
         },
         {
-            'type': 'app',
-            'name': 'auth',
-            'label': 'Authentication',
-            'icon': 'fa fa-lock',
-            'models': (
-                {
-                    'name': 'user',
-                    'label': 'Users'
-                },
-                {
-                    'name': 'group',
-                    'label': 'Groups'
-                },
-            )
+            "type": "app",
+            "name": "auth",
+            "label": "Authentication",
+            "icon": "fa fa-lock",
+            "models": (
+                {"name": "user", "label": "Users"},
+                {"name": "group", "label": "Groups"},
+            ),
         },
         {
-            'type': 'title',
-            'label': 'News',
-            'apps': ('news', ),
-            'default_open': True,
-            'children': [
+            "type": "title",
+            "label": "News",
+            "apps": ("news",),
+            "default_open": True,
+            "children": [
                 {
-                    'type': 'free',
-                    'label': 'Categories',
-                    'url': '/admin/news/category/',
-                    're': '^/admin/news/category/(\d*)?'
+                    "type": "free",
+                    "label": "Categories",
+                    "url": "/admin/news/category/",
+                    "re": "^/admin/news/category/(\d*)?",
                 },
-                {
-                    'type': 'model',
-                    'label': 'News',
-                    'name': 'news',
-                    'app': 'news'
-                },
-            ]
+                {"type": "model", "label": "News", "name": "news", "app": "news"},
+            ],
         },
         {
-            'type': 'title',
-            'label': 'Tools',
-            'children': [
+            "type": "title",
+            "label": "Tools",
+            "children": [
                 {
-                    'type': 'free',
-                    'label': 'Password generator',
-                    'url': 'https://passwordsgenerator.net/',
-                    'perms': ('auth.add_user', 'auth.change_user')
+                    "type": "free",
+                    "label": "Password generator",
+                    "url": "https://passwordsgenerator.net/",
+                    "perms": ("auth.add_user", "auth.change_user"),
                 },
                 {
-                    'type': 'free',
-                    'label': 'Google search',
-                    'url': 'http://www.google.it'
+                    "type": "free",
+                    "label": "Google search",
+                    "url": "http://www.google.it",
                 },
-            ]
+            ],
         },
     ),
 }
@@ -213,11 +202,11 @@ BATON = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
 LANGUAGES = (
@@ -228,6 +217,6 @@ LANGUAGES = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = "/static/"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

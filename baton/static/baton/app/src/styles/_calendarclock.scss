@@ -178,7 +178,7 @@
   border-top: 1px solid var(--bs-baton-calendar-cancel-bg);
 
   a {
-    color: var(--bs-baton-calendar-cancel-color);
+    color: var(--bs-baton-calendar-cancel-color) !important;
   }
 }
 

@@ -45,7 +45,7 @@ class Modal {
                   <button type="button" class="btn" data-bs-dismiss="modal">
                     ${this.t.get('close')}
                   </button>
-                  <button type="button" class="btn btn-secondary btn-action"></button>
+                  <button type="button" class="btn btn-primary btn-action"></button>
               </div>
           </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

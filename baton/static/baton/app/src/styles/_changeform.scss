@@ -10,6 +10,10 @@
     @extend .container-fluid;
   }
 
+  h2 {
+    font-size: $h2-size;
+  }
+
   .object-tools {
     @extend .ps-0;
     @extend .m-2;

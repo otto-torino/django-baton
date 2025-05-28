@@ -24,7 +24,7 @@ const ChangeForm = {
     if (opts.showMultipartUploading) {
       this.spinner()
     }
-    if (opts.changeformFixedSubmitRow) {
+    if (opts.changeformFixedSubmitRow && window.screen.width > 992) {
       this.fixSubmitRow()
     }
     self.fixNewlines()
