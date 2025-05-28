@@ -99,9 +99,9 @@
     --bs-baton-changelist-filters-title-color: #fff;
     --bs-baton-changelist-filter-selected-border-color: #000;
     --bs-baton-changelist-filters-clear-bg: #17a2b8;
-    --bs-baton-changelist-rl-head-bg: #f0f0f0;
+    --bs-baton-changelist-rl-head-bg: #fff;
     --bs-baton-changelist-rl-head-color: inherit;
-    --bs-baton-changelist-rl-tr-odd-bg: rgba(0, 0, 0, 0.05);
+    --bs-baton-changelist-rl-tr-odd-bg: #F8F9FA;
     --bs-baton-changelist-rl-tr-odd-color: inherit;
     --bs-baton-changelist-rl-tr-selected-bg: #E9ECEF;
     --bs-baton-changelist-rl-tr-selected-color: inherit;
@@ -291,7 +291,7 @@
     --bs-baton-changelist-filters-title-color: #fff;
     --bs-baton-changelist-filter-selected-border-color: #000;
     --bs-baton-changelist-filters-clear-bg: #17a2b8;
-    --bs-baton-changelist-rl-head-bg: #f0f0f0;
+    --bs-baton-changelist-rl-head-bg: transparent;
     --bs-baton-changelist-rl-head-color: inherit;
     --bs-baton-changelist-rl-tr-odd-bg: rgba(0, 0, 0, .05);
     --bs-baton-changelist-rl-tr-odd-color: inherit;

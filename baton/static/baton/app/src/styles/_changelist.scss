@@ -385,10 +385,10 @@
 
     table {
       @extend .table;
-      @extend .table-striped;
 
-      thead > tr {
-        color: var(--bs-baton-changelist-rl-head-color);
+      thead > tr th {
+        background: var(--bs-baton-changelist-rl-head-bg) !important;
+        color: var(--bs-baton-changelist-rl-head-color) !important;
       }
 
       tbody tr:nth-child(2n + 1) th,
