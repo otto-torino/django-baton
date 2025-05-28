@@ -232,9 +232,9 @@
     --bs-baton-dashboard-action-list-border-color: #666;
 
     /* navbar */
-    --bs-baton-navbar-bg: #101010;
+    --bs-baton-navbar-bg: #1a1a1a;
     --bs-baton-navbar-color: #fff;
-    --bs-baton-navbar-toggler-color: #2563eb;
+    --bs-baton-navbar-toggler-color: #208075;
     --bs-baton-navbar-link-color: #fff;
     --bs-baton-navbar-link-hover-color: #E9ECEF;
     --bs-baton-navbar-dropdown-link-color: #fff;
@@ -253,7 +253,7 @@
     --bs-baton-menu-active-voice-bg: #161c20;
     --bs-baton-menu-active-voice-color: #2563eb;
     --bs-baton-menu-active-voice-border-color: #161c20;
-    --bs-baton-menu-mobile-title-bg: #161c20;
+    --bs-baton-menu-mobile-title-bg: #1a1a1a;
     --bs-baton-menu-mobile-title-color: #DEE2E6;
     --bs-baton-menu-mobile-back-bg: #1c2429;
     --bs-baton-menu-selected-sub-bg: #161c20;
