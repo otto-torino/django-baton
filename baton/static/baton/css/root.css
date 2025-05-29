@@ -100,7 +100,7 @@
     --bs-baton-changelist-filters-bg: transparent;
     --bs-baton-changelist-filters-title-bg: #2866ee;
     --bs-baton-changelist-filters-title-color: #fff;
-    --bs-baton-changelist-filter-selected-border-color: #000;
+    --bs-baton-changelist-filters-selected-border-color: #e4e5e5;
     --bs-baton-changelist-filters-clear-bg: #17a2b8;
     --bs-baton-changelist-rl-head-bg: #fff;
     --bs-baton-changelist-rl-head-color: inherit;
@@ -113,7 +113,7 @@
     --bs-baton-changeform-border-color: #fff;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
     --bs-baton-changeform-field-bg: #fff;
-    --bs-baton-changeform-field-row-error-bg: #f2dede;
+    --bs-baton-changeform-field-row-error-bg: #f0dcdc;
     --bs-baton-changeform-fieldset-title-bg: #F8F9FA;
     --bs-baton-changeform-fieldset-nested-title-bg: #fbebed;
     --bs-baton-changeform-inline-related-title-bg: #F8F9FA;
@@ -299,7 +299,7 @@
     --bs-baton-changelist-filters-bg: transparent;
     --bs-baton-changelist-filters-title-bg: #3D255A;
     --bs-baton-changelist-filters-title-color: #fff;
-    --bs-baton-changelist-filter-selected-border-color: #000;
+    --bs-baton-changelist-filters-selected-border-color: #191919;
     --bs-baton-changelist-filters-clear-bg: #17a2b8;
     --bs-baton-changelist-rl-head-bg: transparent;
     --bs-baton-changelist-rl-head-color: inherit;
