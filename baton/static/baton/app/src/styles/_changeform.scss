@@ -15,20 +15,16 @@
   }
 
   .object-tools {
-    @extend .ps-0;
-    @extend .m-2;
-    float: right;
-    list-style-type: none;
-
     .historylink {
       &::before {
-        content: '\f017';
+        content: 'history';
+        vertical-align: middle;
       }
     }
 
     .viewsitelink {
       &::before {
-        content: '\f26c';
+        content: 'desktop_windows';
       }
     }
   }
@@ -68,9 +64,8 @@
 
         &::before {
           color: var(--bs-baton-changeform-collapse-entry-icon-color);
-          content: '\f070';
-          cursor: pointer;
-          font-family: 'Font Awesome\ 6 Free';
+          @extend %material;
+          content: 'visibility';
         }
 
         & + span {
@@ -85,7 +80,7 @@
 
         .entry-collapse-toggler {
           &::before {
-            content: '\f06e';
+            content: 'visibility_off';
           }
         }
       }
@@ -97,7 +92,7 @@
     h3 {
       .entry-collapse-toggler {
         &::before {
-          content: '\f06e';
+          content: 'visibility';
         }
       }
 
@@ -108,7 +103,7 @@
       &.entry-collapsed {
         .entry-collapse-toggler {
           &::before {
-            content: '\f070';
+            content: 'visibility_off';
           }
         }
 

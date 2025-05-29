@@ -43,8 +43,12 @@
   .object-tools {
     @extend .ps-0;
     @extend .m-2;
-    float: right;
+    display: flex;
+    gap: 0.5rem;
+    row-gap: 0.5rem;
     list-style-type: none;
+    flex-wrap: wrap;
+    float: right;
 
     li {
       display: inline-block;
@@ -53,9 +57,12 @@
     a {
       @extend .btn;
       @extend .btn-primary;
+      display: flex;
+      align-items: center;
+      height: 100%;
 
       &::before {
-        @extend %font-awesome;
+        @extend %material;
       }
     }
   }
@@ -73,8 +80,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: '\f00c';
+      @extend %material;
+      content: 'check';
     }
   }
 
@@ -84,8 +91,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: '\f05a';
+      @extend %material;
+      content: 'info';
     }
   }
 
@@ -95,8 +102,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: '\f12a';
+      @extend %material;
+      content: 'warning';
     }
   }
 
@@ -106,8 +113,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: '\f071';
+      @extend %material;
+      content: 'error';
     }
   }
 }

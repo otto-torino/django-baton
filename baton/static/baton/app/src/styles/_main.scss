@@ -95,3 +95,26 @@ input[type='checkbox'] {
 svg.base-svgs {
   display: none;
 }
+
+/* Define the spinning animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the animation to your icon class */
+%icon-spin {
+  display: inline-block; /* Ensures transform works correctly on inline elements like <span> */
+  animation-name: spin;
+  animation-duration: 2s; /* Adjust speed: 2 seconds per full spin */
+  animation-iteration-count: infinite; /* Spin continuously */
+  animation-timing-function: linear; /* Constant speed spin */
+}
+
+.icon-spin {
+  @extend %icon-spin;
+}

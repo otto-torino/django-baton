@@ -56,11 +56,10 @@ const AI = {
     if (!hasTranslations) {
       return
     }
-
     // add translate button if needed
     const translateButton = $('<a />', { id: 'translate-tool', href: '#' })
       .on('click', this.translate.bind(this))
-      .prepend($('<i />', { class: 'fa fa-language' }))
+      .prepend($('<span class="material-symbols-outlined">translate</span>'))
       .append($('<span />').text(` ${this.t.get('translate')}`))
     const container = $('ul.object-tools')
     if (container.length) {
@@ -75,7 +74,7 @@ const AI = {
     const self = this
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' }).text('progress_activity')
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     // retrieve necessary translations
@@ -169,7 +168,7 @@ const AI = {
         .on('click', function () {
           self.handleVision(field, conf)
         })
-        .prepend($('<i />', { class: 'fa fa-image' }))
+        .prepend($('<span class="material-symbols-outlined">eyeglasses</span>'))
         .append(
           $('<span />').text(
             ` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`,
@@ -201,7 +200,7 @@ const AI = {
 
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' }).text('progress_activity')
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     const relativePath = $(field).parent().find('a').attr('data-url') || $(field).parent().find('a').attr('href')
@@ -255,7 +254,7 @@ const AI = {
       .on('click', function () {
         self.handleSummarization(field, targetLabel, conf)
       })
-      .prepend($('<i />', { class: 'fa fa-rocket' }))
+      .prepend($('<span class="material-symbols-outlined">summarize</span>'))
       .append($('<span />').text(` ${this.t.get('generateSummary')}: ${targetLabel.text().replace(':', '')}`))
 
     field.after(summarizeButton)
@@ -297,7 +296,7 @@ const AI = {
 
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' }).text('progress_activity')
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     // retrieve necessary translations
@@ -350,7 +349,7 @@ const AI = {
       class: 'btn btn-sm btn-primary mt-1',
       href: '#',
     })
-      .prepend($('<i />', { class: 'fa fa-rocket' }))
+      .prepend($('<span class="material-symbols-outlined">image</span>'))
       .append($('<span />').text(` ${this.t.get('generateImageFromAI')}`))
 
     field.after(generateImageButton)
@@ -424,7 +423,7 @@ const AI = {
     const csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' }).text('progress_activity')
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     // retrieve necessary translations
@@ -480,7 +479,7 @@ const AI = {
 
     // spinner
     const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-    const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' })
+    const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' }).text('progress_activity')
     $('<div />').append($('<p />').append(spinner)).appendTo(overlay)
 
     // use api
@@ -495,8 +494,10 @@ const AI = {
       .done(function (data) {
         if (data?.data?.text.trim() === text.trim()) {
           const checkIcon = $('<i />', {
-            class: 'fa fa-check',
-          }).css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
+            class: 'material-symbols-outlined',
+          })
+            .text('check')
+            .css({ color: 'green', marginTop: '8px', marginLeft: '6px' })
           if (!self.setEditorFieldCorrect($(field).attr('id'), checkIcon)) {
             $(field).after(checkIcon)
           }
@@ -588,7 +589,7 @@ const AI = {
       const field = $(`#${fieldId}`)
 
       if (self.editorFields.includes(fieldId) || self.isEnabledCorrectionField(field)) {
-        const icon = $('<a class="fa-solid fa-spell-check me-2 text-decoration-none" href="javascript:void(0)"></a>')
+        const icon = $('<a class="material-symbols-outlined" href="javascript:void(0)">spellcheck</a>')
         icon.on('click', function () {
           let text
           if (self.editorFields.includes(fieldId)) {

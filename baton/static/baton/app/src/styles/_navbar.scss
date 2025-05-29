@@ -85,9 +85,15 @@ body.page-logout #header {
   @extend .me-auto;
   display: inline-block;
   padding-bottom: 0;
+  padding-top: 0;
 
   h1 {
     font-size: 1.6rem;
+    margin-bottom: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

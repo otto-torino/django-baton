@@ -34,7 +34,7 @@ class Modal {
                   <h5 class="modal-title"></h5>
                   <div style="display: flex;">
                       <button type="button" class="back me-1" aria-label="Back">
-                          <i class="fa fa-angle-left"></i>
+                          <i class="material-symbols-outlined">keyboard_arrow_left</i>
                       </button>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>

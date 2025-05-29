@@ -42,8 +42,10 @@ const Menu = {
 
     $('#content > h1').after($('.messagelist'))
 
-    const title = $('<h1 />', { class: 'd-block d-lg-none' }).text(this.menuTitle ? this.menuTitle : 'Menu')
-    $('<i/>', { class: 'fa fa-times' })
+    const title = $('<h1 />', { class: 'd-flex align-items-center justify-content-between d-lg-none' }).text(
+      this.menuTitle ? this.menuTitle : 'Menu',
+    )
+    $('<i class="material-symbols-outlined toggle-menu" style="font-size: 36px">close</i>')
       .on('click', () => {
         $(document.body).removeClass('menu-open')
       })
@@ -51,7 +53,7 @@ const Menu = {
     this.menu.append(title)
 
     if (this.alwaysCollapsed) {
-      $('<i />', { class: 'fa fa-times toggle-menu' })
+      $('<i class="material-symbols-outlined toggle-menu">close</i>')
         .appendTo(this.menu)
         .on('click', () => {
           $(document.body).removeClass('menu-open')
@@ -215,10 +217,16 @@ const Menu = {
   renderUserTools: function () {
     const self = this
     const container = $('<div />', { id: 'user-tools-sidebar' })
-    const expandUserArea = $('<i />', { class: 'fa fa-angle-down user-area-toggler' }).on('click', function () {
-      $(this).toggleClass('fa-angle-up')
-      container.toggleClass('collapsed')
-    })
+    const expandUserArea = $('<i class="material-symbols-outlined user-area-toggler">keyboard_arrow_down</i>').on(
+      'click',
+      function () {
+        const t = $(this).text()
+        $(this)
+          .text(t === 'keyboard_arrow_down' ? 'keyboard_arrow_up' : 'keyboard_arrow_down')
+          .css('margin-bottom', t === 'keyboard_arrow_down' ? '1rem' : '0')
+        container.toggleClass('collapsed')
+      },
+    )
     if (this.collapsableUserArea) {
       container.addClass('collapsed')
     }
@@ -324,7 +332,7 @@ const Menu = {
         .appendTo(li)
       // icon
       if (voice.icon) {
-        $('<i />', { class: voice.icon }).prependTo(a)
+        $(`<i class="material-symbols-outlined">${voice.icon}</i>`).prependTo(a)
       }
       let subUl
       if (voice.children && voice.children.length) {
@@ -380,9 +388,11 @@ const Menu = {
           $('.top-level').find('.nav-back').remove()
         }
         p.addClass('open')
+        const justText = $(this).clone()
+        justText.find('i').remove()
         const back = $(
-          '<li class="nav-item nav-back"><a href="#"><i class="fa fa-angle-double-left"></i> ' + // eslint-disable-line
-            $(this).text() +
+          '<li class="nav-item nav-back"><a href="#"><i class="material-symbols-outlined">keyboard_double_arrow_left</i> ' + // eslint-disable-line
+            justText.text() +
             '</a></li>',
         )
         back.on('click', function () {

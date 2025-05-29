@@ -48,7 +48,7 @@ const ChangeList = {
       const _filtersToggler = $('<a />', {
         class:
           'changelist-filter-toggler' + (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : ''),
-      }).html('<i class="fa fa-filter"></i> <span>' + this.t.get('filter') + '</span>')
+      }).html('<i class="material-symbols-outlined">filter_alt</i> <span>' + this.t.get('filter') + '</span>')
 
       if (this.filtersInModal || parseInt($(window).width()) < breakpoints.lg) {
         const self = this
@@ -114,8 +114,8 @@ const ChangeList = {
 
     // any multiple choice list? These cause a page reload on click, but at least we keep the values
     // issue #292
-    const urlParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlParams.entries());
+    const urlParams = new URLSearchParams(window.location.search)
+    const params = Object.fromEntries(urlParams.entries())
     Object.keys(params).forEach((key) => {
       if (/__in$/.test(key)) {
         qs.push(`${key}=${params[key]}`)

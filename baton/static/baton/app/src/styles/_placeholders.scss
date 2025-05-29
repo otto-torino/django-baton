@@ -9,9 +9,18 @@
   font-family: 'Font Awesome\ 6 Free';
 }
 
+%material {
+  font-family: 'Material Symbols Outlined';
+  font-size: 22px;
+  line-height: 0;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  vertical-align: middle;
+  text-decoration: none !important;
+}
+
 %admin-form {
   @extend .p-2;
-  @extend .mt-3;
   background: var(--bs-baton-changeform-bg);
   border: 1px solid var(--bs-baton-changeform-border-color);
   border-radius: var(--bs-baton-changeform-border-radius);
@@ -51,10 +60,13 @@
           text-decoration: underline;
 
           &::before {
-            @extend %font-awesome;
-            content: '\f12a';
+            @extend %material;
+            content: 'warning';
             display: inline-block;
             margin-right: 0.5rem;
+            font-weight: 400;
+            text-decoration: none !important;
+            vertical-align: middle;
           }
         }
       }
@@ -108,15 +120,15 @@
 
     .date-icon {
       &::before {
-        @extend %font-awesome;
-        content: '\f073';
+        @extend %material;
+        content: 'calendar_month';
       }
     }
 
     .clock-icon {
       &::before {
-        @extend %font-awesome;
-        content: '\f017';
+        @extend %material;
+        content: 'schedule';
       }
     }
 
@@ -146,6 +158,11 @@
       .datetimeshortcuts {
         align-self: center;
         white-space: nowrap;
+
+        a[id^='clocklink'],
+        a[id^='calendarlink'] {
+          text-decoration: none !important;
+        }
       }
 
       .timezonewarning {
@@ -422,8 +439,8 @@
 
     .related-lookup {
       &::before {
-        @extend %font-awesome;
-        content: '\f002';
+        @extend %material;
+        content: 'search';
         margin-left: 5px;
       }
     }
@@ -449,6 +466,7 @@
   input[type='file'],
   select[multiple] {
     @extend .form-control;
+    display: inline-block;
 
     @include media-breakpoint-up(md) {
       width: auto;
@@ -640,8 +658,8 @@
       }
 
       &::before {
-        @extend %font-awesome;
-        content: '\f1f8';
+        @extend %material;
+        content: 'delete';
       }
     }
   }
@@ -681,19 +699,14 @@
 
       &::after {
         color: var(--bs-baton-changeform-collapse-entry-icon-color);
-        content: '\f070';
+        @extend %material;
+        content: 'home';
         display: inline-block;
-        font-family: 'Font Awesome\ 6 Free';
-        font-size: 1.1rem;
       }
     }
 
-    &.collapsed {
-      h2 {
-        &::after {
-          content: '\f06e';
-        }
-      }
+    details:open h2::after {
+      content: 'visibility_off';
     }
   }
 
@@ -856,8 +869,8 @@
       padding: 2px 4px;
 
       &::before {
-        content: '\f304';
-        font-family: 'Font Awesome\ 6 Free';
+        @extend %material;
+        content: 'edit';
         margin-right: 4px;
       }
 
@@ -877,8 +890,8 @@
       @extend .btn-secondary;
 
       &::before {
-        @extend %font-awesome;
-        content: '\f067';
+        @extend %material;
+        content: 'add';
       }
     }
   }
@@ -891,8 +904,8 @@
     white-space: nowrap;
 
     &::before {
-      @extend %font-awesome;
-      content: '\f00d';
+      @extend %material;
+      content: 'close';
     }
   }
 

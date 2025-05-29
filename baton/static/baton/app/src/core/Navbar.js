@@ -26,7 +26,7 @@ const Navbar = {
         class: 'navbar-toggler navbar-toggler-right',
         'data-bs-toggle': 'collapse',
       })
-        .html('<i class="fa fa-bars"></i>')
+        .html('<i class="material-symbols-outlined" style="font-size: 36px">menu_open</i>')
         .click(() => $(document.body).addClass('menu-open')),
     )
     // remove only text
@@ -61,12 +61,15 @@ const Navbar = {
     if (!config.forceTheme) {
       let self = this
       const currentTheme = $('html').attr('data-bs-theme')
-      const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme'}).html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme')).css('cursor', 'pointer').click(function () {
-          const currentTheme = $('html').attr('data-bs-theme');
-          $('hmtl').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-          $('html').attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
-          $(this).html(currentTheme === 'dark' ? self.t.get('darkTheme') : self.t.get('lightTheme'));
-          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark');
+      const themeToggler = $('<a />', { class: 'dropdown-item dropdown-item-theme' })
+        .html(currentTheme === 'dark' ? this.t.get('lightTheme') : this.t.get('darkTheme'))
+        .css('cursor', 'pointer')
+        .click(function () {
+          const currentTheme = $('html').attr('data-bs-theme')
+          $('hmtl').attr('data-theme', currentTheme === 'dark' ? 'light' : 'dark')
+          $('html').attr('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark')
+          $(this).html(currentTheme === 'dark' ? self.t.get('darkTheme') : self.t.get('lightTheme'))
+          localStorage.setItem('baton-theme', currentTheme === 'dark' ? 'light' : 'dark')
         })
       if (dropdownMenu.find('.dropdown-item-theme').length === 0) {
         dropdownMenu.append(themeToggler)

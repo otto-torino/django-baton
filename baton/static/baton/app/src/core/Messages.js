@@ -39,22 +39,22 @@ const Messages = {
   levelsMap: {
     info: {
       bg: 'info',
-      icon: 'fa fa-info-circle',
+      icon: 'info',
       iconColor: '#fff',
     },
     success: {
       bg: 'success',
-      icon: 'fa fa-check-circle',
+      icon: 'check_circle',
       iconColor: '#fff',
     },
     warning: {
       bg: 'warning',
-      icon: 'fa fa-exclamation-circle',
+      icon: 'warning',
       iconColor: '#fff',
     },
     error: {
       bg: 'danger',
-      icon: 'fa fa-exclamation-circle',
+      icon: 'error',
       iconColor: '#fff',
     },
   },
@@ -62,7 +62,7 @@ const Messages = {
     const toast = `
       <div class="toast d-flex align-items-center text-white bg-${this.levelsMap[level].bg} border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
-          <i class="${this.levelsMap[level].icon}" style="color: ${this.levelsMap[level].iconColor}; margin-right: .5rem"></i>
+          <i class="material-symbols-outlined" style="color: ${this.levelsMap[level].iconColor}; margin-right: .5rem">${this.levelsMap[level].icon}</i>
           ${content}
         </div>
         <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>

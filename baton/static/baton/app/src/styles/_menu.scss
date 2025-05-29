@@ -75,6 +75,8 @@ body:not(.menu-mobile) {
 
     .user-area-toggler {
       cursor: pointer;
+      font-size: 2.2rem !important;
+      margin-top: 1rem !important;
     }
 
     &.collapsed {
@@ -110,36 +112,46 @@ body:not(.menu-mobile) {
 
       &.view-site {
         &::after {
-          content: '\f390';
-          @extend %font-awesome-family;
+          content: 'desktop_windows';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
 
         &[href*='doc'] {
           &::after {
-            content: '\f02d' !important;
-            @extend %font-awesome-family;
+            content: 'docs' !important;
+            @extend %material;
+            font-size: 26px;
+            line-height: 26px;
           }
         }
       }
 
       &.theme-dark {
         &::after {
-          content: '\f186';
-          @extend %font-awesome-family;
+          content: 'light_mode';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
       &.theme-light {
         &::after {
-          content: '\f185';
-          @extend %font-awesome-family;
+          content: 'dark_mode';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
       &.password {
         &::after {
-          content: '\f084';
-          @extend %font-awesome-family;
+          content: 'key';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
@@ -148,8 +160,10 @@ body:not(.menu-mobile) {
         display: inline-block;
 
         &::after {
-          content: '\f2f5';
-          @extend %font-awesome-family;
+          content: 'logout';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
@@ -180,17 +194,17 @@ body:not(.menu-mobile) {
 
     &::after {
       color: var(--bs-baton-search-field-icon-color);
-      content: '\f002';
-      @extend %font-awesome-family;
+      content: 'search';
+      @extend %material;
       position: absolute;
       right: 0.5rem;
-      top: 0.4rem;
+      top: 1.2rem;
     }
 
     &.loading {
       &::after {
-        animation: fa-spin 2s linear infinite;
-        content: '\f1ce';
+        @extend %icon-spin;
+        content: 'progress_activity';
       }
     }
 
@@ -237,12 +251,12 @@ body:not(.menu-mobile) {
   }
 
   h1 {
-    @extend .clearfix;
     background: var(--bs-baton-menu-mobile-title-bg);
     color: var(--bs-baton-menu-mobile-title-color);
     font-size: $h1-size;
     margin-bottom: 0;
-    padding: 1rem 16px;
+    height: 64px;
+    padding: 0.6rem 1rem;
     position: absolute;
     top: 0;
     width: 100%;
@@ -254,6 +268,7 @@ body:not(.menu-mobile) {
     }
 
     i {
+      color: var(--bs-baton-navbar-toggler-color);
       cursor: pointer;
       float: right;
       font-weight: normal;
@@ -270,7 +285,7 @@ body:not(.menu-mobile) {
     list-style-type: none;
     overflow: auto;
     padding: 0;
-    padding-top: 66px;
+    padding-top: 64px;
     position: absolute;
     top: 0;
     z-index: 10;
@@ -294,8 +309,9 @@ body:not(.menu-mobile) {
 
     a,
     span {
+      align-items: center;
       color: var(--bs-baton-menu-link-color);
-      display: block;
+      display: flex;
       outline: 0;
 
       &:hover {
@@ -307,9 +323,9 @@ body:not(.menu-mobile) {
         @extend .clearfix;
 
         &::after {
-          @extend %font-awesome;
-          content: '\f105';
-          float: right;
+          @extend %material;
+          content: 'keyboard_arrow_right';
+          margin-left: auto;
         }
       }
 
@@ -371,7 +387,7 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
-          content: '\f107' !important;
+          content: 'keyboard_arrow_down' !important;
         }
       }
 
@@ -395,7 +411,7 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
-          content: '\f107' !important;
+          content: 'keyboard_arrow_down' !important;
         }
       }
 
@@ -419,6 +435,10 @@ body:not(.menu-mobile) {
     background: var(--bs-baton-menu-mobile-back-bg);
     text-transform: uppercase;
 
+    a {
+      padding: 10px 17px !important;
+    }
+
     @include media-breakpoint-up(lg) {
       display: none;
     }
@@ -428,7 +448,7 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
-          content: '\f107' !important;
+          content: 'keyboard_arrow_down' !important;
         }
       }
 

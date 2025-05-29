@@ -202,7 +202,7 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
         ),
         (
             "news/admin_title_include.html",
-            "title",
+            "title_it",
             "right",
         ),
     ]

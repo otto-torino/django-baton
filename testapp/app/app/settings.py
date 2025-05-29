@@ -153,13 +153,12 @@ BATON = {
             "type": "title",
             "label": "System",
             "apps": ("auth",),
-            "icon": "fa fa-lock",
+            "icon": "lock",
         },
         {
             "type": "app",
             "name": "auth",
             "label": "Authentication",
-            "icon": "fa fa-lock",
             "models": (
                 {"name": "user", "label": "Users"},
                 {"name": "group", "label": "Groups"},
@@ -170,6 +169,7 @@ BATON = {
             "label": "News",
             "apps": ("news",),
             "default_open": True,
+            "icon": "breaking_news_alt_1",
             "children": [
                 {
                     "type": "free",
@@ -183,6 +183,7 @@ BATON = {
         {
             "type": "title",
             "label": "Tools",
+            "icon": "construction",
             "children": [
                 {
                     "type": "free",
