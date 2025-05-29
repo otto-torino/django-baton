@@ -435,6 +435,7 @@
 
   label {
     @extend .mb-2;
+    color: var(--bs-baton-changeform-label-color);
     display: block;
     text-align: left;
   }

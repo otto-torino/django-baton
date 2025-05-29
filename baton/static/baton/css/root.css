@@ -1,6 +1,6 @@
 /* BATON, BS */
 .nav, [data-bs-theme="light"] {
-    --bs-nav-link-color: #2866ee;
+    --bs-nav-link-color: #208075;
 }
 :root, [data-bs-theme="light"] {
     /* main */
@@ -112,6 +112,7 @@
     --bs-baton-changeform-border-radius: 8px 8px 0 0;
     --bs-baton-changeform-border-color: #fff;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
+    --bs-baton-changeform-label-color: #000;
     --bs-baton-changeform-field-bg: #fff;
     --bs-baton-changeform-field-row-error-bg: #f0dcdc;
     --bs-baton-changeform-fieldset-title-bg: #F8F9FA;
@@ -192,7 +193,7 @@
 
 
 [data-bs-theme="dark"] .nav {
-    --bs-nav-link-color: #2866ee;
+    --bs-nav-link-color: #208075;
 }
 
 [data-bs-theme="dark"] .nav-tabs {
@@ -311,6 +312,7 @@
     --bs-baton-changeform-border-radius: 8px 8px 0 0;
     --bs-baton-changeform-border-color: #202020;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
+    --bs-baton-changeform-label-color: #fff;
     --bs-baton-changeform-field-bg: #1f1f1f;
     --bs-baton-changeform-field-row-error-bg: #843434;
     --bs-baton-changeform-fieldset-title-bg: #3D255A;
