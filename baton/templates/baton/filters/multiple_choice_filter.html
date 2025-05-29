@@ -1,6 +1,6 @@
 {% load i18n %}
 <h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
-<ul class="mulitple-choice">
+<ul class="multiple-choice">
 {% for choice in choices %}
     {% if choice.reset %}
         <li{% if choice.selected %} class="selected"{% endif %}>

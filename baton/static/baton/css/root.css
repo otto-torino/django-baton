@@ -88,14 +88,17 @@
 
     /* changelist */
     --bs-baton-changelist-bg: #fff;
+    --bs-baton-changelist-border-radius: 8px 8px 0 0;
+    --bs-baton-changelist-table-bg: #fff;
     --bs-baton-changelist-border-color: #fff;
     --bs-baton-changelist-toolbar-bg: #F8F9FA;
     --bs-baton-changelist-toolbar-btn-bg: #fff;
     --bs-baton-changelist-toolbar-btn-color: #000;
     --bs-baton-changelist-toolbar-btn-hover-bg: #fafafa;
     --bs-baton-changelist-sort-icon-color: #999;
-    --bs-baton-changelist-filters-bg: #fafafa;
-    --bs-baton-changelist-filters-title-bg: #263238;
+    --bs-baton-changelist-form-border-radius: 0 0 8px 8px;
+    --bs-baton-changelist-filters-bg: transparent;
+    --bs-baton-changelist-filters-title-bg: #2866ee;
     --bs-baton-changelist-filters-title-color: #fff;
     --bs-baton-changelist-filter-selected-border-color: #000;
     --bs-baton-changelist-filters-clear-bg: #17a2b8;
@@ -106,6 +109,7 @@
 
     /* changeform */
     --bs-baton-changeform-bg: #fff;
+    --bs-baton-changeform-border-radius: 8px 8px 0 0;
     --bs-baton-changeform-border-color: #fff;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
     --bs-baton-changeform-field-bg: #fff;
@@ -143,8 +147,8 @@
     --bs-baton-calendar-cell-td-border-color: #f0f0f0;
     --bs-baton-calendar-shortcuts-bg: #eee;
     --bs-baton-calendar-shortcuts-color: #f97316;
-    --bs-baton-calendar-cancel-bg: #6C757D;
-    --bs-baton-calendar-cancel-color: #fff;
+    --bs-baton-calendar-cancel-bg: #b9c0c7;
+    --bs-baton-calendar-cancel-color: #000;
 
     /* changehistory */
     --bs-baton-changehistory-bg: #fff;
@@ -277,20 +281,23 @@
     --bs-baton-search-field-selected-color: #fff;
 
     /* breadcrumbs */
-    --bs-baton-breadcrumbs-bg: #212121;
+    --bs-baton-breadcrumbs-bg: #232323;
     --bs-baton-breadcrumbs-link-color: #6C757D;
     --bs-baton-breadcrumbs-color: #E9ECEF;
 
     /* changelist */
     --bs-baton-changelist-bg: #252525;
+    --bs-baton-changelist-border-radius: 8px 8px 0 0;
+    --bs-baton-changelist-table-bg: #252525;
     --bs-baton-changelist-border-color: #202020;
     --bs-baton-changelist-toolbar-bg: #1c1c1c;
     --bs-baton-changelist-toolbar-btn-bg: rgba(0, 0, 0, .2);
     --bs-baton-changelist-toolbar-btn-color: #fff;
     --bs-baton-changelist-toolbar-btn-hover-bg: #111;
+    --bs-baton-changelist-form-border-radius: 0 0 8px 8px;
     --bs-baton-changelist-sort-icon-color: #999;
-    --bs-baton-changelist-filters-bg: #252525;
-    --bs-baton-changelist-filters-title-bg: #444;
+    --bs-baton-changelist-filters-bg: transparent;
+    --bs-baton-changelist-filters-title-bg: #3D255A;
     --bs-baton-changelist-filters-title-color: #fff;
     --bs-baton-changelist-filter-selected-border-color: #000;
     --bs-baton-changelist-filters-clear-bg: #17a2b8;
@@ -301,6 +308,7 @@
 
     /* changeform */
     --bs-baton-changeform-bg: #1f1f1f;
+    --bs-baton-changeform-border-radius: 8px 8px 0 0;
     --bs-baton-changeform-border-color: #202020;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
     --bs-baton-changeform-field-bg: #1f1f1f;
@@ -328,7 +336,7 @@
 
     /* calendar */
     --bs-baton-calendar-bg: #111;
-    --bs-baton-calendar-header-bg: #666;
+    --bs-baton-calendar-header-bg: #353535;
     --bs-baton-calendar-header-color: #fff;
     --bs-baton-calendar-cell-th-bg: #202020;
     --bs-baton-calendar-cell-bg: #222;

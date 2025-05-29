@@ -19,6 +19,7 @@
   #changelist {
     background: var(--bs-baton-changelist-toolbar-bg);
     border: 1px solid var(--bs-baton-changelist-border-color);
+    border-radius: var(--bs-baton-changelist-border-radius);
     clear: both;
     display: flex;
     flex-wrap: wrap;
@@ -237,9 +238,13 @@
       display: none;
     }
 
+    ul.multiple-choice {
+      padding-left: 20px;
+    }
+
     ul {
       list-style-type: none;
-      padding-left: 25px;
+      padding-left: 15px;
       padding-right: 15px;
 
       .selected {
@@ -337,6 +342,7 @@
   #changelist-form {
     @include make-col(12);
     background: var(--bs-baton-changelist-bg);
+    border-radius: var(--bs-baton-changelist-form-border-radius);
     order: 2;
     padding: 1rem !important;
     position: relative; // filter icon
@@ -386,6 +392,8 @@
     table {
       @extend .table;
       @extend .table-striped;
+
+      --bs-table-bg: var(--bs-baton-changelist-table-bg);
 
       > tbody > tr.selected > td,
       > tbody > tr.selected > th {
@@ -472,7 +480,7 @@
     position: relative;
 
     form {
-      margin-left: 0.5rem;
+      margin-left: 0rem;
     }
 
     form > p {

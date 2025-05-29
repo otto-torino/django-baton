@@ -14,6 +14,7 @@
   @extend .mt-3;
   background: var(--bs-baton-changeform-bg);
   border: 1px solid var(--bs-baton-changeform-border-color);
+  border-radius: var(--bs-baton-changeform-border-radius);
   clear: both;
   overflow: auto;
 
