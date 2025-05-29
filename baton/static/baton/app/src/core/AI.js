@@ -174,7 +174,7 @@ const AI = {
             ` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`,
           ),
         )
-      field.after(visionButton)
+      field.after($('<div />').append(visionButton))
     })
   },
   handleVision: async function (f, conf) {
@@ -257,7 +257,7 @@ const AI = {
       .prepend($('<span class="material-symbols-outlined">summarize</span>'))
       .append($('<span />').text(` ${this.t.get('generateSummary')}: ${targetLabel.text().replace(':', '')}`))
 
-    field.after(summarizeButton)
+    field.after($('<div />').append(summarizeButton))
   },
   handleSummarization(field, targetLabel, conf) {
     const self = this
