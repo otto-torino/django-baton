@@ -352,7 +352,7 @@ const AI = {
       .prepend($('<span class="material-symbols-outlined">image</span>'))
       .append($('<span />').text(` ${this.t.get('generateImageFromAI')}`))
 
-    field.after(generateImageButton)
+    field.after($('<div />').append(generateImageButton))
 
     const content = `
         <div>
