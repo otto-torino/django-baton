@@ -27,7 +27,7 @@
     @extend .mb-0;
     @extend .p-3;
     background: var(--bs-baton-content-title-bg);
-    font-size: 1.6rem;
+    font-size: $h1-size;
     font-weight: 500;
 
     + h2,

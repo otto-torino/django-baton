@@ -200,6 +200,7 @@ body:not(.menu-mobile) {
       overflow: auto;
       position: absolute;
       width: 100%;
+      z-index: 1000;
 
       div {
         align-items: center;
@@ -239,7 +240,7 @@ body:not(.menu-mobile) {
     @extend .clearfix;
     background: var(--bs-baton-menu-mobile-title-bg);
     color: var(--bs-baton-menu-mobile-title-color);
-    font-size: 1.6rem;
+    font-size: $h1-size;
     margin-bottom: 0;
     padding: 1rem 16px;
     position: absolute;

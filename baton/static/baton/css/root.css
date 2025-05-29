@@ -1,6 +1,7 @@
 /* BATON, BS */
 .nav, [data-bs-theme="light"] {
     --bs-nav-link-color: #208075;
+    --bs-nav-link-hover-color: darken(#208075, 10%);
 }
 :root, [data-bs-theme="light"] {
     /* main */
@@ -19,7 +20,6 @@
 
     /* utils */
     --bs-baton-warning-color: #F39C12;
-    --bs-baton-danger-color: #E74C3C;
 
     /* login */
     --bs-baton-login-bg: #fff;
@@ -33,7 +33,7 @@
     --bs-baton-dashboard-module-border-radius: 8px;
     --bs-baton-dashboard-caption-bg: #E9ECEF;
     --bs-baton-dashboard-caption-color: #000;
-    --bs-baton-dashboard-icon-color: #f97316;
+    --bs-baton-dashboard-icon-color: #208075;
     --bs-baton-dashboard-delete-bg: #dc3545;
     --bs-baton-dashboard-add-bg: #2ECC71;
     --bs-baton-dashboard-change-bg: #3498DB;
@@ -42,9 +42,9 @@
     /* navbar */
     --bs-baton-navbar-bg: #E9ECEF;
     --bs-baton-navbar-color: #212529;
-    --bs-baton-navbar-toggler-color: #2866ee;
+    --bs-baton-navbar-toggler-color: #6C757D;
     --bs-baton-navbar-link-color: #212529;
-    --bs-baton-navbar-link-hover-color: #2866ee;
+    --bs-baton-navbar-link-hover-color: #6C757D;
     --bs-baton-navbar-dropdown-link-color: #000;
 
     /* menu */
@@ -59,7 +59,7 @@
     --bs-baton-menu-link-hover-color: #212529;
     --bs-baton-menu-li-hover-bg: #E9ECEF;
     --bs-baton-menu-active-voice-bg: #E9ECEF;
-    --bs-baton-menu-active-voice-color: #2866ee;
+    --bs-baton-menu-active-voice-color: #f67013;
     --bs-baton-menu-active-voice-border-color: transparent;
     --bs-baton-menu-mobile-title-bg: #DEE2E6;
     --bs-baton-menu-mobile-title-color: #212529;
@@ -76,8 +76,8 @@
     --bs-baton-search-field-input-border-color: #fff;
     --bs-baton-search-field-color: #000;
     --bs-baton-search-field-datalist-bg: #fff;
-    --bs-baton-search-field-icon-color: #f97316;
-    --bs-baton-search-field-link-color: #2866ee;
+    --bs-baton-search-field-icon-color: #6C757D;
+    --bs-baton-search-field-link-color: #6C757D;
     --bs-baton-search-field-selected-bg: #F8F9FA;
     --bs-baton-search-field-selected-color: #000;
 
@@ -114,7 +114,6 @@
     --bs-baton-changeform-collapse-entry-icon-color: #666;
     --bs-baton-changeform-label-color: #000;
     --bs-baton-changeform-field-bg: #fff;
-    --bs-baton-changeform-field-row-error-bg: #f0dcdc;
     --bs-baton-changeform-fieldset-title-bg: #F8F9FA;
     --bs-baton-changeform-fieldset-nested-title-bg: #fbebed;
     --bs-baton-changeform-inline-related-title-bg: #F8F9FA;
@@ -133,7 +132,7 @@
     --bs-baton-changeform-selector-available-bg: #F8F9FA;
     --bs-baton-changeform-selector-chosen-title-bg: #F8F9FA;
     --bs-baton-changeform-selector-chosen-bg: #F8F9FA;
-    --bs-baton-changeform-selector-chooser-bg: #eee;
+    --bs-baton-changeform-selector-chooser-bg: #fff;
     --bs-baton-changeform-submit-row-bg: #F8F9FA;
 
     /* calendar */
@@ -184,8 +183,8 @@
     /* footer */
     --bs-baton-footer-bg: #F8F9FA;
     --bs-baton-footer-color: #000;
-    --bs-baton-footer-link-color: #2866ee;
-    --bs-baton-footer-link-hover-color: #09126d;
+    --bs-baton-footer-link-color: #f67013;
+    --bs-baton-footer-link-hover-color: #f36c10;
     --bs-baton-footer-support-color: #fff;
     --bs-baton-footer-support-bg: #6C757D;
     --bs-baton-footer-support-hover-color: #fff;
@@ -194,6 +193,7 @@
 
 [data-bs-theme="dark"] .nav {
     --bs-nav-link-color: #208075;
+    --bs-nav-link-hover-color: lighten(#208075, 10%);
 }
 
 [data-bs-theme="dark"] .nav-tabs {
@@ -219,7 +219,6 @@
 
     /* utils */
     --bs-baton-warning-color: #F39C12;
-    --bs-baton-danger-color: #E74C3C;
 
     /* login */
     --bs-baton-login-bg: #292929;
@@ -233,7 +232,7 @@
     --bs-baton-dashboard-module-border-radius: 8px;
     --bs-baton-dashboard-caption-bg: #333;
     --bs-baton-dashboard-caption-color: #fff;
-    --bs-baton-dashboard-icon-color: #f97316;
+    --bs-baton-dashboard-icon-color: #79b3ac;
     --bs-baton-dashboard-delete-bg: #dc3545;
     --bs-baton-dashboard-add-bg: #2ECC71;
     --bs-baton-dashboard-change-bg: #3498DB;
@@ -259,7 +258,7 @@
     --bs-baton-menu-link-hover-color: #E9ECEF;
     --bs-baton-menu-li-hover-bg: #161c20;
     --bs-baton-menu-active-voice-bg: #161c20;
-    --bs-baton-menu-active-voice-color: #2866ee;
+    --bs-baton-menu-active-voice-color: #f97316;
     --bs-baton-menu-active-voice-border-color: #161c20;
     --bs-baton-menu-mobile-title-bg: #1a1a1a;
     --bs-baton-menu-mobile-title-color: #DEE2E6;
@@ -277,7 +276,7 @@
     --bs-baton-search-field-color: #fff;
     --bs-baton-search-field-datalist-bg: #1c2429;
     --bs-baton-search-field-icon-color: #f97316;
-    --bs-baton-search-field-link-color: #6C757D;
+    --bs-baton-search-field-link-color: #f97316;
     --bs-baton-search-field-selected-bg: #111;
     --bs-baton-search-field-selected-color: #fff;
 
@@ -308,22 +307,21 @@
     --bs-baton-changelist-rl-tr-selected-color: inherit;
 
     /* changeform */
-    --bs-baton-changeform-bg: #1f1f1f;
+    --bs-baton-changeform-bg: #1c1c1c;
     --bs-baton-changeform-border-radius: 8px 8px 0 0;
     --bs-baton-changeform-border-color: #202020;
     --bs-baton-changeform-collapse-entry-icon-color: #666;
     --bs-baton-changeform-label-color: #fff;
-    --bs-baton-changeform-field-bg: #1f1f1f;
-    --bs-baton-changeform-field-row-error-bg: #843434;
-    --bs-baton-changeform-fieldset-title-bg: #3D255A;
+    --bs-baton-changeform-field-bg: #1c1c1c;
+    --bs-baton-changeform-fieldset-title-bg: #323232;
     --bs-baton-changeform-fieldset-nested-title-bg: #27080c;
-    --bs-baton-changeform-inline-related-title-bg: #3D255A; 
-    --bs-baton-changeform-inline-related-title-border-color: #3D255A;
-    --bs-baton-changeform-inline-related-title-border-top-color: #3D255A;
+    --bs-baton-changeform-inline-related-title-bg: #323232; 
+    --bs-baton-changeform-inline-related-title-border-color: #323232;
+    --bs-baton-changeform-inline-related-title-border-top-color: #323232;
     --bs-baton-changeform-inline-changelink-bg: #ffe4dc;
     --bs-baton-changeform-inline-tabular-original-bg: #000;
     --bs-baton-changeform-inline-tabular-original-border-color: #111;
-    --bs-baton-changeform-fieldset-heading: #3D255A;
+    --bs-baton-changeform-fieldset-heading: #323232;
     --bs-baton-changeform-fieldset-padding: .5rem;
     --bs-baton-changeform-help-text-color: #3498db;
     --bs-baton-changeform-clockbox-title-bg: #333;
@@ -333,7 +331,7 @@
     --bs-baton-changeform-selector-available-bg: #323232;
     --bs-baton-changeform-selector-chosen-title-bg: #323232;
     --bs-baton-changeform-selector-chosen-bg: #323232;
-    --bs-baton-changeform-selector-chooser-bg: #222;
+    --bs-baton-changeform-selector-chooser-bg: #1c1c1c;
     --bs-baton-changeform-submit-row-bg: #1c2429;
 
     /* calendar */
@@ -384,8 +382,8 @@
     /* footer */
     --bs-baton-footer-bg: #1e1e1e;
     --bs-baton-footer-color: #fff;
-    --bs-baton-footer-link-color: #2866ee;
-    --bs-baton-footer-link-hover-color: #2a68f1;
+    --bs-baton-footer-link-color: #f97316;
+    --bs-baton-footer-link-hover-color: #fc7619;
     --bs-baton-footer-support-color: #fff;
     --bs-baton-footer-support-bg: #111;
 }

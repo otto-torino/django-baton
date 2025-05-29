@@ -7,7 +7,7 @@ body {
   font-weight: 300;
   min-height: 100%;
   opacity: 0;
-  transition: opacity .2s linear;
+  transition: opacity 0.2s linear;
 
   &.baton-ready {
     opacity: 1;
@@ -22,6 +22,15 @@ body {
   top: 0;
   width: 100%;
   z-index: 9999;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'MerriweatherSans Variable', sans-serif;
 }
 
 a {
@@ -46,7 +55,7 @@ textarea {
   font-family: $font-family-sans-serif;
 }
 
-input[type=checkbox] {
+input[type='checkbox'] {
   @extend .form-check-input;
 }
 
@@ -65,8 +74,12 @@ input[type=checkbox] {
 }
 
 @keyframes bounce {
-  0% { transform: translateY(0) rotate(0deg); }
-  100% { transform: translateY(-5px) rotate(5deg); }
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-5px) rotate(5deg);
+  }
 }
 
 /* skip to content link */
@@ -80,5 +93,5 @@ input[type=checkbox] {
 
 /* hide dark mode switch */
 svg.base-svgs {
-    display: none;
-} 
+  display: none;
+}

@@ -11,3 +11,17 @@
   font-weight: 100 900; /* Specifies the available weight range for italics */
   font-style: italic;
 }
+
+@font-face {
+  font-family: 'MerriweatherSans Variable';
+  src: url('../fonts/ArchivoNarrow-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900; /* Specifies the available weight range */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MerriweatherSans Variable';
+  src: url('../fonts/ArchivoNarrow-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900; /* Specifies the available weight range for italics */
+  font-style: italic;
+}
