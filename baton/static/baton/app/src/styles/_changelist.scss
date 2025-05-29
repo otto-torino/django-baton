@@ -71,15 +71,15 @@
 
     .date-icon {
       &::before {
-        @extend %font-awesome;
-        content: '\f073';
+        @extend %material;
+        content: 'calendar_month';
       }
     }
 
     .clock-icon {
       &::before {
-        @extend %font-awesome;
-        content: '\f017';
+        @extend %material;
+        content: 'schedule';
       }
     }
 

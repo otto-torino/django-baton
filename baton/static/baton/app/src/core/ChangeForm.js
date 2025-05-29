@@ -137,6 +137,7 @@ const ChangeForm = {
   },
   fixCollapseDetails: function () {
     const details = $('fieldset:not(.collapse) details').attr('open', 'open')
+    $('fieldset.collapsed > details').removeAttr('open')
   },
   activateEntryCollapsing: function () {
     $('.collapse-entry h3, .collapse-entry h2')

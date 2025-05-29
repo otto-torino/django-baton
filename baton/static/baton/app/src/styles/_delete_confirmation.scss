@@ -6,7 +6,7 @@
   border: 1px solid var(--bs-baton-delete-confirmation-border-color);
 
   form {
-    input[type=submit] {
+    input[type='submit'] {
       @extend .btn;
       @extend.btn-danger;
     }
@@ -16,8 +16,8 @@
       @extend.btn-success;
 
       &::before {
-        @extend %font-awesome;
-        content: '\f0e2';
+        @extend %material;
+        content: 'trash';
       }
     }
   }

@@ -49,7 +49,38 @@
       display: block;
     }
 
-    h2,
+    h2 {
+      /* django 5.1 uses a h2 */
+      cursor: pointer;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .entry-collapse-toggler {
+        margin-left: auto !important;
+        order: 1;
+
+        &::before {
+          color: var(--bs-baton-changeform-collapse-entry-icon-color);
+          @extend %material;
+          content: 'visibility_off';
+        }
+
+        & + span {
+          margin-left: auto;
+        }
+      }
+    }
+
+    details[open] h2 .entry-collapse-toggler::before {
+      content: 'visibility_off';
+    }
+
+    details:not([open]) h2 .entry-collapse-toggler::before {
+      content: 'visibility';
+    }
+
     h3 {
       /* django 5.1 uses a h2 */
       cursor: pointer;
@@ -59,13 +90,12 @@
       justify-content: space-between;
 
       .entry-collapse-toggler {
-        margin-left: 1rem !important;
         order: 1;
 
         &::before {
           color: var(--bs-baton-changeform-collapse-entry-icon-color);
           @extend %material;
-          content: 'visibility';
+          content: 'visibility_off';
         }
 
         & + span {
@@ -80,7 +110,7 @@
 
         .entry-collapse-toggler {
           &::before {
-            content: 'visibility_off';
+            content: 'visibility';
           }
         }
       }

@@ -166,7 +166,7 @@
   .deletelink,
   .changelink {
     &::before {
-      @extend %font-awesome;
+      @extend %material;
       @extend .me-1;
       color: var(--bs-baton-dashboard-icon-color);
       white-space: nowrap;
@@ -175,25 +175,25 @@
 
   .addlink {
     &::before {
-      content: '\f067';
+      content: 'add';
     }
   }
 
   .changelink {
     &::before {
-      content: '\f304';
+      content: 'edit';
     }
   }
 
   .deletelink {
     &::before {
-      content: '\f1f8';
+      content: 'delete';
     }
   }
 
   .viewlink {
     &::before {
-      content: '\f390';
+      content: 'eye';
     }
   }
 }

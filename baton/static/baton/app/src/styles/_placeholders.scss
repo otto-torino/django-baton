@@ -1,14 +1,4 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule SelectorFormat
-%font-awesome {
-  display: inline-block;
-  font-family: 'Font Awesome\ 6 Free';
-  margin-right: 5px;
-}
-
-%font-awesome-family {
-  font-family: 'Font Awesome\ 6 Free';
-}
-
 %material {
   font-family: 'Material Symbols Outlined';
   font-size: 22px;
@@ -584,12 +574,12 @@
     display: block;
   }
 
-  .collapsed * {
-    display: none;
-  }
+  // .collapsed * {
+  //   display: none;
+  // }
 
   .collapsed h2 {
-    display: block;
+    display: flex;
 
     a {
       display: inline;
@@ -700,7 +690,7 @@
       &::after {
         color: var(--bs-baton-changeform-collapse-entry-icon-color);
         @extend %material;
-        content: 'home';
+        content: 'visibility';
         display: inline-block;
       }
     }
@@ -784,6 +774,7 @@
         display: flex;
         align-items: center;
         gap: 0.3rem;
+        margin-left: auto !important;
 
         input {
           margin-top: 0 !important;
@@ -791,6 +782,10 @@
 
         label {
           margin-bottom: 0 !important;
+        }
+
+        ~ .entry-collapse-toggler {
+          margin-left: 1rem !important;
         }
       }
     }
