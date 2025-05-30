@@ -189,6 +189,17 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
         ),
     )
 
+    baton_summarize_fields = {
+        "content_en": [
+            {  # e.g., 'body_it'
+                "target": "summary",  # e.g., 'summary_it'
+                "words": 80,  # Approximate
+                "useBulletedList": True,
+            },
+            # ... more targets for the same source field ...
+        ],
+    }
+
     baton_form_includes = [
         (
             "news/admin_datetime_include.html",
