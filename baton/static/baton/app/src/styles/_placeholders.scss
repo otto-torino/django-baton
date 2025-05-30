@@ -489,6 +489,13 @@
     }
   }
 
+  .clearable-file-input {
+    label {
+      display: inline-block;
+      margin-left: 0.3rem;
+    }
+  }
+
   .tabular.inline-related {
     input[type='text'],
     input[type='number'],
