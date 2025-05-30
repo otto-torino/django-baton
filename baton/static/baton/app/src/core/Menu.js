@@ -45,7 +45,7 @@ const Menu = {
     const title = $('<h1 />', { class: 'd-flex align-items-center justify-content-between d-lg-none' }).text(
       this.menuTitle ? this.menuTitle : 'Menu',
     )
-    $('<i class="material-symbols-outlined toggle-menu" style="font-size: 36px">close</i>')
+    $('<i class="material-symbols-outlined toggle-menu" style="font-size: 36px; line-height: 36px;">close</i>')
       .on('click', () => {
         $(document.body).removeClass('menu-open')
       })

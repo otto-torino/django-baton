@@ -85,9 +85,10 @@ class TestBatonMenuMobile(TestCase):
         self.assertEqual(self.navbar_is_invisible(navbar), True)
 
         toggler.click()
+        time.sleep(1)
 
         # system title voice
-        self.assertEqual(root_voices[0].get_attribute("innerText"), "SYSTEM")
+        self.assertEqual(root_voices[0].get_attribute("innerText"), "lock\nSYSTEM")
         self.assertEqual(root_voices[0].is_displayed(), True)
         self.assertEqual("title" in root_voices[0].get_attribute("class").split(), True)
         self.assertEqual(len(root_voices), 4)

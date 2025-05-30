@@ -54,14 +54,17 @@ class TestBatonMenu(TestCase):
         self.assertEqual(logout_link.is_displayed(), True)
 
         # system title voice
-        self.assertEqual(root_voices[0].get_attribute("innerText"), "SYSTEM")
+        self.assertEqual(root_voices[0].get_attribute("innerText"), "lock\nSYSTEM")
         self.assertEqual("title" in root_voices[0].get_attribute("class").split(), True)
         self.assertEqual(len(root_voices), 4)
 
         # authentication app voice
         self.assertEqual("app" in root_voices[1].get_attribute("class").split(), True)
         self.assertEqual(
-            root_voices[1].find_element(By.CLASS_NAME, "fa-lock").is_displayed(), True
+            root_voices[1]
+            .find_element(By.XPATH, ".//*[text()='Authentication']")
+            .is_displayed(),
+            True,
         )
         self.assertEqual(
             root_voices[1]
@@ -99,7 +102,7 @@ class TestBatonMenu(TestCase):
             root_voices[2]
             .find_element(By.CSS_SELECTOR, "span.has-children")
             .get_attribute("innerText"),
-            "NEWS",
+            "breaking_news_alt_1\nNEWS",
         )
         self.assertEqual("title" in root_voices[2].get_attribute("class").split(), True)
         self.assertEqual(
@@ -127,5 +130,5 @@ class TestBatonMenu(TestCase):
             root_voices[3]
             .find_element(By.CSS_SELECTOR, "span.has-children")
             .get_attribute("innerText"),
-            "TOOLS",
+            "construction\nTOOLS",
         )
