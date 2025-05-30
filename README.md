@@ -79,7 +79,7 @@ For older versions of Django (1.x), please use django-baton@1.13.2.
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
 
-- Based on Bootstrap 5 and FontAwesome Free 6
+- Based on Bootstrap 5 and Material Symbols
 - Fully responsive
 - AI functionalities: translations, corrections, summarizations, image description and generation (you need a subscription key)
 - Custom and flexible sidebar menu
