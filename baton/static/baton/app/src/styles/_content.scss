@@ -74,6 +74,10 @@
   margin-top: 1rem;
   padding: 0;
 
+  li::before {
+    margin-right: 0.5rem;
+  }
+
   .success {
     @extend .alert;
     @extend .alert-success;
