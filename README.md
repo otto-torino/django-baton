@@ -21,6 +21,8 @@ Login with user `demo` and password `demo`
 ---
 **Last changes**
 
+Baton 5.x introduces a full restyling of the application, also it drops FontAwesome support in favour of google material symbols.
+
 Baton 4.2.1 integrates the computer vision in the `BatonAiImageField`, fixes some minor styling issues and includes some PR.
 
 Baton 4.2.0 introduces the use of computer vision to generate alt attributes for images.
@@ -47,9 +49,9 @@ It also introduces themes, and makes it easier to customize the application, the
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
-    - [AI](#configuration-ai)
-    - [Menu](#configuration-menu)
-    - [Search Field](#configuration-search-field)
+  - [AI](#configuration-ai)
+  - [Menu](#configuration-menu)
+  - [Search Field](#configuration-search-field)
 - [Baton AI](#baton-ai)
 - [Page Detection](#page-detection)
 - [Signals](#signals)
@@ -70,7 +72,9 @@ It also introduces themes, and makes it easier to customize the application, the
 
 ## <a name="features"></a>Features
 
-Supports Django >= 2.1. For older versions of Django, please use django-baton@1.13.2.
+For Django >= 5.x please use Baton >= 5.0
+For 5.x > Django >= 2.1 please use Baton == 4.x
+For older versions of Django (1.x), please use django-baton@1.13.2.
 
 This application was written with one concept in mind: overwrite as few django templates as possible.
 Everything is styled through CSS and when required, JS is used.
@@ -95,7 +99,7 @@ Everything is styled through CSS and when required, JS is used.
 Baton is based on the following frontend technologies:
 
 - Bootstrap 5
-- FontAwesome 6
+- Google Material Symbols
 
 Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
 
@@ -107,11 +111,11 @@ A custom menu is provided, the menu is rendered through JS, and data is fetched 
 
 Install the last stable release
 
-    $ pip install django-baton
+    pip install django-baton
 
 or clone the repo inside your project
 
-    $ git clone https://github.com/otto-torino/django-baton.git
+    git clone https://github.com/otto-torino/django-baton.git
 
 Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
 
@@ -127,7 +131,7 @@ INSTALLED_APPS = (
 
 Run migrations
 
-    $ python manage.py migrate
+    python manage.py migrate
 
 Replace `django.contrib.admin` in your project urls, and add baton urls:
 
@@ -202,7 +206,7 @@ BATON = {
             'type': 'app',
             'name': 'auth',
             'label': 'Authentication',
-            'icon': 'fa fa-lock',
+            'icon': 'lock',
             'models': (
                 {
                     'name': 'user',
@@ -252,7 +256,7 @@ Default value is `True`.
 
 ### <a name="configuration-ai"></a>AI
 
-Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections, image generation and image vision. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections, image generation and image vision. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it).
 
 Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the [AI](#baton-ai) section.
 
@@ -311,9 +315,9 @@ If you don't set any of the models, the default models (`BATON_GPT_4O_MINI` and 
 
 > Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
 
-The translations feature is designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
+The translations feature is designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.
 
-If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
+If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.
 Baton will then fill in the fields with the translations.
 
 > Important! Translate many long texts at once can be slow, so be sure to increase the timeout threshold in your web server configuration! The translate request is performed to the django application which then calls the external translation service, so if you have a small timeout it may happen that the request to the external translation service goes on and you're charged for it but the application closes the request with a 502 error!
@@ -373,7 +377,7 @@ If you don't define a MENU key in the configuration dictionary, the default MENU
 
 #### Title
 
-Like __MAIN__ and __CONTENTS__ in the screenshot, it represents a menu section. You should set a label and optionally apps or perms key, used for visualization purposes.
+Like **MAIN** and **CONTENTS** in the screenshot, it represents a menu section. You should set a label and optionally apps or perms key, used for visualization purposes.
 
 If the title voice should act as a section title for a group of apps, you'd want to specify these apps, because if the user can't operate over them, then the voice is not shown.
 You can also define some perms (OR condition), like this:
@@ -384,7 +388,7 @@ Title items can have children and so you can specify the _default_open_ key.
 
 #### App
 
-You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use FontAwesome classes which are included by default), a _default_open_ key and a _models_ key.
+You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use Material Symbols), a _default_open_ key and a _models_ key.
 If you don't define the _models_ key, the default app models are listed under your app.
 
 > **_NOTE:_**  app name should be lowercase
@@ -399,12 +403,12 @@ You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
 
 You can specify free items. You must define a _url_ and if you want some visibility permissions (OR clause). Free items can have children and so you can specify the _default_open_ key. Free items also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname).
 
-	{
-	    'type': 'free',
-	    'label': 'Categories',
-	    'url': '/admin/news/category/',
-	    're': '^/admin/news/category/(\d*)?'
-	}
+ {
+     'type': 'free',
+     'label': 'Categories',
+     'url': '/admin/news/category/',
+     're': '^/admin/news/category/(\d*)?'
+ }
 
 ### <a name="configuration-search-field"></a>SEARCH FIELD
 
@@ -432,6 +436,7 @@ The autocomplete field will call a custom api at every keyup event. Such api rec
     ]
 }
 ```
+
 You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional and is treated as css class given to an `i` element.
 
 Let's see an example:
@@ -531,8 +536,8 @@ All default fields and CKEDITOR fields are supported, see AI Hooks section below
 
 ### <a name="ai-image-generation"></a>Image Generation
 
-Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
-The button will open a modal where you can set some options, describe the image you want and generate the image. You can then preview the image and if you like it you can save it in the 
+Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it.
+The button will open a modal where you can set some options, describe the image you want and generate the image. You can then preview the image and if you like it you can save it in the
 file field with just one click.
 
 ``` python
@@ -565,6 +570,7 @@ You can configure the width of the preview image through the settings `IMAGE_PRE
 Check the `django-subject-imagefield` documentation for more details and properties.
 
 ### <a name="ai-vision"></a>Image vision
+
 There are two ways to activate image vision functionality in Baton, both allow to generate an alt text for the image through the AI.
 
 The first way is to just use the `BatonAiImageField` and define the `alt_field` attribute (an optionally `alt_chars`, `alt_language`)
@@ -864,6 +870,7 @@ Baton provides a dropdown form of the following list filters:
 The dropdown is visible only if the filter contains at least three options, otherwise the default template is used.
 
 Usage:
+
 ```
 from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoicesDropdownFilter
 
@@ -1153,7 +1160,7 @@ class VideosInline(admin.StackedInline):
 
 ## <a name="customization"></a>Themes & Customization
 
-It's easy to customize the appeareance of __baton__.
+It's easy to customize the appeareance of **baton**.
 You can override all the css variables, just create a `baton/css/root.css` file (see [here](https://github.com/otto-torino/django-baton/tree/master/baton/static/baton/css/root.css)) and serve it from an app listed before baton in `INSTALLED_APPS`.
 
 You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
@@ -1166,21 +1173,21 @@ If you need heavy customization or you need to customize the `primary` and `seco
 ![Customization](docs/images/customization.png)
 
 Make the changes you want, re-compile, get the compiled JS file, place it in the static folder of your main app,
-and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
+and place your main app (ROOTAPP) before **baton** in the `INSTALLED_APPS`.
 
 So:
 
-    $ git clone https://github.com/otto-torino/django-baton.git
-    $ cd django-baton/baton/static/baton/app/
-    $ npm install
-    $ vim src/styles/_variables.scss
-    $ npm run compile
-    $ cp dist/baton.min.js ROOTAPP/static/baton/app/dist/
+    git clone https://github.com/otto-torino/django-baton.git
+    cd django-baton/baton/static/baton/app/
+    npm install
+    vim src/styles/_variables.scss
+    npm run compile
+    cp dist/baton.min.js ROOTAPP/static/baton/app/dist/
 
 If you want to test your live changes, just start the webpack dev server:
 
-    $ cd django-baton/baton/static/baton/app/
-    $ npm run dev:baton
+    cd django-baton/baton/static/baton/app/
+    npm run dev:baton
 
 And inside the `base_site.html` template, make these changes:
 
@@ -1197,11 +1204,11 @@ Starting from the release 1.7.1, django baton is provided with a set of unit and
 
 Start the test app (login admin:admin):
 
-    $ cd testapp
-    $ python3 -m venv .virtualenv
-    $ cd app
-    $ pip install -r requirements.txt
-    $ python manage.py runserver
+    cd testapp
+    python3 -m venv .virtualenv
+    cd app
+    pip install -r requirements.txt
+    python manage.py runserver
 
 Switch the baton js path in `base_site.html`
 
@@ -1210,9 +1217,9 @@ Switch the baton js path in `base_site.html`
 
 Start both the django testapp and the js app (the last one in watch mode):
 
-    $ cd baton/static/baton/app
-    $ npm install
-    $ npm run dev
+    cd baton/static/baton/app
+    npm install
+    npm run dev
 
 Now you'll see live all your changes in the testapp.
 
@@ -1220,11 +1227,11 @@ Now you'll see live all your changes in the testapp.
 
 Install `invoke` and `sphinx_rtd_theme`
 
-    $ pip install invoke sphinx_rtd_theme
+    pip install invoke sphinx_rtd_theme
 
 Now you can generate the documentation in order to check it. Inside the root dir:
 
-    $ invoke docs
+    invoke docs
 
 ## <a name="contributing"></a>Contributing
 
@@ -1257,4 +1264,3 @@ Actually the following  screenshots are not always up to date, better to visit t
 ![Screenshot](docs/screenshots/filters-form.png)
 
 ![Screenshot](docs/screenshots/menu-collapsed.png)
-
