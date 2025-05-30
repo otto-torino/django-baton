@@ -204,3 +204,8 @@
 .change-form #content-main > form .form-row > div.baton-form-include {
   display: block;
 }
+
+// tinymce
+.tox.tox-tinymce {
+  @extend .mb-2;
+}
