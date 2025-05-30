@@ -164,6 +164,7 @@ const AI = {
         target = $('#id_' + conf.target)
       }
       const targetLabel = $(`label[for="${target.attr('id')}"]`)
+      targetLabel.find('.material-symbols-outlined').remove()
       const visionButton = $('<a />', { class: 'btn btn-sm btn-primary me-2 mt-1', href: '#' })
         .on('click', function () {
           self.handleVision(field, conf)
@@ -250,6 +251,7 @@ const AI = {
     const self = this
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
+    targetLabel.find('.material-symbols-outlined').remove()
     const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: '#' })
       .on('click', function () {
         self.handleSummarization(field, targetLabel, conf)
