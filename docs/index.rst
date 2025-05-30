@@ -54,17 +54,3 @@ Advanced customization
    :maxdepth: 2
 
    customization
-
-Screenshots
------------
-
-
-.. image:: screenshots/mobile_mix.jpg
-.. image:: screenshots/mobile_mix2.png
-.. image:: screenshots/tablet.png
-.. image:: screenshots/splash-login.png
-.. image:: screenshots/index-no-analytics.png
-.. image:: screenshots/changelist-lg.png
-.. image:: screenshots/changeform-error.png
-.. image:: screenshots/filters-modal.png
-.. image:: screenshots/menu-collapsed.png

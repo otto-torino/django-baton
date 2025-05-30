@@ -208,7 +208,7 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
         ),
         (
             "news/admin_content_include.html",
-            "content",
+            "content_en",
             "above",
         ),
         (
@@ -226,7 +226,7 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
     baton_cl_includes = [
         (
             "news/admin_cl_top_include.html",
-            "top",
+            "above",
         ),
     ]
 

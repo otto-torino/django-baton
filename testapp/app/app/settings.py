@@ -117,6 +117,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+help_modal = """
+modalContent = `
+    <div>
+        <p><strong style="font-weight: 900">Welcome to django-baton!</strong></p>
+        <p>This is ademo app which will try to introduce you django-baton and all its features. Baton is quite customizable, so
+        here you'll see just one of the possible configurations, have a nice trip!</p>
+        <p>
+        BTW, this is an example of free menu voice, so you can customize the behaviour. In such case we're opening a modal using the <strong>Baton Modal utility</strong>. You can just define an url which points somewhere, you can alert stuff and so on...
+        </p>
+    </div>
+`;
+modal = new Baton.Modal({
+    title: 'Help',
+    content: modalContent,
+});
+modal.open();
+"""
+
+
 BATON = {
     "BATON_CLIENT_ID": os.getenv("BATON_CLIENT_ID"),
     "BATON_CLIENT_SECRET": os.getenv("BATON_CLIENT_SECRET"),
@@ -195,6 +214,11 @@ BATON = {
                     "type": "free",
                     "label": "Google search",
                     "url": "http://www.google.it",
+                },
+                {
+                    "type": "free",
+                    "url": "javascript:%s" % help_modal,
+                    "label": "Help",
                 },
             ],
         },

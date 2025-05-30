@@ -67,7 +67,6 @@ Experience the features of Django Baton firsthand. Login with user `demo` and pa
 * [Development](#development)
 * [Contributing](#contributing)
 * [Star History](#star-history)
-* [Screenshots](#screenshots)
 
 ## ⭐ Key Features
 
@@ -341,7 +340,8 @@ Customize the sidebar via `BATON['MENU']`.
 
 ### Search Field Configuration
 
-Add an autocomplete search field to the sidebar.
+Add an autocomplete search field to the sidebar .
+
 ![Search Field Screenshot](docs/images/search-field.png)
 
 ```python
@@ -1148,18 +1148,3 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## 🌟 Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
-
-## 🖼️ Screenshots
->
-> Note: Screenshots may not always reflect the absolute latest version. For the most up-to-date look, please visit the [Live Demo](https://django-baton.sqrt64.it/).
-
-![Mobile Mix 1](docs/screenshots/mobile_mix.jpg)
-![Mobile Mix 2](docs/screenshots/mobile_mix2.png)
-![Tablet View](docs/screenshots/tablet.png)
-![Login Splash](docs/screenshots/splash-login.png)
-![Admin Index](docs/screenshots/index-no-analytics.png)
-![Changelist Large Screen](docs/screenshots/changelist-lg.png)
-![Changeform Error State](docs/screenshots/changeform-error.png)
-![Filters in Modal](docs/screenshots/filters-modal.png)
-![Filters as Form](docs/screenshots/filters-form.png)
-![Collapsed Menu](docs/screenshots/menu-collapsed.png)
