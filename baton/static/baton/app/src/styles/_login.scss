@@ -10,6 +10,10 @@ body.login {
   #header #branding {
     margin: auto !important;
 
+    h1 {
+      font-size: 1.6rem;
+    }
+
     a {
       color: var(--bs-baton-login-header-color);
     }
