@@ -1,4 +1,8 @@
 /* BATON, BS */
+:root {
+  --bs-baton-font-display: 'MerriweatherSans Variable', sans-serif;
+}
+
 .nav, [data-bs-theme="light"] {
     --bs-nav-link-color: #208075;
     --bs-nav-link-hover-color: darken(#208075, 10%);
