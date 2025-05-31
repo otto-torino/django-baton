@@ -194,7 +194,7 @@ const Menu = {
                 (r, index) =>
                   dataList.append(`
                     <div class="datalist-option${index === 0 ? ' selected' : ''}" onclick="location.href='${r.url}'" data-url="${r.url}">
-                        <a href="${r.url}">${r.label}</a>${r.icon ? `<i onclick="location.href='${r.url}'" class="${r.icon}"></i>` : ''}
+                        <a href="${r.url}">${r.label}</a>${r.icon ? `<i class="material-symbols-outlined" onclick="location.href='${r.url}'">${r.icon}</i>` : ''}
                     </div>`), // eslint-disable-line
               )
             })
