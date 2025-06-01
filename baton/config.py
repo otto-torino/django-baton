@@ -5,7 +5,8 @@ from django.utils.translation import gettext as _
 
 default_config = {
     "SITE_TITLE": "Baton",
-    "SITE_HEADER": '<img src="%sbaton/img/logo.png" />' % settings.STATIC_URL,
+    "SITE_HEADER": '<img class="baton-logo-light" src="%sbaton/img/logo.png" /><img class="baton-logo-dark" src="%sbaton/img/logo_dark.png" />'
+    % (settings.STATIC_URL, settings.STATIC_URL),
     "INDEX_TITLE": _("Site administration"),
     "MENU_TITLE": _("Menu"),
     "SUPPORT_HREF": "https://github.com/otto-torino/django-baton/issues",

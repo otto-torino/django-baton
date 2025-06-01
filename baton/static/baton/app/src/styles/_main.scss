@@ -24,6 +24,18 @@ body {
   z-index: 9999;
 }
 
+.baton-logo-light {
+  display: none;
+}
+
+[data-bs-theme='dark'] .baton-logo-light {
+  display: inline;
+}
+
+[data-bs-theme='dark'] .baton-logo-dark {
+  display: none;
+}
+
 h1,
 h2,
 h3,
