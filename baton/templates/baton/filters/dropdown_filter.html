@@ -17,7 +17,7 @@
     {% else %}
         {% if choices|slice:"3:" %}
             <li>
-            <select class="form-select form-select-sm" style="width: 100% !important;"
+            <select class="form-select" style="width: 100% !important;"
                 onchange="go_from_select(this.options[this.selectedIndex].value)">
             {% for choice in choices %}
                 <option{% if choice.selected %} selected="selected"{% endif %}

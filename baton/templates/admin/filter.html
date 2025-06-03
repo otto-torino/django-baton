@@ -4,7 +4,7 @@
 {% if filters_form %}
     <ul style="padding-right: 15px;">
         <li>
-            <select class="form-select form-select-sm" style="width: 100% !important;">
+            <select class="form-select" style="width: 100% !important;">
                 {% for choice in choices %}
                     <option{% if choice.selected %} selected="selected"{% endif %} value="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>
                 {% endfor %}

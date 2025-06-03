@@ -22,7 +22,11 @@ body.page-logout #header {
   background: var(--bs-baton-navbar-bg) !important;
   color: var(--bs-baton-navbar-color);
   flex-direction: row !important;
-  padding: .6rem 0;
+  padding: 0.6rem 0.6rem 0.6rem 0;
+
+  .navbar-toggler {
+    color: var(--bs-baton-navbar-toggler-color);
+  }
 
   strong {
     color: var(--bs-baton-navbar-color);
@@ -81,9 +85,15 @@ body.page-logout #header {
   @extend .me-auto;
   display: inline-block;
   padding-bottom: 0;
+  padding-top: 0;
 
   h1 {
     font-size: 1.6rem;
+    margin-bottom: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

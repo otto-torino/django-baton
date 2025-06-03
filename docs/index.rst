@@ -11,11 +11,16 @@ A cool, modern and responsive django admin application based on bootstrap 5
 Baton was developed with one concept in mind: **overwrite as few django templates as possible**.
 Everything is done with css (sass and bootstrap mixins), and when the markup needs some edit, then DOM manipulation through js is used.
 
+Baton v5
+--------
+
+Baton v5 is a major update and it brings a complete visual redesign and migrates from FontAwesome to Google Material Symbols for a sleek, modern icon set, see the `migration guide <https://github.com/otto-torino/django-baton/wiki/Migrate-from-v4-to-v5>`_
+
 Features
 --------
 
 - Supports django >= 2.1
-- Based on bootstrap 5 and FontAwesome 6
+- Based on bootstrap 5 and Material Symbols
 - Fully responsive
 - Custom and flexible sidebar menu
 - Text input filters facility
@@ -24,7 +29,7 @@ Features
 - Collapsable stacke inline entries
 - Lazy load of current uploaded images
 - Full customization available recompiling the provided js app
-- it translations
+- it and fa translations
 
 Getting started
 ---------------
@@ -54,17 +59,3 @@ Advanced customization
    :maxdepth: 2
 
    customization
-
-Screenshots
------------
-
-
-.. image:: screenshots/mobile_mix.jpg
-.. image:: screenshots/mobile_mix2.png
-.. image:: screenshots/tablet.png
-.. image:: screenshots/splash-login.png
-.. image:: screenshots/index-no-analytics.png
-.. image:: screenshots/changelist-lg.png
-.. image:: screenshots/changeform-error.png
-.. image:: screenshots/filters-modal.png
-.. image:: screenshots/menu-collapsed.png

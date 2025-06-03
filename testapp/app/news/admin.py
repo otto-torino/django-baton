@@ -139,8 +139,8 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
             "Main",
             {
                 "fields": (
-                    ("category", "title"),
-                    "link",
+                    ("category", "link"),
+                    "title",
                     "content",
                     "summary",
                     "status",
@@ -189,6 +189,17 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
         ),
     )
 
+    baton_summarize_fields = {
+        "content_en": [
+            {  # e.g., 'body_it'
+                "target": "summary",  # e.g., 'summary_it'
+                "words": 80,  # Approximate
+                "useBulletedList": True,
+            },
+            # ... more targets for the same source field ...
+        ],
+    }
+
     baton_form_includes = [
         (
             "news/admin_datetime_include.html",
@@ -197,12 +208,12 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
         ),
         (
             "news/admin_content_include.html",
-            "content",
+            "content_en",
             "above",
         ),
         (
             "news/admin_title_include.html",
-            "title",
+            "title_it",
             "right",
         ),
     ]
@@ -215,7 +226,7 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
     baton_cl_includes = [
         (
             "news/admin_cl_top_include.html",
-            "top",
+            "above",
         ),
     ]
 

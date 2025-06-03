@@ -24,7 +24,7 @@ const ChangeForm = {
     if (opts.showMultipartUploading) {
       this.spinner()
     }
-    if (opts.changeformFixedSubmitRow) {
+    if (opts.changeformFixedSubmitRow && window.screen.width > 992) {
       this.fixSubmitRow()
     }
     self.fixNewlines()
@@ -87,7 +87,7 @@ const ChangeForm = {
     })
     if (run) {
       const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-      const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-3x fa-fw' })
+      const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' }).text('progress_activity')
       $('<div />')
         .append($('<p />').text(this.t.get('uploading')), spinner)
         .appendTo(overlay)
@@ -118,7 +118,9 @@ const ChangeForm = {
         const url = cur.attr('href')
         const ext = url.split('?')[0].split('.').pop()
         if (['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif', 'tif', 'webp'].indexOf(ext) !== -1) {
-          const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' }).css('color', '#aaa')
+          const spinner = $('<i />', { class: 'material-symbols-outlined icon-spin' })
+            .text('progress_activity')
+            .css('color', '#aaa')
           const preview = $('<div />', { class: 'py-2' }).append(spinner)
           $(p).prepend(preview)
           const image = new Image()
@@ -135,6 +137,7 @@ const ChangeForm = {
   },
   fixCollapseDetails: function () {
     const details = $('fieldset:not(.collapse) details').attr('open', 'open')
+    $('fieldset.collapsed > details').removeAttr('open')
   },
   activateEntryCollapsing: function () {
     $('.collapse-entry h3, .collapse-entry h2')

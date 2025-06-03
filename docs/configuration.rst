@@ -395,7 +395,7 @@ App
 
 In order to add an application with all its models to the menu, you need an `app` menu voice.
 
-You must specify the ``type`` and ``name`` keys, optionally an ``icon`` key (you can use FontAwesome classes which are included by default), a ``default_open`` key and a ``models`` key.
+You must specify the ``type`` and ``name`` keys, optionally an ``icon`` key (you can use Material Symbols), a ``default_open`` key and a ``models`` key.
 
 .. important:: If you don't define the models key then the default app models are listed under your app, otherwise only the specified models are listed (in the order you provide).
 
@@ -405,7 +405,7 @@ The ``models`` key must be a tuple, where every item represents a model in the f
         'type': 'app',
         'name': 'auth',
         'label': 'Authentication',
-        'icon': 'fa fa-lock',
+        'icon': 'lock',
         'models': (
             {
                 'name': 'user',
@@ -425,9 +425,9 @@ Model
 
 If you want to add only a link to the admin page of a single model, you can use this voice. For example, the `flatpages` app has only one model `Flatpage`, so I think it may be better to avoid a double selection.
 
-In this case you must specify the ``type``, ``name`` and ``app`` keys, optionally an ``icon`` key (you can use FontAwesome classes which are included by default). An example: ::
+In this case you must specify the ``type``, ``name`` and ``app`` keys, optionally an ``icon`` key (you can use Material Symbols). An example: ::
 
-    { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages', 'icon': 'fa fa-file-text-o' },
+    { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages', 'icon': 'article' },
 
 .. important:: Model name should be lowercase.
 

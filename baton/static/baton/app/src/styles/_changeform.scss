@@ -10,26 +10,26 @@
     @extend .container-fluid;
   }
 
-  .object-tools {
-    @extend .ps-0;
-    @extend .m-2;
-    float: right;
-    list-style-type: none;
+  h2 {
+    font-size: $h2-size;
+  }
 
+  .object-tools {
     .historylink {
       &::before {
-        content: '\f017';
+        content: 'history';
+        vertical-align: middle;
       }
     }
 
     .viewsitelink {
       &::before {
-        content: '\f26c';
+        content: 'desktop_windows';
       }
     }
   }
 
-  input[type=text].hidden {
+  input[type='text'].hidden {
     display: none !important;
   }
 
@@ -44,26 +44,58 @@
   }
 
   .collapse-entry {
-    summary { // Django 5.1
+    summary {
+      // Django 5.1
       display: block;
     }
 
-    h2, h3 { /* django 5.1 uses a h2 */
+    h2 {
+      /* django 5.1 uses a h2 */
       cursor: pointer;
-      margin: .5rem 0;
+      margin: 0.5rem 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
       .entry-collapse-toggler {
-        margin-left: 1rem !important;
+        margin-left: auto !important;
         order: 1;
 
         &::before {
           color: var(--bs-baton-changeform-collapse-entry-icon-color);
-          content: '\f070';
-          cursor: pointer;
-          font-family: 'Font Awesome\ 6 Free';
+          @extend %material;
+          content: 'visibility_off';
+        }
+
+        & + span {
+          margin-left: auto;
+        }
+      }
+    }
+
+    details[open] h2 .entry-collapse-toggler::before {
+      content: 'visibility_off';
+    }
+
+    details:not([open]) h2 .entry-collapse-toggler::before {
+      content: 'visibility';
+    }
+
+    h3 {
+      /* django 5.1 uses a h2 */
+      cursor: pointer;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .entry-collapse-toggler {
+        order: 1;
+
+        &::before {
+          color: var(--bs-baton-changeform-collapse-entry-icon-color);
+          @extend %material;
+          content: 'visibility_off';
         }
 
         & + span {
@@ -78,7 +110,7 @@
 
         .entry-collapse-toggler {
           &::before {
-            content: '\f06e';
+            content: 'visibility';
           }
         }
       }
@@ -90,7 +122,7 @@
     h3 {
       .entry-collapse-toggler {
         &::before {
-          content: '\f06e';
+          content: 'visibility';
         }
       }
 
@@ -101,7 +133,7 @@
       &.entry-collapsed {
         .entry-collapse-toggler {
           &::before {
-            content: '\f070';
+            content: 'visibility_off';
           }
         }
 
@@ -130,8 +162,8 @@
   z-index: 2000;
 
   p {
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: 2rem;
+    font-weight: 400;
   }
 }
 
@@ -141,7 +173,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $gray-700;
+      color: var(--bs-nav-link-hover-color);
       text-decoration: none;
     }
 
@@ -169,6 +201,11 @@
   min-width: auto !important;
 }
 
-.change-form #content-main>form .form-row>div.baton-form-include {
+.change-form #content-main > form .form-row > div.baton-form-include {
   display: block;
+}
+
+// tinymce
+.tox.tox-tinymce {
+  @extend .mb-2;
 }

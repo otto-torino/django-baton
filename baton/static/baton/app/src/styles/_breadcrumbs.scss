@@ -3,17 +3,26 @@
   @extend .p-3;
   background: var(--bs-baton-breadcrumbs-bg);
   color: var(--bs-baton-breadcrumbs-color);
-  // border-bottom: 1px solid $breadcrumbs-border-color;
-  line-height: 2.0;
+  display: flex;
+  gap: 0.5rem;
+  line-height: 2;
   word-spacing: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-wrap: wrap;
 
   a {
     color: var(--bs-baton-breadcrumbs-link-color);
     &:first-child {
       &::before {
-        @extend %font-awesome;
+        @extend %material;
         @extend .me-1;
-        content: '\f015';
+        content: 'home';
+        vertical-align: middle;
+        display: inline-block;
+        position: relative;
+        top: -3px;
       }
     }
   }

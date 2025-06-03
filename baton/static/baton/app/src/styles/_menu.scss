@@ -23,12 +23,13 @@ body:not(.menu-mobile) {
 .sidebar-menu {
   background: var(--bs-baton-menu-bg);
   color: var(--bs-baton-menu-color);
+  border-right: 1px solid var(--bs-baton-menu-border-color);
   height: 100%;
   left: -100%;
   padding: 0;
   position: fixed;
   top: 0;
-  transition: left .4s ease-out;
+  transition: left 0.4s ease-out;
   z-index: 1002;
 
   @include media-breakpoint-up(lg) {
@@ -54,8 +55,8 @@ body:not(.menu-mobile) {
   .toggle-menu {
     cursor: pointer;
     position: absolute;
-    right: 1rem;
-    top: 1.6rem;
+    right: 0;
+    top: 0.6rem;
   }
 
   #user-tools {
@@ -69,11 +70,13 @@ body:not(.menu-mobile) {
 
     .user-links {
       height: 38px;
-      transition: height .2s linear;
+      transition: height 0.2s linear;
     }
 
     .user-area-toggler {
       cursor: pointer;
+      font-size: 2.2rem !important;
+      margin-top: 1rem !important;
     }
 
     &.collapsed {
@@ -101,7 +104,7 @@ body:not(.menu-mobile) {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
     }
 
     a {
@@ -109,36 +112,46 @@ body:not(.menu-mobile) {
 
       &.view-site {
         &::after {
-          content: '\f390';
-          @extend %font-awesome-family;
+          content: 'desktop_windows';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
 
-        &[href*=doc] {
+        &[href*='doc'] {
           &::after {
-            content: '\f02d' !important;
-            @extend %font-awesome-family;
+            content: 'docs' !important;
+            @extend %material;
+            font-size: 26px;
+            line-height: 26px;
           }
         }
       }
 
       &.theme-dark {
         &::after {
-          content: '\f186';
-          @extend %font-awesome-family;
+          content: 'light_mode';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
       &.theme-light {
         &::after {
-          content: '\f185';
-          @extend %font-awesome-family;
+          content: 'dark_mode';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
       &.password {
         &::after {
-          content: '\f084';
-          @extend %font-awesome-family;
+          content: 'key';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
@@ -147,8 +160,10 @@ body:not(.menu-mobile) {
         display: inline-block;
 
         &::after {
-          content: '\f2f5';
-          @extend %font-awesome-family;
+          content: 'logout';
+          @extend %material;
+          font-size: 26px;
+          line-height: 26px;
         }
       }
 
@@ -156,13 +171,13 @@ body:not(.menu-mobile) {
         color: var(--bs-baton-menu-user-links-color);
         font-size: 1.3rem;
         display: inline-block;
-        margin: 0 .6rem;
+        margin: 0 0.6rem;
       }
     }
   }
 
   .search-field-tool {
-    margin: .5rem 1rem;
+    margin: 0.5rem 1rem;
     position: relative;
 
     input {
@@ -179,17 +194,17 @@ body:not(.menu-mobile) {
 
     &::after {
       color: var(--bs-baton-search-field-icon-color);
-      content: '\f002';
-      @extend %font-awesome-family;
+      content: 'search';
+      @extend %material;
       position: absolute;
-      right: .5rem;
-      top: .2rem;
+      right: 0.5rem;
+      top: 1.2rem;
     }
 
     &.loading {
       &::after {
-        animation: fa-spin 2s linear infinite;
-        content: '\f1ce';
+        @extend %icon-spin;
+        content: 'progress_activity';
       }
     }
 
@@ -199,6 +214,7 @@ body:not(.menu-mobile) {
       overflow: auto;
       position: absolute;
       width: 100%;
+      z-index: 1000;
 
       div {
         align-items: center;
@@ -206,11 +222,11 @@ body:not(.menu-mobile) {
         cursor: pointer;
         display: flex;
         flex-direction: row;
-        font-size: .9rem;
+        font-size: 0.9rem;
         justify-content: space-between;
         max-height: 50vh;
         overflow: auto;
-        padding: .5rem;
+        padding: 0.5rem;
 
         &.selected {
           background: var(--bs-baton-search-field-selected-bg);
@@ -219,7 +235,6 @@ body:not(.menu-mobile) {
           a {
             color: var(--bs-baton-search-field-selected-color);
           }
-
         }
 
         a {
@@ -229,19 +244,19 @@ body:not(.menu-mobile) {
 
         i {
           color: var(--bs-baton-search-field-icon-color);
-          font-size: .9rem;
+          font-size: 1rem;
         }
       }
     }
   }
 
   h1 {
-    @extend .clearfix;
     background: var(--bs-baton-menu-mobile-title-bg);
     color: var(--bs-baton-menu-mobile-title-color);
-    font-size: 1.6rem;
+    font-size: $h1-size;
     margin-bottom: 0;
-    padding: 1rem 16px;
+    height: 64px;
+    padding: 0.6rem 1rem;
     position: absolute;
     top: 0;
     width: 100%;
@@ -253,6 +268,7 @@ body:not(.menu-mobile) {
     }
 
     i {
+      color: var(--bs-baton-navbar-toggler-color);
       cursor: pointer;
       float: right;
       font-weight: normal;
@@ -269,17 +285,17 @@ body:not(.menu-mobile) {
     list-style-type: none;
     overflow: auto;
     padding: 0;
-    padding-top: 66px;
+    padding-top: 64px;
     position: absolute;
     top: 0;
-    width: 100%;
     z-index: 10;
-
+    width: 100%;
 
     @include media-breakpoint-up(lg) {
       height: auto;
       padding-top: 0;
       position: static;
+      width: auto;
     }
 
     li {
@@ -293,8 +309,9 @@ body:not(.menu-mobile) {
 
     a,
     span {
+      align-items: center;
       color: var(--bs-baton-menu-link-color);
-      display: block;
+      display: flex;
       outline: 0;
 
       &:hover {
@@ -306,9 +323,9 @@ body:not(.menu-mobile) {
         @extend .clearfix;
 
         &::after {
-          @extend %font-awesome;
-          content: '\f105';
-          float: right;
+          @extend %material;
+          content: 'keyboard_arrow_right';
+          margin-left: auto;
         }
       }
 
@@ -331,8 +348,16 @@ body:not(.menu-mobile) {
 
       > span {
         color: var(--bs-baton-menu-voice-title-color) !important;
-        font-weight: bold;
+        font-weight: var(--bs-baton-menu-voice-title-weight);
         text-transform: uppercase;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      li.title ~ li:not(.title),
+      .title > .depth-1 {
+        border-left: 1px solid var(--bs-baton-menu-depth1-border-color) !important;
+        margin-left: 1.9rem;
       }
     }
   }
@@ -340,7 +365,7 @@ body:not(.menu-mobile) {
   .depth-1 {
     display: block;
     margin-left: -100%;
-    transition: margin-left .0s linear;
+    transition: margin-left 0s linear;
 
     @include media-breakpoint-up(lg) {
       display: none;
@@ -358,12 +383,11 @@ body:not(.menu-mobile) {
     }
   }
 
-
   .open {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
-          content: '\f107' !important;
+          content: 'keyboard_arrow_down' !important;
         }
       }
 
@@ -387,7 +411,7 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
-          content: '\f107' !important;
+          content: 'keyboard_arrow_down' !important;
         }
       }
 
@@ -409,6 +433,11 @@ body:not(.menu-mobile) {
 
   .nav-back {
     background: var(--bs-baton-menu-mobile-back-bg);
+    text-transform: uppercase;
+
+    a {
+      padding: 10px 17px !important;
+    }
 
     @include media-breakpoint-up(lg) {
       display: none;
@@ -419,7 +448,7 @@ body:not(.menu-mobile) {
     @include media-breakpoint-up(lg) {
       .has-children {
         &::after {
-          content: '\f107' !important;
+          content: 'keyboard_arrow_down' !important;
         }
       }
 
@@ -446,6 +475,7 @@ body:not(.menu-mobile) {
       position: relative;
 
       a {
+        color: var(--bs-baton-menu-active-voice-color) !important;
         margin-left: -5px;
       }
     }

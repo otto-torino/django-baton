@@ -1,1260 +1,1150 @@
-# django-baton
+# Django Baton
 
-![Version](https://img.shields.io/github/v/tag/otto-torino/django-baton?label=version)
+[![PyPI version](https://img.shields.io/pypi/v/django-baton.svg?label=version&color=blue)](https://pypi.org/project/django-baton/)
 [![Build status](https://app.travis-ci.com/otto-torino/django-baton.svg?token=fp5hqwJQgwHKLpsjsZ3L&branch=master)](https://travis-ci.com/github/otto-torino/django-baton)
 [![Documentation Status](https://readthedocs.org/projects/django-baton/badge/?version=latest)](https://django-baton.readthedocs.io/en/latest/?badge=latest)
-![License](https://img.shields.io/pypi/l/django-baton)
+[![License](https://img.shields.io/pypi/l/django-baton)](https://github.com/otto-torino/django-baton/blob/master/LICENSE.txt)
 [![Downloads](https://pepy.tech/badge/django-baton)](https://pepy.tech/project/django-baton)
 
-A cool, modern and responsive django admin application based on bootstrap 5, which brings AI in your admin panel.
+**A cool, modern, responsive, and AI-enhanced Django admin interface, built on Bootstrap 5 and Material Symbols.**
 
-Documentation: [readthedocs](http://django-baton.readthedocs.io/)
-
----
-**Live Demo**
-
-Now you can try django-baton using the new shining live demo!
-Login with user `demo` and password `demo`
-
-[https://django-baton.sqrt64.it/](https://django-baton.sqrt64.it/)
-
----
-**Last changes**
-
-Baton 4.2.1 integrates the computer vision in the `BatonAiImageField`, fixes some minor styling issues and includes some PR.
-
-Baton 4.2.0 introduces the use of computer vision to generate alt attributes for images.
-
-Baton 4.0.* introduces a bunch of new AI functionalities!
-
-- automatic translations with django-modeltranslation
-- text summarization
-- text corrections
-- image vision
-- image generation
-
-It also introduces themes, and makes it easier to customize the application, there is no need to recompile the js app unless you want to change primary and secondary colors or you need heavy customization.
-
-> New!
-> Take a look at the new `django-baton-themes` repo: [django-baton-themes](https://github.com/otto-torino/django-baton-themes)
+[**📖 Documentation**](https://django-baton.readthedocs.io/) &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; [**🚀 Live Demo**](https://django-baton.sqrt64.it/) &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; [Report Bug](https://github.com/otto-torino/django-baton/issues) &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; [Request Feature](https://github.com/otto-torino/django-baton/discussions)
 
 ---
 
-![Screenshot](docs/images/baton-ai.gif)
+Django Baton transforms the standard Django admin into a powerful, intuitive, and visually appealing interface. Built with Bootstrap 5 and Google Material Symbols, it offers full responsiveness and integrates cutting-edge AI functionalities directly into your admin panel.
 
-## Table of contents
+✨ **Try the Live Demo!** ✨
 
-- [Features](#features)
-- [Installation](#installation)
-- [Configuration](#configuration)
-    - [AI](#configuration-ai)
-    - [Menu](#configuration-menu)
-    - [Search Field](#configuration-search-field)
-- [Baton AI](#baton-ai)
-- [Page Detection](#page-detection)
-- [Signals](#signals)
-- [Js Utilities](#js-utilities)
-- [Js Translations](#js-translations)
-- [List Filters](#list-filters)
-- [Changelist Includes](#changelist-includes)
-- [Changelist Filters Includes](#changelist-filters-includes)
-- [Changelist Row Attributes](#changelist-row-attributes)
-- [Form Tabs](#form-tabs)
-- [Form Includes](#form-includes)
-- [Collapsable stacked inlines entries](#collapsable-stackedinline)
-- [Themes & Customization](#customization)
-- [Tests](#tests)
-- [Contributing](#contributing)
-- [Star History](#star_history)
-- [Screenshots](#screenshots)
+Experience the features of Django Baton firsthand. Login with user `demo` and password `demo`.
+[**https://django-baton.sqrt64.it/**](https://django-baton.sqrt64.it/)
 
-## <a name="features"></a>Features
+---
 
-Supports Django >= 2.1. For older versions of Django, please use django-baton@1.13.2.
+## 📣 What's New?
 
-This application was written with one concept in mind: overwrite as few django templates as possible.
-Everything is styled through CSS and when required, JS is used.
+* **Baton 5.x:** Features a complete visual redesign and migrates from FontAwesome to Google Material Symbols for a sleek, modern icon set, see the [migration guide](https://github.com/otto-torino/django-baton/wiki/Migrate-from-v4-to-v5).
+* **Baton 4.2.1:** Integrates computer vision capabilities within the `BatonAiImageField`, includes various minor styling improvements, and incorporates several community pull requests.
+* **Baton 4.2.0:** Introduced computer vision for automatic generation of `alt` attributes for images.
+* **Baton 4.0.\*:** Unleashed a suite of powerful AI functionalities!
+  * Automatic translations (integrates with `django-modeltranslation`).
+  * Text summarization for content creation.
+  * Text corrections for improved writing.
+  * Image generation using DALL·E 3.
+  * This version also introduced robust theme support, making customization easier than ever. Most theme changes no longer require recompiling the JavaScript application.
 
-- Based on Bootstrap 5 and FontAwesome Free 6
-- Fully responsive
-- AI functionalities: translations, corrections, summarizations, image description and generation (you need a subscription key)
-- Custom and flexible sidebar menu
-- Themes support
-- Configurable search field
-- Text input filters and dropdown list filters facilities
-- Form tabs out of the box
-- Easy way to include templates in the change form and change list pages
-- Easy way to add attributes to change list table rows/cells
-- Collapsable stacked inline entries
-- Lazy loading of uploaded images
-- Optional display of changelist filters in a modal
-- Optional use of changelist filters as a form (combine some filters at once and perform the search action)
-- Customization available by editing css vars and/or recompiling the js app provided
-- IT ad FA translations provided
+> **🎨 Explore Themes!**
+> Discover ready-to-use themes and get inspiration from the `django-baton-themes` repository:
+> [**github.com/otto-torino/django-baton-themes**](https://github.com/otto-torino/django-baton-themes)
 
-Baton is based on the following frontend technologies:
+---
 
-- Bootstrap 5
-- FontAwesome 6
+![Django Baton AI Features Showcase](docs/images/baton-ai.gif)
+*An example of Baton's AI capabilities in action.*
 
-Flexbox is used to accomplish responsiveness. jQuery is used for DOM manipulations.
+## 📋 Table of Contents
 
-All JS, fonts and CSS are compiled, and produce a single JS file which is included in the `base_site` template.
+* [Key Features](#key-features)
+* [Installation](#installation)
+* [Configuration](#configuration)
+  * [AI Configuration](#ai-configuration)
+  * [Menu Configuration](#menu-configuration)
+  * [Search Field Configuration](#search-field-configuration)
+* [Baton AI In-Depth](#baton-ai-in-depth)
+* [Page Detection](#page-detection)
+* [Signals](#signals)
+* [JS Utilities](#js-utilities)
+* [JS Translations](#js-translations)
+* [List Filters](#list-filters)
+* [Changelist Includes](#changelist-includes)
+* [Changelist Filters Includes](#changelist-filters-includes)
+* [Changelist Row Attributes](#changelist-row-attributes)
+* [Form Tabs](#form-tabs)
+* [Form Includes](#form-includes)
+* [Collapsable Stacked Inlines](#collapsable-stacked-inlines)
+* [Themes & Customization](#themes--customization)
+* [Tests](#tests)
+* [Development](#development)
+* [Contributing](#contributing)
+* [Star History](#star-history)
 
-A custom menu is provided, the menu is rendered through JS, and data is fetched in JSON format through an AJAX request.
+## ⭐ Key Features
 
-## <a name="installation"></a>Installation
+> **Compatibility Notes:**
+>
+> * For **Django >= 5.x**: Use Baton >= 5.0
+> * For **5.x > Django >= 2.1**: Use Baton == 4.x
+> * For **older Django versions (1.x)**: Use `django-baton==1.13.2`
 
-Install the last stable release
+Baton is designed with a core principle: **minimize overriding Django templates**. Styling is primarily achieved through CSS, with JavaScript used for dynamic functionalities.
 
-    $ pip install django-baton
+* **Modern Stack:** Built with Bootstrap 5 and Google Material Symbols.
+* **Fully Responsive:** Adapts seamlessly to all screen sizes.
+* **🧠 AI Powered:**
+  * Automatic translations (integrates with `django-modeltranslation`).
+  * Text summarization and correction.
+  * Image vision (description generation for `alt` text).
+  * Image generation (e.g., DALL·E 3).
+  * *(Requires a Baton subscription key for AI features).*
+* **Customizable Menu:** Flexible, dict-configurable sidebar navigation.
+* **🎨 Theme Support:** Easily customize the look and feel.
+* **Enhanced Search:** Configurable global search field with autocomplete.
+* **Advanced List Filters:** Includes text input, dropdown, and multiple-choice filter options.
+* **Improved Forms:**
+  * Out-of-the-box tabbed interface for fieldsets and inlines.
+  * Fixed submit row for better usability on long forms.
+  * Collapsable entries for stacked inlines.
+  * Lazy loading for uploaded images and image previews.
+* **Flexible Includes:** Easily inject custom templates into changelist and change form pages.
+* **Dynamic Row Attributes:** Add custom HTML attributes (classes, data-attributes, titles) to changelist rows or cells.
+* **User Experience Enhancements:**
+  * Optional modal display for changelist filters.
+  * Optional "form mode" for changelist filters (apply multiple filters at once).
+  * Confirmation for unsaved changes.
+  * Loading indicator for multipart form uploads.
+  * Toast notifications for admin messages.
+  * Gravatar support.
+* **Developer Friendly:** Customization via CSS variables or by recompiling the provided JS application for deeper changes.
+* **Translations:** Includes Italian (IT) and Farsi (FA) translations.
 
-or clone the repo inside your project
+**Frontend Technologies:**
+Baton leverages Bootstrap 5 for styling and responsiveness, Google Material Symbols for icons, and jQuery for DOM manipulations. All assets are compiled into a single JavaScript file for optimized delivery.
 
-    $ git clone https://github.com/otto-torino/django-baton.git
+## 🛠️ Installation
 
-Add `baton` and `baton.autodiscover` to your `INSTALLED_APPS`:
+1. **Install via pip:**
 
-``` python
-INSTALLED_APPS = (
-    # ...
-    'baton',
-    'django.contrib.admin',
-    # ... (place baton.autodiscover at the very end)
-    'baton.autodiscover',
-)
-```
+    ```bash
+    pip install django-baton
+    ```
 
-Run migrations
+    Alternatively, to use the latest development version, clone the repository into your project:
 
-    $ python manage.py migrate
+    ```bash
+    git clone [https://github.com/otto-torino/django-baton.git](https://github.com/otto-torino/django-baton.git)
+    ```
 
-Replace `django.contrib.admin` in your project urls, and add baton urls:
+2. **Add to `INSTALLED_APPS`:**
+    In your project's `settings.py`, add `baton` **before** `django.contrib.admin` and `baton.autodiscover` at the **very end** of the list:
 
-``` python
-# from django.contrib import admin
-from baton.autodiscover import admin
-from django.urls import path, include
+    ```python
+    # settings.py
+    INSTALLED_APPS = [
+        # ... other apps ...
+        'baton',  # Must be before django.contrib.admin
+        'django.contrib.admin',
+        # ... other apps ...
+        'baton.autodiscover', # Must be the last app
+    ]
+    ```
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('baton/', include('baton.urls')),
+3. **Run Migrations:**
 
-]
-```
+    ```bash
+    python manage.py migrate
+    ```
 
-### Why two installed apps?
+4. **Update URLs:**
+    Replace `django.contrib.admin` with `baton.autodiscover.admin` in your project's main `urls.py` file and include Baton's URLs:
 
-Well, first `baton` has to be placed before the `django.contrib.admin` app, because it overrides some templates and resets all CSS.
-The `baton.autodiscover` entry is needed as the last installed app in order to register all applications for the admin.
-I decided to create a custom `AdminSite` class, to allow the customization of some variables the Django way (`site_header`, `index_title`, ...). I think it's a good approach to customize these vars instead of overwriting the orignal templates. The problem is that when creating a custom AdminSite, you have to register all the apps manualy. I didn't like
-that so I wrote this `autodiscover` module which automatically registers all the apps registered with the Django's default AdminSite. For this to work, all the apps must be already registered so this app should be the last in `INSTALLED_APPS`.
+    ```python
+    # urls.py
+    # from django.contrib import admin # Remove or comment out this line
+    from baton.autodiscover import admin # Import Baton's admin
+    from django.urls import path, include
 
-## <a name="configuration"></a>Configuration
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('baton/', include('baton.urls')),
+        # ... your other url patterns ...
+    ]
+    ```
 
-The configuration dictionary must be defined inside your settings:
+### Why two entries in `INSTALLED_APPS`?
 
-``` python
-from baton.ai import AIModels
+* `baton`: Needs to be placed *before* `django.contrib.admin` because it overrides some of Django's default admin templates and resets CSS.
+* `baton.autodiscover`: This module must be the *last* app in `INSTALLED_APPS`. Baton uses a custom `AdminSite` class to allow Django-style customization of variables like `site_header` and `index_title` (instead of overriding templates). A custom `AdminSite` normally requires manual registration of all your apps. The `baton.autodiscover` module cleverly automates this by registering all apps that were already registered with Django's default `AdminSite`, ensuring all your models appear in the Baton admin. For this to work, all other apps must have already been processed.
+
+## ⚙️ Configuration
+
+Define the `BATON` dictionary in your `settings.py` to customize various aspects of the admin interface.
+
+```python
+# settings.py
+from baton.ai import AIModels # If using AI features
 
 BATON = {
-    'SITE_HEADER': 'Baton',
-    'SITE_TITLE': 'Baton',
-    'INDEX_TITLE': 'Site administration',
-    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-    'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
-    'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+    'SITE_HEADER': 'Baton Administration',
+    'SITE_TITLE': 'Baton Admin',
+    'INDEX_TITLE': 'Site Administration Dashboard',
+    'SUPPORT_HREF': '[https://github.com/otto-torino/django-baton/issues](https://github.com/otto-torino/django-baton/issues)',
+    'COPYRIGHT': 'copyright © 2020 <a href="[https://www.otto.to.it](https://www.otto.to.it)">Otto srl</a>', # HTML is safe
+    'POWERED_BY': '<a href="[https://www.otto.to.it](https://www.otto.to.it)">Otto srl</a>', # HTML is safe
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
-    'CHANGELIST_FILTERS_IN_MODAL': True,
+    'CHANGELIST_FILTERS_IN_MODAL': False,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
-    'CHANGELIST_FILTERS_FORM': True,
+    'CHANGELIST_FILTERS_FORM': False,
     'CHANGEFORM_FIXED_SUBMIT_ROW': True,
+    'COLLAPSABLE_USER_AREA': True,
     'MENU_ALWAYS_COLLAPSED': False,
-    'MENU_TITLE': 'Menu',
-    'MESSAGES_TOASTS': False,
+    'MENU_TITLE': 'Main Menu',
+    'MESSAGES_TOASTS': False, # True for all, or e.g. ['warning', 'error']
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'GRAVATAR_ENABLED': True,
-    'LOGIN_SPLASH': '/static/core/img/login-splash.png',
-    'FORCE_THEME': None,
-    'SEARCH_FIELD': {
-        'label': 'Search contents...',
-        'url': '/search/',
-    },
-    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
-    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
+    'LOGIN_SPLASH': '/static/core/img/login-splash.png', # Path to your login splash image
+    'FORCE_THEME': None, # 'light' or 'dark', or None to allow user toggle
+    'BATON_CLIENT_ID': 'your_client_id_for_ai_features',
+    'BATON_CLIENT_SECRET': 'your_client_secret_for_ai_features',
     'IMAGE_PREVIEW_WIDTH': 200,
     'AI': {
-        "MODELS": "myapp.foo.bar", # alternative to the below for lines, a function which returns the models dictionary
+        # "MODELS": "myapp.utils.get_ai_models_config", # Path to a function
         "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
         "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         'ENABLE_TRANSLATIONS': True,
         'ENABLE_CORRECTIONS': True,
-        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
+        'CORRECTION_SELECTORS': [
+            "textarea",
+            "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"
+        ],
         "CORRECTIONS_MODEL": AIModels.BATON_GPT_3_5_TURBO,
     },
     'MENU': (
-        { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
+        { 'type': 'title', 'label': 'Main Navigation', 'apps': ('auth', ), 'icon': 'apps'},
         {
             'type': 'app',
             'name': 'auth',
             'label': 'Authentication',
-            'icon': 'fa fa-lock',
+            'icon': 'lock',
             'models': (
-                {
-                    'name': 'user',
-                    'label': 'Users'
-                },
-                {
-                    'name': 'group',
-                    'label': 'Groups'
-                },
+                { 'name': 'user', 'label': 'Users', 'icon': 'group' },
+                { 'name': 'group', 'label': 'Groups', 'icon': 'verified_user' },
             )
         },
-        { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
-        { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
-        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
-        { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
-            { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
-            { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
-        ] },
+        { 'type': 'title', 'label': 'Content Management', 'apps': ('flatpages', ), 'icon': 'web_stories' },
+        { 'type': 'model', 'label': 'Static Pages', 'name': 'flatpage', 'app': 'flatpages', 'icon': 'article' },
+        { 'type': 'free', 'label': 'Custom Link', 'url': '[https://www.google.com](https://www.google.com)', 'icon': 'link', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+        {
+            'type': 'free',
+            'label': 'Nested Menu',
+            'icon': 'menu_open',
+            'default_open': True,
+            'children': [
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'settings' },
+                { 'type': 'free', 'label': 'Another Link', 'url': '[https://www.example.com](https://www.example.com)', 'icon': 'public' },
+            ]
+        },
     )
 }
 ```
 
-- `SITE_HEADER`, `COPYRIGHT` and `POWERED_BY` are marked as safe, so you can include html (i.e. img tags and links).
-- `SUPPORT_HREF` is the URL of the support link. For instance, you can use `mailto:info@blabla.com`.
-- `CONFIRM_UNSAVED_CHANGES`: if set to `True` a confirmation modal appears when leaving a change form or add form with unsaved changes.
-The check of a dirty form relies on the jQuery serialize method, so it's not 100% safe. Disabled inputs, particular widgets (ckeditor) can not be detected.
-Default value is `True`.
-- `SHOW_MULTIPART_UPLOADING`: if set to `True` an overlay with a spinner appears when submitting a `multipart/form-data` form.
-- `ENABLE_IMAGES_PREVIEW`: if set to `True` a preview is displayed above all input file fields which contain images. You can control how the preview is displayed by overriding the class `.baton-image-preview`. By default, previews are 100px height and have a box shadow on "hover".
-- `CHANGELIST_FILTERS_IN_MODAL`: if set to `True` the changelist filters are opened in a centered modal above the document, useful when you set many filters. By default, its value is `False` and the changelist filters appears from the right side of the changelist table.
-- `CHANGELIST_FILTERS_ALWAYS_OPEN`: if set to `True` the changelist filters are opened by default. By default, its value is `False` and the changelist filters can be expanded clicking a toggle button. This option is considered only if `CHANGELIST_FILTERS_IN_MODAL` is `False`.
-- `CHANGELIST_FILTERS_FORM`: if set to `True` the changelist filters are treated as in a form, you can set many of them and then press a filter button. With such option all standard filters are displayed as dropdowns.
-- `CHANGEFORM_FIXED_SUBMIT_ROW`: if set to `True` the submit row in the changeform is fixed at the bottom on large screens.
-- `COLLAPSABLE_USER_AREA`: if set to `True` the sidebar user area is collapsed and can be expanded to show links.
-- `MENU_ALWAYS_COLLAPSED`: if set to `True` the menu is hidden at page load, and the navbar toggler is always visible, just click it to show the sidebar menu.
-- `MENU_TITLE`: the menu title shown in the sidebar. If an empty string, the menu title is hidden and takes no space on larger screens, the default menu voice will still be visible in the mobile menu.
-- `MESSAGES_TOASTS`: you can decide to show all or specific level admin messages in toasts. Set it to `True` to show all message in toasts. set it to `['warning', 'error']` to show only warning and error messages in toasts.
-- `GRAVATAR_DEFAULT_IMG`: the default gravatar image displayed if the user email is not associated to any gravatar image. Possible values: 404, mp, identicon, monsterid, wavatar, retro, robohash, blank (see [http://en.gravatar.com/site/implement/images/](http://en.gravatar.com/site/implement/images/)).
-- `GRAVATAR_ENABLED`: should a gravatar image be shown for the user in the menu? Defaults to `True`.
-- `LOGIN_SPLASH`: an image used as body background in the login page. The image is centered and covers the whole viewport.
-- `FORCE_THEME`: You can force the light or dark theme, and the theme toggle disappears from the user area. Defaults to `None`
-- `BATON_CLIENT_ID`: The client ID of your baton subscription (unleashes AI functionalities). Defaults to `None`
-- `BATON_CLIENT_SECRET`: The client secret of your baton subscription (unleashes AI functionalities). Defaults to `None`
-- `IMAGE_PREVIEW_WIDTH`: The default image width in pixels of the preview shown to set the subject location of the `BatonAiImageField`. Defaults to `200`
+**Detailed Configuration Options:**
 
-`AI`, `MENU` and `SEARCH_FIELD` configurations in detail:
+* `SITE_HEADER`, `COPYRIGHT`, `POWERED_BY`: Safe for HTML content.
+* `SUPPORT_HREF`: URL for a support link.
+* `CONFIRM_UNSAVED_CHANGES` (Default: `True`): Prompts if leaving a dirty form. (*Note: Relies on jQuery `serialize()`, may not detect all changes.*)
+* `SHOW_MULTIPART_UPLOADING` (Default: `True`): Shows spinner on multipart form submission.
+* `ENABLE_IMAGES_PREVIEW` (Default: `True`): Displays image previews. Customize with `.baton-image-preview` CSS.
+* `CHANGELIST_FILTERS_IN_MODAL` (Default: `False`): If `True`, filters are in a modal.
+* `CHANGELIST_FILTERS_ALWAYS_OPEN` (Default: `False`): If `True` (and modal filters `False`), filters are open by default.
+* `CHANGELIST_FILTERS_FORM` (Default: `False`): If `True`, treats filters as a form.
+* `CHANGEFORM_FIXED_SUBMIT_ROW` (Default: `True`): Fixes submit row at the bottom.
+* `COLLAPSABLE_USER_AREA`: If `True`, user area in sidebar is initially collapsed. (Check docs for default).
+* `MENU_ALWAYS_COLLAPSED` (Default: `False`): If `True`, menu is collapsed by default.
+* `MENU_TITLE` (Default: `'Menu'`): Sidebar menu title.
+* `MESSAGES_TOASTS` (Default: `False`): Use toasts for admin messages (`True` for all, or list like `['warning', 'error']`).
+* `GRAVATAR_DEFAULT_IMG` (Default: `'retro'`): Fallback Gravatar image.
+* `GRAVATAR_ENABLED` (Default: `True`): Show user Gravatar.
+* `LOGIN_SPLASH`: Path to login page background image.
+* `FORCE_THEME` (Default: `None`): `'light'` or `'dark'` to force theme.
+* `BATON_CLIENT_ID`, `BATON_CLIENT_SECRET`: Subscription keys for AI features from [baton.sqrt64.it](https://baton.sqrt64.it).
+* `IMAGE_PREVIEW_WIDTH` (Default: `200`): Width (px) for `BatonAiImageField` preview.
 
-### <a name="configuration-ai"></a>AI
+### AI Configuration
 
-Django Baton can provide you AI assistance in the admin interface: translations, summarizations, corrections, image generation and image vision. You can choose which model to use for each functionality, please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it). 
+Django Baton integrates AI to assist with content creation and management.
 
-Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the [AI](#baton-ai) section.
+**Available Models (in `baton.ai.AIModels`):**
 
-#### Available models
+* `BATON_GPT_3_5_TURBO`, `BATON_GPT_4_TURBO`, `BATON_GPT_4O`: For translations, summarizations, corrections.
+* `BATON_GPT_4O_MINI`: Default for non-image text tasks and image vision.
+* `BATON_DALL_E_3`: Default for image generation.
 
-You can configure your preferred model for each functionality, you may choose between the following:
+**Configuration:**
+Set preferred models in `BATON['AI']`:
 
-```
-class AIModels:
-    BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
-    BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
-    BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
-    BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, image vision and corrections
-    BATON_DALL_E_3 = 'dall-e-3' # images
-```
-
-We currently support just the `dall-e-3` model for images generation and the `gpt-4o-mini` model for image vision.
-
-You can set the models used with  a simple configuration:
-
-```
-    'AI': {
-        # ...
-        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
-        "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
-        "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
-        "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
-        # ...
-    },
+```python
+"AI": {
+    "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+    "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
+    # ... etc.
+}
 ```
 
-Or you can set the path to the function which returns the models dictionary:
+Or use a function path via `"MODELS": "myapp.utils.get_ai_models_config"`.
 
-```
-    # config
-    'AI': {
-        # ...
-        "MODELS": "myapp.foo.bar",
-        # ...
-    },
+**Translations:**
+Requires `django-modeltranslation`. Enable and set model:
 
-    # myapp/foo.py
-    from baton.ai import AIModels
-    def bar():
-        return {
-            "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
-            "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
-            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
-            "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
-        }
-```
-
-If you don't set any of the models, the default models (`BATON_GPT_4O_MINI` and `BATON_DALL_E_3`) will be used.
-
-#### Translations
-
-> Note: It may happen that the AI does not translate in the right language. Also it tries to preserve HTML but not always it works. Check the contents before submitting.
-
-The translations feature is designed to work with the [django-modeltranslation](https://github.com/deschler/django-modeltranslation) package.    
-
-If enabled, it will add a `Translate` button in every change form page. This button will trigger a request to the `baton` main site which will return all the translations needed in the page.    
-Baton will then fill in the fields with the translations.
-
-> Important! Translate many long texts at once can be slow, so be sure to increase the timeout threshold in your web server configuration! The translate request is performed to the django application which then calls the external translation service, so if you have a small timeout it may happen that the request to the external translation service goes on and you're charged for it but the application closes the request with a 502 error!
-
-In order to use this feature, you need to set the `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET` keys in the configuration dictionary. In order to obtain these keys you must create an account at [Baton](https://baton.sqrt64.it). Please visit the site for more information and pricing.
-
-```
-    ...
-    'BATON_CLIENT_ID': 'xxxxxxxxxxxxxxxxxxxx',
-    'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
-    'AI': {
-        'ENABLE_TRANSLATIONS': True,
-        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_4O_MINI
-    },
-    ...
-```
-
-#### Corrections
-
-You can also enable the AI corrections feature:
-
-```
-    ...
-    'AI': {
-        'ENABLE_CORRECTIONS': True,
-        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_4O_MINI
-        'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
-    },
-    ...
-```
-
-In this case near the labels of all fields which satisfy one provided selector, and all ckeditor fields, will appear an icon to trigger the AI correction.
-If the corrected text is the same as the original one, a check icon will appear near the field, otherwise a modal is open, showing
-the diff between the original and the corrected text. At that point you can decide to use the corrected text just by pressing the confirm button.
-
-The default selectors are `textarea` and `input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])`.
-
-There is another way to trigger the correction in cases the label is not visible: ctrl + left mouse click on the field.
-
-![Corrections](docs/images/ai-corrections.png)
-
-#### Summarizations, image vision and generation
-
-These functionalities are described in detail in the [AI](#baton-ai) section.
-
-### <a name="configuration-menu"></a>MENU
-
-Currently four kind of items are supported: _title_, _app_, _model_ and _free_.
-
-Title and free voices can have children, which follow the following rules:
-
-- children items' children are ignored (do not place an app voice as a child)
-
-Items with children (title, app, free) can specify a `default_open` key to expand the submenu by default.
-
-If you don't define a MENU key in the configuration dictionary, the default MENU is shown.
-
-#### Title
-
-Like __MAIN__ and __CONTENTS__ in the screenshot, it represents a menu section. You should set a label and optionally apps or perms key, used for visualization purposes.
-
-If the title voice should act as a section title for a group of apps, you'd want to specify these apps, because if the user can't operate over them, then the voice is not shown.
-You can also define some perms (OR condition), like this:
-
-    { 'type': 'title', 'label': 'main', 'perms': ('auth.add_user', ) },
-
-Title items can have children and so you can specify the _default_open_ key.
-
-#### App
-
-You must specify the _type_ and _name_ keys. Optionally, an _icon_ key (you can use FontAwesome classes which are included by default), a _default_open_ key and a _models_ key.
-If you don't define the _models_ key, the default app models are listed under your app.
-
-> **_NOTE:_**  app name should be lowercase
-
-#### Model
-
-You must specify the _type_, _name_ and _app_ keys. Optionally, an icon key.
-
-> **_NOTE:_**  model name should be lowercase
-
-#### Free
-
-You can specify free items. You must define a _url_ and if you want some visibility permissions (OR clause). Free items can have children and so you can specify the _default_open_ key. Free items also accept a _re_ property, which specifies a regular expression used to decide whether to highlight the voice or not (the regular expression is evaluated against the document location pathname).
-
-	{
-	    'type': 'free',
-	    'label': 'Categories',
-	    'url': '/admin/news/category/',
-	    're': '^/admin/news/category/(\d*)?'
-	}
-
-### <a name="configuration-search-field"></a>SEARCH FIELD
-
-With Baton you can optionally configure a search field in the sidebar above the menu.
-
-![Search field](docs/images/search-field.png)
-
-With this functionality, you can configure a sidebar input search field with autocomplete functionality that can let you surf easily and quickly to any page you desire.
-
-```
-'SEARCH_FIELD': {
-    'label': 'Label shown as placeholder',
-    'url': '/api/path/',
+```python
+'BATON_CLIENT_ID': 'your_client_id',
+'BATON_CLIENT_SECRET': 'your_client_secret',
+'AI': {
+    'ENABLE_TRANSLATIONS': True,
+    'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O,
+    # ...
 },
 ```
 
-The autocomplete field will call a custom api at every keyup event. Such api receives the `text` param in the querystring and  should return a json response including the search results in the form:
+> **Note:** Review AI translations. Long text translations may require increased server timeouts.
 
+**Corrections:**
+
+```python
+'AI': {
+    'ENABLE_CORRECTIONS': True,
+    'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O,
+    'CORRECTION_SELECTORS': [
+        "textarea",
+        "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"
+    ],
+    # ...
+},
 ```
+
+An icon appears near fields matching selectors for corrections. Ctrl + Left Click also triggers.
+![AI Corrections Screenshot](docs/images/ai-corrections.png)
+
+**Summarizations, Image Vision & Generation:**
+Detailed in the [Baton AI In-Depth](#baton-ai-in-depth) section.
+
+### Menu Configuration
+
+Customize the sidebar via `BATON['MENU']`.
+
+**Item Types:**
+
+* `title`: Section header.
+  * `label`, `apps` (optional), `perms` (optional), `children` (optional), `default_open` (optional), `icon` (optional Material Symbol).
+* `app`: Links to a Django app.
+  * `name` (lowercase app label), `label` (optional), `icon` (optional), `models` (optional tuple to customize model list), `default_open` (optional).
+* `model`: Links to a model's changelist.
+  * `name` (lowercase model name), `app` (lowercase app label), `label` (optional), `icon` (optional).
+* `free`: Custom link.
+  * `label`, `url`, `icon` (optional), `perms` (optional), `re` (optional regex for active highlighting), `children` (optional), `default_open` (optional).
+
+> Children of items that themselves have children are ignored.
+
+### Search Field Configuration
+
+Add an autocomplete search field to the sidebar .
+
+![Search Field Screenshot](docs/images/search-field.png)
+
+```python
+'SEARCH_FIELD': {
+    'label': 'Search contents...', # Placeholder
+    'url': '/api/admin_search/',   # Your search API endpoint
+}
+```
+
+Your API at `url` receives a `text` GET parameter and should return JSON:
+
+```json
 {
-    length: 2,
-    data: [
-        { label: 'My result #1', icon: 'fa fa-edit', url: '/admin/myapp/mymodel/1/change' },
-        // ...
+    "length": 1,
+    "data": [
+        { "label": "Search Result Label", "url": "/admin/path/to/item/", "icon": "search" }
     ]
 }
 ```
-You should provide the results length and the data as an array of objects which must contain the `label` and `url` keys. The `icon` key is optional and is treated as css class given to an `i` element.
 
-Let's see an example:
+Example Django view for the search API:
 
-```
+```python
+# views.py
+from django.http import JsonResponse
+from django.contrib.admin.views.decorators import staff_member_required
+# from myapp.models import YourModel # Your model
+
 @staff_member_required
-def admin_search(request):
+def admin_search_api(request):
     text = request.GET.get('text', None)
-    res = []
-    news = News.objects.all()
-    if text:
-        news = news.filter(title__icontains=text)
-    for n in news:
-        res.append({
-            'label': str(n) + ' edit',
-            'url': '/admin/news/news/%d/change' % n.id,
-            'icon': 'fa fa-edit',
-        })
-    if text.lower() in 'Lucio Dalla Wikipedia'.lower():
-        res.append({
-            'label': 'Lucio Dalla Wikipedia',
-            'url': 'https://www.google.com',
-            'icon': 'fab fa-wikipedia-w'
-        })
-    return JsonResponse({
-        'length': len(res),
-        'data': res
-    })
+    response_data = []
+    # Implement your search logic here
+    # Example:
+    # if text:
+    #     items = YourModel.objects.filter(title__icontains=text)[:10]
+    #     for item in items:
+    #         response_data.append({
+    #             'label': str(item),
+    #             'url': f'/admin/myapp/yourmodel/{item.id}/change/', # Adjust URL
+    #             'icon': 'article', # Material Symbol name
+    #         })
+    return JsonResponse({'length': len(response_data), 'data': response_data})
 ```
 
-You can move between the results using the keyboard up and down arrows, and you can browse to the voice url pressing Enter.
+## 🤖 Baton AI In-Depth
 
-## <a name="baton-ai"></a>Baton AI
+AI features require `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET`. See [AI Configuration](#ai-configuration) for model selection.
 
-Starting from 4.0.0, the new AI functionalities are available:
+### Automatic Translations
 
-- Automatic translations with django-modeltranslation
-- Text corrections
-- Text summarization
-- Image generation
+If `ENABLE_TRANSLATIONS` is `True` and `django-modeltranslation` is used, a "Translate" button appears on forms with translatable fields. Supports default fields and CKEditor. See [AI Hooks](#ai-hooks) for other editors.
 
-You can choose which AI model to use for each functionality, see [AI configuration](#configuration-ai)
+### Corrections
 
-### <a name="ai-translations"></a>Automatic Translations
+If `ENABLE_CORRECTIONS` is `True`, an icon near text fields (matching `CORRECTION_SELECTORS`) and CKEditor fields triggers AI correction. Differences are shown in a modal.
 
-In the configuration section you can specify if you want to enable the automatic translation with django-modeltranslation. If you enable it, the functionality will be activated sitewide.
-In every add/change form page which contains fields that need to be translated, the `Translate` button will appear in the `object tools` position.
+### Text Summarization
 
-Clicking it all the empty fields that need a translations will be filled with the translation fetched.
+Define `baton_summarize_fields` in your `ModelAdmin`:
 
-All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
-
-### <a name="ai-corrections"></a>Corrections
-
-In the configuration section you can specify if you want to enable the corrections feature. If you enable it, the functionality will be activated sitewide.
-In every add/change form page which contains text fields (also CKEDITOR), an icon will appear near the label to trigger the AI correction.
-See AI Hooks section below if you need to support other wysiwyg editors.
-
-When triggergin the correction there are two possible results:
-
-- the corrected text is the same as the original one: nothing happens, only a green check icon appears near the field
-- the corrected text is different from the original one: a modal is shown with the diff between the original and the corrected text, and the user can decide to use the corrected text.
-
-### <a name="ai-summarization"></a>Text Summarization
-
-In your `ModelAdmin` classes you can define which fields can be summarized to create a content used to fill other model fields, look at the following example:
-
-``` python
+```python
+# admin.py
 class MyModelAdmin(admin.ModelAdmin):
     # ...
     baton_summarize_fields = {
-        "text_it": [{
-            "target": "abstract_it",
-            "words": 140,
+        "source_field_name_it": [{ # e.g., 'body_it'
+            "target": "target_field_name_it", # e.g., 'summary_it'
+            "words": 140, # Approximate
             "useBulletedList": True,
-            "language": "it",
-        }, {
-            "target": "meta_description_it",
-            "words": 45,
-            "useBulletedList": False,
-        }],
+            "language": "it", # Optional, defaults to Django's current language
+        },
+        # ... more targets for the same source field ...
+        ],
     }
 ```
 
-You have to specify the target field name. You can also optionally specify the follwing parameters:
+Buttons appear near the source field to generate summaries for target fields. Parameters (`words`, `useBulletedList`) can be edited in the UI. Supports default fields and CKEditor. See [AI Hooks](#ai-hooks).
 
-- `words`: number of words used in the summary (approximate, it will not be followed strictly)
-- `useBulletedList`: if the summary should be in a bulleted list
-- `language`: the language of the summary, default is your default language
+### Image Generation
 
-The `words` and `useBulletedList` parameters can be edited int the UI when actually summarizing the text.
+Use `BatonAiImageField` in your model:
 
-With this configuration, two (the number of targets) buttons will appear near the `text_it` field, each one opening a modal dialog with the configuration for the target field.
-In this modal you can edit the `words` and `useBulletedList` parameters and perform the summarization that will be inserted in the target field.
-
-All default fields and CKEDITOR fields are supported, see AI Hooks section below if you need to support other wysiwyg editors.
-
-### <a name="ai-image-generation"></a>Image Generation
-
-Baton provides a new model field and a new image widget which can be used to generate images from text. The image field can be used as a normal image field, but also a new button will appear near it. 
-The button will open a modal where you can set some options, describe the image you want and generate the image. You can then preview the image and if you like it you can save it in the 
-file field with just one click.
-
-``` python
+```python
+# models.py
 from baton.fields import BatonAiImageField
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-class MyModel(models.Model):
-    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/")
+class MyMediaModel(models.Model):
+    ai_generated_image = BatonAiImageField(
+        verbose_name=_("AI Generated Image"),
+        upload_to="ai_images/",
+        subject_location_field='image_subject_location', # Optional: for subject focus
+        alt_field="image_alt_text" # Optional: for AI-generated alt text (see Image Vision)
+    )
+    image_subject_location = models.CharField(max_length=7, default="50,50", blank=True)
+    image_alt_text = models.CharField(max_length=255, blank=True)
 ```
 
-There is also another way to add the AI image generation functionality to a normal ImageField if you do not want to use the BatonAiImageField model field:
+A button near the field opens a modal to generate images from text prompts.
+Alternatively, for standard `ImageField`s, add generation capability with JavaScript:
 
-``` html
+```html
 <script>
-    Baton.AI.addImageGeneration('{{ widget.name }}');
+    Baton.AI.addImageGeneration('{{ widget.name }}'); // widget.name of the ImageField
 </script>
 ```
 
-Baton also integrates the functionality of [django-subject-imagefield](https://github.com/otto-torino/django-subject-imagefield/), so you can specify a `subject_location` field that will store the percentage coordinated of the subject of the image, and in editing mode a point will appear on the image preview in order to let you change this position:
+Integrates `django-subject-imagefield` features for subject location. Configure preview width via `IMAGE_PREVIEW_WIDTH` in `BATON` settings.
 
-``` python
-from baton.fields import BatonAiImageField
+### Image Vision
 
-class MyModel(models.Model):
-    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", subject_location_field='subject_location')
-    subject_location = models.CharField(max_length=7, default="50,50")
-```
+Generate `alt` text for images.
 
-You can configure the width of the preview image through the settings `IMAGE_PREVIEW_WIDTH` which by default equals `200`.
+1. **Using `BatonAiImageField`**:
+    Set `alt_field`, `alt_chars` (optional), `alt_language` (optional) attributes on the field. Works primarily for images within inlines.
 
-Check the `django-subject-imagefield` documentation for more details and properties.
+    ```python
+    # models.py
+    image = BatonAiImageField(upload_to="news/", alt_field="image_alt_text", alt_chars=100)
+    image_alt_text = models.CharField(max_length=150, blank=True)
+    ```
 
-### <a name="ai-vision"></a>Image vision
-There are two ways to activate image vision functionality in Baton, both allow to generate an alt text for the image through the AI.
+2. **Using `ModelAdmin` configuration**:
+    Define `baton_vision_fields` in your `ModelAdmin`:
 
-The first way is to just use the `BatonAiImageField` and define the `alt_field` attribute (an optionally `alt_chars`, `alt_language`)
+    ```python
+    # admin.py
+    class MyModelAdmin(admin.ModelAdmin):
+        # ...
+        baton_vision_fields = {
+            #id_form-0-image": [{ // CSS selector for the image field (can target inlines)
+            "#id_image_field_name": [{ // Key must be a CSS selector targeting the image input or its preview
+                "target": "name_of_alt_text_field", // Name of a CharField in the same model/form
+                "chars": 80,                            // Optional: max characters (default 100)
+                "language": "en",                       // Optional: language for description
+            }],
+        }
+    ```
 
-``` python
-from baton.fields import BatonAiImageField
+    A button appears near the specified image field. Clicking it populates the `target` field with the AI-generated description.
 
-class MyModel(models.Model):
-    image = BatonAiImageField(verbose_name=_("immagine"), upload_to="news/", alt_field="image_alt", alt_chars=20, alt_language="en")
-    image_alt = models.CharField(max_length=40, blank=True)
-```
+### Stats Widget
 
-This method will work only when images are inside inlines.
+Display a widget showing AI feature usage statistics on your admin dashboard. Add the following to your admin index template (typically `admin/index.html` that you override):
 
-The second method consists in defining in the `ModelAdmin` classes which images can be described in order to generate an alt text, look at the following example:
-
-``` python
-class MyModelAdmin(admin.ModelAdmin):
-    # ...
-    baton_vision_fields = {
-        "#id_image": [{ # key must be a selector (useful for inlines)
-            "target": "image_alt", # target should be the name of a field of the same model
-            "chars": 80,
-            "language": "en",
-        }],
-    }
-```
-
-You have to specify the target field name. You can also optionally specify the follwing parameters:
-
-- `chars`: max number of characters used in the alt description (approximate, it will not be followed strictly, default is 100)
-- `language`: the language of the summary, default is your default language
-
-With this configuration, one (the number of targets) button will appear near the `image` field, clicking it the calculated image alt text will be inserted in the `image_alt` field.
-Even this methos should work for inline images.
-
-### <a name="ai-stats"></a>Stats widget
-
-Baton provides a new widget which can be used to display stats about AI usage. Just include it in your admin index template:
-
-``` HTML
+```django
 {% load baton_tags %}
 
 {% baton_ai_stats %}
 ```
 
-![Modal](docs/images/baton-ai-stats.png)
+![Baton AI Stats Widget](docs/images/baton-ai-stats.png)
 
-### <a name="ai-hooks"></a>AI Hooks
+### AI Hooks
 
-Baton AI functionalities do their job inspecting fields, retrieving and setting their values. WYSIWYG editors use javascript to sync with the native fields (like a textarea), and every editor behaves differently. Django Baton comes with support for [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor), but in the next future this will change because the package is almost deprecated.
+Django Baton's AI features interact with form fields to get and set values. Native HTML inputs, textareas, and fields managed by `django-ckeditor` are supported by default. To add support for other WYSIWYG editors or custom input widgets, you need to define JavaScript hooks.
 
-Nevertheless, you can add your own hooks to support every other WYSIWYG editor you desire. When doing this you need to define the following functions, for example in your `admin/base_site.html` template:
+Place these hook definitions in your `admin/base_site.html` template, **before** the `{% static 'baton/js_snippets/init_baton.js' %}` script tag:
 
-``` html
-    <!-- admin/base_site.html -->
-    <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
-    <script>
-        (function () {
-            // Get a list of fieldIds of all the editor managed fields, should return an array of ids
-            Baton.AI.getEditorFieldsHook = function () {
-              // i.e. for tinyMCE
-              return window.tinyMCE ? window.tinyMCE.get().map((f) => f.id) : []
-            }
+```html
+<script src="{% static 'baton/app/dist/baton.min.js' %}"></script> {# Ensure Baton's main JS is loaded first #}
+<script>
+(function () {
+    // Hook to get a list of all field IDs managed by your custom editor.
+    // Should return an array of strings (field IDs).
+    Baton.AI.getEditorFieldsHook = function () {
+        // Example for a hypothetical 'MyEditor':
+        // if (window.MyEditor && typeof window.MyEditor.getAllInstanceIds === 'function') {
+        //   return window.MyEditor.getAllInstanceIds();
+        // }
+        return []; // Implement for your specific editor
+    };
 
-            // Given a field id return the field value and null or undefined if field id is not an editor field
-            Baton.AI.getEditorFieldValueHook = function (fieldId) {
-              // i.e. for tinyMCE
-              return window.tinyMCE ? window.tinyMCE.get(fieldId).getContent() : null
-            }
+    // Hook to get the content of a specific editor instance by its field ID.
+    // Should return the string content or null/undefined if fieldId is not an editor field.
+    Baton.AI.getEditorFieldValueHook = function (fieldId) {
+        // Example for 'MyEditor':
+        // if (window.MyEditor && typeof window.MyEditor.getInstance === 'function') {
+        //   const editorInstance = window.MyEditor.getInstance(fieldId);
+        //   return editorInstance ? editorInstance.getContent() : null;
+        // }
+        return null; // Implement for your specific editor
+    };
 
-            // Given a field id and a new value should set the editor field value if it exists and return true
-            // should return false if the field is not an editor field
-            Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
-              // i.e. for tinyMCE
-              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
-                window.tinyMCE.get(fieldId).setContent(value)
-                return true
-              }
-              return false
-            }
+    // Hook to set the content of a specific editor instance.
+    // Should return true if the fieldId corresponds to an editor and value was set, false otherwise.
+    Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
+        // Example for 'MyEditor':
+        // if (window.MyEditor && typeof window.MyEditor.getInstance === 'function') {
+        //   const editorInstance = window.MyEditor.getInstance(fieldId);
+        //   if (editorInstance) {
+        //     editorInstance.setContent(value);
+        //     return true;
+        //   }
+        // }
+        return false; // Implement for your specific editor
+    };
 
-            // Given a field id should render the given checkmark icon to indicate the field is correct if it exists and return true,
-            // should return false if the field is not an editor field
-            Baton.AI.setEditorFieldCorrectHook = function (fieldId, icon) {
-              // i.e. for tinyMCE
-              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
-                Baton.jQuery(`#${fieldId}`).parent().after(icon) // this uses jQuery
-                return true
-              }
-              return false
-            }
-        })()
-    </script>
-    <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
+    // Hook to display a "correct" icon (checkmark) near an editor field.
+    // `iconElement` is a DOM element (the icon) provided by Baton.
+    // Should return true if successful, false otherwise.
+    Baton.AI.setEditorFieldCorrectHook = function (fieldId, iconElement) {
+        // Example for 'MyEditor':
+        // if (window.MyEditor && typeof window.MyEditor.getInstance === 'function') {
+        //   const editorInstance = window.MyEditor.getInstance(fieldId);
+        //   if (editorInstance && editorInstance.getContainer()) {
+        //     // Insert iconElement after the editor's container
+        //     editorInstance.getContainer().parentNode.insertBefore(iconElement, editorInstance.getContainer().nextSibling);
+        //     return true;
+        //   }
+        // }
+        return false; // Implement for your specific editor
+    };
+})();
+</script>
+<script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
 
-## <a name="page-detection"></a>Page Detection
+## 📄 Page Detection
 
-Baton triggers some of its functionalities basing upon the current page. For example, it will trigger the tab functionality only when the current page is an add form or change form page.
+Baton identifies current admin page types (e.g., `change_form`, `changelist`) using regex on `location.pathname`. You can customize this for custom URLs. Define `Baton.detectPageHook` in `admin/base_site.html` **before** `init_baton.js`:
 
-Baton understands which page is currently displayed performing some basic regular expressions against the location pathname.
-There may be cases in which you'd like to serve such contents at different and custom urls, in such cases you need a way to tell Baton which kind of page is tied to that url.
-
-For this reason you can inject your custom hook, a javascript function which should return the page type and that receives as first argument the Baton's default function to use as fallback, i.e.
-
-``` html
-<!-- admin/base_site.html -->
-{{ conf | json_script:"baton-config" }}
+```html
+{{ conf|json_script:"baton-config" }} {# Assuming conf is your BATON settings dict passed to template #}
 <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
 <script>
-    (function () {
-        Baton.detectPageHook = fn => /newschange/.test(location.pathname) ? 'change_form' : fn()
-    })()
+(function () {
+    Baton.detectPageHook = function (defaultDetectFn) {
+        if (/newschange/.test(location.pathname)) { // Example: custom URL part
+            return 'change_form';
+        }
+        return defaultDetectFn(); // Fallback to Baton's default detection
+    };
+})();
 </script>
 <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
 
-In this case we tell Baton that when the location pathname includes the string `newschange`, then the page should be considered a `change_form`, otherwise we let Baton guess the page type.
+**Available Page Types:** `dashboard`, `admindocs`, `login`, `logout`, `password_change`, `password_change_success`, `add_form`, `change_form`, `changelist`, `filer`, `default`.
 
-So, in order to hook into the Baton page detection system, just define a `Baton.detectPageHook` function which receives the default function as first argument and should return the page type.
+## 📡 Signals
 
-The available page types are the following: `dashboard`, `admindocs`, `login`, `logout`, `passowrd_change`, `password_change_success`, `add_form`, `change_form`, `changelist`, `filer`, `default`.
+Baton emits JavaScript events using its dispatcher. Register listeners **before** `Baton.init()`.
 
-## <a name="signals"></a>Signals
-
-Baton provides a dispatcher that can be used to register function that will be called when some events occurr.
-Currently, Baton emits five types of events:
-
-- `onNavbarReady`: dispatched when the navbar is fully rendered
-- `onMenuReady`: dispatched when the menu is fully rendered (probably the last event fired, since the menu contents are retrieved async)
-- `onTabsReady`: dispatched when the changeform tabs are fully rendered
-- `onTabChanged`: dispatched when the current changeform tab is changed
-- `onMenuError`: dispatched if the request sent to retrieve menu contents fails
-- `onReady`: dispatched when Baton JS has finished its sync job
-
-To use these, just override the baton `admin/base_site.html` template and register your listeners **before** calling `Baton.init`, i.e.
-
-``` html
-<!-- ... -->
+```html
 <script>
-    (function ($, undefined) {
-        // init listeners
-        Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY') })
-        Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY') })
-        Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY') })
-        // end listeners
-    })(jQuery, undefined)
+(function ($) { // jQuery is available as $ via Baton
+    Baton.Dispatcher.register('onReady', function () { console.log('BATON IS READY'); });
+    Baton.Dispatcher.register('onMenuReady', function () { console.log('BATON MENU IS READY'); });
+    Baton.Dispatcher.register('onNavbarReady', function () { console.log('BATON NAVBAR IS READY'); });
+    Baton.Dispatcher.register('onTabsReady', function () { console.log('BATON TABS ARE READY'); });
+    Baton.Dispatcher.register('onTabChanged', function (evtName, tabData) { console.log('BATON TAB CHANGED', tabData); });
+    Baton.Dispatcher.register('onMenuError', function () { console.error('BATON MENU FAILED TO LOAD'); });
+})(Baton.jQuery); // Pass Baton's jQuery instance
 </script>
 <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
-<!-- ... -->
 ```
 
-## <a name="js-utilities"></a>Js Utilities
+**Events:**
 
-Baton comes with a number of exported js modules you can use to enhance your admin application.
+* `onReady`: Baton JS fully initialized.
+* `onNavbarReady`: Navbar rendered.
+* `onMenuReady`: Menu rendered (often last, due to async fetch).
+* `onTabsReady`: Form tabs rendered.
+* `onTabChanged`: Active form tab changed.
+* `onMenuError`: Menu content failed to load.
+
+## 🧩 JS Utilities
+
+Baton exports JS modules for use in your custom admin scripts.
 
 ### Dispatcher
 
-Baton Dispatcher singleton module lets you subscribe to events and dispatch them, making use of the Mediator pattern.
+A singleton Mediator pattern implementation.
 
-Example:
+```javascript
+// Register callback
+Baton.Dispatcher.register('myCustomEvent', function (eventName, eventData) {
+    console.log('Event ' + eventName + ' fired with data: ', eventData);
+});
 
-``` javascript
-
-// register a callback tied to the event
-Baton.Dispatcher.register('myAppLoaded', function (evtName, s) { console.log('COOL ' + s) })
-
-// emit the event
-Baton.Dispatcher.emit('myAppLoaded', 'STUFF!')
+// Emit event
+Baton.Dispatcher.emit('myCustomEvent', { message: 'Hello Baton!' });
 ```
 
 ### Modal
 
-Baton Modal class lets you insert some content on a bootstrap modal without dealing with all the markup.
+Create Bootstrap modals programmatically.
+![Modal Screenshot](docs/images/modals.png)
 
-![Modal](docs/images/modals.png)
-
-Usage:
-
-``` javascript
-// modal configuration:
-//
+```javascript
+// Example Modal Configuration Object:
 // let config = {
 //     title: 'My modal title',
 //     subtitle: 'My subtitle', // optional
 //     content: '<p>my html content</p>', // alternative to url
-//     url: '/my/url', // url used to perform an ajax request, the response is put inside the modal body. Alternative to content.
+//     url: '/my/url', // fetches content via AJAX; alternative to content.
 //     hideFooter: false, // optional
-//     showBackBtn: false, // show a back button near the close icon, optional
-//     backBtnCb: function () {}, // back button click callback (useful to have a multi step modal), optional
-//     actionBtnLabel: 'save', // action button label, default 'save', optional
-//     actionBtnCb: null, // action button callback, optional
-//     onUrlLoaded: function () {}, // callback called when the ajax request has completed, optional
-//     size: 'lg', // modal size: sm, md, lg, xl, optional
-//     onClose: function () {} // callback called when the modal is closed, optional
-// }
-//
-// constructs a new modal instance
-// let myModal = new Baton.Modal(config)
+//     showBackBtn: false, // optional, show a back button
+//     backBtnCb: function () {}, // optional, back button click callback
+//     actionBtnLabel: 'save', // optional, default 'save'
+//     actionBtnCb: null, // optional, action button callback
+//     onUrlLoaded: function () {}, // optional, callback after AJAX content loads
+//     size: 'lg', // optional: sm, md, lg, xl
+//     onClose: function () {} // optional, callback when modal closes
+// };
 
 let myModal = new Baton.Modal({
-    title: 'My modal title',
-    content: '<p>my html content</p>',
-    size: 'lg'
-})
+    title: 'My Modal Title',
+    content: '<p>Some HTML content for the modal body.</p>',
+    size: 'lg' // Example size
+});
 
 myModal.open();
-myModal.close();
-
-myModal.update({
-    title: 'Step 2',
-    content: '<p>cool</p>'
-})
-myModal.toggle();
+// myModal.close();
+// myModal.toggle();
+// myModal.update({ title: 'New Modal Title', content: '<p>Updated content here.</p>' });
 ```
 
-## <a name="js-translations"></a>Js Translations
+## 🌐 JS Translations
 
-There are some circustamces in which Baton will print to screen some js message. Baton detects the user locale and will localize such messages, but it comes with just `en` and `it` translations provided.
+Baton includes `en` and `it` translations for its JS messages. It detects user locale from `<html>` tag's `lang` attribute. Add/override translations by defining `Baton.translations` **before** `Baton.init()`:
 
-> Baton retrieves the current user locale from the `lang` attribute of the `html` tag.
-
-However you can provide or add your own translations by attaching an object to the `Baton` namespace:
-
-``` javascript
-// these are the default translations, you can just edit the one you need, or add some locales. Baton engine will always
-// pick up your custom translation first, if it finds them.
-// you can define the object before Baton.init in the base_site template
+```javascript
+// Place in admin/base_site.html before init_baton.js
 Baton.translations = {
-  unsavedChangesAlert: 'You have some unsaved changes.',
-  uploading: 'Uploading...',
-  filter: 'Filter',
-  close: 'Close',
-  save: 'Save',
-  search: 'Search',
-  cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
-  retrieveDataError: 'There was an error retrieving the data',
-  lightTheme: 'Light theme',
-  darkTheme: 'Dark theme'
-}
+  // Default English, override or add other locales
+  en: {
+    unsavedChangesAlert: 'You have some unsaved changes.',
+    uploading: 'Uploading...',
+    filter: 'Filter',
+    close: 'Close',
+    save: 'Save',
+    search: 'Search',
+    cannotCopyToClipboardMessage: 'Cannot copy to clipboard, please do it manually: Ctrl+C, Enter',
+    retrieveDataError: 'There was an error retrieving the data',
+    lightTheme: 'Light theme',
+    darkTheme: 'Dark theme'
+  },
+  it: { // Example for Italian
+    unsavedChangesAlert: 'Ci sono modifiche non salvate.',
+    uploading: 'Caricamento...',
+    // ... other Italian translations
+  }
+  // Add other locales as needed, e.g. 'es': { ... }
+};
 ```
 
-If Baton can't find the translations for the user locale, it will default to `en`. Keep in mind that Baton will use `en` translations for all `en-xx` locales, but of course you can specify your custom translations!
+Baton defaults to `en` if a translation for the user's locale is not found.
 
-## <a name="list-filters"></a>List Filters
+## 📊 List Filters
 
-![List Filters](docs/images/filters.png)
+![List Filters Screenshot](docs/images/filters.png)
 
 ### Input Text Filters
 
-Taken from this [medium article](https://medium.com/@hakibenita/how-to-add-a-text-filter-to-django-admin-5d1db93772d8)
+Create text input filters in your `ModelAdmin`. (Adapted from [this article](https://medium.com/@hakibenita/how-to-add-a-text-filter-to-django-admin-5d1db93772d8)).
 
-Baton defines a custom InputFilter class that you can use to create text input filters and use them as any other `list_filters`, for example:
-
-``` python
-
-# your app admin
-
+```python
+# admin.py
 from baton.admin import InputFilter
+from django.contrib import admin # If not already imported
 
-class IdFilter(InputFilter):
-    parameter_name = 'id'
-    title = 'id'
- 
+class MyModelIdFilter(InputFilter):
+    parameter_name = 'id' # URL query parameter
+    title = 'ID'          # Display title for the filter
+
     def queryset(self, request, queryset):
         if self.value() is not None:
-            search_term = self.value()
-            return queryset.filter(
-                id=search_term
-            )
-
+            # Ensure value is treated as expected type, e.g., int for ID
+            try:
+                search_term = int(self.value())
+                return queryset.filter(id=search_term)
+            except ValueError:
+                return queryset.none() # Or handle error appropriately
+        return queryset
 
 class MyModelAdmin(admin.ModelAdmin):
-    list_filters = (
-        'my_field',
-        IdFilter,
-        'my_other_field',
-    )
-
+    list_display = ('id', 'name', 'other_field') # Example
+    list_filter = (MyModelIdFilter, 'other_field')
 ```
 
 ### Dropdown Filters
 
-Taken from the github app [django-admin-list-filter-dropdown](https://github.com/mrts/django-admin-list-filter-dropdown)
+Provides dropdown versions of standard Django admin list filters if a filter has at least 3 options. (Inspired by `django-admin-list-filter-dropdown`).
 
-Baton provides a dropdown form of the following list filters:
-
-| Django admin filter name   | Baton name                  |
-| -------------------------- | --------------------------- |
-| SimpleListFilter           | SimpleDropdownFilter        |
-| AllValuesFieldListFilter   | DropdownFilter              |
-| ChoicesFieldListFilter     | ChoicesDropdownFilter       |
-| RelatedFieldListFilter     | RelatedDropdownFilter       |
-| RelatedOnlyFieldListFilter | RelatedOnlyDropdownFilter   |
-
-The dropdown is visible only if the filter contains at least three options, otherwise the default template is used.
+| Django Admin Filter      | Baton Equivalent            |
+| :----------------------- | :-------------------------- |
+| `SimpleListFilter`       | `SimpleDropdownFilter`      |
+| `AllValuesFieldListFilter` | `DropdownFilter`            |
+| `ChoicesFieldListFilter` | `ChoicesDropdownFilter`     |
+| `RelatedFieldListFilter` | `RelatedDropdownFilter`     |
+| `RelatedOnlyFieldListFilter`| `RelatedOnlyDropdownFilter` |
 
 Usage:
-```
+
+```python
+# admin.py
 from baton.admin import DropdownFilter, RelatedDropdownFilter, ChoicesDropdownFilter
+# from myapp.models import MyModel, MyRelatedModel # Your models
 
 class MyModelAdmin(admin.ModelAdmin):
-    # ...
+    # list_display = ('name', 'char_field', 'choice_field', 'foreign_key_field') # Example
     list_filter = (
-        # for ordinary fields
-        ('a_charfield', DropdownFilter),
-        # for choice fields
-        ('a_choicefield', ChoiceDropdownFilter),
-        # for related fields
-        ('a_foreignkey_field', RelatedDropdownFilter),
+        ('char_field', DropdownFilter), # For CharField, TextField etc.
+        ('choice_field', ChoicesDropdownFilter), # For fields with choices
+        ('foreign_key_field', RelatedDropdownFilter), # For ForeignKey, ManyToManyField
     )
 ```
 
-### Multiple choice Filters
+### Multiple Choice Filters
 
-Baton defines a custom MultipleChoiceListFilter class that you can use to filter on multiple options, for example:
+Filter on multiple options for a field.
 
-``` python
-# your app admin
-
+```python
+# admin.py
 from baton.admin import MultipleChoiceListFilter
+# from myapp.models import News # Assuming News model with Status choices
 
-class StatusListFilter(MultipleChoiceListFilter):
+class NewsStatusListFilter(MultipleChoiceListFilter):
     title = 'Status'
-    parameter_name = 'status__in'
+    parameter_name = 'status__in' # Query parameter for __in lookup
 
     def lookups(self, request, model_admin):
-        return News.Status.choices
+        # Example assuming News.Status has .choices attribute
+        # return News.Status.choices
+        return (('draft', 'Draft'), ('published', 'Published'), ('archived', 'Archived')) # Example choices
 
-
-class MyModelAdmin(admin.ModelAdmin):
-    list_filters = (
-        'my_field',
-        StatusListFilter,
-        'my_other_field',
-    )
+class NewsAdmin(admin.ModelAdmin):
+    # list_display = ('title', 'status') # Example
+    list_filter = (NewsStatusListFilter, 'publication_date')
 ```
 
-## <a name="changelist-includes"></a>Changelist Includes
+## ➕ Changelist Includes
+>
+> Requires browser support for HTML `<template>` tags.
 
-> In order for this feature to work, the user browser must support html template tags.
-
-Baton lets you include templates directly inside the change list page, in any position you desire. It's as simple as specifying the template path and the position of the template:
+Embed custom templates within the changelist page.
 
 ```python
-@admin.register(News)
+# admin.py
+# from django.contrib import admin # If using @admin.register
+# from myapp.models import News # Your model
+
+# @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    #...
-    baton_cl_includes = [
-        ('news/admin_include_top.html', 'top', ),
-        ('news/admin_include_below.html', 'below', )
-    ]
-```
-
-In this case, Baton will place the content of the `admin_include_top.html` template at the top of the changelist section (above the search field), and the content of the `admin_include_below.html` below the changelist form.
-
-![Baton changelist includes](docs/images/baton-cl-includes.png)
-
-You can specify the following positions:
-
-|Position|Description|
-|:--------|:-----------|
-|`top`| the template is placed inside the changelist form, at the top|
-|`bottom`| the template is placed inside the changelist form, at the bottom|
-|`above`| the template is placed above the changelist form|
-|`below`| the template is placed below the changelist form|
-
-And, of course, you can access the all the changelist view context variables inside your template.
-
-## <a name="changelist-filters-includes"></a>Changelist Filters Includes
-
-> In order for this feature to work, the user browser must support html template tags.
-
-Baton lets you include templates directly inside the change list filter container, at the top or the bottom. It's as simple as specifying the template path and the position of the template:
-
-```python
-@admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
-    #...
-    baton_cl_filters_includes = [
-        ('news/admin_filters_include_top.html', 'top', ),
-        ('news/admin_filters_include_bottom.html', 'bottom', )
-    ]
-```
-
-![Baton changelist filters includes](docs/images/baton-cl-filters-includes.png)
-
-You can specify the following positions:
-
-|Position|Description|
-|:--------|:-----------|
-|`top`| the template is placed inside the changelist filter container, at the top|
-|`bottom`| the template is placed inside the changelist filter container, at the bottom|
-
-And, of course, you can access the all the changelist view context variables inside your template.
-
-## <a name="changelist-row-attributes"></a>Changelist Row Attributes
-
-> In order for this feature to work, the user browser must support html template tags.
-
-With Baton you can add every kind of html attribute (including css classes) to any element in the changelist table (cell, rows, ...)
-
-![Baton changelist row attributes](docs/images/baton-cl-row-attributes.png)
-
-It's a bit tricky, let's see how:
-
-1. Add a `baton_cl_rows_attributes` function to your `ModelAdmin` class, which takes `request` and `cl` (changelist view) as parameters.
-2. Return a json dictionary where the keys are used to match an element and the values specifies the attributes and other rules to select the element.
-
-Better to see an example:
-
-``` javascript
-class NewsModelAdmin(admin.ModelAdmin):
     # ...
+    baton_cl_includes = [
+        ('myapp/admin_includes/cl_top_banner.html', 'top'),
+        ('myapp/admin_includes/cl_below_table.html', 'below'),
+    ]
+```
 
-    def get_category(self, instance):
-        return mark_safe('<span class="span-category-id-%d">%s</span>' % (instance.id, str(instance.category)))
-    get_category.short_description = 'category'
+![Changelist Includes Screenshot](docs/images/baton-cl-includes.png)
+
+**Positions:**
+
+| Position | Description                                     |
+| :------- | :---------------------------------------------- |
+| `top`    | Inside changelist form, at the top.             |
+| `bottom` | Inside changelist form, at the bottom.          |
+| `above`  | Above the entire changelist form.               |
+| `below`  | Below the entire changelist form.               |
+
+Changelist view context variables are available in your included template.
+
+## ☰ Changelist Filters Includes
+>
+> Requires browser support for HTML `<template>` tags.
+
+Embed custom templates within the changelist filter container.
+
+```python
+# admin.py
+class NewsAdmin(admin.ModelAdmin):
+    # ...
+    baton_cl_filters_includes = [
+        ('myapp/admin_includes/filters_top_custom_filter.html', 'top'),
+        ('myapp/admin_includes/filters_bottom_info.html', 'bottom'),
+    ]
+```
+
+![Changelist Filters Includes Screenshot](docs/images/baton-cl-filters-includes.png)
+
+**Positions:**
+
+| Position | Description                                          |
+| :------- | :--------------------------------------------------- |
+| `top`    | Inside filter container, at the top.                 |
+| `bottom` | Inside filter container, at the bottom.              |
+
+Changelist view context variables are available.
+
+## ↔️ Changelist Row Attributes
+>
+> Requires browser support for HTML `<template>` tags.
+
+Add HTML attributes (classes, `data-*`, `title`, etc.) to elements in the changelist table (rows, cells).
+![Changelist Row Attributes Screenshot](docs/images/baton-cl-row-attributes.png)
+
+1. Define `baton_cl_rows_attributes` method in your `ModelAdmin`. It takes `request` and `cl` (changelist instance) as arguments.
+2. Return a JSON string dictionary. Keys usually match instance IDs. Values are dicts specifying attributes and selectors.
+
+```python
+# admin.py
+import json
+from django.utils.safestring import mark_safe
+# from myapp.models import News # Assuming News model
+
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_category_display', 'status') # Use the method name
+
+    def get_category_display(self, instance):
+        # Helper for targeting specific cells if needed by selector
+        if instance.category: # Check if category exists
+            return mark_safe(f'<span class="category-span-{instance.category.id}">{instance.category.name}</span>')
+        return "-" # Fallback if no category
+    get_category_display.short_description = 'Category'
+    get_category_display.admin_order_field = 'category' # Optional: if you want to allow ordering
 
     def baton_cl_rows_attributes(self, request, cl):
         data = {}
-        for news in cl.queryset.filter(category__id=2):
-            data[news.id] = {
+        # Example 1: Add 'table-info' class to rows of news items in category ID 2
+        for news_item in cl.queryset.filter(category__id=2):
+            data[str(news_item.id)] = { # Ensure key is string for JSON
                 'class': 'table-info',
             }
-        data[news.id] = {
-            'class': 'table-success',
-            'data-lol': 'lol',
-            'title': 'A fantasctic tooltip!',
-            'selector': '.span-category-id-%d' % 1,
-            'getParent': 'td',
-        }
+
+        # Example 2: More complex - target a specific cell for a specific news item
+        # This example assumes you want to style a cell for a news item with ID=1 and category_id=1
+        try:
+            news_to_style = cl.queryset.get(id=1, category__id=1) # More specific lookup
+            data[f"customkey_cell_{news_to_style.id}"] = { # Key can be arbitrary if selector is specific
+                'class': 'table-success font-weight-bold', # Example: bold success
+                'data-category-name': news_to_style.category.name if news_to_style.category else '',
+                'title': f'Special: {news_to_style.title}',
+                # This selector targets the span created by get_category_display
+                # It assumes the changelist renders the output of get_category_display in a cell
+                'selector': f'#result_list tr input[name=_selected_action][value="{news_to_style.pk}"] ~ td .category-span-{news_to_style.category_id}',
+                'getParent': 'td', # Applies attributes to the parent <td> of the found span
+            }
+        except cl.model.DoesNotExist: # Or your specific model DoesNotExist
+            pass # Item not found, or doesn't match criteria
+
         return json.dumps(data)
 ```
 
-In such case we're returning a dictionary with possibly many keys (each key is an id of a news instance).
+**Rules for the returned dictionary values:**
 
-The first kind of dictionary elements will add a `table-info` class to the `tr` (rows) containing the news respecting the rule `category__id=2`
+* **Keys:** Typically the primary key of the model instance (as a string). If using a custom `selector` that doesn't rely on the instance ID, the key can be any unique string.
+* **`selector`** (optional): CSS selector to find the target element.
+  * Default: `'#result_list tr input[name=_selected_action][value="' + key + '"]'` (targets the checkbox for the row of instance `key`). This works if `actions` are enabled.
+* **`getParent`** (optional):
+  * Default: `'tr'` (attributes are applied to the row).
+  * You can specify another selector (e.g., `'td'`, `'.field-my_field'`) to find a parent of the element matched by `selector`.
+  * Set to `false` (boolean, not string) or an empty string to apply attributes directly to the element matched by `selector`.
+* **Other keys:** Treated as HTML attributes to be added to the target element.
 
-The second kind of element instead uses some more options to customize the element selection: you can specify a css selector, and you can specify if Baton should then take one of its parents, and in such case you can give a parent selector also.
-In the example provided Baton will add the class `table-success`, `data-attribute` and the `title` attribute to the cell which contains the element `.span-category-id-1`.
+## 📑 Form Tabs
 
-So these are the rules:
+![Form Tabs Screenshot](docs/images/tabs.png)
+Organize your admin forms with tabs for fieldsets and inlines. Titles are derived automatically.
 
-- the default `selector` is `#result_list tr input[name=_selected_action][value=' + key + ']`, meaning that it can work only if the model is editable (you have the checkox inputs for selecting a row), and selects the row of the instance identified by `key`. If you use a custom selector the dictionary `key` is unuseful.
-- the default `getParent` is `tr`. You can change it at you will, or set it to `False`, in such case the element to which apply the given attributes will be the one specified by `selector`.
-- Every other key different from `selector` and `getParent` will be considered an attribute and added to the element.
+**Configuration (in `ModelAdmin.fieldsets` or `ModelAdmin.inlines`):**
 
-## <a name="form-tabs"></a>Form tabs
+```python
+# admin.py
+# from myapp.models import Attribute, Feature # Your models
 
-![Tabs](docs/images/tabs.png)
+# class AttributeInline(admin.StackedInline):
+#     model = Attribute # Your model
+#     extra = 1
 
-How much I loved django-suit form tabs? Too much. So, this was a feature I couldn't live without.
-
-There are three types of tabs:
-
-- **fieldset tab**: a tab containing a fieldset
-- **inline tab**: a tab containing an inline
-- **group tab**: a tab which can contain fieldsets and inlines in the order you specify
-
-Tabs' titles are retrieved automatically. For fieldset and inline tabs, it's the fieldset's title and the inline related verbose name plural.
-For group tabs the first title is taken (either of an inline or fieldset section).
-
-Using group tabs you can mix inlines with fields just by splitting fields into fieldsets and arranging them in your preferred order.
-
-Let's see how to define tabs in your admin forms (everything is done through js, no templatetags or templates overriden):
-
-``` python
-class AttributeInline(admin.StackedInline):
-    model = Attribute
-    extra = 1
-
-class FeatureInline(admin.StackedInline):
-    model = Feature
-    extra = 1
+# class FeatureInline(admin.StackedInline):
+#     model = Feature # Your model
+#     extra = 1
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('label', 'description', 'main_feature', )
-    inlines = [AttributeInline, FeatureInline, ]
+    # list_display = ('label', 'description', 'main_feature')
+    # inlines = [AttributeInline, FeatureInline] # Order of inlines matters for grouping
 
     fieldsets = (
-        ('Main', {
-            'fields': ('label', ),
-            'classes': ('order-0', 'baton-tabs-init', 'baton-tab-inline-attribute', 'baton-tab-fs-content', 'baton-tab-group-fs-tech--inline-feature', ),
-            'description': 'This is a description text'
-
+        ('Main Info', { # This fieldset will be the first tab (or part of it)
+            'fields': ('label', 'description'),
+            'classes': ('baton-tabs-init', 'order-0', 'baton-tab-group-main--inline-attribute'),
+            # 'baton-tabs-init': REQUIRED on the first fieldset to enable tabs.
+            # 'order-X': (Optional) Defines the tab order for this fieldset. Default 0.
+            # 'baton-tab-inline-MODELNAME': Creates a tab for the inline 'attribute' (lowercase model name).
+            # 'baton-tab-fs-CUSTOMNAME': Creates a tab for this fieldset (Main Info -> content_tab).
+            # 'baton-tab-group-GROUPNAME--item1type-ITEMNAME--item2type-ITEMNAME': Creates a group tab.
+            #    GROUPNAME is arbitrary. ITEMNAME can be fs-FIELDSETNAME or inline-INLINEMODELNAME.
+            #    Example: 'baton-tab-group-overview--fs-main_info--inline-attribute'
+            #    This creates a group tab named "Overview" containing the "Main Info" fieldset and the "Attribute" inline.
+            'description': 'This is the main information for the item.'
         }),
-        ('Content', {
+        ('Content Details', {
             'fields': ('text', ),
-            'classes': ('tab-fs-content', ),
-            'description': 'This is another description text'
-
+            'classes': ('baton-tab-fs-content', ), # This fieldset becomes a tab named "Content"
+            'description': 'Detailed content for the item.'
         }),
-        ('Tech', {
+        ('Technical Specs', {
             'fields': ('main_feature', ),
-            'classes': ('tab-fs-tech', ),
-            'description': 'This is another description text'
-
+            # This fieldset is part of a group tab defined in the "Main Info" fieldset:
+            # e.g. 'baton-tab-group-main--inline-attribute--fs-tech--inline-feature' in 'Main Info' would group this.
+            'classes': ('baton-tab-fs-tech', ),
+            'description': 'Technical specifications and features.'
         }),
     )
 ```
 
-As you can see these are the rules:
+**Rules for Tab Classes (applied to a fieldset's `classes` tuple):**
 
-- Inline classes remain the same, no action needed
-- On the first fieldset, define a `baton-tabs-init` class which enables tabs
-- On the first fieldset, you can add an `order-[NUMBER]` class, which will be used to determined in which position to place the first fieldset. The order starts from 0, and if omitted, the first fieldset has order 0. If you assign for example the class `order-2` to the first fieldset, then the first fieldset will be the third tab, while all other tabs will respect the order of declaration.
-- For every inline you want to put in a separate tab, add a class `baton-tab-inline-MODELNAME` or `baton-tab-inline-RELATEDNAME` if you've specified a related name in the model foreign key field
-- For every fieldset you want to put in a separate tab, add a class `baton-tab-fs-CUSTOMNAME`, and add a class `tab-fs-CUSTOMNAME` on the fieldset
-- For every group you want to put in a separate tab, add a class `baton-tab-group-ITEMS`, where items can be inlines (`inline-RELATEDNAME`) and/or fieldsets (`fs-CUSTOMNAME`) separated by a double hypen `--`. Also add a class `tab-fs-CUSTOMNAME` on the fieldset items.
-- Tabs order respects the defined classes order
-- Fieldsets without a specified tab will be added to the main tab. If you want the fieldset to instead display outside of any tabs, add a class `tab-fs-none` to the fieldset. The fieldset will then always be visible regardless of the current tab.
+* **`baton-tabs-init`**: **Required** on the *first* fieldset definition to activate the tabbing system.
+* **`order-X`**: (Optional, on the first fieldset) Sets the display order of the tab generated by the first fieldset itself. `X` is a number (e.g., `order-0`, `order-1`).
+* **`baton-tab-inline-MODELNAME`**: Creates a separate tab for the inline whose model is `MODELNAME` (lowercase). If you used `related_name` for the inline, use `baton-tab-inline-RELATEDNAME`.
+* **`baton-tab-fs-CUSTOMNAME`**: Creates a separate tab for the fieldset that *also* has the class `tab-fs-CUSTOMNAME`. `CUSTOMNAME` is an arbitrary name you choose.
+* **`baton-tab-group-GROUPNAME--item1type-ITEM1NAME--item2type-ITEM2NAME...`**: Creates a group tab.
+  * `GROUPNAME` is an arbitrary name for your tab.
+  * `itemXtype` is either `fs` (for fieldset) or `inline`.
+  * `ITEMXNAME` is your `CUSTOMNAME` (for fieldsets) or `MODELNAME`/`RELATEDNAME` (for inlines).
+  * Example: `baton-tab-group-overview--fs-main_content--inline-attributes`
+* Fieldsets without a `baton-tab-fs-*` class that are *not* part of a group will be appended to the first tab.
+* To make a fieldset *always visible* (not part of any tab), add the class `tab-fs-none` to that fieldset.
 
-Other features:
+**Other Tab Features:**
 
-- When a field has an error, the first tab containing errors is opened automatically
-- You can open a tab on page load just by adding an hash to the url, i.e. `#inline-feature`, `#fs-content`, `#group-fs-tech--inline-feature`
+* If a form field has an error, the first tab containing that field is automatically opened.
+* Deep link to a tab by adding its hash to the URL (e.g., `#inline-feature`, `#fs-content`, `#group-overview--fs-main_content--inline-attributes`). The hash is derived from the tab class names.
 
-## [Form Includes](#form-includes)
+## 📎 Form Includes
+>
+> Requires browser support for HTML `<template>` tags.
 
-> In order for this feature to work, the user browser must support html template tags.
-
-Baton lets you include templates directly inside the change form page near a field, in any position you desire. It's as simple as specifying the template path, the field name used as anchor and the position of the template:
+Embed custom templates near specific fields in change forms.
 
 ```python
-@admin.register(News)
+# admin.py
 class NewsAdmin(admin.ModelAdmin):
-    #...
+    # ...
     baton_form_includes = [
-        ('news/admin_datetime_include.html', 'datetime', 'top', ),
-        ('news/admin_content_include.html', 'content', 'above', )
+        ('myapp/admin_includes/datetime_helper.html', 'publication_date', 'top'),
+        ('myapp/admin_includes/content_notes.html', 'body_content', 'above'),
+        ('myapp/admin_includes/field_icon.html', 'title', 'right'),
     ]
 ```
 
-In this case, Baton will place the content of the `admin_datetime_include.html` template at the top of the datetime field row, and the content of the `admin_content_include.html` above the content field row.
+![Form Includes Screenshot](docs/images/baton-form-includes.png)
 
-![Baton form includes](docs/images/baton-form-includes.png)
+**Positions:**
 
-You can specify the following positions:
+| Position | Description                                  |
+| :------- | :------------------------------------------- |
+| `top`    | Inside the field's form row, at the top.     |
+| `bottom` | Inside the field's form row, at the bottom.  |
+| `above`  | Above the field's form row.                  |
+| `below`  | Below the field's form row.                  |
+| `right`  | Inline, to the right of the input field.     |
 
-|Position|Description|
-|:--------|:-----------|
-|`top`| the template is placed inside the form row, at the top|
-|`bottom`| the template is placed inside the form row, at the bottom|
-|`above`| the template is placed above the form row|
-|`below`| the template is placed below the form row|
-|`right`| the template is placed inline at the input field right side|
+The `{{ original }}` object (the model instance) is available in your included template. Works with tabs.
 
-And, of course, you can access the `{{ original }}` object variable inside your template.
-
-It works seamlessly with the tab facility, if you include content related to a field inside one tab, then the content will be placed in the same tab.
-
-Baton lets also include templates in the object tools top bar in the change form page, keep in mind that suche templates are injected inside an `ul` tag. The template can be inserted on the left or the right:
+**Object Tools Includes:**
+Inject templates into the object tools bar (top right of change form). Templates are injected inside a `<ul>`.
 
 ```python
-@admin.register(News)
+# admin.py
 class NewsAdmin(admin.ModelAdmin):
-    #...
-    baton_form_object_tools_include = ('news/object_tools_include.html', 'left', )
+    # ...
+    baton_form_object_tools_include = ('myapp/admin_includes/custom_object_action.html', 'left') # or 'right'
 ```
 
-![Baton form object tools includes](docs/images/baton_form_object_tools_include.png)
+![Form Object Tools Includes Screenshot](docs/images/baton_form_object_tools_include.png)
 
-## <a name="collapsable-stackedinline"></a>Collapsable stacked inlines entries
+## 🤏 Collapsable Stacked Inlines
 
-![Screenshot](docs/images/collapsable_stackedinline.png)
+![Collapsable Stacked Inlines Screenshot](docs/images/collapsable_stackedinline.png)
+Make individual entries in `admin.StackedInline` collapsable.
 
-Baton lets you collapse single stacked inline entries, just add a `collapse-entry` class to the inline, with or without the entire collapse class:
+Add `collapse-entry` to the inline's `classes`:
 
-```
-class VideosInline(admin.StackedInline):
-    model = Video
+```python
+# admin.py
+class VideoInline(admin.StackedInline):
+    # model = Video # Your model
     extra = 1
-    classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+    classes = ('collapse-entry', ) # Can be combined with Django's 'collapse'
 ```
 
-And if you want the first entry to be initially expanded, add also the `expand-first` class:
+To have the first entry expanded by default:
 
-```
-class VideosInline(admin.StackedInline):
-    model = Video
+```python
+# admin.py
+class VideoInline(admin.StackedInline):
+    # model = Video # Your model
     extra = 1
-    classes = ('collapse-entry', 'expand-first', )
+    classes = ('collapse-entry', 'expand-first')
 ```
 
-## <a name="customization"></a>Themes & Customization
+## 🎨 Themes & Customization
 
-It's easy to customize the appeareance of __baton__.
-You can override all the css variables, just create a `baton/css/root.css` file (see [here](https://github.com/otto-torino/django-baton/tree/master/baton/static/baton/css/root.css)) and serve it from an app listed before baton in `INSTALLED_APPS`.
+Easily customize Baton's appearance:
 
-You can also create themes directly from the admin site, just surf to `/admin/baton/batontheme/`. There can be only one active theme, if present, the saved content is used instead of the `root.css` file. So just copy the content of that file in the field and change the colors you want. Be aware that the theme content is considered safe and injected into the page as is, so be carefull.
+1. **CSS Variables:**
+    Create a `baton/css/root.css` file in one of your app's static directories (ensure this app is listed *before* `baton` in `INSTALLED_APPS`). Override any CSS variables defined in Baton's default [root.css](https://github.com/otto-torino/django-baton/tree/master/baton/static/baton/css/root.css).
+    Example:
 
-> New!
-> You may find ready to use themes and ideas [here](https://github.com/otto-torino/django-baton-themes).
+    ```css
+    /* myapp/static/baton/css/root.css */
+    :root {
+      --bs-primary: #FF6347;
+      --bs-primary-rgb: 255,99,71;
+      --baton-sidebar-active-bg: #FF6347;
+    }
+    ```
 
-If you need heavy customization or you need to customize the `primary` and `secondary` colors, you can edit and recompile the JS app which resides in `baton/static/baton/app`.
+2. **Admin Themes:**
+    Create and manage themes directly from the admin site at `/admin/baton/batontheme/`. Only one theme can be active. Its CSS content (which should define CSS variables) will override the `baton/css/root.css` file.
+    > **Caution:** Theme content is marked safe and injected as-is. Be careful.
+    > ✨ Find ready-to-use themes at [django-baton-themes](https://github.com/otto-torino/django-baton-themes).
 
-![Customization](docs/images/customization.png)
+3. **Heavy Customization (Recompiling JS App):**
+    For changes to primary/secondary Bootstrap colors or extensive modifications, you can recompile Baton's JavaScript application.
+    ![Customization Screenshot](docs/images/customization.png)
+    1. Clone `django-baton`.
+    2. Navigate to `django-baton/baton/static/baton/app/`.
+    3. Run `npm install`.
+    4. Edit `src/styles/_variables.scss` (and other SCSS/JS files as needed).
+    5. Run `npm run compile`.
+    6. Copy the compiled `dist/baton.min.js` to your project: `YOUR_APP/static/baton/app/dist/`.
+    7. Ensure `YOUR_APP` is listed *before* `baton` in `INSTALLED_APPS`.
 
-Make the changes you want, re-compile, get the compiled JS file, place it in the static folder of your main app,
-and place your main app (ROOTAPP) before __baton__ in the `INSTALLED_APPS`.
+    For live development with automatic recompilation:
+    1. `cd django-baton/baton/static/baton/app/`
+    2. Run `npm run dev:baton` (starts Webpack dev server, usually on `http://localhost:8080`).
+    3. In your project's `admin/base_site.html` (you might need to override it), change the script source to point to the dev server:
 
-So:
+        ```html
+        {# <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> #}
+        <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+        ```
 
-    $ git clone https://github.com/otto-torino/django-baton.git
-    $ cd django-baton/baton/static/baton/app/
-    $ npm install
-    $ vim src/styles/_variables.scss
-    $ npm run compile
-    $ cp dist/baton.min.js ROOTAPP/static/baton/app/dist/
+    Now, changes in the JS app will auto-update, just refresh your Django admin page.
 
-If you want to test your live changes, just start the webpack dev server:
+## 🧪 Tests
 
-    $ cd django-baton/baton/static/baton/app/
-    $ npm run dev:baton
+Baton includes unit and end-to-end (e2e) tests using Selenium. To run e2e tests, ensure the test application (found in the `testapp` directory of the Baton repository) is running on `localhost:8000`.
 
-And inside the `base_site.html` template, make these changes:
+## 💻 Development
 
-    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+To contribute or develop locally:
 
-Now while you make your changes to the JS app (CSS included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
+1. **Set up the test app:**
 
-## <a name="tests"></a>Tests
+    ```bash
+    cd testapp
+    python3 -m venv .virtualenv
+    source .virtualenv/bin/activate # On Windows: .virtualenv\Scripts\activate
+    cd app
+    pip install -r requirements.txt
+    python manage.py migrate
+    python manage.py createsuperuser # If needed
+    python manage.py runserver
+    ```
 
-Starting from the release 1.7.1, django baton is provided with a set of unit and e2e tests. Testing baton is not so easy, because it almost do all the stuff with css rules and by manipulating the DOM. So the e2e tests are performed using selenium and inspecting the test application inside a real browser. In order to have them run properly, you need to have the test application running on `localhost:8000`.
+    (Default login after `createsuperuser`: `admin` / `admin`, or as you defined).
 
-## <a name="development"></a>Development
+2. **Enable live JS recompilation for development:**
+    * In `testapp/app/templates/admin/base_site.html`, switch the script source to Webpack dev server:
 
-Start the test app (login admin:admin):
+        ```html
+        {# <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> #}
+        <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
+        ```
 
-    $ cd testapp
-    $ python3 -m venv .virtualenv
-    $ cd app
-    $ pip install -r requirements.txt
-    $ python manage.py runserver
+    * In a new terminal, navigate to Baton's frontend app directory and start the dev server:
 
-Switch the baton js path in `base_site.html`
+        ```bash
+        cd /path/to/your/django-baton/baton/static/baton/app/
+        npm install
+        npm run dev # For continuous development, watches for changes
+        ```
 
-    <!-- <script src="{% static 'baton/app/dist/baton.min.js' %}"></script> comment the compiled src and uncomment the webpack served src -->
-    <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script>
-
-Start both the django testapp and the js app (the last one in watch mode):
-
-    $ cd baton/static/baton/app
-    $ npm install
-    $ npm run dev
-
-Now you'll see live all your changes in the testapp.
+    Changes to Baton's frontend app will now auto-recompile. Refresh your browser to see them.
 
 ### Commands
 
-Install `invoke` and `sphinx_rtd_theme`
+Install `invoke` and `sphinx_rtd_theme` in your Python environment for documentation generation:
 
-    $ pip install invoke sphinx_rtd_theme
+```bash
+pip install invoke sphinx_rtd_theme
+```
 
-Now you can generate the documentation in order to check it. Inside the root dir:
+To generate documentation locally (from the root directory of the `django-baton` repository):
 
-    $ invoke docs
+```bash
+invoke docs
+```
 
-## <a name="contributing"></a>Contributing
+## 🤝 Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md)
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests. We welcome contributions!
 
-## <a name="star_history"></a>Star History
+## 🌟 Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
-
-## <a name="screenshots"></a>Screenshots
-
-Actually the following  screenshots are not always up to date, better to visit the [demo site](https://django-baton.sqrt64.it/)
-
-![Screenshot](docs/screenshots/mobile_mix.jpg)
-
-![Screenshot](docs/screenshots/mobile_mix2.png)
-
-![Screenshot](docs/screenshots/tablet.png)
-
-![Screenshot](docs/screenshots/splash-login.png)
-
-![Screenshot](docs/screenshots/index-no-analytics.png)
-
-![Screenshot](docs/screenshots/changelist-lg.png)
-
-![Screenshot](docs/screenshots/changeform-error.png)
-
-![Screenshot](docs/screenshots/filters-modal.png)
-
-![Screenshot](docs/screenshots/filters-form.png)
-
-![Screenshot](docs/screenshots/menu-collapsed.png)
-

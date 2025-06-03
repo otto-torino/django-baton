@@ -14,21 +14,23 @@ const Login = {
     const inputPassword = $('#id_password')
 
     const usernameField = $('<div />', { class: 'input-group mb-2' })
-      .append($('<span />', { class: 'input-group-text' }).append('<i class="fa fa-user"></i>'))
+      .append($('<span />', { class: 'input-group-text' }).append('<i class="material-symbols-outlined">person</i>'))
       .append(inputUsername.clone())
 
     inputUsername.replaceWith(usernameField)
 
     // adds show/hide password functionality
     const passwordInputField = inputPassword.clone()
-    const viewPasswordIcon = $('<i />', { class: 'fa fa-eye pwd-visibility-toggle' }).on('click', function () {
-      const visible = $(this).hasClass('fa-eye-slash')
-      $(this)[visible ? 'removeClass' : 'addClass']('fa-eye-slash')
-      passwordInputField.attr('type', visible ? 'password' : 'text')
-    })
+    const viewPasswordIcon = $('<i />', { class: 'material-symbols-outlined pwd-visibility-toggle' })
+      .text('visibility')
+      .on('click', function () {
+        const visible = $(this).text() === 'visibility'
+        $(this).text(visible ? 'visibility_off' : 'visibility')
+        passwordInputField.attr('type', visible ? 'password' : 'text')
+      })
 
     const passwordField = $('<div />', { class: 'input-group mb-2' })
-      .append($('<span />', { class: 'input-group-text' }).append('<i class="fa fa-key"></i>'))
+      .append($('<span />', { class: 'input-group-text' }).append('<i class="material-symbols-outlined">key</i>'))
       .append(passwordInputField)
       .append(viewPasswordIcon)
 

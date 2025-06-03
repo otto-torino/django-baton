@@ -11,23 +11,12 @@ body.page-changehistory #content-main {
 
     table {
       @extend .table;
-      @extend .table-bordered;
       @extend .table-striped;
       margin-bottom: 0;
 
-      thead > tr {
-        background: var(--bs-baton-changelist-rl-head-bg);
-        color: var(--bs-baton-changelist-rl-head-color);
-      }
-
-      tbody tr:nth-child(2n + 1) {
-        background: var(--bs-baton-changelist-rl-tr-odd-bg);
-        color: var(--bs-baton-changelist-rl-tr-odd-color);
-      }
-
       td,
       th {
-        padding: .3rem;
+        padding: 0.3rem;
       }
     }
   }

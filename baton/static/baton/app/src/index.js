@@ -13,7 +13,6 @@ import ChangeList from './core/ChangeList'
 import ChangeForm from './core/ChangeForm'
 import Login from './core/Login'
 import AdminDocs from './core/AdminDocs'
-import Filer from './core/Filer'
 import Modal from './core/Modal'
 import Messages from './core/Messages'
 import Translator from './core/i18n'
@@ -56,8 +55,6 @@ window.Baton = {
       ChangeForm.init(config, Dispatcher)
     } else if (page === 'admindocs') {
       AdminDocs.init()
-    } else if (page === 'filer') {
-      Filer.init()
     }
     Footer.init({
       remove: /_popup/.test(location.search),
@@ -113,8 +110,6 @@ window.Baton = {
       /^(\/[a-z]{2})?\/admin\/[^/]+\/[^/]+\/[^/]+\/history/.test(location.pathname)
     ) {
       return 'changehistory'
-    } else if (/\/filer\//.test(location.pathname)) {
-      return 'filer'
     } else {
       return 'default'
     }

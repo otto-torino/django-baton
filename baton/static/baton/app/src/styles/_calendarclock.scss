@@ -1,204 +1,212 @@
 // scss-lint:disable all
 /* CALENDARS & CLOCKS */
 
-.calendarbox,
-.clockbox {
-  margin: 5px auto;
-  font-size: 12px;
-  width: 19em;
-  text-align: center;
-  background: var(--bs-baton-calendar-bg);
-  border: 1px solid var(--bs-baton-calendar-bg);
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-  position: relative;
-  z-index: 10000;
-}
+body {
+  .calendarbox,
+  .clockbox {
+    margin: 5px auto;
+    font-size: 12px;
+    width: 19em;
+    text-align: center;
+    background: var(--bs-baton-calendar-bg);
+    border: 1px solid var(--bs-baton-calendar-bg);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+    z-index: 10000;
 
-.clockbox {
-  width: auto;
-
-  h2 {
-    background: var(--bs-baton-changeform-clockbox-title-bg);
-    border-bottom: 1px solid var(--bs-baton-changeform-clockbox-title-border-color);
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
+    .calendarnav-previous,
+    .calendarnav-next {
+      background-color: #fff !important;
+      border-radius: 50%;
+    }
   }
-}
 
-.calendar {
-  margin: 0;
-  padding: 0;
-}
+  .clockbox {
+    width: auto;
 
-.calendar table {
-  margin: 0;
-  padding: 0;
-  border-collapse: collapse;
-  background: var(--bs-baton-content-bg);
-  width: 100%;
-
-  caption {
-    caption-side: top;
+    h2 {
+      background: var(--bs-baton-changeform-clockbox-title-bg);
+      border-bottom: 1px solid var(--bs-baton-changeform-clockbox-title-border-color);
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
   }
-}
 
-.calendar caption,
-.calendarbox h2 {
-  margin: 0;
-  text-align: center;
-  border-top: none;
-  background: var(--bs-baton-calendar-header-bg);
-  font-weight: 700;
-  font-size: 12px;
-  color: var(--bs-baton-calendar-header-color);
-}
-
-.calendar th {
-  padding: 8px 5px;
-  background: var(--bs-baton-calendar-cell-th-bg);
-  border-bottom: 1px solid var(--bs-baton-calendar-cell-th-border-color);
-  font-weight: 400;
-  font-size: 12px;
-  text-align: center;
-  color: var(--baton-calendar-cell-color);
-}
-
-.calendar td {
-  background: var(--bs-baton-calendar-cell-bg);
-  font-weight: 400;
-  font-size: 12px;
-  text-align: center;
-  padding: 0;
-  border-top: 1px solid var(--bs-baton-calendar-cell-td-border-color);
-  border-bottom: none;
-  color: var(--baton-calendar-cell-color);
-}
-
-.calendar td.selected a {
-  background: #79aec8;
-  color: #fff;
-}
-
-.calendar td.nonday {
-  background: var(--bs-baton-calendar-cell-nonday-bg);
-}
-
-.calendar td.today a {
-  font-weight: 700;
-}
-
-.calendar td a,
-.timelist a {
-  display: block;
-  font-weight: 400;
-  padding: 6px;
-  text-decoration: none;
-  color: var(--baton-calendar-cell-color);
-}
-
-.calendar td a:focus,
-.timelist a:focus,
-.calendar td a:hover,
-.timelist a:hover {
-  background: #79aec8;
-  color: white;
-}
-
-.calendar td a:active,
-.timelist a:active {
-  background: #417690;
-  color: white;
-}
-
-.calendarnav {
-  font-size: 10px;
-  text-align: center;
-  color: #ccc;
-  margin: 0;
-  padding: 1px 3px;
-}
-
-.calendarnav a:link,
-#calendarnav a:visited,
-#calendarnav a:focus,
-#calendarnav a:hover {
-  color: #999;
-}
-
-.calendar-shortcuts {
-  background: var(--bs-baton-calendar-shortcuts-bg);
-  border-top: 1px solid var(--bs-baton-calendar-shortcuts-bg);
-  font-size: 11px;
-  line-height: 11px;
-  padding: 8px 0;
-
-  a {
-    color: var(--bs-baton-calendar-shortcuts-color);
+  .calendar {
+    margin: 0;
+    padding: 0;
   }
-}
 
-.calendarbox .calendarnav-previous,
-.calendarbox .calendarnav-next {
-  display: block;
-  height: 15px;
-  padding: 0;
-  position: absolute;
-  text-indent: -9999px;
-  top: 10px;
-  width: 15px;
-}
+  .calendar table {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    background: var(--bs-baton-content-bg);
+    width: 100%;
 
-.calendarnav-previous {
-  background: url(../img/calendar-icons.svg) 0 0 no-repeat;
-  left: 10px;
-}
-
-.calendarbox .calendarnav-previous:focus,
-.calendarbox .calendarnav-previous:hover {
-  background-position: 0 -15px;
-}
-
-.calendarnav-next {
-  right: 10px;
-  background: url(../img/calendar-icons.svg) 0 -30px no-repeat;
-}
-
-.calendarbox .calendarnav-next:focus,
-.calendarbox .calendarnav-next:hover {
-  background-position: 0 -45px;
-}
-
-.calendar-cancel {
-  margin: 0;
-  padding: 4px 0;
-  font-size: 12px;
-  background: var(--bs-baton-calendar-cancel-bg);
-  border-top: 1px solid var(--bs-baton-calendar-cancel-bg);
-
-  a {
-    color: var(--bs-baton-calendar-cancel-color);
+    caption {
+      caption-side: top;
+    }
   }
-}
 
-.calendar-cancel:focus,
-.calendar-cancel:hover {
-  opacity: 0.8;
-}
+  .calendar caption,
+  .calendarbox h2 {
+    margin: 0;
+    text-align: center;
+    border-top: none;
+    background: var(--bs-baton-calendar-header-bg);
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--bs-baton-calendar-header-color);
+  }
 
-.calendar-cancel a {
-  color: black;
-  display: block;
-}
+  .calendar th {
+    padding: 8px 5px;
+    background: var(--bs-baton-calendar-cell-th-bg);
+    border-bottom: 1px solid var(--bs-baton-calendar-cell-th-border-color);
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    color: var(--baton-calendar-cell-color);
+  }
 
-ul.timelist,
-.timelist li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+  .calendar td {
+    background: var(--bs-baton-calendar-cell-bg);
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    padding: 0;
+    border-top: 1px solid var(--bs-baton-calendar-cell-td-border-color);
+    border-bottom: none;
+    color: var(--baton-calendar-cell-color);
+  }
 
-.timelist a {
-  padding: 2px;
+  .calendar td.selected a {
+    background: #79aec8;
+    color: #fff;
+  }
+
+  .calendar td.nonday {
+    background: var(--bs-baton-calendar-cell-nonday-bg);
+  }
+
+  .calendar td.today a {
+    font-weight: 700;
+  }
+
+  .calendar td a,
+  .timelist a {
+    display: block;
+    font-weight: 400;
+    padding: 6px;
+    text-decoration: none;
+    color: var(--baton-calendar-cell-color);
+  }
+
+  .calendar td a:focus,
+  .timelist a:focus,
+  .calendar td a:hover,
+  .timelist a:hover {
+    background: #79aec8;
+    color: white;
+  }
+
+  .calendar td a:active,
+  .timelist a:active {
+    background: #417690;
+    color: white;
+  }
+
+  .calendarnav {
+    font-size: 10px;
+    text-align: center;
+    color: #ccc;
+    margin: 0;
+    padding: 1px 3px;
+  }
+
+  .calendarnav a:link,
+  #calendarnav a:visited,
+  #calendarnav a:focus,
+  #calendarnav a:hover {
+    color: #999;
+  }
+
+  .calendar-shortcuts {
+    background: var(--bs-baton-calendar-shortcuts-bg);
+    border-top: 1px solid var(--bs-baton-calendar-shortcuts-bg);
+    font-size: 11px;
+    line-height: 11px;
+    padding: 8px 0;
+
+    a {
+      color: var(--bs-baton-calendar-shortcuts-color);
+    }
+  }
+
+  .calendarbox .calendarnav-previous,
+  .calendarbox .calendarnav-next {
+    display: block;
+    height: 15px;
+    padding: 0;
+    position: absolute;
+    text-indent: -9999px;
+    top: 10px;
+    width: 15px;
+  }
+
+  .calendarnav-previous {
+    background: url(../img/calendar-icons.svg) 0 0 no-repeat;
+    left: 10px;
+  }
+
+  .calendarbox .calendarnav-previous:focus,
+  .calendarbox .calendarnav-previous:hover {
+    background-position: 0 -15px;
+  }
+
+  .calendarnav-next {
+    right: 10px;
+    background: url(../img/calendar-icons.svg) 0 -30px no-repeat;
+  }
+
+  .calendarbox .calendarnav-next:focus,
+  .calendarbox .calendarnav-next:hover {
+    background-position: 0 -45px;
+  }
+
+  .calendar-cancel {
+    margin: 0;
+    padding: 4px 0;
+    font-size: 12px;
+    background: var(--bs-baton-calendar-cancel-bg);
+    border-top: 1px solid var(--bs-baton-calendar-cancel-bg);
+
+    a {
+      color: var(--bs-baton-calendar-cancel-color) !important;
+    }
+  }
+
+  .calendar-cancel:focus,
+  .calendar-cancel:hover {
+    opacity: 0.8;
+  }
+
+  .calendar-cancel a {
+    color: black;
+    display: block;
+  }
+
+  ul.timelist,
+  .timelist li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .timelist a {
+    padding: 2px;
+  }
 }

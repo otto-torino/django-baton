@@ -27,8 +27,8 @@
     @extend .mb-0;
     @extend .p-3;
     background: var(--bs-baton-content-title-bg);
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: $h1-size;
+    font-weight: 500;
 
     + h2,
     + .messagelist + h2 {
@@ -43,8 +43,12 @@
   .object-tools {
     @extend .ps-0;
     @extend .m-2;
-    float: right;
+    display: flex;
+    gap: 0.5rem;
+    row-gap: 0.5rem;
     list-style-type: none;
+    flex-wrap: wrap;
+    float: right;
 
     li {
       display: inline-block;
@@ -52,10 +56,13 @@
 
     a {
       @extend .btn;
-      @extend .btn-secondary;
+      @extend .btn-primary;
+      display: flex;
+      align-items: center;
+      height: 100%;
 
       &::before {
-        @extend %font-awesome;
+        @extend %material;
       }
     }
   }
@@ -67,14 +74,18 @@
   margin-top: 1rem;
   padding: 0;
 
+  li::before {
+    margin-right: 0.5rem;
+  }
+
   .success {
     @extend .alert;
     @extend .alert-success;
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: "\f00c";
+      @extend %material;
+      content: 'check';
     }
   }
 
@@ -84,8 +95,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: "\f05a";
+      @extend %material;
+      content: 'info';
     }
   }
 
@@ -95,8 +106,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: "\f12a";
+      @extend %material;
+      content: 'warning';
     }
   }
 
@@ -106,8 +117,8 @@
     @extend .ps-3;
 
     &::before {
-      @extend %font-awesome;
-      content: "\f071";
+      @extend %material;
+      content: 'error';
     }
   }
 }
