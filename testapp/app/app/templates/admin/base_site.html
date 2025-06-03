@@ -37,6 +37,45 @@
     </style>
     <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
     <!-- <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script> -->
+
+    <script>
+        (function () {
+            // Get a list of fieldIds of all the editor managed fields, should return an array of ids
+            Baton.AI.getEditorFieldsHook = function () {
+              // i.e. for tinyMCE
+              return window.tinyMCE ? window.tinyMCE.get().map((f) => f.id) : []
+            }
+
+            // Given a field id return the field value and null or undefined if field id is not an editor field
+            Baton.AI.getEditorFieldValueHook = function (fieldId) {
+              // i.e. for tinyMCE
+              return window.tinyMCE ? window.tinyMCE.get(fieldId)?.getContent() : null
+            }
+
+            // Given a field id and a new value should set the editor field value if it exists and return true
+            // should return false if the field is not an editor field
+            Baton.AI.setEditorFieldValueHook = function (fieldId, value) {
+              // i.e. for tinyMCE
+              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
+                window.tinyMCE.get(fieldId).setContent(value)
+                return true
+              }
+              return false
+            }
+
+            // Given a field id should render the given checkmark icon to indicate the field is correct if it exists and return true,
+            // should return false if the field is not an editor field
+            Baton.AI.setEditorFieldCorrectHook = function (fieldId, icon) {
+              // i.e. for tinyMCE
+              if (window.tinyMCE && window.tinyMCE.get(fieldId)) {
+                Baton.jQuery(`#${fieldId}`).parent().after(icon) // this uses jQuery
+                return true
+              }
+              return false
+            }
+        })()
+    </script>
+
     <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
     {% baton_theme %}
     {% if LANGUAGE_BIDI %}
