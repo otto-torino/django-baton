@@ -16,6 +16,7 @@ class TestBatonClIncludes(TestCase):
         self.driver.set_window_size(1920, 1080)
         self.driver.implicitly_wait(10)
         self.login()
+        time.sleep(2)
 
     def tearDown(self):
         self.driver.quit()
@@ -39,7 +40,7 @@ class TestBatonClIncludes(TestCase):
         time.sleep(2)
 
         # tabs number
-        include = self.driver.find_element(By.CSS_SELECTOR, ".baton-cl-include-above")
+        include = self.driver.find_element(By.CLASS_NAME, "baton-cl-include-above")
         self.assertEqual(include.is_displayed(), True)
         parent = include.find_element(By.XPATH, "following-sibling::*[1]")
         self.assertEqual(parent.get_attribute("id"), "changelist-form")

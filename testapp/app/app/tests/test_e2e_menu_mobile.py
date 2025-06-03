@@ -17,6 +17,7 @@ class TestBatonMenuMobile(TestCase):
         self.driver.set_window_size(480, 600)
         self.driver.implicitly_wait(10)
         self.login()
+        time.sleep(2)
 
     def tearDown(self):
         self.driver.quit()
