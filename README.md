@@ -23,7 +23,7 @@ Experience the features of Django Baton firsthand. Login with user `demo` and pa
 
 ## 📣 What's New?
 
-* **Baton 5.x:** Features a complete visual redesign and migrates from FontAwesome to Google Material Symbols for a sleek, modern icon set.
+* **Baton 5.x:** Features a complete visual redesign and migrates from FontAwesome to Google Material Symbols for a sleek, modern icon set, see the [migration guide](https://github.com/otto-torino/django-baton/wiki/Migrate-from-v4-to-v5).
 * **Baton 4.2.1:** Integrates computer vision capabilities within the `BatonAiImageField`, includes various minor styling improvements, and incorporates several community pull requests.
 * **Baton 4.2.0:** Introduced computer vision for automatic generation of `alt` attributes for images.
 * **Baton 4.0.\*:** Unleashed a suite of powerful AI functionalities!
