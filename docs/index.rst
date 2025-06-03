@@ -29,7 +29,7 @@ Features
 - Collapsable stacke inline entries
 - Lazy load of current uploaded images
 - Full customization available recompiling the provided js app
-- it translations
+- it and fa translations
 
 Getting started
 ---------------
