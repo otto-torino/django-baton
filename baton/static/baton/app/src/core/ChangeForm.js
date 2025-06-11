@@ -190,7 +190,7 @@ const ChangeForm = {
     const positionMap = {
       above: 'before',
       below: 'after',
-      top: 'before',
+      top: 'after',
       bottom: 'append',
       right: 'after',
     }
