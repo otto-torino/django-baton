@@ -190,7 +190,7 @@ const ChangeForm = {
     const positionMap = {
       above: 'before',
       below: 'after',
-      top: 'prepend',
+      top: 'before',
       bottom: 'append',
       right: 'after',
     }
@@ -201,7 +201,9 @@ const ChangeForm = {
         const el =
           $(template).attr('data-position') === 'right'
             ? $('.form-row.field-' + field + ' #id_' + field)
-            : $('.form-row.field-' + field)
+            : $(template).attr('data-position') === 'top'
+              ? $('.form-row.field-' + field + ' label')
+              : $('.form-row.field-' + field)
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong form include position detected')
