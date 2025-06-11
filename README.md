@@ -62,13 +62,13 @@ Experience the features of Django Baton firsthand. Login with user `demo` and pa
 * [Form Tabs](#form-tabs)
 * [Form Includes](#form-includes)
 * [Collapsable Stacked Inlines](#collapsable-stacked-inlines)
-* [Themes & Customization](#themes--customization)
+* [Themes & Customization](#themes-customization)
 * [Tests](#tests)
 * [Development](#development)
 * [Contributing](#contributing)
 * [Star History](#star-history)
 
-## ⭐ Key Features
+## ⭐ <a name="key-features">Key Features</a>
 
 > **Compatibility Notes:**
 >
@@ -110,7 +110,7 @@ Baton is designed with a core principle: **minimize overriding Django templates*
 **Frontend Technologies:**
 Baton leverages Bootstrap 5 for styling and responsiveness, Google Material Symbols for icons, and jQuery for DOM manipulations. All assets are compiled into a single JavaScript file for optimized delivery.
 
-## 🛠️ Installation
+## 🛠️ <a name="installation">Installation</a>
 
 1. **Install via pip:**
 
@@ -165,7 +165,7 @@ Baton leverages Bootstrap 5 for styling and responsiveness, Google Material Symb
 * `baton`: Needs to be placed *before* `django.contrib.admin` because it overrides some of Django's default admin templates and resets CSS.
 * `baton.autodiscover`: This module must be the *last* app in `INSTALLED_APPS`. Baton uses a custom `AdminSite` class to allow Django-style customization of variables like `site_header` and `index_title` (instead of overriding templates). A custom `AdminSite` normally requires manual registration of all your apps. The `baton.autodiscover` module cleverly automates this by registering all apps that were already registered with Django's default `AdminSite`, ensuring all your models appear in the Baton admin. For this to work, all other apps must have already been processed.
 
-## ⚙️ Configuration
+## ⚙️ <a name="configuration">Configuration</a>
 
 Define the `BATON` dictionary in your `settings.py` to customize various aspects of the admin interface.
 
@@ -263,7 +263,7 @@ BATON = {
 * `BATON_CLIENT_ID`, `BATON_CLIENT_SECRET`: Subscription keys for AI features from [baton.sqrt64.it](https://baton.sqrt64.it).
 * `IMAGE_PREVIEW_WIDTH` (Default: `200`): Width (px) for `BatonAiImageField` preview.
 
-### AI Configuration
+### <a name="ai-configuration">AI Configuration</a>
 
 Django Baton integrates AI to assist with content creation and management.
 
@@ -321,7 +321,7 @@ An icon appears near fields matching selectors for corrections. Ctrl + Left Clic
 **Summarizations, Image Vision & Generation:**
 Detailed in the [Baton AI In-Depth](#baton-ai-in-depth) section.
 
-### Menu Configuration
+### <a name="menu-configuration">Menu Configuration</a>
 
 Customize the sidebar via `BATON['MENU']`.
 
@@ -338,7 +338,7 @@ Customize the sidebar via `BATON['MENU']`.
 
 > Children of items that themselves have children are ignored.
 
-### Search Field Configuration
+### <a name="search-field-configuration">Search Field Configuration</a>
 
 Add an autocomplete search field to the sidebar .
 
@@ -387,7 +387,7 @@ def admin_search_api(request):
     return JsonResponse({'length': len(response_data), 'data': response_data})
 ```
 
-## 🤖 Baton AI In-Depth
+## 🤖 <a name="baton-ai-in-depth">Baton AI In-Depth</a>
 
 AI features require `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET`. See [AI Configuration](#ai-configuration) for model selection.
 
@@ -562,7 +562,7 @@ Place these hook definitions in your `admin/base_site.html` template, **before**
 <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
 
-## 📄 Page Detection
+## 📄 <a name="page-detection">Page Detection</a>
 
 Baton identifies current admin page types (e.g., `change_form`, `changelist`) using regex on `location.pathname`. You can customize this for custom URLs. Define `Baton.detectPageHook` in `admin/base_site.html` **before** `init_baton.js`:
 
@@ -584,7 +584,7 @@ Baton identifies current admin page types (e.g., `change_form`, `changelist`) us
 
 **Available Page Types:** `dashboard`, `admindocs`, `login`, `logout`, `password_change`, `password_change_success`, `add_form`, `change_form`, `changelist`, `filer`, `default`.
 
-## 📡 Signals
+## 📡 <a name="signals">Signals</a>
 
 Baton emits JavaScript events using its dispatcher. Register listeners **before** `Baton.init()`.
 
@@ -611,7 +611,7 @@ Baton emits JavaScript events using its dispatcher. Register listeners **before*
 * `onTabChanged`: Active form tab changed.
 * `onMenuError`: Menu content failed to load.
 
-## 🧩 JS Utilities
+## 🧩 <a name="js-utilities">JS Utilities</a>
 
 Baton exports JS modules for use in your custom admin scripts.
 
@@ -663,7 +663,7 @@ myModal.open();
 // myModal.update({ title: 'New Modal Title', content: '<p>Updated content here.</p>' });
 ```
 
-## 🌐 JS Translations
+## 🌐 <a name="js-translations">JS Translations</a>
 
 Baton includes `en` and `it` translations for its JS messages. It detects user locale from `<html>` tag's `lang` attribute. Add/override translations by defining `Baton.translations` **before** `Baton.init()`:
 
@@ -694,7 +694,7 @@ Baton.translations = {
 
 Baton defaults to `en` if a translation for the user's locale is not found.
 
-## 📊 List Filters
+## 📊 <a name="list-filters">List Filters</a>
 
 ![List Filters Screenshot](docs/images/filters.png)
 
@@ -777,7 +777,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = (NewsStatusListFilter, 'publication_date')
 ```
 
-## ➕ Changelist Includes
+## ➕ <a name="changelist-includes">Changelist Includes</a>
 >
 > Requires browser support for HTML `<template>` tags.
 
@@ -810,7 +810,7 @@ class NewsAdmin(admin.ModelAdmin):
 
 Changelist view context variables are available in your included template.
 
-## ☰ Changelist Filters Includes
+## ☰ <a name="changelist-filters-includes">Changelist Filters Includes</a>
 >
 > Requires browser support for HTML `<template>` tags.
 
@@ -837,7 +837,7 @@ class NewsAdmin(admin.ModelAdmin):
 
 Changelist view context variables are available.
 
-## ↔️ Changelist Row Attributes
+## ↔️ <a name="changelist-row-attributes">Changelist Row Attributes</a>
 >
 > Requires browser support for HTML `<template>` tags.
 
@@ -902,7 +902,7 @@ class NewsAdmin(admin.ModelAdmin):
   * Set to `false` (boolean, not string) or an empty string to apply attributes directly to the element matched by `selector`.
 * **Other keys:** Treated as HTML attributes to be added to the target element.
 
-## 📑 Form Tabs
+## 📑 <a name="form-tabs">Form Tabs</a>
 
 ![Form Tabs Screenshot](docs/images/tabs.png)
 Organize your admin forms with tabs for fieldsets and inlines. Titles are derived automatically.
@@ -973,7 +973,7 @@ class ItemAdmin(admin.ModelAdmin):
 * If a form field has an error, the first tab containing that field is automatically opened.
 * Deep link to a tab by adding its hash to the URL (e.g., `#inline-feature`, `#fs-content`, `#group-overview--fs-main_content--inline-attributes`). The hash is derived from the tab class names.
 
-## 📎 Form Includes
+## 📎 <a name="form-includes">Form Includes</a>
 >
 > Requires browser support for HTML `<template>` tags.
 
@@ -1016,7 +1016,7 @@ class NewsAdmin(admin.ModelAdmin):
 
 ![Form Object Tools Includes Screenshot](docs/images/baton_form_object_tools_include.png)
 
-## 🤏 Collapsable Stacked Inlines
+## 🤏 <a name="collapsable-stacked-inlines">Collapsable Stacked Inlines</a>
 
 ![Collapsable Stacked Inlines Screenshot](docs/images/collapsable_stackedinline.png)
 Make individual entries in `admin.StackedInline` collapsable.
@@ -1041,7 +1041,7 @@ class VideoInline(admin.StackedInline):
     classes = ('collapse-entry', 'expand-first')
 ```
 
-## 🎨 Themes & Customization
+## 🎨 <a name="themes-customization">Themes & Customization</a>
 
 Easily customize Baton's appearance:
 
@@ -1086,11 +1086,11 @@ Easily customize Baton's appearance:
 
     Now, changes in the JS app will auto-update, just refresh your Django admin page.
 
-## 🧪 Tests
+## 🧪 <a name="tests">Tests</a>
 
 Baton includes unit and end-to-end (e2e) tests using Selenium. To run e2e tests, ensure the test application (found in the `testapp` directory of the Baton repository) is running on `localhost:8000`.
 
-## 💻 Development
+## 💻 <a name="development">Development</a>
 
 To contribute or develop locally:
 
@@ -1141,10 +1141,10 @@ To generate documentation locally (from the root directory of the `django-baton`
 invoke docs
 ```
 
-## 🤝 Contributing
+## 🤝 <a name="contributing">Contributing</a>
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests. We welcome contributions!
 
-## 🌟 Star History
+## 🌟 <a name="star-history">Star History</a>
 
 [![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
