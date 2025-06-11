@@ -197,8 +197,9 @@
 }
 
 .baton-form-include-right {
-  display: inline !important;
+  display: inline-block !important;
   min-width: auto !important;
+  vertical-align: top !important;
 }
 
 .change-form #content-main > form .form-row > div.baton-form-include {
