@@ -484,6 +484,7 @@
 
   textarea {
     @extend .form-control;
+    display: inline-block;
     resize: both;
 
     @include media-breakpoint-up(md) {
