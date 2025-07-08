@@ -177,9 +177,9 @@ BATON = {
     'SITE_HEADER': 'Baton Administration',
     'SITE_TITLE': 'Baton Admin',
     'INDEX_TITLE': 'Site Administration Dashboard',
-    'SUPPORT_HREF': '[https://github.com/otto-torino/django-baton/issues](https://github.com/otto-torino/django-baton/issues)',
-    'COPYRIGHT': 'copyright © 2020 <a href="[https://www.otto.to.it](https://www.otto.to.it)">Otto srl</a>', # HTML is safe
-    'POWERED_BY': '<a href="[https://www.otto.to.it](https://www.otto.to.it)">Otto srl</a>', # HTML is safe
+    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+    'COPYRIGHT': 'copyright © 2025 <a href="https://www.otto.to.it">Otto srl</a>', # HTML is safe
+    'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>', # HTML is safe
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
@@ -226,7 +226,7 @@ BATON = {
         },
         { 'type': 'title', 'label': 'Content Management', 'apps': ('flatpages', ), 'icon': 'web_stories' },
         { 'type': 'model', 'label': 'Static Pages', 'name': 'flatpage', 'app': 'flatpages', 'icon': 'article' },
-        { 'type': 'free', 'label': 'Custom Link', 'url': '[https://www.google.com](https://www.google.com)', 'icon': 'link', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+        { 'type': 'free', 'label': 'Custom Link', 'url': 'https://www.google.com', 'icon': 'link', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
         {
             'type': 'free',
             'label': 'Nested Menu',
@@ -234,7 +234,7 @@ BATON = {
             'default_open': True,
             'children': [
                 { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'settings' },
-                { 'type': 'free', 'label': 'Another Link', 'url': '[https://www.example.com](https://www.example.com)', 'icon': 'public' },
+                { 'type': 'free', 'label': 'Another Link', 'url': 'https://www.example.com', 'icon': 'public' },
             ]
         },
     )
