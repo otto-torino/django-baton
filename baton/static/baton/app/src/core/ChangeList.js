@@ -110,31 +110,29 @@ const ChangeList = {
   },
   filter: function (wrapper) {
     const self = this
-    const qs = []
 
     // any multiple choice list? These cause a page reload on click, but at least we keep the values
     // issue #292
-    const urlParams = new URLSearchParams(window.location.search)
-    const params = Object.fromEntries(urlParams.entries())
-    Object.keys(params).forEach((key) => {
-      if (/__in$/.test(key)) {
-        qs.push(`${key}=${params[key]}`)
-      }
-    })
+    const newUrl = new URL(location.href)
 
     const dropdowns = wrapper.find('select')
     const textInputs = wrapper.find('input').not('[type=hidden]')
 
-    dropdowns
+    const dropdownValues = dropdowns
       .toArray()
       .map((el) => self.getDropdownValue(el))
       .filter((v) => v !== null)
-      .forEach((v) => qs.push(v))
+      .map((v) => v.split('='))
 
-    textInputs.each((_, el) => (el.value !== '' ? qs.push(`${el.name}=${el.value}`) : null))
+    const textInputValues = textInputs.toArray().map((el) => [el.name, el.value])
 
-    // console.log(location.pathname + (qs.length ? '?' + qs.filter(q => q !== '').join('&') : ''), qs)
-    location.href = location.pathname + (qs.length ? '?' + qs.filter((q) => q !== '').join('&') : '')
+    for (const [name, value] of [...textInputValues, ...dropdownValues]) {
+      if (name && value && String(value).length) {
+        newUrl.searchParams.set(name, String(value))
+      }
+    }
+
+    location.href = newUrl.href
   },
   initTemplates: function () {
     const positionMap = {
