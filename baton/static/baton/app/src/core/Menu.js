@@ -237,9 +237,7 @@ const Menu = {
     // gravatar
     if (this.gravatarEnabled) {
       // eslint-disable-next-line max-len
-      const gravatarSpinner = $(
-        '<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>',
-      )
+      const gravatarSpinner = $('<div class="spinner-border text-primary" role="status"></div>')
       userInfo.prepend(gravatarSpinner)
       $.getJSON(this.gravatarUrl, function (data) {
         const img = $('<img />', {
