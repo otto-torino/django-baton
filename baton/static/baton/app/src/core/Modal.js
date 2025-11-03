@@ -30,7 +30,7 @@ class Modal {
     this.modalObj.html(`
       <div class="modal-dialog" role="document">
           <div class="modal-content">
-              <div class="modal-header">
+              <div class="modal-header justify-content-between">
                   <h5 class="modal-title"></h5>
                   <div style="display: flex;">
                       <button type="button" class="back me-1" aria-label="Back">
