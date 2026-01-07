@@ -26,6 +26,11 @@ body.page-logout #header {
 
   .navbar-toggler {
     color: var(--bs-baton-navbar-toggler-color);
+
+    &:focus {
+      box-shadow: 0 0 0 transparent !important;
+      outline: 0 none;
+    }
   }
 
   strong {

@@ -53,7 +53,7 @@ const Menu = {
     this.menu.append(title)
 
     if (this.alwaysCollapsed) {
-      $('<i class="material-symbols-outlined toggle-menu">close</i>')
+      $('<i class="material-symbols-outlined toggle-menu toggle-menu-ac">close</i>')
         .appendTo(this.menu)
         .on('click', () => {
           $(document.body).removeClass('menu-open')
