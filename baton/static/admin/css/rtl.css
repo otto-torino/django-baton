@@ -1,15 +1,3 @@
-@font-face {
-	font-family: 'Yekan';
-    src:		url('../../app/dist/7a71a48e0bbd982d07192d15f.ttf') format('truetype');
-    font-weight: normal;
-	font-style: normal;
-	text-rendering: optimizeLegibility;
-	font-display: auto;
-}
-
-*, body, h1, h2, h3, h4, h5, h6, p, a, input, input::placeholder, select, option {
-	font-family: "Yekan";
-}
 .sidebar-menu ul li a i::before{
     margin-left: 12px;
 }
