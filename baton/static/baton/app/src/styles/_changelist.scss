@@ -31,6 +31,11 @@
       flex: 0 0 100%;
       flex-wrap: wrap;
       overflow: hidden;
+
+      // django 6
+      > div:not([class]) {
+        width: 100%;
+      }
     }
 
     // no object tools
