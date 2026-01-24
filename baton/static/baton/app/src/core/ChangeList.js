@@ -168,6 +168,12 @@ const ChangeList = {
       }
     })
 
+    $('template#template-cl-object-tools').each(function (_, template) {
+      const position = $(template).attr('data-position') === 'right' ? 'append' : 'prepend'
+      const el = $('ul.object-tools')
+      el[position]($(template).html())
+    })
+
     $('template[data-type=attributes]').each(function (_, template) {
       try {
         const data = JSON.parse($(template).html())

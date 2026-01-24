@@ -810,6 +810,16 @@ class NewsAdmin(admin.ModelAdmin):
 
 Changelist view context variables are available in your included template.
 
+**Object Tools Includes:**
+Inject templates into the object tools bar (top right of changelist). Templates are injected inside a `<ul>`.
+
+```python
+# admin.py
+class NewsAdmin(admin.ModelAdmin):
+    # ...
+    baton_cl_object_tools_include = ('myapp/admin_includes/custom_cl_action.html', 'left') # or 'right'
+```
+
 ## ☰ <a name="changelist-filters-includes">Changelist Filters Includes</a>
 >
 > Requires browser support for HTML `<template>` tags.

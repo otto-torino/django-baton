@@ -16,6 +16,12 @@
     </template>
 {% endfor %}
 
+{% if cl.model_admin.baton_cl_object_tools_include %}
+    <template id="template-cl-object-tools" data-position="{{ cl.model_admin.baton_cl_object_tools_include.1 }}">
+        {% include cl.model_admin.baton_cl_object_tools_include.0 %}
+    </template>
+{% endif %}
+
 {% call_model_admin_method model_admin=cl.model_admin method='baton_cl_rows_attributes' cl=cl as data %}
 {% if data %}
     <template data-type="attributes">

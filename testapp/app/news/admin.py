@@ -223,6 +223,11 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
         "left",
     )
 
+    baton_cl_object_tools_include = (
+        "news/cl_object_tools_include.html",
+        "left",
+    )
+
     baton_cl_includes = [
         (
             "news/admin_cl_top_include.html",

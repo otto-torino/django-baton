@@ -32,3 +32,10 @@ You can specify the following positions:
 +----------------------------------------+--------------------------------------------------------------------+
 
 And, of course, you can access the all the changelist view context variables inside your template.
+
+Baton lets also include templates in the object tools top bar in the changelist page, keep in mind that suche templates are injected inside an ``ul`` tag. The template can be inserted on the left or the right::
+
+    @admin.register(News)
+    class NewsAdmin(admin.ModelAdmin):
+        #...
+        baton_cl_object_tools_include = ('news/object_tools_include.html', 'left', )
