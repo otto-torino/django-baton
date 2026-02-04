@@ -52,7 +52,7 @@ packaging==24.2
 pathspec==0.12.1
 pillow==11.0.0
 platformdirs==4.3.6
-protobuf==5.29.0
+protobuf==6.33.5
 pyasn1==0.6.1
 pyasn1_modules==0.4.1
 pycparser==2.22
