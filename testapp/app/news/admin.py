@@ -73,7 +73,7 @@ class VideosInline(admin.StackedInline):
 
 class ActivitiesInline(GenericStackedInline):
     model = Activity
-    form = ActivityForm
+    # form = ActivityForm
     extra = 1
     classes = (
         "collapse-entry",
@@ -108,6 +108,7 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
     )
     search_fields = ("title",)
     autocomplete_fields = ("category",)
+    list_editable = ("published",)
     inlines = [
         AttachmentsInline,
         VideosInline,

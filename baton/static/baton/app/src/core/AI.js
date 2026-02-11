@@ -57,7 +57,7 @@ const AI = {
       return
     }
     // add translate button if needed
-    const translateButton = $('<a />', { id: 'translate-tool', href: '#' })
+    const translateButton = $('<a />', { id: 'translate-tool', href: 'javascript:void(0); ' })
       .on('click', this.translate.bind(this))
       .prepend($('<span class="material-symbols-outlined">translate</span>'))
       .append($('<span />').text(` ${this.t.get('translate')}`))
@@ -147,34 +147,45 @@ const AI = {
         overlay.remove()
       })
   },
-  addVision(fieldSelector, conf) {
+  addVision(fieldSelector, conf, onlyEvents = false) {
     const self = this
     const fields = $(fieldSelector)
 
+    console.log('FIELDS', fields)
     fields.each(function (_, f) {
       const field = $(f)
+      console.log('F', f)
       let target = null
       const id = field.attr('id')
       // inline?
       const lastDash = id.lastIndexOf('-')
       if (lastDash !== -1) {
-        const prefix = id.substr(0, lastDash)
+        const prefix = id.substring(0, lastDash)
         target = $('#' + prefix + '-' + conf.target)
       } else {
         target = $('#id_' + conf.target)
       }
       const targetLabel = $(`label[for="${target.attr('id')}"]`)
       targetLabel.find('.material-symbols-outlined').remove()
-      const visionButton = $('<a />', { class: 'btn btn-sm btn-primary me-2 mt-1', href: '#' })
-        .on('click', function () {
-          self.handleVision(field, conf)
+      let visionButton
+      if (!onlyEvents) {
+        visionButton = $('<a />', {
+          class: 'btn btn-sm btn-primary me-2 mt-1',
+          href: 'javascript:void(0)',
+          id: `vision-button-${field.attr('id')}`,
         })
-        .prepend($('<span class="material-symbols-outlined">eyeglasses</span>'))
-        .append(
-          $('<span />').text(
-            ` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`,
-          ),
-        )
+          .prepend($('<span class="material-symbols-outlined">eyeglasses</span>'))
+          .append(
+            $('<span />').text(
+              ` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`,
+            ),
+          )
+      } else {
+        visionButton = $(`#vision-button-${field.attr('id')}`)
+      }
+      visionButton.on('click', function () {
+        self.handleVision(field, conf)
+      })
       field.after($('<div />').append(visionButton))
     })
   },
@@ -252,7 +263,7 @@ const AI = {
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
     targetLabel.find('.material-symbols-outlined').remove()
-    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: '#' })
+    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: 'javascript:void(0)' })
       .on('click', function () {
         self.handleSummarization(field, targetLabel, conf)
       })
@@ -343,18 +354,23 @@ const AI = {
         modal.destroy()
       })
   },
-  addImageGeneration(fieldName) {
+  addImageGeneration(fieldName, onlyEvents = false) {
+    let generateImageButton
     const field = $(`#id_${fieldName}`)
 
-    const generateImageButton = $('<a />', {
-      id: `generate-image-${fieldName}`,
-      class: 'btn btn-sm btn-primary mt-1',
-      href: '#',
-    })
-      .prepend($('<span class="material-symbols-outlined">image</span>'))
-      .append($('<span />').text(` ${this.t.get('generateImageFromAI')}`))
+    if (!onlyEvents) {
+      generateImageButton = $('<a />', {
+        id: `generate-image-${fieldName}`,
+        class: 'btn btn-sm btn-primary mt-1',
+        href: 'javascript:void(0)',
+      })
+        .prepend($('<span class="material-symbols-outlined">image</span>'))
+        .append($('<span />').text(` ${this.t.get('generateImageFromAI')}`))
 
-    field.after($('<div />').append(generateImageButton))
+      field.after($('<div />').append(generateImageButton))
+    } else {
+      generateImageButton = document.getElementById(`generate-image-${fieldName}`)
+    }
 
     const content = `
         <div>

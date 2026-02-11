@@ -12,6 +12,19 @@
             Baton.AI.addVision('#{{ widget.attrs.id }}', {target: '{{ widget.attrs.alt_field }}', chars: '{{ widget.attrs.alt_chars }}', language: '{{ widget.attrs.alt_language }}'})
         {% endif %}
     })
+
+    // when dynamically adding inlines, the button is there but the click event was not attached, we need to attach it
+    document.addEventListener('formset:added', function(event) {
+      if (/__prefix__/.test('{{ widget.name }}')) {
+        const rem = '{{ widget.name }}'.replace(/__prefix__.+/g, '')
+        const id = event.target.id.replace(rem, '')
+        const fieldName = '{{ widget.name }}'.replace(/__prefix__/, id)
+        Baton.AI.addImageGeneration(fieldName, true)
+        {% if widget.attrs.alt_field %}
+            Baton.AI.addVision('#id_' + fieldName, {target: '{{ widget.attrs.alt_field }}', chars: '{{ widget.attrs.alt_chars }}', language: '{{ widget.attrs.alt_language }}'}, true)
+        {% endif %}
+      }
+    })
 </script>
 
 {% if widget.attrs.subject_location_field %}
