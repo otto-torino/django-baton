@@ -391,6 +391,18 @@ def admin_search_api(request):
 
 AI features require `BATON_CLIENT_ID` and `BATON_CLIENT_SECRET`. See [AI Configuration](#ai-configuration) for model selection.
 
+Baton uses `baton.sqrt64.it` APIs to generate responses, but the endpoints base path can be changed with the setting:
+
+```python
+BATON = {
+    # ...
+    "BATON_AI_API_BASE_PATH": "http://localhost:1323",
+    # ...
+}
+```
+
+In such case you should implement your own endpoints for the AI features.
+
 ### Automatic Translations
 
 If `ENABLE_TRANSLATIONS` is `True` and `django-modeltranslation` is used, a "Translate" button appears on forms with translatable fields. Supports default fields and CKEditor. See [AI Hooks](#ai-hooks) for other editors.

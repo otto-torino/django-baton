@@ -15,7 +15,9 @@ from django.conf import settings
 
 from .config import get_config
 
-BATON_AI_API_BASE_PATH = "https://baton.sqrt64.it/api/v1"
+BATON_AI_API_BASE_PATH = settings.BATON.get(
+    "BATON_AI_API_BASE_PATH", "https://baton.sqrt64.it/api/v1"
+)
 # BATON_AI_API_BASE_PATH = 'http://localhost:1323/api/v1'
 
 

@@ -252,6 +252,16 @@ AI
 ----
 
 
+Django Baton uses ``baton.sqrt64.it`` APIs to generate responses, but the endpoints base path can be changed with the setting:::
+
+    BATON = {
+        # ...
+        "BATON_AI_API_BASE_PATH": "http://localhost:1323",
+        # ...
+    }
+
+In such case you should implement your own endpoints for the AI features.
+
 Django Baton can provide you AI assistance in the admin interface. You can enable the translations/corrections features by setting the ``AI`` key in the configuration dictionary. You can also configure here which models to use for each functionality. Please note that different models have different prices, see [Baton site](https://www.baton.sqrt64.it).   
 
 Django Baton supports native fields (input, textarea) and ckeditor (django-ckeditor package) by default, but provides hooks you can use to add support to any other wysiwyg editor, read more in the Baton AI section.
