@@ -34,6 +34,10 @@
 
       // django 6
       > div:not([class]) {
+        display: flex;
+        flex: 0 0 100%;
+        flex-wrap: wrap;
+        overflow: hidden;
         width: 100%;
       }
     }
