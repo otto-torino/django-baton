@@ -530,3 +530,15 @@
 .modal-title {
   font-size: $modal-title-size;
 }
+
+/* Django 6 */
+.changelist-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  input[type='submit'] {
+    @extend .btn;
+    @extend .btn-primary;
+  }
+}

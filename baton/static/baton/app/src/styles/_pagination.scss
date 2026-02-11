@@ -4,6 +4,18 @@
   overflow: auto;
   padding-top: 0.5rem;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    gap: 0.5rem;
+  }
 
   span,
   a:not(.showall) {
@@ -38,8 +50,6 @@
     @extend .btn;
     @extend .btn-sm;
     @extend .btn-outline-primary;
-    @extend .ms-2;
-    margin-top: -5px;
   }
 
   input {
