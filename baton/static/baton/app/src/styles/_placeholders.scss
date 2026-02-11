@@ -452,11 +452,13 @@
     }
   }
 
-  label {
+  label,
+  .form-row[class*='field-'] fieldset legend {
     @extend .mb-2;
     color: var(--bs-baton-changeform-label-color);
     display: block;
     text-align: left;
+    font-size: 1rem;
   }
 
   .required {
@@ -625,7 +627,7 @@
     input[type='submit'] {
       @extend .btn;
       @extend .btn-primary;
-      @extend .ms-1;
+      @extend .ms-2;
       margin-bottom: 15px;
       margin-left: auto;
       order: 1;
