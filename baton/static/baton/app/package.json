@@ -1,6 +1,6 @@
 {
   "name": "baton",
-  "version": "5.0.7",
+  "version": "5.1.1",
   "description": "Django Baton App",
   "main": "index.js",
   "scripts": {
