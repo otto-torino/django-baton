@@ -58,7 +58,7 @@ pyasn1_modules==0.4.1
 pycparser==2.22
 Pygments==2.18.0
 pynvim==0.5.2
-pyOpenSSL==24.3.0
+pyOpenSSL==26.0.0
 pyparsing==3.2.0
 PySocks==1.7.1
 python-dotenv==1.0.1
