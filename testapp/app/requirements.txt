@@ -61,7 +61,7 @@ pynvim==0.5.2
 pyOpenSSL==24.3.0
 pyparsing==3.2.0
 PySocks==1.7.1
-python-dotenv==1.0.1
+python-dotenv==1.2.2
 pytz==2024.2
 PyYAML==6.0.2
 regex==2024.11.6
