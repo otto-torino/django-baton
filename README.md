@@ -509,9 +509,53 @@ Display a widget showing AI feature usage statistics on your admin dashboard. Ad
 
 ![Baton AI Stats Widget](docs/images/baton-ai-stats.png)
 
-### AI Hooks
+### Editor Adapters
 
-Django Baton's AI features interact with form fields to get and set values. Native HTML inputs, textareas, and fields managed by `django-ckeditor` are supported by default. To add support for other WYSIWYG editors or custom input widgets, you need to define JavaScript hooks.
+Django Baton's AI features interact with form fields to get and set values. Native HTML inputs/textareas and fields managed by `django-ckeditor` are supported out of the box. Other rich-text editors plug in through **editor adapters**, and multiple editors can coexist on the same form (e.g. CKEditor *and* another editor).
+
+> **Already using `django-editor-js`?** Nothing to configure — it ships its own adapter that self-registers (see [Baton AI + django-editor-js](#baton-ai-editor-js) below).
+
+An adapter is a plain object implementing this contract:
+
+```js
+const MyEditorAdapter = {
+  name: 'my-editor',
+  // Return the ids of the fields this editor manages
+  getFields() { return Object.keys(window.MyEditor.instances) },
+  // Return the field content (string), or undefined if not owned by this editor
+  getValue(fieldId) { return window.MyEditor.instances[fieldId]?.getContent() },
+  // Set the content; return true if handled, false if not owned
+  setValue(fieldId, value) {
+    const inst = window.MyEditor.instances[fieldId]
+    if (!inst) return false
+    inst.setContent(value)
+    return true
+  },
+  // Render the "correct" checkmark icon near the field; return true if handled
+  setCorrect(fieldId, icon) {
+    const inst = window.MyEditor.instances[fieldId]
+    if (!inst) return false
+    Baton.jQuery(`#${fieldId}`).after(icon)
+    return true
+  },
+}
+```
+
+Register it in your `admin/base_site.html`, **after** `baton.min.js` and **before** `init_baton.js`:
+
+```html
+<script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
+<script>
+  Baton.AI.registerEditorAdapter(MyEditorAdapter)
+</script>
+<script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
+```
+
+Registered adapters are consulted before the built-in CKEditor adapter, which is consulted last as a fallback.
+
+### AI Hooks (legacy)
+
+> The single-override `*Hook` functions below are **still supported** for backward compatibility, but the [editor adapter](#editor-adapters) API above is recommended for new code. When defined, the legacy hooks are wrapped as a highest-priority adapter that falls through to any registered adapters and to CKEditor, so they coexist with the adapter API.
 
 Place these hook definitions in your `admin/base_site.html` template, **before** the `{% static 'baton/js_snippets/init_baton.js' %}` script tag:
 
@@ -573,6 +617,32 @@ Place these hook definitions in your `admin/base_site.html` template, **before**
 </script>
 <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
+
+### <a name="baton-ai-editor-js">Baton AI + django-editor-js</a>
+
+[`django-editor-js`](https://github.com/otto-torino/django-editor-js) (Editor.js for Django) integrates with Baton AI **out of the box, zero-config**. It ships an editor adapter that self-registers on `Baton.AI`, so translation, summarization and correction work on Editor.js fields — coexisting with CKEditor and native fields on the same form.
+
+There is nothing to add to `admin/base_site.html`: the adapter is loaded automatically via the widget's `Media`. Just make sure both apps are installed and the AI credentials are configured:
+
+```python
+INSTALLED_APPS = [
+    "baton",
+    "editor_js",
+    # ...
+    "baton.autodiscover",
+]
+
+BATON = {
+    "BATON_CLIENT_ID": os.getenv("BATON_CLIENT_ID"),
+    "BATON_CLIENT_SECRET": os.getenv("BATON_CLIENT_SECRET"),
+    "AI": {
+        "ENABLE_TRANSLATIONS": True,
+        "ENABLE_CORRECTIONS": True,
+    },
+}
+```
+
+Then use an `EditorJSField` on your model (translatable via `django-modeltranslation`, or as a summarization target) and the AI buttons appear as for any other field. Under the hood the adapter converts Editor.js' block JSON to/from HTML so the AI sees clean prose; non-text blocks (images, tables, embeds, ...) are not sent to the AI.
 
 ## 📄 <a name="page-detection">Page Detection</a>
 
