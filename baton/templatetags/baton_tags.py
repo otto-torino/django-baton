@@ -26,13 +26,13 @@ def get_ai_models(ai_config):
         translations_model = models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         summarizations_model = models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         corrections_model = models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
-        images_model = models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
+        images_model = models.get('IMAGES_MODEL', AIModels.BATON_GPT_IMAGE_1_5)
         vision_model = models.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI)
     else: # config
         translations_model = ai_config.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         summarizations_model = ai_config.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
         corrections_model = ai_config.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
-        images_model = ai_config.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3)
+        images_model = ai_config.get('IMAGES_MODEL', AIModels.BATON_GPT_IMAGE_1_5)
         vision_model = ai_config.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI)
 
     return {
@@ -73,7 +73,7 @@ def baton_config():
             "translationsModel": ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
             "correctionsModel": ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
             "summarizationsModel": ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
-            "imagesModel": ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
+            "imagesModel": ai_models.get('IMAGES_MODEL', AIModels.BATON_GPT_IMAGE_1_5),
             "visionModel": ai_models.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
@@ -228,6 +228,6 @@ def baton_ai_stats(context):
         'translations_model': ai_models.get('TRANSLATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
         'corrections_model': ai_models.get('CORRECTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
         'summarizations_model': ai_models.get('SUMMARIZATIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
-        'images_model': ai_models.get('IMAGES_MODEL', AIModels.BATON_DALL_E_3),
+        'images_model': ai_models.get('IMAGES_MODEL', AIModels.BATON_GPT_IMAGE_1_5),
         'vision_model': ai_models.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI),
     }

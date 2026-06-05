@@ -30,7 +30,7 @@ Experience the features of Django Baton firsthand. Login with user `demo` and pa
   * Automatic translations (integrates with `django-modeltranslation`).
   * Text summarization for content creation.
   * Text corrections for improved writing.
-  * Image generation using DALL·E 3.
+  * Image generation using GPT Image.
   * This version also introduced robust theme support, making customization easier than ever. Most theme changes no longer require recompiling the JavaScript application.
 
 > **🎨 Explore Themes!**
@@ -84,7 +84,7 @@ Baton is designed with a core principle: **minimize overriding Django templates*
   * Automatic translations (integrates with `django-modeltranslation`).
   * Text summarization and correction.
   * Image vision (description generation for `alt` text).
-  * Image generation (e.g., DALL·E 3).
+  * Image generation with GPT Image.
   * *(Requires a Baton subscription key for AI features).*
 * **Customizable Menu:** Flexible, dict-configurable sidebar navigation.
 * **🎨 Theme Support:** Easily customize the look and feel.
@@ -200,7 +200,7 @@ BATON = {
     'IMAGE_PREVIEW_WIDTH': 200,
     'AI': {
         # "MODELS": "myapp.utils.get_ai_models_config", # Path to a function
-        "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+        "IMAGES_MODEL": AIModels.BATON_GPT_IMAGE_1_5,
         "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
         "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_4O_MINI,
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
@@ -271,14 +271,14 @@ Django Baton integrates AI to assist with content creation and management.
 
 * `BATON_GPT_3_5_TURBO`, `BATON_GPT_4_TURBO`, `BATON_GPT_4O`: For translations, summarizations, corrections.
 * `BATON_GPT_4O_MINI`: Default for non-image text tasks and image vision.
-* `BATON_DALL_E_3`: Default for image generation.
+* `BATON_GPT_IMAGE_1_5`: Default for image generation.
 
 **Configuration:**
 Set preferred models in `BATON['AI']`:
 
 ```python
 "AI": {
-    "IMAGES_MODEL": AIModels.BATON_DALL_E_3,
+    "IMAGES_MODEL": AIModels.BATON_GPT_IMAGE_1_5,
     "VISION_MODEL": AIModels.BATON_GPT_4O_MINI,
     # ... etc.
 }
