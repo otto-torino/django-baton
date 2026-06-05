@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "192.168.1.245",
     "localhost",
+    "127.0.0.1",
 ]
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 9242880
@@ -194,7 +195,7 @@ BATON = {
                     "type": "free",
                     "label": "Categories",
                     "url": "/admin/news/category/",
-                    "re": "^/admin/news/category/(\d*)?",
+                    "re": r"^/admin/news/category/(\d*)?",
                 },
                 {"type": "model", "label": "News", "name": "news", "app": "news"},
             ],

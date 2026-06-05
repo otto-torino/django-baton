@@ -21,6 +21,34 @@ BATON_AI_API_BASE_PATH = settings.BATON.get(
 # BATON_AI_API_BASE_PATH = 'http://localhost:1323/api/v1'
 
 
+def get_baton_ai_headers():
+    client_id = settings.BATON.get("BATON_CLIENT_ID")
+    client_secret = settings.BATON.get("BATON_CLIENT_SECRET")
+    if not client_id or not client_secret:
+        return None, JsonResponse(
+            {
+                "data": {
+                    "message": "Missing BATON_CLIENT_ID or BATON_CLIENT_SECRET settings."
+                },
+                "success": False,
+            },
+            status=503,
+        )
+
+    ts = str(int(time.time()))
+    h = hmac.new(
+        client_secret.encode("utf-8"),
+        ts.encode("utf-8"),
+        hashlib.sha256,
+    )
+    sig = base64.b64encode(h.digest()).decode()
+    return {
+        "X-Client-Id": client_id,
+        "X-Timestamp": ts,
+        "X-Signature": sig,
+    }, None
+
+
 class GetAppListJsonView(View):
     @method_decorator(staff_member_required)
     def dispatch(self, *args, **kwargs):
@@ -288,21 +316,13 @@ class TranslateView(View):
         url_post = f"{BATON_AI_API_BASE_PATH}/translate/"
 
         # A POST request to tthe API
-        ts = str(int(time.time()))
-        h = hmac.new(
-            settings.BATON.get("BATON_CLIENT_SECRET").encode("utf-8"),
-            ts.encode("utf-8"),
-            hashlib.sha256,
-        )
-        sig = base64.b64encode(h.digest()).decode()
+        headers, error_response = get_baton_ai_headers()
+        if error_response:
+            return error_response
         post_response = requests.post(
             url_post,
             json=payload,
-            headers={
-                "X-Client-Id": settings.BATON.get("BATON_CLIENT_ID"),
-                "X-Timestamp": ts,
-                "X-Signature": sig,
-            },
+            headers=headers,
         )
 
         # Print the response
@@ -332,21 +352,13 @@ class SummarizeView(View):
         # url_post = "http://192.168.1.245:1323/api/v1/summarize/"
 
         # A POST request to tthe API
-        ts = str(int(time.time()))
-        h = hmac.new(
-            settings.BATON.get("BATON_CLIENT_SECRET").encode("utf-8"),
-            ts.encode("utf-8"),
-            hashlib.sha256,
-        )
-        sig = base64.b64encode(h.digest()).decode()
+        headers, error_response = get_baton_ai_headers()
+        if error_response:
+            return error_response
         post_response = requests.post(
             url_post,
             json=payload,
-            headers={
-                "X-Client-Id": settings.BATON.get("BATON_CLIENT_ID"),
-                "X-Timestamp": ts,
-                "X-Signature": sig,
-            },
+            headers=headers,
         )
 
         # Print the response
@@ -374,21 +386,13 @@ class VisionView(View):
         url_post = f"{BATON_AI_API_BASE_PATH}/vision/"
 
         # A POST request to the API
-        ts = str(int(time.time()))
-        h = hmac.new(
-            settings.BATON.get("BATON_CLIENT_SECRET").encode("utf-8"),
-            ts.encode("utf-8"),
-            hashlib.sha256,
-        )
-        sig = base64.b64encode(h.digest()).decode()
+        headers, error_response = get_baton_ai_headers()
+        if error_response:
+            return error_response
         post_response = requests.post(
             url_post,
             json=payload,
-            headers={
-                "X-Client-Id": settings.BATON.get("BATON_CLIENT_ID"),
-                "X-Timestamp": ts,
-                "X-Signature": sig,
-            },
+            headers=headers,
         )
 
         # Print the response
@@ -416,21 +420,13 @@ class GenerateImageView(View):
         # url_post = "http://192.168.1.160:1323/api/v1/image/"
 
         # A POST request to tthe API
-        ts = str(int(time.time()))
-        h = hmac.new(
-            settings.BATON.get("BATON_CLIENT_SECRET").encode("utf-8"),
-            ts.encode("utf-8"),
-            hashlib.sha256,
-        )
-        sig = base64.b64encode(h.digest()).decode()
+        headers, error_response = get_baton_ai_headers()
+        if error_response:
+            return error_response
         post_response = requests.post(
             url_post,
             json=payload,
-            headers={
-                "X-Client-Id": settings.BATON.get("BATON_CLIENT_ID"),
-                "X-Timestamp": ts,
-                "X-Signature": sig,
-            },
+            headers=headers,
         )
 
         post_response_json = post_response.json()
@@ -457,21 +453,13 @@ class CorrectView(View):
         # url_post = "http://192.168.1.245:1323/api/v1/correct/"
 
         # A POST request to tthe API
-        ts = str(int(time.time()))
-        h = hmac.new(
-            settings.BATON.get("BATON_CLIENT_SECRET").encode("utf-8"),
-            ts.encode("utf-8"),
-            hashlib.sha256,
-        )
-        sig = base64.b64encode(h.digest()).decode()
+        headers, error_response = get_baton_ai_headers()
+        if error_response:
+            return error_response
         post_response = requests.post(
             url_post,
             json=payload,
-            headers={
-                "X-Client-Id": settings.BATON.get("BATON_CLIENT_ID"),
-                "X-Timestamp": ts,
-                "X-Signature": sig,
-            },
+            headers=headers,
         )
 
         post_response_json = post_response.json()

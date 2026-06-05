@@ -9,6 +9,7 @@ baton/static/baton/app/node_modules
 build/
 /dist/
 testapp/app/.env
+testapp/.env
 tags
 tags.lock
 tags.temp
