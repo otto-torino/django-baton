@@ -29,6 +29,7 @@ urlpatterns = [
     path('baton/', include('baton.urls')),
     path("select2/", include("django_select2.urls")),
     path('tinymce/', include('tinymce.urls')),
+    path('editor-js/', include('editor_js.urls')),
 ]
 
 if settings.DEBUG:

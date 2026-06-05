@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "rangefilter",
     "import_export",
     "tinymce",
+    "editor_js",
     "mptt",
     "news",
     "baton.autodiscover",

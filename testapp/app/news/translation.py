@@ -6,6 +6,7 @@ class NewsTranslationOptions(TranslationOptions):
     fields = (
         "title",
         "content",
+        "body",
         "attachments_summary",
         "videos_summary",
     )

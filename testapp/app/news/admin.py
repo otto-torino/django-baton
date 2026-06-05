@@ -144,6 +144,8 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
                     "title",
                     "content",
                     "summary",
+                    "body",
+                    "body_summary",
                     "status",
                 ),
                 "classes": ("tab-fs-content",),
@@ -198,6 +200,15 @@ class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
                 "useBulletedList": True,
             },
             # ... more targets for the same source field ...
+        ],
+        # Editor.js source -> Editor.js target: exercises the django-editor-js
+        # adapter for both reading (summary source) and writing (summary target).
+        "body_en": [
+            {
+                "target": "body_summary",
+                "words": 80,
+                "useBulletedList": True,
+            },
         ],
     }
 

@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
 from baton.fields import BatonAiImageField
+from editor_js.fields import EditorJSField
 
 class Activity(models.Model):
     FAVORITE = 'F'
@@ -68,6 +69,11 @@ class News(models.Model):
     image_subject_location = models.CharField('image subject location', max_length=7, blank=True, null=True, default='50,50')
     content = HTMLField(verbose_name='content', help_text='html is supported')
     summary = HTMLField('summary', blank=True, null=True)
+    # Editor.js fields, used to test django-baton AI integration with django-editor-js.
+    # `body` is translatable (translation + correction); `body_summary` is a
+    # summarization target (set via Baton AI).
+    body = EditorJSField('body', blank=True, null=True)
+    body_summary = EditorJSField('body summary', blank=True, null=True)
     share = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     attachments_summary = models.TextField('attachments summary', blank=True)

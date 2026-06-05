@@ -3,8 +3,48 @@ import $ from 'jquery'
 import Translator from './i18n'
 const Diff = require('diff')
 
+/**
+ * Built-in editor adapter for django-ckeditor (CKEditor 4).
+ *
+ * An editor adapter exposes a uniform interface used by Baton AI to discover
+ * rich-text fields and to read/write their content, regardless of the editor
+ * implementation. Third party editors (e.g. django-editor-js) can register
+ * their own adapter via `Baton.AI.registerEditorAdapter(...)`.
+ *
+ * Adapter contract:
+ *   getFields()              -> array of field ids owned by the editor
+ *   getValue(fieldId)        -> field value, or undefined if not owned
+ *   setValue(fieldId, value) -> true if handled, false if not owned
+ *   setCorrect(fieldId, icon)-> true if handled, false if not owned
+ */
+const CKEditorAdapter = {
+  name: 'ckeditor',
+  getFields: function () {
+    return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+  },
+  getValue: function (fieldId) {
+    return window.CKEDITOR?.instances[fieldId]?.getData()
+  },
+  setValue: function (fieldId, value) {
+    if (window.CKEDITOR?.instances[fieldId]) {
+      window.CKEDITOR.instances[fieldId].setData(value)
+      return true
+    }
+    return false
+  },
+  setCorrect: function (fieldId, icon) {
+    if (window.CKEDITOR?.instances[fieldId]) {
+      $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon)
+      return true
+    }
+    return false
+  },
+}
+
 const AI = {
   editorFields: [],
+  // Registered third party editor adapters, checked before the built-in ones
+  editorAdapters: [],
   /**
    * AI component
    *
@@ -79,35 +119,35 @@ const AI = {
 
     // retrieve necessary translations
     const payload = []
-    let fieldsIds = $(`[id$=_${this.config.defaultLanguage}]`)
+    // collect candidate source fields (default language), both native inputs and
+    // editor-managed fields. Emptiness is evaluated editor-aware via fieldText().
+    const re = new RegExp(`_${this.config.defaultLanguage}$`)
+    const sourceIds = new Set()
+    $(`[id$=_${this.config.defaultLanguage}]`)
       .filter((_, el) => !$(el).attr('id').includes('__prefix__'))
-      .filter((_, el) => $(el).val() !== '')
-      .toArray()
-      .map((el) => $(el).attr('id'))
+      .each((_, el) => sourceIds.add($(el).attr('id')))
     this.editorFields.forEach(function (fieldId) {
-      if (
-        !fieldId.includes('__prefix__') &&
-        fieldId.includes(`_${self.config.defaultLanguage}`) &&
-        self.getEditorFieldValue(fieldId) !== ''
-      ) {
-        fieldsIds.push(fieldId)
+      if (!fieldId.includes('__prefix__') && re.test(fieldId)) {
+        sourceIds.add(fieldId)
       }
     })
-    fieldsIds = [...new Set(fieldsIds)]
 
-    fieldsIds.forEach(function (fieldId) {
-      const re = new RegExp(`_${self.config.defaultLanguage}`)
+    sourceIds.forEach(function (fieldId) {
       const baseId = fieldId.replace(re, '')
+      const isEditor = self.editorFields.includes(fieldId)
+      const sourceText = self.fieldText(fieldId)
+      if (sourceText === '') {
+        return
+      }
       const missing = []
       self.config.otherLanguages.forEach(function (lng) {
-        if ($(`#${baseId}_${lng}`).val() === '') {
+        if (self.fieldText(`${baseId}_${lng}`) === '') {
           missing.push(lng)
         }
       })
       if (missing.length > 0) {
-        const html = self.getEditorFieldValue(`${baseId}_${self.config.defaultLanguage}`)
         payload.push({
-          text: html ? self.decodeHtml(html) : $(`#${baseId}_${self.config.defaultLanguage}`).val(),
+          text: isEditor ? self.decodeHtml(sourceText) : sourceText,
           field: baseId,
           languages: missing,
           defaultLanguage: self.config.defaultLanguage,
@@ -638,41 +678,105 @@ const AI = {
       }
     })
   },
-  // hooks
-  // Get editor fields, should return a list fields ids
-  getEditorFields: function () {
-    if (this.getEditorFieldsHook) {
-      return this.getEditorFieldsHook()
+  // editor adapters
+  /**
+   * Register a third party editor adapter. Registered adapters are consulted
+   * before the built-in CKEditor adapter, so editors like django-editor-js can
+   * coexist with CKEditor on the same form. See `CKEditorAdapter` for the
+   * adapter contract.
+   */
+  registerEditorAdapter: function (adapter) {
+    this.editorAdapters.push(adapter)
+    return this
+  },
+  /**
+   * Adapter wrapping the legacy `*Hook` overrides, if any is defined. It is
+   * placed at the head of the chain (highest priority) so existing projects
+   * keep working unchanged, while still falling through to registered adapters
+   * and CKEditor for fields the hooks don't own.
+   */
+  getLegacyHookAdapter: function () {
+    const self = this
+    if (
+      !this.getEditorFieldsHook &&
+      !this.getEditorFieldValueHook &&
+      !this.setEditorFieldValueHook &&
+      !this.setEditorFieldCorrectHook
+    ) {
+      return null
     }
-
-    return window.CKEDITOR ? Object.keys(window.CKEDITOR.instances) : []
+    return {
+      name: 'legacy-hooks',
+      getFields: function () {
+        return self.getEditorFieldsHook ? self.getEditorFieldsHook() || [] : []
+      },
+      getValue: function (fieldId) {
+        return self.getEditorFieldValueHook ? self.getEditorFieldValueHook(fieldId) : undefined
+      },
+      setValue: function (fieldId, value) {
+        return self.setEditorFieldValueHook ? self.setEditorFieldValueHook(fieldId, value) : false
+      },
+      setCorrect: function (fieldId, icon) {
+        return self.setEditorFieldCorrectHook ? self.setEditorFieldCorrectHook(fieldId, icon) : false
+      },
+    }
+  },
+  // Effective adapter chain: legacy hooks (if any) -> registered adapters -> CKEditor
+  getEditorAdapters: function () {
+    const legacy = this.getLegacyHookAdapter()
+    return [...(legacy ? [legacy] : []), ...this.editorAdapters, CKEditorAdapter]
+  },
+  /**
+   * Editor-aware text accessor: returns the textual content of a field, using
+   * the editor adapter when the field is managed by one, falling back to the
+   * raw input value otherwise. Returns '' when empty. This matters for rich
+   * editors (e.g. Editor.js) whose underlying input holds a non-empty wrapper
+   * (JSON, "null", ...) even when the editor is visually empty.
+   */
+  fieldText: function (fieldId) {
+    if (this.editorFields.includes(fieldId)) {
+      const value = this.getEditorFieldValue(fieldId)
+      return value === undefined || value === null ? '' : value
+    }
+    const el = $('#' + fieldId)
+    return el.length ? el.val() || '' : ''
+  },
+  // hooks
+  // Get editor fields, should return a list of (unique) field ids
+  getEditorFields: function () {
+    const ids = []
+    this.getEditorAdapters().forEach(function (adapter) {
+      ;(adapter.getFields() || []).forEach(function (id) {
+        ids.push(id)
+      })
+    })
+    return [...new Set(ids)]
   },
   // Given a field id return the field value and null or undefined if field id is not an editor field
   getEditorFieldValue: function (fieldId) {
-    if (this.getEditorFieldValueHook) {
-      return this.getEditorFieldValueHook(fieldId)
+    for (const adapter of this.getEditorAdapters()) {
+      const value = adapter.getValue(fieldId)
+      if (value !== undefined && value !== null) {
+        return value
+      }
     }
-    return window.CKEDITOR?.instances[fieldId]?.getData()
+    return undefined
   },
   // Given a field id and a new value should set the editor field value if it exists and return true, false otherwise
   setEditorFieldValue: function (fieldId, value) {
-    if (this.setEditorFieldValueHook) {
-      return this.setEditorFieldValueHook(fieldId, value)
-    }
-    if (window.CKEDITOR?.instances[fieldId]) {
-      window.CKEDITOR.instances[fieldId].setData(value)
-      return true
+    for (const adapter of this.getEditorAdapters()) {
+      if (adapter.setValue(fieldId, value)) {
+        return true
+      }
     }
     return false
   },
   // Given a field id should render the given icon to indicate the field is correct if it exists and return true, false otherwise
   setEditorFieldCorrect: function (fieldId, icon) {
-    if (this.setEditorFieldCorrectHook) {
-      return this.setEditorFieldCorrectHook(fieldId, icon)
-    }
-    if (window.CKEDITOR?.instances[fieldId]) {
-      $(`#${fieldId}`).parent('.django-ckeditor-widget').after(icon)
-      return true
+    for (const adapter of this.getEditorAdapters()) {
+      if (adapter.setCorrect(fieldId, icon)) {
+        return true
+      }
     }
     return false
   },
