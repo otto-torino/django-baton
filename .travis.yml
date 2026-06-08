@@ -10,6 +10,7 @@ install:
   - pip install packaging
   - pip install python-dotenv
   - pip install django-tinymce
+  - pip install dj-editor-js==0.2.0
   - pip install django-admin-rangefilter
   - pip install django-admin-autocomplete-filter==0.6.1
   - pip install django-import-export
