@@ -513,7 +513,7 @@ Display a widget showing AI feature usage statistics on your admin dashboard. Ad
 
 Django Baton's AI features interact with form fields to get and set values. Native HTML inputs/textareas and fields managed by `django-ckeditor` are supported out of the box. Other rich-text editors plug in through **editor adapters**, and multiple editors can coexist on the same form (e.g. CKEditor *and* another editor).
 
-> **Already using `django-editor-js`?** Nothing to configure — it ships its own adapter that self-registers (see [Baton AI + django-editor-js](#baton-ai-editor-js) below).
+> **Already using `dj-editor-js`?** Nothing to configure — it ships its own adapter that self-registers (see [Baton AI + Editor.js](#baton-ai-editor-js) below).
 
 An adapter is a plain object implementing this contract:
 
@@ -618,9 +618,9 @@ Place these hook definitions in your `admin/base_site.html` template, **before**
 <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
 ```
 
-### <a name="baton-ai-editor-js">Baton AI + django-editor-js</a>
+### <a name="baton-ai-editor-js">Baton AI + Editor.js</a>
 
-[`django-editor-js`](https://github.com/otto-torino/django-editor-js) (Editor.js for Django) integrates with Baton AI **out of the box, zero-config**. It ships an editor adapter that self-registers on `Baton.AI`, so translation, summarization and correction work on Editor.js fields — coexisting with CKEditor and native fields on the same form.
+[Editor.js for Django](https://github.com/otto-torino/django-editor-js) (the `dj-editor-js` package on PyPI, version 0.2.0+) integrates with Baton AI **out of the box, zero-config**. It ships an editor adapter that self-registers on `Baton.AI`, so translation, summarization and correction work on Editor.js fields — coexisting with CKEditor and native fields on the same form.
 
 There is nothing to add to `admin/base_site.html`: the adapter is loaded automatically via the widget's `Media`. Just make sure both apps are installed and the AI credentials are configured:
 
