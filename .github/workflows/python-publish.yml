@@ -23,7 +23,7 @@ jobs:
         python -m pip install --upgrade pip build
         python -m build
     - name: Upload built distributions
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: dist
         path: dist/
@@ -42,7 +42,7 @@ jobs:
       id-token: write
     steps:
     - name: Download built distributions
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: dist
         path: dist/
