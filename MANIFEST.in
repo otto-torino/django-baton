@@ -7,3 +7,8 @@ recursive-include baton/migrations *
 
 recursive-exclude * __pycache__
 recursive-exclude * *.pyc
+
+# Frontend build tooling (~168M) is not needed at runtime: only the compiled
+# bundle in baton/static/baton/app/dist ships. Keep node_modules out of the
+# distribution so the wheel/sdist stay small and don't carry build-only deps.
+prune baton/static/baton/app/node_modules
