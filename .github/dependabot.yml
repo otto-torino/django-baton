@@ -1,0 +1,35 @@
+# Dependabot configuration.
+#
+# NOTE ON SCOPE: none of the alerts here are in django-baton's runtime
+# dependencies (the published package only depends on `requests`). They live in
+# dev/build/test tooling: the frontend build toolchain (npm) and the demo/test
+# project (pip). Updates are grouped and scheduled monthly to keep PR noise low;
+# tune or remove freely.
+version: 2
+updates:
+  # CI / release workflows (surfaced e.g. the Node 20 artifact-action warning).
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      github-actions:
+        patterns: ["*"]
+
+  # Frontend build toolchain (webpack et al.) — dev/build only, not shipped.
+  - package-ecosystem: npm
+    directory: /baton/static/baton/app
+    schedule:
+      interval: monthly
+    groups:
+      frontend:
+        patterns: ["*"]
+
+  # Demo/test project dependencies — dev/test only.
+  - package-ecosystem: pip
+    directory: /testapp/app
+    schedule:
+      interval: monthly
+    groups:
+      testapp:
+        patterns: ["*"]
