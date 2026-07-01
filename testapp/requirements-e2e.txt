@@ -1,5 +1,5 @@
 # Extra dependencies for the Playwright end-to-end tests (test_e2e_*).
-# Install on top of testapp/requirements.txt, then download the browser:
+# Install on top of testapp/test-requirements.txt, then download the browser:
 #   pip install -r testapp/requirements-e2e.txt
 #   playwright install chromium
 #

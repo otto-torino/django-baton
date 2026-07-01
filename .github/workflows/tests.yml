@@ -24,7 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
         pip install Django
-        pip install -r testapp/requirements.txt
+        pip install -r testapp/test-requirements.txt
     # Fast feedback across Python/Django versions. The heavier Playwright e2e
     # suite runs in the separate `e2e` job below.
     - name: Run tests (non-e2e)
@@ -44,7 +44,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
         pip install Django
-        pip install -r testapp/requirements.txt -r testapp/requirements-e2e.txt
+        pip install -r testapp/test-requirements.txt -r testapp/requirements-e2e.txt
     - name: Install Playwright browser
       run: python -m playwright install --with-deps chromium
     - name: Run e2e tests (Playwright)
