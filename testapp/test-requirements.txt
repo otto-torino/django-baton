@@ -1,12 +1,14 @@
 # Third-party runtime dependencies of the demo/test project (testapp).
+# Used both by CI (see .github/workflows/tests.yml) and to run the app
+# locally (see the "Development" section in the README).
 #
 # NOT listed here on purpose:
 # - Django: provided by the CI matrix / your local environment, so its version
 #   can vary independently.
 # - django-baton: it is the library under test, installed from the repo root
 #   with `pip install -e .`.
-# - selenium / webdriver-manager: the e2e suite is being migrated off Selenium
-#   (Playwright rewrite tracked separately) and is not run in CI for now.
+# - pillow: pulled in transitively by easy-thumbnails.
+# - playwright: only needed for the e2e suite, see requirements-e2e.txt.
 packaging
 python-dotenv
 django-tinymce

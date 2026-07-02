@@ -1225,8 +1225,10 @@ To contribute or develop locally:
     cd testapp
     python3 -m venv .virtualenv
     source .virtualenv/bin/activate # On Windows: .virtualenv\Scripts\activate
+    pip install -e .. # django-baton itself
+    pip install Django
+    pip install -r test-requirements.txt
     cd app
-    pip install -r requirements.txt
     python manage.py migrate
     python manage.py createsuperuser # If needed
     python manage.py runserver
