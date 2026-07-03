@@ -113,6 +113,43 @@ class MultipleChoiceListFilter(admin.SimpleListFilter):
                 'display': title,
             }
 
+class BatonChangeList(ChangeList):
+    def get_filters_params(self, params: dict[str, str] | None = None) -> dict[str, str]:
+        # 'ps' is not a model lookup: Django's ChangeList treats any unknown GET
+        # param as a filter to apply to the queryset, so it must be excluded here
+        # (like PAGE_VAR/ERROR_FLAG already are) or filtering blows up with a
+        # FieldError as soon as it's present in the URL.
+        lookup_params = super().get_filters_params(params)
+        lookup_params.pop('ps', None)
+        return lookup_params
+
+    def get_results(self, request: HttpRequest) -> None:
+        choices = getattr(self.model_admin, 'list_per_page_choices', None)
+        if choices:
+            try:
+                page_size = int(request.GET.get('ps', ''))
+            except (TypeError, ValueError):
+                page_size = None
+            if page_size in choices:
+                self.list_per_page = page_size
+        super().get_results(request)
+
+
+class BatonListPerPageMixin:
+    """
+    Opt-in mixin adding a "rows per page" choice to the changelist.
+
+    Set ``list_per_page_choices`` on the ``ModelAdmin`` (e.g. ``[10, 25, 50, 100]``)
+    to enable the selector. Leave it unset (``None``) to keep the default,
+    unconfigurable Django behaviour.
+    """
+
+    list_per_page_choices: list[int] | None = None
+
+    def get_changelist(self, request: HttpRequest, **kwargs: Any) -> type[ChangeList]:
+        return BatonChangeList
+
+
 @admin.register(BatonTheme)
 class BatonThemeAdmin(admin.ModelAdmin):
     list_display = ('name', 'active')

@@ -3,7 +3,7 @@ import json
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.admin import GenericStackedInline
-from baton.admin import InputFilter, MultipleChoiceListFilter
+from baton.admin import InputFilter, MultipleChoiceListFilter, BatonListPerPageMixin
 from rangefilter.filters import DateRangeFilter
 from admin_auto_filters.filters import AutocompleteFilter
 from modeltranslation.admin import TranslationAdmin
@@ -96,8 +96,9 @@ class StatusListFilter(MultipleChoiceListFilter):
 
 
 @admin.register(News)
-class NewsAdmin(ImportExportModelAdmin, TranslationAdmin):
+class NewsAdmin(BatonListPerPageMixin, ImportExportModelAdmin, TranslationAdmin):
     list_per_page = 2
+    list_per_page_choices = [2, 5, 10]
     list_display = (
         "title",
         "date",

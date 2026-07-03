@@ -19,6 +19,11 @@ export const messages = {
     it: 'Chiudi',
     es: 'Cerrar',
   },
+  columns: {
+    en: 'Columns',
+    it: 'Colonne',
+    es: 'Columnas',
+  },
   CorrApiCalls: {
     en: 'Corr API calls',
     it: 'Chiamate correzione',
@@ -148,6 +153,11 @@ export const messages = {
     en: 'There was an error retrieving the data',
     it: 'Si è verificato un errore nel reuperare i dati',
     es: 'Hubo un error al recuperar los datos',
+  },
+  rowsPerPage: {
+    en: 'Rows per page',
+    it: 'Righe per pagina',
+    es: 'Filas por página',
   },
   save: {
     en: 'Save',

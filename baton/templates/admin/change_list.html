@@ -2,6 +2,11 @@
 {% load baton_tags %}
 {% block content %}{{ block.super }}
 
+{% if cl.model_admin.list_per_page_choices %}
+    {{ cl.model_admin.list_per_page_choices|json_script:"baton-page-size-choices" }}
+    {{ cl.list_per_page|json_script:"baton-page-size-current" }}
+{% endif %}
+
 {% for template, position in cl.model_admin.baton_cl_includes %}
     <template data-type="include" data-position="{{ position }}">
         <div class="baton-cl-include baton-cl-include-{{ position }}">

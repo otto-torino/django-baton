@@ -48,6 +48,7 @@ Getting started
    changelist_includes
    changelist_filters_includes
    changelist_row_attributes
+   changelist_page_size
    form_tabs
    form_includes
    collapsable_stackedinline

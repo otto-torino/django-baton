@@ -110,6 +110,8 @@
     --bs-baton-changelist-rl-head-color: inherit;
     --bs-baton-changelist-rl-tr-selected-bg: #E9ECEF;
     --bs-baton-changelist-rl-tr-selected-color: inherit;
+    --bs-baton-changelist-rl-tr-hover-bg: #F8F9FA;
+    --bs-baton-changelist-rl-border-color: #E9ECEF;
 
     /* changeform */
     --bs-baton-changeform-bg: #fff;
@@ -309,6 +311,8 @@
     --bs-baton-changelist-rl-head-color: inherit;
     --bs-baton-changelist-rl-tr-selected-bg: #363636;
     --bs-baton-changelist-rl-tr-selected-color: inherit;
+    --bs-baton-changelist-rl-tr-hover-bg: #2c2c2c;
+    --bs-baton-changelist-rl-border-color: #333;
 
     /* changeform */
     --bs-baton-changeform-bg: #1c1c1c;

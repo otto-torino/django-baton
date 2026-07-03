@@ -17,6 +17,9 @@ const ChangeList = {
     this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
     this.initTemplates()
     this.wrapToplinks()
+    this.enhancePagination()
+    this.initColumnsVisibility()
+    this.initPageSize()
     if (this._filtersDiv.length) {
       const self = this
       setTimeout(function () {
@@ -24,6 +27,140 @@ const ChangeList = {
       }, 200) // select2
       this.fixRangeFilter()
     }
+  },
+  enhancePagination: function () {
+    const paginator = $('.paginator')
+    const currentPageEl = paginator.find('.this-page')
+    if (!paginator.length || !currentPageEl.length) {
+      return
+    }
+
+    const currentPage = parseInt(currentPageEl.text())
+    const pageLinks = paginator.children('a:not(.showall), span')
+    const lastPage = parseInt(pageLinks.last().text())
+
+    const buildNavLink = function (page, icon) {
+      const url = new URL(location.href)
+      url.searchParams.set('p', page)
+      return $('<a />', { class: 'paginator-nav', href: url.href }).html(
+        '<i class="material-symbols-outlined">' + icon + '</i>'
+      )
+    }
+
+    if (currentPage > 1) {
+      pageLinks.first().before(buildNavLink(currentPage - 1, 'chevron_left'))
+    }
+    if (currentPage < lastPage) {
+      pageLinks.last().after(buildNavLink(currentPage + 1, 'chevron_right'))
+    }
+  },
+  initPageSize: function () {
+    const choicesEl = document.getElementById('baton-page-size-choices')
+    const currentEl = document.getElementById('baton-page-size-current')
+    const paginator = $('.paginator')
+    if (!choicesEl || !currentEl || !paginator.length) {
+      return
+    }
+
+    let choices
+    let current
+    try {
+      choices = JSON.parse(choicesEl.textContent)
+      current = JSON.parse(currentEl.textContent)
+    } catch (e) {
+      return
+    }
+
+    if (!Array.isArray(choices) || !choices.length) {
+      return
+    }
+
+    const select = $('<select />', { class: 'paginator-page-size' }).on('change', function () {
+      const url = new URL(location.href)
+      url.searchParams.set('ps', this.value)
+      url.searchParams.delete('p')
+      location.href = url.href
+    })
+
+    choices.forEach((choice) => {
+      select.append($('<option />', { value: choice, selected: choice === current }).text(choice))
+    })
+
+    const wrapper = $('<label />', { class: 'paginator-page-size-wrapper' })
+      .append($('<span />').text(this.t.get('rowsPerPage')))
+      .append(select)
+
+    paginator.prepend(wrapper)
+  },
+  initColumnsVisibility: function () {
+    const table = $('#result_list')
+    if (!table.length) {
+      return
+    }
+
+    const storageKey = 'baton-hidden-columns:' + location.pathname
+    let hidden
+    try {
+      hidden = JSON.parse(localStorage.getItem(storageKey)) || []
+    } catch (e) {
+      hidden = []
+    }
+
+    const applyHidden = function (key, isHidden) {
+      $('#result_list .column-' + key + ', #result_list .field-' + key).toggleClass('col-hidden', isHidden)
+    }
+
+    const firstRow = table.find('tbody tr').first()
+    const columns = []
+    table.find('thead th').each(function () {
+      const match = /(?:^|\s)column-(\S+)/.exec($(this).attr('class') || '')
+      if (!match) {
+        return
+      }
+      const key = match[1]
+      const isLinkColumn = firstRow.find('.field-' + key).first().children('a').length > 0
+      if (!isLinkColumn) {
+        columns.push({ key: key, label: $(this).find('.text').text().trim() })
+      }
+    })
+
+    if (!columns.length) {
+      return
+    }
+
+    hidden.forEach((key) => applyHidden(key, true))
+
+    const list = $('<div />', { class: 'columns-toggle-list' })
+    columns.forEach((col) => {
+      const id = 'column-toggle-' + col.key
+      const checkbox = $('<input />', { type: 'checkbox', id: id })
+        .prop('checked', hidden.indexOf(col.key) === -1)
+        .on('change', function () {
+          const isHidden = !this.checked
+          applyHidden(col.key, isHidden)
+          hidden = isHidden ? hidden.concat(col.key) : hidden.filter((k) => k !== col.key)
+          localStorage.setItem(storageKey, JSON.stringify(hidden))
+        })
+      list.append(
+        $('<label />', { class: 'columns-toggle-item', for: id }).append(checkbox).append($('<span />').text(col.label))
+      )
+    })
+
+    const modal = new Modal({
+      title: this.t.get('columns'),
+      content: list,
+      size: 'sm',
+      hideFooter: true,
+    })
+
+    const activeActions = $('#changelist-form > .actions').length !== 0
+    const toggler = $('<a />', {
+      class: 'changelist-columns-toggler' + (activeActions ? ' with-actions' : ''),
+    })
+      .html('<i class="material-symbols-outlined">view_column</i> <span>' + this.t.get('columns') + '</span>')
+      .on('click', () => modal.open())
+
+    $('#changelist-form').prepend(toggler)
   },
   wrapToplinks: function () {
     const toplinks = $('.changelist-form-container .toplinks')
