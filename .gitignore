@@ -20,3 +20,4 @@ django_baton.egg-info/
 .agents
 .claude
 .codex
+CLAUDE.md
