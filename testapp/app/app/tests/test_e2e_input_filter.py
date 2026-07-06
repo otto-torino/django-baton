@@ -15,6 +15,6 @@ class TestBatonInputFilter(PlaywrightTestCase):
 
         page.click(".changelist-filter-toggler")
         page.fill("#changelist-filter-modal li > input", "glen")
-        page.click(".modal .btn-action")
+        page.click(".modal.show .btn-action")
 
         expect(page.locator("#result_list tbody tr")).to_have_count(1)
