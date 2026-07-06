@@ -130,7 +130,7 @@ class BatonChangeList(ChangeList):
                 page_size = int(request.GET.get('ps', ''))
             except (TypeError, ValueError):
                 page_size = None
-            if page_size in choices:
+            if page_size is not None and page_size in choices:
                 self.list_per_page = page_size
         super().get_results(request)
 

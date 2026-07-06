@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Sequence
+from typing import TYPE_CHECKING, Any, Sequence
 
 from django.db import models
 
@@ -11,6 +11,9 @@ from django.utils.translation import get_language
 
 from .forms import BatonAiImageFormField
 from .widgets import BatonAiImageInput
+
+if TYPE_CHECKING:
+    from django.utils.functional import _StrOrPromise
 
 class BatonAiImageFieldFile(ImageFieldFile):
     field: BatonAiImageField
@@ -53,7 +56,7 @@ class BatonAiImageField(models.ImageField):
     attr_class = BatonAiImageFieldFile
 
     def __init__(self,
-                 verbose_name: str | None = None,
+                 verbose_name: _StrOrPromise | None = None,
                  name: str | None = None,
                  width_field: str | None = None,
                  height_field: str | None = None,
