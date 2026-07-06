@@ -388,7 +388,10 @@
 
     .actions {
       @extend .mb-4;
-      align-items: center;
+      // the <label> stacks "Azione:" above the select, so it's taller than the
+      // field: anchor siblings to the bottom, then nudge each up with a
+      // margin-bottom to optically center it on the select row (~2.375rem)
+      align-items: flex-end;
       background: var(--bs-baton-changelist-toolbar-bg);
       border-radius: 6px;
       display: flex;
@@ -411,6 +414,7 @@
         @extend .btn-sm;
         @extend .ms-2;
         @extend .me-2;
+        margin-bottom: 0.2rem;
       }
 
       .action-counter {
@@ -418,7 +422,14 @@
         border-radius: 1rem;
         color: $white;
         font-size: 0.8rem;
+        margin-bottom: 0.45rem;
         padding: 0.15rem 0.6rem;
+      }
+
+      .all,
+      .question,
+      .clear {
+        margin-bottom: 0.55rem;
       }
 
       .question a,
