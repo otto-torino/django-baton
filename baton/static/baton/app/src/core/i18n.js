@@ -159,6 +159,11 @@ export const messages = {
     it: 'Righe per pagina',
     es: 'Filas por página',
   },
+  showAll: {
+    en: 'Show all',
+    it: 'Mostra tutto',
+    es: 'Mostrar todo',
+  },
   save: {
     en: 'Save',
     it: 'Salva',

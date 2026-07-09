@@ -5,6 +5,8 @@
 {% if cl.model_admin.list_per_page_choices %}
     {{ cl.model_admin.list_per_page_choices|json_script:"baton-page-size-choices" }}
     {{ cl.list_per_page|json_script:"baton-page-size-current" }}
+    {{ cl.can_show_all|json_script:"baton-page-size-can-show-all" }}
+    {{ cl.show_all|json_script:"baton-page-size-show-all" }}
 {% endif %}
 
 {% for template, position in cl.model_admin.baton_cl_includes %}

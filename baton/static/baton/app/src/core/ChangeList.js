@@ -57,16 +57,22 @@ const ChangeList = {
   initPageSize: function () {
     const choicesEl = document.getElementById('baton-page-size-choices')
     const currentEl = document.getElementById('baton-page-size-current')
+    const canShowAllEl = document.getElementById('baton-page-size-can-show-all')
+    const showAllEl = document.getElementById('baton-page-size-show-all')
     const paginator = $('.paginator')
-    if (!choicesEl || !currentEl || !paginator.length) {
+    if (!choicesEl || !currentEl || !canShowAllEl || !showAllEl || !paginator.length) {
       return
     }
 
     let choices
     let current
+    let canShowAll
+    let showAll
     try {
       choices = JSON.parse(choicesEl.textContent)
       current = JSON.parse(currentEl.textContent)
+      canShowAll = JSON.parse(canShowAllEl.textContent)
+      showAll = JSON.parse(showAllEl.textContent)
     } catch (e) {
       return
     }
@@ -77,14 +83,24 @@ const ChangeList = {
 
     const select = $('<select />', { class: 'paginator-page-size' }).on('change', function () {
       const url = new URL(location.href)
-      url.searchParams.set('ps', this.value)
       url.searchParams.delete('p')
+      if (this.value === 'all') {
+        url.searchParams.delete('ps')
+        url.searchParams.set('all', '')
+      } else {
+        url.searchParams.set('ps', this.value)
+        url.searchParams.delete('all')
+      }
       location.href = url.href
     })
 
     choices.forEach((choice) => {
-      select.append($('<option />', { value: choice, selected: choice === current }).text(choice))
+      select.append($('<option />', { value: choice, selected: !showAll && choice === current }).text(choice))
     })
+    if (canShowAll) {
+      select.append($('<option />', { value: 'all', selected: showAll }).text(this.t.get('showAll')))
+      paginator.children('.showall').remove()
+    }
 
     const wrapper = $('<label />', { class: 'paginator-page-size-wrapper' })
       .append($('<span />').text(this.t.get('rowsPerPage')))

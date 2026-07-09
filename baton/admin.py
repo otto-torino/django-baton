@@ -10,7 +10,7 @@ from django.contrib.admin.filters import (
     RelatedFieldListFilter,
     RelatedOnlyFieldListFilter
 )
-from django.contrib.admin.views.main import ChangeList
+from django.contrib.admin.views.main import ALL_VAR, ChangeList
 from django.db.models import QuerySet
 from django.http import HttpRequest
 from .models import BatonTheme
@@ -114,6 +114,20 @@ class MultipleChoiceListFilter(admin.SimpleListFilter):
             }
 
 class BatonChangeList(ChangeList):
+    def get_query_string(
+        self,
+        new_params: dict[str, Any] | None = None,
+        remove: Iterable[str] | None = None,
+    ) -> str:
+        params_to_remove = list(remove or ())
+        if (
+            new_params is not None
+            and ALL_VAR in new_params
+            and new_params[ALL_VAR] is not None
+        ):
+            params_to_remove.append('ps')
+        return super().get_query_string(new_params, params_to_remove)
+
     def get_filters_params(self, params: dict[str, str] | None = None) -> dict[str, str]:
         # 'ps' is not a model lookup: Django's ChangeList treats any unknown GET
         # param as a filter to apply to the queryset, so it must be excluded here
