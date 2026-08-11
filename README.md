@@ -1274,4 +1274,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## 🌟 <a name="star-history">Star History</a>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.com/#otto-torino/django-baton&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=otto-torino/django-baton&type=Date)](https://star-history.dera.page/#otto-torino/django-baton&Date)
