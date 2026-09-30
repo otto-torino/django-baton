@@ -5,7 +5,6 @@ from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.admin import GenericStackedInline
 from baton.admin import InputFilter, MultipleChoiceListFilter, BatonListPerPageMixin
 from rangefilter.filters import DateRangeFilter
-from admin_auto_filters.filters import AutocompleteFilter
 from modeltranslation.admin import TranslationAdmin
 
 from .forms import ActivityForm
@@ -27,11 +26,6 @@ class TitleFilter(InputFilter):
         if self.value() is not None:
             search_term = self.value()
             return queryset.filter(title__icontains=search_term)
-
-
-class CategoryFilter(AutocompleteFilter):
-    title = "category"  # display title
-    field_name = "category"  # name of the foreign key field
 
 
 @admin.register(Category)
@@ -108,7 +102,7 @@ class NewsAdmin(BatonListPerPageMixin, ImportExportModelAdmin, TranslationAdmin)
     )
     list_filter = (
         TitleFilter,
-        CategoryFilter,
+        ("category", admin.RelatedOnlyFieldListFilter),
         ("date", DateRangeFilter),
         StatusListFilter,
         "published",

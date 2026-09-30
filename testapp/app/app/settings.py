@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     "django.contrib.admindocs",
     "django_select2",
     "easy_thumbnails",
-    "admin_auto_filters",
     "rangefilter",
     "import_export",
     "tinymce",
