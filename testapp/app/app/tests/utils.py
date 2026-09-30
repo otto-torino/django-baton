@@ -50,9 +50,17 @@ class PlaywrightTestCase(StaticLiveServerTestCase):
         # baton relies on JS that can outlive the assertion; a generous default
         # timeout keeps CI stable without per-call waits.
         self.page.set_default_timeout(15000)
+        # uncaught JS errors fail the test, with the page they happened on:
+        # they would otherwise go unnoticed while the assertions still pass
+        self.page_errors: list[str] = []
+        self.page.on(
+            "pageerror",
+            lambda error: self.page_errors.append(f"{self.page.url}: {error.message}"),
+        )
 
     def tearDown(self) -> None:
         self.context.close()
+        self.assertEqual(self.page_errors, [], "uncaught JavaScript errors")
 
     def url(self, path: str) -> str:
         """Absolute URL on the live server for an admin/relative path."""
