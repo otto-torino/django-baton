@@ -23,7 +23,9 @@
     max-width: 100% !important;
   }
 
-  > h1 {
+  // Django >= 6.1 wraps the titles and the object tools in .titles-and-tools
+  > h1,
+  > .titles-and-tools > .titles > h1 {
     @extend .mb-0;
     @extend .p-3;
     background: var(--bs-baton-content-title-bg);

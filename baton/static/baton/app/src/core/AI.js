@@ -114,8 +114,14 @@ const AI = {
       // change form
       container.prepend($('<li />').append(translateButton))
     } else {
-      // add form
-      $('<ul />', { class: 'object-tools' }).prepend($('<li />').append(translateButton)).prependTo('#content-main')
+      // add form: Django >= 6.1 keeps the object tools next to the titles
+      const tools = $('<ul />', { class: 'object-tools' }).prepend($('<li />').append(translateButton))
+      const titlesAndTools = $('.titles-and-tools')
+      if (titlesAndTools.length) {
+        tools.appendTo(titlesAndTools)
+      } else {
+        tools.prependTo('#content-main')
+      }
     }
   },
   translate: function () {

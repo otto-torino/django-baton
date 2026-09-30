@@ -64,6 +64,13 @@
         }
       }
 
+      // the label Django >= 6.1 gives to the date hierarchy
+      > #date-hierarchy-label {
+        color: var(--bs-secondary-color);
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
       + br {
         display: none;
       }
@@ -387,62 +394,7 @@
     }
 
     .actions {
-      @extend .mb-4;
-      // the <label> stacks "Azione:" above the select, so it's taller than the
-      // field: anchor siblings to the bottom, then nudge each up with a
-      // margin-bottom to optically center it on the select row (~2.375rem)
-      align-items: flex-end;
-      background: var(--bs-baton-changelist-toolbar-bg);
-      border-radius: 6px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25rem;
-      padding: 0.5rem 0.75rem;
-
-      label {
-        @extend .pe-2;
-        margin-bottom: 0;
-      }
-
-      select {
-        max-width: 220px;
-      }
-
-      button {
-        @extend .btn;
-        @extend .btn-primary;
-        @extend .btn-sm;
-        @extend .ms-2;
-        @extend .me-2;
-        margin-bottom: 0.2rem;
-      }
-
-      .action-counter {
-        background: var(--bs-baton-accent-color);
-        border-radius: 1rem;
-        color: $white;
-        font-size: 0.8rem;
-        margin-bottom: 0.45rem;
-        padding: 0.15rem 0.6rem;
-      }
-
-      .all,
-      .question,
-      .clear {
-        margin-bottom: 0.55rem;
-      }
-
-      .question a,
-      .clear a {
-        color: var(--bs-baton-accent-color);
-        font-size: 0.85rem;
-      }
-
-      .all.hidden,
-      .question.hidden,
-      .clear {
-        display: none;
-      }
+      @extend %admin-actions;
     }
 
     select {

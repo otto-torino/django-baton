@@ -8,6 +8,11 @@
 
   #content-main {
     @extend .container-fluid;
+
+    // Django >= 6.1 can offer the admin actions in the change form too
+    form > div > .actions {
+      @extend %admin-actions;
+    }
   }
 
   h2 {

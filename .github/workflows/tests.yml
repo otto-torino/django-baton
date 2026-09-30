@@ -10,9 +10,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Each Python version resolves the newest compatible Django, so this
-        # also spans Django 5.x (3.10/3.11) and 6.x (3.12) for free.
-        python-version: ['3.10', '3.11', '3.12']
+        # Explicit pairs, so that a new Django release does not silently
+        # replace the one tested before it.
+        include:
+          - {python-version: '3.10', django: '4.2'}
+          - {python-version: '3.11', django: '5.2'}
+          - {python-version: '3.12', django: '6.0'}
+          - {python-version: '3.12', django: '6.1'}
+    name: test (Python ${{ matrix.python-version }}, Django ${{ matrix.django }})
     steps:
     - uses: actions/checkout@v5
     - name: Set up Python ${{ matrix.python-version }}
@@ -23,7 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .
-        pip install Django
+        pip install "Django~=${{ matrix.django }}.0"
         pip install -r testapp/test-requirements.txt
     # Fast feedback across Python/Django versions. The heavier Playwright e2e
     # suite runs in the separate `e2e` job below.
@@ -33,6 +38,12 @@ jobs:
 
   e2e:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # the admin markup changed in Django 6.1: run the browser on both sides
+        django: ['6.0', '6.1']
+    name: e2e (Django ${{ matrix.django }})
     steps:
     - uses: actions/checkout@v5
     - name: Set up Python
@@ -43,7 +54,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .
-        pip install Django
+        pip install "Django~=${{ matrix.django }}.0"
         pip install -r testapp/test-requirements.txt -r testapp/requirements-e2e.txt
     - name: Install Playwright browser
       run: python -m playwright install --with-deps chromium
@@ -60,3 +71,4 @@ jobs:
         app.tests.test_e2e_tabs
         app.tests.test_e2e_input_filter
         app.tests.test_e2e_cl_includes
+        app.tests.test_e2e_layout

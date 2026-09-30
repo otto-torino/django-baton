@@ -95,12 +95,16 @@ const ChangeForm = {
   },
   fixWrappedFields: function () {
     this.form.find('.form-row').each(function (_, row) {
+      // the errors of a field box, and with Django >= 6.1 of any field, are
+      // flagged on its container: the row carries them for styles and tabs
+      if ($(row).children('.errors').length) {
+        $(row).addClass('errors')
+      }
+      // Django >= 6.1 makes the row itself the flex container of its fields
+      if ($(row).hasClass('form-multiline')) {
+        return
+      }
       const fieldBoxes = $(row).children('.fieldBox')
-      fieldBoxes.each(function (_, fbox) {
-        if ($(fbox).hasClass('errors')) {
-          $(row).addClass('errors')
-        }
-      })
       fieldBoxes.wrapAll('<div class="wrapped-fields-container" />')
       if (fieldBoxes.length) {
         $(row).addClass('with-wrapped-fields')

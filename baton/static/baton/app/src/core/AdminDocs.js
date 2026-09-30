@@ -8,7 +8,8 @@ const AdminDocs = {
    */
   init: function () {
     const container = $('<div />', { class: 'admindocs-body' })
-    container.append($('#content > *:not(h1):not(.breadcrumbs)')).appendTo($('#content'))
+    // Django >= 6.1 wraps the title in .titles-and-tools
+    container.append($('#content > *:not(h1):not(.titles-and-tools):not(.breadcrumbs)')).appendTo($('#content'))
   },
 }
 

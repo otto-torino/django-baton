@@ -134,7 +134,8 @@ const Tabs = {
         }).appendTo(this.tabContent)
         this.main
             .parent()
-            .children(':not(.nav-tabs):not(.submit-row):not(.errornote):not(.tab-fs-none)')
+            // the admin actions of Django >= 6.1 stay above the tabs, like the errors
+            .children(':not(.nav-tabs):not(.submit-row):not(.errornote):not(.tab-fs-none):not(.actions)')
             .each((_, el) => {
                 $(el).appendTo(self.tabMain)
             })

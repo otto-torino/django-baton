@@ -1,4 +1,6 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth
+// Django < 6.1 renders a div of links separated by text, Django >= 6.1 an
+// ordered list with one item per crumb and the separators in li::after.
 .breadcrumbs {
   @extend .p-3;
   background: var(--bs-baton-breadcrumbs-bg);
@@ -11,19 +13,35 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+
+  li {
+    display: inline-block;
+    font-size: inherit;
+    padding: 0;
+
+    // the separator of Django's CSS, which Baton does not load
+    + li::before {
+      content: '\203A';
+      margin-right: 0.5rem;
+    }
+  }
 
   a {
     color: var(--bs-baton-breadcrumbs-link-color);
-    &:first-child {
-      &::before {
-        @extend %material;
-        @extend .me-1;
-        content: 'home';
-        vertical-align: middle;
-        display: inline-block;
-        position: relative;
-        top: -3px;
-      }
+  }
+
+  > a:first-child,
+  > li:first-child > a {
+    &::before {
+      @extend %material;
+      @extend .me-1;
+      content: 'home';
+      vertical-align: middle;
+      display: inline-block;
+      position: relative;
+      top: -3px;
     }
   }
 }

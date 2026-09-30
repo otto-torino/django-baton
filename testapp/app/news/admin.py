@@ -18,6 +18,14 @@ class NewsResources(resources.ModelResource):
         model = News
 
 
+# Django >= 6.1 can offer an action in the change form too
+IN_LIST_AND_FORM = (
+    {"location": [admin.ActionLocation.CHANGE_LIST, admin.ActionLocation.CHANGE_FORM]}
+    if hasattr(admin, "ActionLocation")
+    else {}
+)
+
+
 class TitleFilter(InputFilter):
     parameter_name = "title"
     title = "title"
@@ -117,6 +125,11 @@ class NewsAdmin(BatonListPerPageMixin, ImportExportModelAdmin, TranslationAdmin)
         ActivitiesInline,
     ]
     date_hierarchy = "date"
+    actions = ["make_published"]
+
+    @admin.action(description="Mark as published", **IN_LIST_AND_FORM)
+    def make_published(self, request, queryset):
+        queryset.update(published=True)
 
     fieldsets = (
         (

@@ -2,6 +2,19 @@
 /* CALENDARS & CLOCKS */
 
 body {
+  // Django >= 6.1 renders the calendar and clock links as buttons
+  .datetimeshortcuts {
+    button[id^='calendarlink'],
+    button[id^='clocklink'] {
+      background: none;
+      border: 0;
+      color: var(--bs-link-color);
+      cursor: pointer;
+      line-height: inherit;
+      padding: 0;
+    }
+  }
+
   .calendarbox,
   .clockbox {
     margin: 5px auto;
