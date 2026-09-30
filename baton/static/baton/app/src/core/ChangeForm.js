@@ -117,6 +117,10 @@ const ChangeForm = {
   },
   lazyLoadImages: function () {
     $('.file-upload').each(function (_, p) {
+      // the AI image input shows its own preview, to set the subject
+      if ($(p).find('[data-baton-subject-preview]').length) {
+        return
+      }
       const cur = $(p).find('a')
       if (cur.length) {
         const url = cur.attr('href')

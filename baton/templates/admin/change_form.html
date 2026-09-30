@@ -22,7 +22,7 @@
 {% if adminform.model_admin.baton_summarize_fields and baton_ai_ready %}
     {% for field, items in adminform.model_admin.baton_summarize_fields.items %}
         {% for item in items %}
-            <script>
+            <script{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>
                 Baton.Dispatcher.register('onReady', function () {
                     Baton.AI.addSummarization('{{ field }}', {{ item|to_json|safe }});
                 })
@@ -34,7 +34,7 @@
 {% if adminform.model_admin.baton_vision_fields and baton_ai_ready %}
     {% for field, items in adminform.model_admin.baton_vision_fields.items %}
         {% for item in items %}
-            <script>
+            <script{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>
                 Baton.Dispatcher.register('onReady', function () {
                     Baton.AI.addVision('{{ field }}', {{ item|to_json|safe }});
                 })
@@ -45,7 +45,7 @@
 
 {% if adminform.model_admin.baton_tag_suggestion_fields and baton_ai_ready %}
     {% for field, item in adminform.model_admin.baton_tag_suggestion_fields.items %}
-        <script>
+        <script{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>
             Baton.Dispatcher.register('onReady', function () {
                 Baton.AI.addTagSuggestions('{{ field }}', {{ item|to_json|safe }}, '{{ opts.app_label }}', '{{ opts.model_name }}');
             })

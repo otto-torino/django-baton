@@ -51,6 +51,11 @@ const AI = {
    * Automatic translations
    */
   init: function (config, page) {
+    // the AI buttons are links to "#": their handlers do the job, not the
+    // navigation (javascript: urls would be refused by a Content Security Policy)
+    $(document).on('click', 'a[data-baton-button]', function (e) {
+      e.preventDefault()
+    })
     this.t = new Translator($('html').attr('lang'))
     this.config = config
     this.editorFields = this.getEditorFields()
@@ -105,7 +110,7 @@ const AI = {
       return
     }
     // add translate button if needed
-    const translateButton = $('<a />', { id: 'translate-tool', href: 'javascript:void(0); ' })
+    const translateButton = $('<a />', { id: 'translate-tool', href: '#', role: 'button', 'data-baton-button': '' })
       .on('click', this.translate.bind(this))
       .prepend($('<span class="material-symbols-outlined">translate</span>'))
       .append($('<span />').text(` ${this.t.get('translate')}`))
@@ -225,7 +230,7 @@ const AI = {
       if (!onlyEvents) {
         visionButton = $('<a />', {
           class: 'btn btn-sm btn-primary me-2 mt-1',
-          href: 'javascript:void(0)',
+          href: '#', role: 'button', 'data-baton-button': '',
           id: `vision-button-${field.attr('id')}`,
         })
           .prepend($('<span class="material-symbols-outlined">eyeglasses</span>'))
@@ -332,7 +337,7 @@ const AI = {
     const field = $(`#id_${fieldName}`)
     const targetLabel = $(`label[for="id_${conf.target}"]`)
     targetLabel.find('.material-symbols-outlined').remove()
-    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: 'javascript:void(0)' })
+    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: '#', role: 'button', 'data-baton-button': '' })
       .on('click', function () {
         self.handleSummarization(field, targetLabel, conf)
       })
@@ -431,7 +436,7 @@ const AI = {
       generateImageButton = $('<a />', {
         id: `generate-image-${fieldName}`,
         class: 'btn btn-sm btn-primary mt-1',
-        href: 'javascript:void(0)',
+        href: '#', role: 'button', 'data-baton-button': '',
       })
         .prepend($('<span class="material-symbols-outlined">image</span>'))
         .append($('<span />').text(` ${this.t.get('generateImageFromAI')}`))
@@ -564,7 +569,7 @@ const AI = {
 
     const suggestButton = $('<a />', {
       class: 'btn btn-sm btn-primary mb-2',
-      href: 'javascript:void(0)',
+      href: '#', role: 'button', 'data-baton-button': '',
     })
       .on('click', function () {
         self.suggestTags(field, fieldName, conf || {}, appLabel, modelName)
@@ -981,7 +986,7 @@ const AI = {
       const field = $(`#${fieldId}`)
 
       if (self.editorFields.includes(fieldId) || self.isEnabledCorrectionField(field)) {
-        const icon = $('<a class="material-symbols-outlined" href="javascript:void(0)">spellcheck</a>')
+        const icon = $('<a class="material-symbols-outlined" href="#" role="button" data-baton-button>spellcheck</a>')
         icon.on('click', function () {
           let text
           if (self.editorFields.includes(fieldId)) {

@@ -62,7 +62,7 @@ You can also perform live development, in this case:
     {% block extrahead %}
         {% baton_config as conf %}
         {{ conf | json_script:"baton-config" }}
-        <script charset="utf-8">
+        <script charset="utf-8"{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>
             (function () {
                 // immediately set the theme mode to avoid flashes
                 var systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -71,9 +71,9 @@ You can also perform live development, in this case:
             })()
         </script>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <script src="{% static 'baton/app/dist/baton.min.js' %}"></script>
+        <script src="{% static 'baton/app/dist/baton.min.js' %}"{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}></script>
         <!-- <script src="http://localhost:8080/static/baton/app/dist/baton.min.js"></script> -->
-        <script src="{% static 'baton/js_snippets/init_baton.js' %}"></script>
+        <script src="{% static 'baton/js_snippets/init_baton.js' %}"{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}></script>
         {% baton_theme %}
     {% endblock extrahead %}
 
@@ -98,3 +98,38 @@ You can also perform live development, in this case:
     $ npm run dev:baton
 
 Now while you make your changes to the js app (css included), webpack will update the bundle automatically, so just refresh the page and you'll see your changes.
+
+Content Security Policy
+-----------------------
+
+With Django >= 6.0 you can serve the admin under a `Content Security Policy <https://docs.djangoproject.com/en/stable/ref/csp/>`_ based on nonces: enable ``django.middleware.csp.ContentSecurityPolicyMiddleware`` and the ``django.template.context_processors.csp`` context processor, then allow the nonce for scripts and styles, i.e. ::
+
+    from django.utils.csp import CSP
+
+    SECURE_CSP = {
+        "default-src": [CSP.SELF],
+        "script-src": [CSP.SELF, CSP.NONCE],
+        "style-src": [CSP.SELF, CSP.NONCE, "https://fonts.googleapis.com"],
+        "style-src-attr": [CSP.UNSAFE_INLINE],
+        "font-src": [CSP.SELF, "https://fonts.gstatic.com"],
+        "img-src": [CSP.SELF, "data:", "https:"],
+    }
+
+Baton adds the nonce to its scripts and styles, including the styles injected at runtime by ``baton.min.js``. If you override ``admin/base_site.html``, give the same attribute to the ``<script>`` and ``<style>`` tags you write there: ::
+
+    <script{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>...</script>
+
+``style-src-attr`` allows the ``style`` attributes set by Baton and by the Django admin.
+
+Third party apps written for `django-csp <https://django-csp.readthedocs.io/>`_ look for the nonce in ``request.csp_nonce`` (django-admin-rangefilter, for instance) and render an empty one with Django's policy. A small middleware, placed after ``ContentSecurityPolicyMiddleware``, exposes it there too: ::
+
+    from django.middleware.csp import get_nonce
+
+    class RequestCspNonceMiddleware:
+        def __init__(self, get_response):
+            self.get_response = get_response
+
+        def __call__(self, request):
+            request.csp_nonce = get_nonce(request)
+            return self.get_response(request)
+

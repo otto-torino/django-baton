@@ -150,14 +150,16 @@ def baton_ai_credentials_configured() -> bool:
     return bool(get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET'))
 
 
-@register.inclusion_tag('baton/theme.html')
-def baton_theme() -> dict[str, Any]:
+@register.inclusion_tag('baton/theme.html', takes_context=True)
+def baton_theme(context: Context) -> dict[str, Any]:
     try:
         theme = BatonTheme.objects.get(active=True)
     except:
         theme = None
     return {
         'theme': theme,
+        # the CSP nonce of Django >= 6.0, when its context processor is enabled
+        'csp_nonce': context.get('csp_nonce'),
     }
 
 @register.inclusion_tag('baton/footer.html', takes_context=True)
@@ -256,6 +258,7 @@ def baton_ai_stats(context: Context) -> dict[str, Any]:
 
     return {
         'user': user,
+        'csp_nonce': context.get('csp_nonce'),
         'error': error,
         'error_message': errorMessage,
         'status_code': status_code,

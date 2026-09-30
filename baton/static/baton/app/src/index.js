@@ -1,4 +1,5 @@
 // jQuery is provided by webpack provider plugin
+import './nonce'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 import './styles/baton.scss'
 
@@ -17,6 +18,7 @@ import Modal from './core/Modal'
 import Messages from './core/Messages'
 import Translator from './core/i18n'
 import AI from './core/AI'
+import ImageInput from './core/ImageInput'
 
 window.Baton = {
   intialized: false,
@@ -67,6 +69,9 @@ window.Baton = {
 
     // AI
     AI.init(config, page)
+    if (page === 'add_form' || page === 'change_form') {
+      ImageInput.init(AI, Dispatcher)
+    }
 
     // tooltips
     setTimeout(this.loadTooltips, 1000) // wait a bit for tinymce

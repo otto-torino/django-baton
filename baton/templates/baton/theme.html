@@ -1,6 +1,6 @@
 {% load static %}
 {% if theme %}
-    <style>{{ theme.theme | safe }}</style>
+    <style{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>{{ theme.theme | safe }}</style>
 {% else %}
-    <link rel="stylesheet" type="text/css" href="{% static 'baton/css/root.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'baton/css/root.css' %}"{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>
 {% endif %}

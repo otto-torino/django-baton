@@ -1,5 +1,5 @@
 {% load i18n %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}></script>
 <div class="baton-ai-stats">
     <h2>
         <a href="https://baton.sqrt64.it/account/" target="_blank">Baton AI</a>
@@ -24,7 +24,7 @@
         <span><strong style="font-weight: 900">Vision model</strong>: {{ vision_model }}</span>
         <span><strong style="font-weight: 900">Images model</strong>: {{ images_model }}</span>
     </div>
-    <script>
+    <script{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}>
 (function ($) {
     let aiChart;
 

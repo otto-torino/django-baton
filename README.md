@@ -166,6 +166,10 @@ Baton leverages Bootstrap 5 for styling and responsiveness, Google Material Symb
 * `baton`: Needs to be placed *before* `django.contrib.admin` because it overrides some of Django's default admin templates and resets CSS.
 * `baton.autodiscover`: This module must be the *last* app in `INSTALLED_APPS`. Baton uses a custom `AdminSite` class to allow Django-style customization of variables like `site_header` and `index_title` (instead of overriding templates). A custom `AdminSite` normally requires manual registration of all your apps. The `baton.autodiscover` module cleverly automates this by registering all apps that were already registered with Django's default `AdminSite`, ensuring all your models appear in the Baton admin. For this to work, all other apps must have already been processed.
 
+### Content Security Policy
+
+With Django >= 6.0 the admin can run under a nonce based [Content Security Policy](https://docs.djangoproject.com/en/stable/ref/csp/): enable `django.middleware.csp.ContentSecurityPolicyMiddleware` and the `django.template.context_processors.csp` context processor, and allow `CSP.NONCE` in `script-src` and `style-src`. Baton puts the nonce on its scripts and styles, the ones `baton.min.js` injects included. If you override `admin/base_site.html`, add `{% if csp_nonce is not None %} nonce="{{ csp_nonce }}"{% endif %}` to the `<script>` and `<style>` tags you write there. See the [customization docs](docs/customization.rst) for a complete policy, and for the apps written for django-csp.
+
 ## ⚙️ <a name="configuration">Configuration</a>
 
 Define the `BATON` dictionary in your `settings.py` to customize various aspects of the admin interface.
