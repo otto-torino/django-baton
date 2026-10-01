@@ -19,9 +19,9 @@ jobs:
           - {python-version: '3.12', django: '6.1'}
     name: test (Python ${{ matrix.python-version }}, Django ${{ matrix.django }})
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -45,9 +45,9 @@ jobs:
         django: ['6.0', '6.1']
     name: e2e (Django ${{ matrix.django }})
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: '3.12'
     - name: Install dependencies
