@@ -87,6 +87,7 @@ def baton_config() -> dict[str, Any]:
             "tagSuggestionsModel": ai_models.get('TAG_SUGGESTIONS_MODEL', AIModels.BATON_GPT_4O_MINI),
             "enableTranslations": ai_config.get('ENABLE_TRANSLATIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
             "enableCorrections": ai_config.get('ENABLE_CORRECTIONS', False) if (get_config('BATON_CLIENT_ID') and get_config('BATON_CLIENT_SECRET')) else False,
+            "enableImageGeneration": ai_config.get('ENABLE_IMAGE_GENERATION', True),
             "correctionSelectors": ai_config.get('CORRECTION_SELECTORS', ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"]),
             "translateApiUrl": reverse('baton-translate'),
             "summarizeApiUrl": reverse('baton-summarize'),

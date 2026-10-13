@@ -421,6 +421,14 @@ class VisionView(View):
 
 class GenerateImageView(View):
     def post(self, request: HttpRequest) -> JsonResponse:
+        if not (get_config("AI") or {}).get("ENABLE_IMAGE_GENERATION", True):
+            return JsonResponse(
+                {
+                    "data": {"message": "AI image generation is disabled."},
+                    "success": False,
+                },
+                status=403,
+            )
         data = json.loads(request.body)
         payload = {
             "id": data.get("id"),

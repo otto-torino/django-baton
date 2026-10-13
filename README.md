@@ -211,6 +211,7 @@ BATON = {
         "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
         'ENABLE_TRANSLATIONS': True,
         'ENABLE_CORRECTIONS': True,
+        'ENABLE_IMAGE_GENERATION': True,
         'CORRECTION_SELECTORS': [
             "textarea",
             "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"
@@ -499,6 +500,8 @@ Alternatively, for standard `ImageField`s, add generation capability with JavaSc
     Baton.AI.addImageGeneration('{{ widget.name }}'); // widget.name of the ImageField
 </script>
 ```
+
+Set `ENABLE_IMAGE_GENERATION` to `False` in the `AI` settings to remove the button (and refuse the requests to the image generation endpoint): `BatonAiImageField` keeps the alt text generation and the subject location. It defaults to `True`.
 
 Integrates `django-subject-imagefield` features for subject location. Configure preview width via `IMAGE_PREVIEW_WIDTH` in `BATON` settings.
 

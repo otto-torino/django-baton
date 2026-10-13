@@ -1,5 +1,7 @@
 """The AI image input, activated by core/ImageInput.js instead of inline scripts."""
 
+from django.conf import settings
+from django.test import override_settings
 from playwright.sync_api import expect
 
 from .utils import PlaywrightTestCase
@@ -61,3 +63,16 @@ class TestBatonAiImageInput(PlaywrightTestCase):
         name = rows.nth(before).get_attribute("name")
         page.locator(f'[id="generate-image-{name}"]').click()
         expect(page.locator(".modal.show")).to_be_visible()
+
+
+@override_settings(BATON={**settings.BATON, "AI": {**settings.BATON["AI"], "ENABLE_IMAGE_GENERATION": False}})
+class TestBatonAiImageInputWithoutGeneration(PlaywrightTestCase):
+    viewport = {"width": 1400, "height": 900}
+
+    def test_no_generation_buttons_but_the_vision_one(self):
+        self.login("/admin/news/news/1/change/")
+        self.wait_baton_ready()
+        page = self.page
+        self.assertGreater(page.locator("input[data-baton-ai-image]").count(), 1)
+        expect(page.locator('[id^="generate-image-"]')).to_have_count(0)
+        expect(page.locator("#vision-button-id_image")).to_have_count(1)

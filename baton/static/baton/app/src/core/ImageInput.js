@@ -32,7 +32,9 @@ const ImageInput = {
     })
   },
   activate: function (AI, input, onlyEvents) {
-    AI.addImageGeneration(input.name, onlyEvents)
+    if (AI.config.ai.enableImageGeneration) {
+      AI.addImageGeneration(input.name, onlyEvents)
+    }
     const altField = input.getAttribute('alt_field')
     if (altField) {
       AI.addVision(

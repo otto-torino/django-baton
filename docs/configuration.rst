@@ -48,6 +48,7 @@ This is an example of configuration::
             'TAG_SUGGESTIONS_MODEL': AIModels.BATON_GPT_4O_MINI,
             'ENABLE_TRANSLATIONS': True,
             'ENABLE_CORRECTIONS': True,
+            'ENABLE_IMAGE_GENERATION': True,
             'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
             'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5_TURBO,
         },
@@ -365,6 +366,8 @@ There is another way to trigger the correction in cases the label is not visible
 Summarizations, image vision and generation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 These functionalities area described in detail in the Baton AI section.
+
+Image generation is on by default near every ``BatonAiImageField``: set ``'ENABLE_IMAGE_GENERATION': False`` in the ``AI`` settings to turn it off.
 
 Menu
 ----

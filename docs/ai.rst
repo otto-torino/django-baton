@@ -134,6 +134,15 @@ There is also another way to add the AI image generation functionality to a norm
     </script>
 
 
+Image generation can be turned off with the ``ENABLE_IMAGE_GENERATION`` AI setting, ``True`` by default: the button disappears and the image generation endpoint refuses the requests, while ``BatonAiImageField`` keeps the alt text generation and the subject location::
+
+    BATON = {
+        # ...
+        'AI': {
+            'ENABLE_IMAGE_GENERATION': False,
+        },
+    }
+
 Baton also integrates the functionality of `django-subject-imagefield <https://github.com/otto-torino/django-subject-imagefield>`_, so you can specify a `subject_location` field that will store the percentage coordinated of the subject of the image, and in editing mode a point will appear on the image preview in order to let you change this position::
 
     from baton.fields import BatonAiImageField

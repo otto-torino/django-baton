@@ -1,6 +1,7 @@
 import json
 
 from baton.views import GetAppListJsonView
+from django.conf import settings
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
@@ -95,3 +96,15 @@ class TestBatonViews(TestCase):
         data = json.loads(response.content)
         self.assertEqual(len(data), 3)  # no permissions
         self.assertEqual(data[1].get("children")[0].get("label"), "Users")
+
+    def test_generate_image_view_disabled(self):
+        self.client.login(username="admin", password="admin")
+        baton = {**settings.BATON, "AI": {"ENABLE_IMAGE_GENERATION": False}}
+        with self.settings(BATON=baton):
+            response = self.client.post(
+                reverse("baton-generate-image"),
+                json.dumps({"prompt": "a cat", "format": 1}),
+                content_type="application/json",
+            )
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(json.loads(response.content)["success"], False)
