@@ -108,3 +108,15 @@ class TestBatonViews(TestCase):
             )
         self.assertEqual(response.status_code, 403)
         self.assertEqual(json.loads(response.content)["success"], False)
+
+    def test_ai_views_need_a_staff_member(self):
+        for name in ("baton-summarize", "baton-vision", "baton-generate-image", "baton-correct"):
+            url = reverse(name)
+            for user in (None, "user"):
+                self.client.logout()
+                if user:
+                    self.client.login(username=user, password=user)
+                response = self.client.post(url, "{}", content_type="application/json")
+                self.assertRedirects(
+                    response, f"/en/admin/login/?next={url}", fetch_redirect_response=False
+                )

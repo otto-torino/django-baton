@@ -350,6 +350,11 @@ class TranslateView(View):
 
 
 class SummarizeView(View):
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponseBase:
+        """Only staff members can access this view"""
+        return super(SummarizeView, self).dispatch(*args, **kwargs)
+
     def post(self, request: HttpRequest) -> JsonResponse:
         data = json.loads(request.body)
         payload = {
@@ -386,6 +391,11 @@ class SummarizeView(View):
 
 
 class VisionView(View):
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponseBase:
+        """Only staff members can access this view"""
+        return super(VisionView, self).dispatch(*args, **kwargs)
+
     def post(self, request: HttpRequest) -> JsonResponse:
         data = json.loads(request.body)
         payload = {
@@ -420,6 +430,11 @@ class VisionView(View):
 
 
 class GenerateImageView(View):
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponseBase:
+        """Only staff members can access this view"""
+        return super(GenerateImageView, self).dispatch(*args, **kwargs)
+
     def post(self, request: HttpRequest) -> JsonResponse:
         if not (get_config("AI") or {}).get("ENABLE_IMAGE_GENERATION", True):
             return JsonResponse(
@@ -461,6 +476,11 @@ class GenerateImageView(View):
 
 
 class CorrectView(View):
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponseBase:
+        """Only staff members can access this view"""
+        return super(CorrectView, self).dispatch(*args, **kwargs)
+
     def post(self, request: HttpRequest) -> JsonResponse:
         data = json.loads(request.body)
         payload = {
