@@ -1,4 +1,6 @@
 import $ from 'jquery'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import Breakpoints from './Breakpoints'
 import Translator from './i18n'
 
 const Menu = {
@@ -19,6 +21,9 @@ const Menu = {
     this.gravatarEnabled = config.gravatarEnabled
     this.alwaysCollapsed = $('#header').hasClass('menu-always-collapsed')
     this.fixNodes()
+    if (!this.alwaysCollapsed) {
+      this.manageCollapse()
+    }
     this.brandingClone = $('#branding').clone()
     this.manageBrandingUserTools()
     this.addThemeToggle(config)
@@ -59,6 +64,96 @@ const Menu = {
           $(document.body).removeClass('menu-open')
         })
     }
+  },
+  manageCollapse: function () {
+    // desktop only: the sidebar can be reduced to the voices icons
+    this.collapseToggle = $('<a />', { class: 'menu-collapse-toggle d-none d-lg-flex', href: '#' })
+      .on('click', (e) => {
+        e.preventDefault()
+        this.setCollapsed(!$(document.body).hasClass('menu-collapsed'))
+      })
+      .appendTo(this.menu)
+    this.setCollapsed(localStorage.getItem('baton-menu-collapsed') === 'true')
+
+    // the submenus and the user links of a collapsed sidebar open as a flyout next to it
+    this.menu.on('mouseenter', '.depth-0 > li, #user-tools-sidebar', (e) => {
+      if (this.isCollapsed() && $(e.currentTarget).children('.depth-1, .menu-group, .user-links').length) {
+        this.openFlyout($(e.currentTarget))
+      }
+    })
+    this.menu.on('mouseleave', '.depth-0 > li, #user-tools-sidebar', (e) => {
+      this.closeFlyouts($(e.currentTarget))
+    })
+    // touch devices have no hover, the user links open clicking the avatar
+    this.menu.on('click', '#user-tools-sidebar .user-info', (e) => {
+      if (this.isCollapsed()) {
+        this.openFlyout($(e.currentTarget).parent())
+      }
+    })
+    $(document).on('click', (e) => {
+      if (!$(e.target).closest('.flyout').length) {
+        this.closeFlyouts()
+      }
+    })
+    // the labels tooltips are bound to the collapsed sidebar, which exists only on desktop
+    this.menu[0].addEventListener('show.bs.tooltip', (e) => {
+      if (!this.isCollapsed() && $(e.target).is(this.collapsedTooltipsSelector)) {
+        e.preventDefault()
+      }
+    })
+    // the flyout is fixed positioned, so it would lose its voice on scroll
+    $(window).on('scroll resize', () => this.closeFlyouts())
+  },
+  collapsedTooltipsSelector: '.menu-collapse-toggle, .depth-0 > li > a:not(.has-children)',
+  isCollapsed: function () {
+    return $(document.body).hasClass('menu-collapsed') && parseInt($(window).width()) >= Breakpoints.lg
+  },
+  setCollapsed: function (collapsed) {
+    const label = this.t.get(collapsed ? 'expandMenu' : 'collapseMenu')
+    $(document.body).toggleClass('menu-collapsed', collapsed)
+    this.collapseToggle
+      .html(
+        `<i class="material-symbols-outlined">${collapsed ? 'left_panel_open' : 'left_panel_close'}</i>` +
+          `<span>${label}</span>`,
+      )
+      .attr('aria-label', label)
+      .attr('aria-expanded', collapsed ? 'false' : 'true')
+      .attr('data-label', label)
+    localStorage.setItem('baton-menu-collapsed', collapsed ? 'true' : 'false')
+    this.closeFlyouts()
+    this.updateCollapsedTooltips()
+  },
+  updateCollapsedTooltips: function () {
+    // when only the icons are visible, the labels are shown as tooltips
+    const collapsed = $(document.body).hasClass('menu-collapsed')
+    this.menu.find(this.collapsedTooltipsSelector).each(function (_, el) {
+      const tooltip = bootstrap.Tooltip.getInstance(el)
+      if (tooltip) {
+        tooltip.dispose()
+      }
+      if (collapsed) {
+        new bootstrap.Tooltip(el, { title: $(el).attr('data-label'), placement: 'right', trigger: 'hover' }) // eslint-disable-line no-new
+      }
+    })
+  },
+  openFlyout: function (el) {
+    this.closeFlyouts()
+    const panel = el.children('.depth-1, .menu-group, .user-links')
+    el.addClass('flyout')
+    // adjacent to the element, so that the pointer can move into it without leaving the element
+    const rect = el[0].getBoundingClientRect()
+    const top = Math.max(0, Math.min(rect.top, $(window).height() - panel.outerHeight()))
+    panel.css({ left: rect.right + 'px', top: top + 'px' })
+  },
+  closeFlyouts: function (el) {
+    const flyouts = el ? el.filter('.flyout') : this.menu.find('.flyout')
+    // the language dropdown would be still open the next time the flyout opens.
+    // Its toggle has also a tooltip, and bootstrap keeps only one instance per element,
+    // so the dropdown is closed through its toggle
+    flyouts.find('[data-bs-toggle="dropdown"][aria-expanded="true"]').each(function (_, el) {
+      el.click()
+    })
+    flyouts.removeClass('flyout')
   },
   manageBrandingUserTools: function () {
     if (parseInt($(window).width()) >= 992) {
@@ -211,6 +306,12 @@ const Menu = {
     field.on('keyup', keyUpHandler)
     field.on('blur', (_) => setTimeout(() => dataList.hide(), 250))
     field.on('focus', (_) => dataList.show())
+    container.on('click', (_) => {
+      if (this.isCollapsed()) {
+        this.setCollapsed(false)
+        field.trigger('focus')
+      }
+    })
 
     $('#user-tools-sidebar').after(container.append([field, dataList]))
   },
@@ -231,8 +332,9 @@ const Menu = {
       container.addClass('collapsed')
     }
     container.insertAfter('#user-tools')
+    const username = $('#user-tools .dropdown-toggle').text()
     const userInfo = $('<div />', { class: 'user-info' })
-      .html('<div>' + $('#user-tools .dropdown-toggle').text() + '</div>')
+      .html('<div>' + username + '</div>')
       .appendTo(container)
     // gravatar
     if (this.gravatarEnabled) {
@@ -263,10 +365,14 @@ const Menu = {
           img.after(expandUserArea)
         }
       })
-    } else if (self.collapsableUserArea) {
-      userInfo.prepend(expandUserArea)
+    } else {
+      // shown in place of the gravatar when the sidebar is collapsed
+      userInfo.prepend('<i class="material-symbols-outlined user-icon">account_circle</i>')
+      if (self.collapsableUserArea) {
+        userInfo.prepend(expandUserArea)
+      }
     }
-    const linksContainer = $('<div />', { class: 'user-links' }).appendTo(container)
+    const linksContainer = $('<div />', { class: 'user-links' }).attr('data-label', username).appendTo(container)
     $('#user-tools .dropdown-menu a:not(.dropdown-item-theme)').each(function (_, el) {
       let cls = 'view-site'
       if (/password_change/.test($(el).attr('href'))) {
@@ -368,14 +474,18 @@ const Menu = {
         href: voice.url || '#',
       })
         .text(voice.label)
+        .attr('data-label', voice.label)
         .appendTo(li)
       // icon
       if (voice.icon) {
         $(`<i class="material-symbols-outlined">${voice.icon}</i>`).prependTo(a)
+      } else {
+        // shown in place of the icon when the sidebar is collapsed
+        $('<i />', { class: 'voice-initial' }).text(voice.label.trim().charAt(0)).prependTo(a)
       }
       let subUl
       if (voice.children && voice.children.length) {
-        subUl = $('<ul />', { class: 'depth-1' }).appendTo(li)
+        subUl = $('<ul />', { class: 'depth-1' }).attr('data-label', voice.label).appendTo(li)
         a.addClass('has-children')
 
         voice.children.forEach((model, _) => {
@@ -411,10 +521,53 @@ const Menu = {
       li.appendTo(mainUl)
     })
 
+    // the voices following a title without children belong to it: when the sidebar is collapsed
+    // only the title icon is shown, and its voices open in the title flyout
+    mainUl.children('.title').each(function () {
+      const title = $(this)
+      const voices = title.nextUntil('.title')
+      if (title.children('.depth-1').length || !voices.length) {
+        return
+      }
+      const group = $('<ul />', { class: 'menu-group' }).attr('data-label', title.children('span').attr('data-label'))
+      voices.addClass('grouped').each(function () {
+        const voice = $(this)
+        const link = voice.children('a, span').first()
+        const groupLink = $(link.is('a') ? '<a />' : '<span />', { href: link.attr('href') }).text(link.attr('data-label'))
+        if (voice.children('.depth-1').length) {
+          $('<li />', { class: 'menu-group-label' }).append(groupLink).appendTo(group)
+          voice.find('.depth-1 > li').clone().addClass('menu-group-child').appendTo(group)
+        } else {
+          $('<li />', { class: voice.hasClass('active') ? 'active' : '' })
+            .append(groupLink)
+            .appendTo(group)
+        }
+        if (voice.is('.active, .with-active')) {
+          title.addClass('group-active')
+        }
+      })
+      title.addClass('has-group').append(group)
+    })
+
+    const menu = this
+    // touch devices have no hover, the flyout opens on click and closes clicking outside
+    mainUl
+      .children('.has-group')
+      .children('span')
+      .on('click', function () {
+        if (menu.isCollapsed()) {
+          menu.openFlyout($(this).parent())
+        }
+      })
     $('.has-children').on('click', function (evt) {
       evt.preventDefault()
-      const self = this
       const p = $(this).parent()
+      if (menu.isCollapsed()) {
+        // touch devices have no hover, the flyout opens on click and closes clicking outside
+        menu.openFlyout(p)
+        return
+      }
+      const self = this
       const depth0 = $('.depth-0')
       const depth1 = p.children('ul')
       if (p.hasClass('open') || (p.hasClass('default-open') && !$('body').hasClass('menu-open'))) {
@@ -442,6 +595,10 @@ const Menu = {
         depth0.scrollTop(0) // return to top
       }
     })
+
+    if (this.collapseToggle) {
+      this.updateCollapsedTooltips()
+    }
   },
 }
 

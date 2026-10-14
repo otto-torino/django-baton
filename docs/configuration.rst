@@ -391,6 +391,8 @@ Title and free voices can have children. Children follow these rules:
 
 Voices with children can specify a ``default_open`` option, used to expand the submenu by default.
 
+On desktop the sidebar can be collapsed to the icons of the first level voices, using the toggle at the bottom of the screen; the browser remembers the choice. Voices with children, and the voices that follow a title without children, open in a panel next to their icon on hover (on click on touch devices); the user links open in the same way hovering the avatar. First level voices without an ``icon`` show their initial, so set an ``icon`` on every first level voice for the best result. The toggle is not available when ``MENU_ALWAYS_COLLAPSED`` is ``True``.
+
 Title
 ^^^^^
 

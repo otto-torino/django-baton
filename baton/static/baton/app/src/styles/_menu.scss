@@ -1,5 +1,26 @@
 //scss-lint:disable PlaceholderInExtend NestingDepth ImportantRule SelectorDepth
 
+// panel opened next to the collapsed sidebar, its title is taken from data-label
+@mixin menu-flyout {
+  background: var(--bs-baton-menu-bg);
+  border: 1px solid var(--bs-baton-menu-border-color);
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  position: fixed;
+  z-index: 1003;
+
+  &::before {
+    color: var(--bs-baton-menu-voice-title-color);
+    content: attr(data-label);
+    display: block;
+    font-size: 0.85rem;
+    font-weight: var(--bs-baton-menu-voice-title-weight);
+    padding: 10px 20px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+}
+
 .menu-open .sidebar-menu {
   left: 0;
 }
@@ -9,6 +30,8 @@ body:not(.menu-mobile) {
     .sidebar-menu {
       height: auto;
       left: 0;
+      // room for the collapse toggle fixed at the bottom
+      padding-bottom: 73px;
       position: static;
 
       h1 {
@@ -217,6 +240,41 @@ body:not(.menu-mobile) {
         }
       }
     }
+  }
+
+  // fixed at the bottom of the screen, as wide as the sidebar and as high as the footer,
+  // so that it lies on the same line of the footer items
+  .menu-collapse-toggle {
+    align-items: center;
+    background: var(--bs-baton-menu-bg);
+    border-right: 1px solid var(--bs-baton-menu-border-color);
+    border-top: 1px solid var(--bs-baton-menu-border-color);
+    bottom: 0;
+    color: var(--bs-baton-menu-link-color);
+    cursor: pointer;
+    gap: 8px;
+    left: 0;
+    max-width: inherit;
+    min-height: 73px;
+    padding: 0 20px;
+    position: fixed;
+    text-decoration: none;
+    width: inherit;
+    z-index: 1002;
+
+    &:hover {
+      background: var(--bs-baton-menu-li-hover-bg);
+      color: var(--bs-baton-menu-link-hover-color);
+    }
+  }
+
+  .voice-initial,
+  .user-icon {
+    display: none !important;
+  }
+
+  .menu-group {
+    display: none;
   }
 
   .search-field-tool {
@@ -520,6 +578,205 @@ body:not(.menu-mobile) {
       a {
         color: var(--bs-baton-menu-active-voice-color) !important;
         margin-left: -5px;
+      }
+    }
+  }
+}
+
+// sidebar reduced to the voices icons, desktop only
+body.menu-collapsed:not(.menu-mobile) {
+  @include media-breakpoint-up(lg) {
+    #content {
+      flex: 1 1 0;
+      max-width: calc(100% - #{$menu-collapsed-width});
+      width: auto;
+    }
+
+    .sidebar-menu {
+      flex: 0 0 $menu-collapsed-width;
+      max-width: $menu-collapsed-width;
+      // let the language dropdown overflow the sidebar
+      overflow: visible;
+      width: $menu-collapsed-width;
+
+      #branding {
+        h1 {
+          padding: 0 0.5rem;
+        }
+
+        // keep logos, drop the text
+        #site-name a {
+          font-size: 0;
+        }
+
+        img {
+          height: auto;
+          max-width: 100%;
+        }
+      }
+
+      #user-tools-sidebar {
+        padding: 1rem 0;
+
+        // only the avatar is left, the user links open in a flyout
+        .user-info {
+          cursor: pointer;
+
+          div {
+            display: none;
+          }
+        }
+
+        .user-area-toggler,
+        .user-links {
+          display: none;
+        }
+
+        .gravatar-icon {
+          width: 40px;
+        }
+
+        .user-icon {
+          color: var(--bs-baton-menu-link-color);
+          display: inline-block !important;
+          font-size: 36px;
+          line-height: 40px;
+        }
+
+        &.flyout .user-links {
+          @include menu-flyout;
+          align-items: center;
+          display: flex !important;
+          flex-wrap: wrap;
+          height: auto;
+          justify-content: flex-start;
+          margin: 0;
+          padding: 0 8px 12px;
+
+          &::before {
+            flex: 0 0 100%;
+            padding: 10px 12px;
+            text-transform: none;
+          }
+        }
+      }
+
+      .search-field-tool {
+        cursor: pointer;
+        margin: 0.5rem 0;
+        padding: 10px 0;
+        text-align: center;
+
+        input,
+        #admin-search-datalist {
+          display: none;
+        }
+
+        // same weight and optical size of the menu icons
+        &::after {
+          color: var(--bs-baton-menu-link-color);
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          font-weight: 400;
+          position: static;
+        }
+      }
+
+      .menu-collapse-toggle {
+        justify-content: center;
+        padding: 0;
+
+        span {
+          display: none;
+        }
+      }
+
+      .voice-initial {
+        align-items: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        display: inline-flex !important;
+        font-size: 0.85rem;
+        font-style: normal;
+        font-weight: 600;
+        height: 28px;
+        justify-content: center;
+        text-transform: uppercase;
+        width: 28px;
+      }
+
+      .depth-0 {
+        > li {
+          > a,
+          > span {
+            // hide the label, icons have their own font size
+            font-size: 0;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0;
+
+            &::after {
+              display: none;
+            }
+
+            i {
+              margin-right: 0;
+            }
+          }
+        }
+
+        // only the first level groups are shown, their voices open in the group flyout
+        > li.grouped,
+        > li.title:not(.has-group) > span:not(.has-children) {
+          display: none;
+        }
+
+        li.title ~ li:not(.title),
+        .title > .depth-1 {
+          border-left: 0 !important;
+          margin-left: 0;
+        }
+
+        > li.with-active,
+        > li.group-active {
+          background: var(--bs-baton-menu-active-voice-bg);
+          border-left: 5px solid var(--bs-baton-menu-active-voice-border-color);
+
+          > a,
+          > span {
+            color: var(--bs-baton-menu-active-voice-color) !important;
+            margin-left: -5px;
+          }
+        }
+
+        .depth-1 {
+          display: none !important;
+        }
+
+        > li.flyout > .depth-1,
+        > li.flyout > .menu-group {
+          @include menu-flyout;
+          display: block !important;
+          list-style-type: none;
+          margin: 0;
+          max-height: 100vh;
+          overflow: auto;
+          padding: 0;
+          width: 240px;
+
+          li {
+            padding-left: 0;
+          }
+
+          .menu-group-label > a,
+          .menu-group-label > span {
+            color: var(--bs-baton-menu-voice-title-color);
+            font-weight: 600;
+          }
+
+          .menu-group-child > a {
+            padding-left: 32px;
+          }
+        }
       }
     }
   }

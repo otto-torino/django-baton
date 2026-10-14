@@ -19,6 +19,11 @@ export const messages = {
     it: 'Chiudi',
     es: 'Cerrar',
   },
+  collapseMenu: {
+    en: 'Collapse menu',
+    it: 'Riduci menu',
+    es: 'Contraer menú',
+  },
   columns: {
     en: 'Columns',
     it: 'Colonne',
@@ -73,6 +78,11 @@ export const messages = {
     en: 'Error',
     it: 'Errore',
     es: 'Error',
+  },
+  expandMenu: {
+    en: 'Expand menu',
+    it: 'Espandi menu',
+    es: 'Expandir menú',
   },
   fileName: {
     en: 'File name',

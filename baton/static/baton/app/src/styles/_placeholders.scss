@@ -1060,6 +1060,15 @@
   }
 }
 
+body.menu-collapsed:not(.menu-mobile) {
+  @include media-breakpoint-up(lg) {
+    .baton-fixed-submit-row .submit-row {
+      left: $menu-collapsed-width !important;
+      width: calc(100% - #{$menu-collapsed-width}) !important;
+    }
+  }
+}
+
 .change-form #content form.baton-fixed-submit-row {
   margin-bottom: 100px !important;
 

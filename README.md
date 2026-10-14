@@ -87,7 +87,7 @@ Baton is designed with a core principle: **minimize overriding Django templates*
   * Image vision (description generation for `alt` text).
   * Image generation with GPT Image.
   * *(Requires a Baton subscription key for AI features).*
-* **Customizable Menu:** Flexible, dict-configurable sidebar navigation.
+* **Customizable Menu:** Flexible, dict-configurable sidebar navigation, which can be collapsed to its icons on desktop.
 * **🎨 Theme Support:** Easily customize the look and feel.
 * **Enhanced Search:** Configurable global search field with autocomplete.
 * **Advanced List Filters:** Includes text input, dropdown, and multiple-choice filter options.
@@ -344,6 +344,16 @@ Customize the sidebar via `BATON['MENU']`.
   * `label`, `url`, `icon` (optional), `perms` (optional), `re` (optional regex for active highlighting), `children` (optional), `default_open` (optional).
 
 > Children of items that themselves have children are ignored.
+
+**Collapsed Sidebar:**
+
+On desktop the sidebar can be collapsed to the icons of the first level voices, using the toggle at the bottom of the screen; the browser remembers the choice.
+
+* Voices with children, and the voices that follow a `title` without children, open in a panel next to their icon on hover (on click on touch devices).
+* The user links open in the same way hovering the avatar.
+* First level voices without an `icon` show their initial, so set an `icon` on every first level voice for the best result.
+
+The toggle is not available when `MENU_ALWAYS_COLLAPSED` is `True`.
 
 ### <a name="search-field-configuration">Search Field Configuration</a>
 

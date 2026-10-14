@@ -68,6 +68,7 @@ jobs:
         app.tests.test_e2e_theme
         app.tests.test_e2e_menu
         app.tests.test_e2e_menu_mobile
+        app.tests.test_e2e_menu_collapse
         app.tests.test_e2e_tabs
         app.tests.test_e2e_input_filter
         app.tests.test_e2e_cl_includes
