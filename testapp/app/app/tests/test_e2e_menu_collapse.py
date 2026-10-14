@@ -110,6 +110,30 @@ class TestBatonMenuCollapse(PlaywrightTestCase):
         expect(page.locator("#user-tools-sidebar .user-links")).to_be_visible()
         expect(language_menu).to_be_hidden()
 
+    def test_active_section_highlight(self):
+        page = self.page
+        page.goto(self.url("/admin/news/news/"))
+        self.wait_baton_ready()
+        page.wait_for_selector(".depth-0")
+        page.locator(".menu-collapse-toggle").click()
+        # in the default theme the title and the active voice backgrounds are the same color
+        page.evaluate(
+            "document.documentElement.style.setProperty('--bs-baton-menu-voice-title-bg', 'rgb(1, 2, 3)')"
+        )
+        news_voice = page.locator(".depth-0 > li.with-active")
+        expect(news_voice.locator("> span")).to_have_attribute("data-label", "News")
+        background = news_voice.evaluate("el => getComputedStyle(el).backgroundColor")
+        active_background = page.evaluate(
+            """() => {
+                const el = document.createElement('div')
+                el.style.background = 'var(--bs-baton-menu-active-voice-bg)'
+                document.body.appendChild(el)
+                return getComputedStyle(el).backgroundColor
+            }"""
+        )
+        self.assertEqual(background, active_background)
+        self.assertNotEqual(background, "rgb(1, 2, 3)")
+
     def test_search_field_expands(self):
         page = self.page
         page.locator(".menu-collapse-toggle").click()
