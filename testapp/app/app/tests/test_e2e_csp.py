@@ -80,3 +80,14 @@ class TestBatonCsp(PlaywrightTestCase):
                 self.assertEqual(
                     frame.evaluate("window.__cspViolations || []"), [], f"{path} {frame.url}"
                 )
+
+    def test_language_switcher(self):
+        # on mobile the plain language form is shown, baton submits it on change
+        self.page.set_viewport_size({"width": 480, "height": 800})
+        self.login("/admin/")
+        self.page.wait_for_url(lambda url: "/login/" not in url)
+        self.wait_baton_ready()
+        self.page.select_option("#baton-language-switcher", "it")
+        self.page.wait_for_url("**/it/admin/")
+        self.wait_baton_ready()
+        self.assertEqual(self.page.evaluate("window.__cspViolations"), [])

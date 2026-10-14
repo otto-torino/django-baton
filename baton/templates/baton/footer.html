@@ -15,7 +15,7 @@ than one available language.
         {% csrf_token %}
         <input type="hidden" name="next" value="{% if request %}{{ request.get_full_path }}{% endif %}">
         <label class="me-2 mb-0" for="baton-language-switcher">{% trans 'Language' %}</label>
-        <select id="baton-language-switcher" name="language" class="form-select form-select-sm w-auto" onchange="this.form.submit()">
+        <select id="baton-language-switcher" name="language" class="form-select form-select-sm w-auto">
             {% for code, name in BATON_LANGUAGES %}
                 <option value="{{ code }}"{% if code == BATON_CURRENT_LANGUAGE %} selected{% endif %}>{{ name }}</option>
             {% endfor %}
