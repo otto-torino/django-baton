@@ -10,6 +10,7 @@ build/
 /dist/
 testapp/app/.env
 testapp/.env
+testapp/app/test_db.sqlite3
 tags
 tags.lock
 tags.temp

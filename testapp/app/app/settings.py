@@ -98,6 +98,11 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        # a file instead of the default in-memory test database: the live server of the
+        # e2e tests would share a single in-memory connection among its request threads,
+        # and concurrent requests (e.g. the menu and the gravatar ones) would randomly
+        # lose the session
+        "TEST": {"NAME": os.path.join(BASE_DIR, "test_db.sqlite3")},
     }
 }
 
