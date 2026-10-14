@@ -15,6 +15,11 @@ const ChangeList = {
     this.filtersForm = opts.changelistFiltersForm
     this.filtersInModal = opts.changelistFiltersInModal
     this.filtersAlwaysOpen = opts.changelistFiltersAlwaysOpen
+    // without the filters form the dropdown filters navigate on change. Delegated, because
+    // the filters can be moved into a modal
+    $(document).on('change', 'select[data-baton-dropdown-filter]', function () {
+      window.location = window.location.pathname + $(this).val()
+    })
     this.initTemplates()
     this.wrapToplinks()
     this.enhancePagination()

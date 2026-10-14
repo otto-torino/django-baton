@@ -1,11 +1,14 @@
 """Baton under a Content Security Policy based on nonces (Django >= 6.0)."""
 
 import copy
-from unittest import skipUnless
+from unittest import mock, skipUnless
 
 import django
 from django.conf import settings
 from django.test import override_settings
+
+from baton.admin import ChoicesDropdownFilter
+from news.admin import NewsAdmin
 
 from .test_e2e_layout import admin_change_path
 from .utils import PlaywrightTestCase
@@ -91,3 +94,20 @@ class TestBatonCsp(PlaywrightTestCase):
         self.page.wait_for_url("**/it/admin/")
         self.wait_baton_ready()
         self.assertEqual(self.page.evaluate("window.__cspViolations"), [])
+
+    def test_dropdown_filter(self):
+        # without the filters form the dropdown filters navigate on change, baton handles it
+        baton = {**settings.BATON, "CHANGELIST_FILTERS_FORM": False}
+        list_filter = (("status", ChoicesDropdownFilter),)
+        with override_settings(BATON=baton), mock.patch.object(NewsAdmin, "list_filter", list_filter):
+            self.login("/admin/news/news/")
+            self.page.wait_for_url(lambda url: "/login/" not in url)
+            self.wait_baton_ready()
+            # the filters are moved into a modal
+            self.page.click(".changelist-filter-toggler")
+            self.page.locator("#changelist-filter-modal select[data-baton-dropdown-filter]").select_option(
+                label="draft"
+            )
+            self.page.wait_for_url(lambda url: url.endswith("/admin/news/news/?status__exact=1"))
+            self.wait_baton_ready()
+            self.assertEqual(self.page.evaluate("window.__cspViolations"), [])
