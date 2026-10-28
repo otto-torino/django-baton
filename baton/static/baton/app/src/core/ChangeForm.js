@@ -207,12 +207,15 @@ const ChangeForm = {
       const field = $(template).attr('id').replace('template-', '')
       const position = positionMap[$(template).attr('data-position')]
       if (position !== undefined) {
+        const rows = $('.form-row.field-' + field)
+        // top: after the label of the field only, since Django 6 the fields with several inputs
+        // (e.g. datetime) are a fieldset, with a legend and a label for each input
         const el =
           $(template).attr('data-position') === 'right'
-            ? $('.form-row.field-' + field + ' #id_' + field)
+            ? rows.find('#id_' + field)
             : $(template).attr('data-position') === 'top'
-              ? $('.form-row.field-' + field + ' label')
-              : $('.form-row.field-' + field)
+              ? rows.map((_, row) => $(row).find('legend, label').get(0))
+              : rows
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong form include position detected')
