@@ -72,6 +72,7 @@ jobs:
         app.tests.test_e2e_tabs
         app.tests.test_e2e_input_filter
         app.tests.test_e2e_cl_includes
+        app.tests.test_e2e_form_includes
         app.tests.test_e2e_layout
         app.tests.test_e2e_csp
         app.tests.test_e2e_ai_image

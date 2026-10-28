@@ -202,7 +202,8 @@ const ChangeForm = {
       bottom: 'append',
       right: 'after',
     }
-    $('template:not(#template-object-tools)').each(function (_, template) {
+    // only baton's own templates: other apps' widgets (e.g. django-filer) put theirs, without id, in the form
+    $('template[id^="template-"]:not(#template-object-tools)').each(function (_, template) {
       const field = $(template).attr('id').replace('template-', '')
       const position = positionMap[$(template).attr('data-position')]
       if (position !== undefined) {
