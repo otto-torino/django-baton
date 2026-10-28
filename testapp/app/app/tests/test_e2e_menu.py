@@ -77,6 +77,12 @@ class TestBatonMenu(PlaywrightTestCase):
             .get_attribute("href")
             .endswith("/admin/news/category/")
         )
+        self.assertEqual(
+            news_children.nth(0)
+            .locator("a")
+            .inner_text(),
+            "category\nCategories"
+        )
         expect(news_children.nth(1)).to_be_visible()
         self.assertTrue(
             news_children.nth(1)
