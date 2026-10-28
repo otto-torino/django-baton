@@ -4,6 +4,11 @@ export const messages = {
     it: 'Si è verificato un errore durante la generazione della risposta AI',
     es: 'Hubo un error al generar la respuesta AI',
   },
+  aiEmptyAnswer: {
+    en: 'The AI returned an empty answer: the field was left as it was',
+    it: "L'AI ha restituito una risposta vuota: il campo non è stato modificato",
+    es: 'La IA devolvió una respuesta vacía: el campo no se ha modificado',
+  },
   aspectRatio: {
     en: 'Aspect ratio',
     it: 'Formato',

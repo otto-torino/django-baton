@@ -187,13 +187,22 @@ const AI = {
     })
       .done(function (data) {
         try {
+          // an empty translation never blanks its field
+          let empty = false
           ;(data.data?.items || []).forEach(function (item) {
             const key = `${item.id}_${item.language}`
+            if (!item.translation?.trim()) {
+              empty = true
+              return
+            }
             if (!self.setEditorFieldValue(key, item.translation)) {
               $('#' + key).val(item.translation)
             }
           })
           overlay.remove()
+          if (empty) {
+            alert(self.t.get('aiEmptyAnswer'))
+          }
         } catch (err) {
           console.log(err)
           alert(self.t.get('error') + ': ' + err)
@@ -317,8 +326,12 @@ const AI = {
     })
       .done(function (data) {
         try {
-          $('#' + targetId).val(data.data.description)
           overlay.remove()
+          if (!data.data?.description?.trim()) {
+            alert(self.t.get('aiEmptyAnswer'))
+            return
+          }
+          $('#' + targetId).val(data.data.description)
         } catch (err) {
           console.log(err)
           alert(self.t.get('error') + ': ' + err)
@@ -407,10 +420,12 @@ const AI = {
     })
       .done(function (data) {
         try {
-          if (!self.setEditorFieldValue(targetId, data.data.summary)) {
+          overlay.remove()
+          if (!data.data?.summary?.trim()) {
+            alert(self.t.get('aiEmptyAnswer'))
+          } else if (!self.setEditorFieldValue(targetId, data.data.summary)) {
             $('#' + targetId).val(data.data.summary)
           }
-          overlay.remove()
         } catch (err) {
           console.log(err)
           alert(self.t.get('error') + ': ' + err)
@@ -889,7 +904,9 @@ const AI = {
       headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
     })
       .done(function (data) {
-        if (data?.data?.text.trim() === text.trim()) {
+        if (!data?.data?.text?.trim()) {
+          alert(self.t.get('aiEmptyAnswer'))
+        } else if (data.data.text.trim() === text.trim()) {
           const checkIcon = $('<i />', {
             class: 'material-symbols-outlined',
           })
@@ -898,8 +915,8 @@ const AI = {
           if (!self.setEditorFieldCorrect($(field).attr('id'), checkIcon)) {
             $(field).after(checkIcon)
           }
-        } else if (data?.data?.text) {
-          const diff = Diff.diffChars(text, data?.data?.text)
+        } else {
+          const diff = Diff.diffChars(text, data.data.text)
           // const fragment = $('<div />') // use fragment if escaping all html
 
           const diffParts = []
