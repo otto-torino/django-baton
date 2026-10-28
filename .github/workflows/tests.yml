@@ -71,6 +71,7 @@ jobs:
         app.tests.test_e2e_menu_collapse
         app.tests.test_e2e_tabs
         app.tests.test_e2e_input_filter
+        app.tests.test_e2e_cl_filters
         app.tests.test_e2e_cl_includes
         app.tests.test_e2e_form_includes
         app.tests.test_e2e_layout
