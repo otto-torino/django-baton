@@ -4,7 +4,8 @@
 # dependencies (the published package only depends on `requests`). They live in
 # dev/build/test tooling: the frontend build toolchain (npm) and the demo/test
 # project (pip). Updates are grouped and scheduled monthly to keep PR noise low;
-# tune or remove freely.
+# security updates get a group of their own (`applies-to: security-updates`),
+# otherwise Dependabot opens one PR per alert. Tune or remove freely.
 version: 2
 updates:
   # CI / release workflows (surfaced e.g. the Node 20 artifact-action warning).
@@ -15,6 +16,9 @@ updates:
     groups:
       github-actions:
         patterns: ["*"]
+      github-actions-security:
+        applies-to: security-updates
+        patterns: ["*"]
 
   # Frontend build toolchain (webpack et al.) — dev/build only, not shipped.
   - package-ecosystem: npm
@@ -24,6 +28,9 @@ updates:
     groups:
       frontend:
         patterns: ["*"]
+      frontend-security:
+        applies-to: security-updates
+        patterns: ["*"]
 
   # Demo/test project dependencies — dev/test only.
   - package-ecosystem: pip
@@ -32,4 +39,7 @@ updates:
       interval: monthly
     groups:
       testapp:
+        patterns: ["*"]
+      testapp-security:
+        applies-to: security-updates
         patterns: ["*"]
