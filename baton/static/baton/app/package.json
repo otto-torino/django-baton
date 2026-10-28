@@ -36,7 +36,7 @@
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.112.2",
-    "webpack-dev-server": "^5.2.6"
+    "webpack-dev-server": "^6.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
