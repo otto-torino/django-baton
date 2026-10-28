@@ -202,6 +202,7 @@ BATON = {
                     "label": "Categories",
                     "url": "/admin/news/category/",
                     "re": r"^/admin/news/category/(\d*)?",
+                    "icon": "category"
                 },
                 {"type": "model", "label": "News", "name": "news", "app": "news"},
                 {"type": "model", "label": "Tags", "name": "tag", "app": "news"},

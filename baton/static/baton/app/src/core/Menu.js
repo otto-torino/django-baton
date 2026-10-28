@@ -513,7 +513,7 @@ const Menu = {
             .appendTo(subLi)
           // icon
           if (model.icon) {
-            $('<i />', { class: model.icon }).prependTo(a)
+            $(`<i class="material-symbols-outlined">${model.icon}</i>`).prependTo(a)
           }
           subLi.appendTo(subUl)
         })
