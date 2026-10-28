@@ -50,10 +50,5 @@
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^6.0.1",
     "webpack-merge": "^5.7.3"
-  },
-  "overrides": {
-    "sockjs": {
-      "uuid": "^11.1.1"
-    }
   }
 }
