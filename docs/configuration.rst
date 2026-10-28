@@ -58,7 +58,7 @@ This is an example of configuration::
                 'type': 'app',
                 'name': 'auth',
                 'label': 'Authentication',
-                'icon': 'fa fa-lock',
+                'icon': 'lock',
                 'default_open': True,
                 'models': (
                     {
@@ -75,7 +75,7 @@ This is an example of configuration::
             { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
             { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
             { 'type': 'free', 'label': 'My parent voice', 'children': [
-                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'fa fa-gavel' },
+                { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'gavel' },
                 { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
             ] },
         )
@@ -499,12 +499,12 @@ The autocomplete field will call a custom api at every keyup event. Such api rec
     {
         length: 2,
         data: [
-            { label: 'My result #1', icon: 'fa fa-edit', url: '/admin/myapp/mymodel/1/change' },
+            { label: 'My result #1', icon: 'edit', url: '/admin/myapp/mymodel/1/change' },
             // ...
         ]
     }
 
-You should provide the results length and the data as an array of objects which must contain the ``label`` and ``url`` keys. The ``icon`` key is optional and is treated as css class given to an ``i`` element.
+You should provide the results length and the data as an array of objects which must contain the ``label`` and ``url`` keys. The ``icon`` key is optional and is the name of a Material Symbol.
 
 Let's see an example: ::
 
@@ -519,13 +519,13 @@ Let's see an example: ::
             res.append({
                 'label': str(n) + ' edit',
                 'url': '/admin/news/news/%d/change' % n.id,
-                'icon': 'fa fa-edit',
+                'icon': 'edit',
             })
         if text.lower() in 'Lucio Dalla Wikipedia'.lower():
             res.append({
                 'label': 'Lucio Dalla Wikipedia',
                 'url': 'https://www.google.com',
-                'icon': 'fab fa-wikipedia-w'
+                'icon': 'menu_book'
             })
         return JsonResponse({
             'length': len(res),
