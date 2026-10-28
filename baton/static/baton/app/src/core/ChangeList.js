@@ -258,13 +258,12 @@ const ChangeList = {
     }
   },
   getDropdownValue: function (dropdown) {
-    const items = $(dropdown).find('option').attr('value').substr(1).split('&')
-    const values = $(dropdown)
-      .val()
-      .substr(1)
-      .split('&')
-      .filter((item) => items.indexOf(item) === -1)
-    return values.length ? values.join('&') : null
+    // parse with URLSearchParams: values are url-encoded and an option can carry several params
+    // (e.g. date filters set both __gte and __lt)
+    const parse = (query) => [...new URLSearchParams(query.replace(/^\?/, '')).entries()]
+    const base = parse($(dropdown).find('option').first().attr('value')).map(([k, v]) => k + '=' + v)
+    const pairs = parse($(dropdown).val()).filter(([k, v]) => base.indexOf(k + '=' + v) === -1)
+    return pairs.length ? pairs : null
   },
   filter: function (wrapper) {
     const self = this
@@ -280,7 +279,7 @@ const ChangeList = {
       .toArray()
       .map((el) => self.getDropdownValue(el))
       .filter((v) => v !== null)
-      .map((v) => v.split('='))
+      .flat()
 
     const textInputValues = textInputs.toArray().map((el) => [el.name, el.value])
 
