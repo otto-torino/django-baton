@@ -216,7 +216,7 @@ BATON = {
             "textarea",
             "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"
         ],
-        "CORRECTIONS_MODEL": AIModels.BATON_GPT_3_5_TURBO,
+        "CORRECTIONS_MODEL": AIModels.BATON_GPT_4O,
     },
     'MENU': (
         { 'type': 'title', 'label': 'Main Navigation', 'apps': ('auth', ), 'icon': 'apps'},
@@ -275,8 +275,9 @@ Django Baton integrates AI to assist with content creation and management.
 
 **Available Models (in `baton.ai.AIModels`):**
 
-* `BATON_GPT_3_5_TURBO`, `BATON_GPT_4_TURBO`, `BATON_GPT_4O`: For translations, summarizations, corrections, tag suggestions.
+* `BATON_GPT_4O`, `BATON_GPT_5_4`: For translations, summarizations, corrections, tag suggestions.
 * `BATON_GPT_4O_MINI`: Default for non-image text tasks (including tag suggestions) and image vision.
+* `BATON_GPT_3_5_TURBO`, `BATON_GPT_4_TURBO`: Retired by the provider. A configuration that still asks for them gets `BATON_GPT_4O_MINI`, with a warning.
 * `BATON_GPT_IMAGE_1_5`: Default for image generation.
 
 **Configuration:**

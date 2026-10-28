@@ -27,3 +27,23 @@ class TestBatonConfig(TestCase):
             get_config("COPYRIGHT"),
             'Copyright © 2026 <a href="https://www.otto.srl">Otto srl</a>',
         )
+
+
+class TestRetiredAIModels(TestCase):
+    def test_a_retired_model_gets_its_replacement_with_a_warning(self):
+        from baton.ai import AIModels
+        from baton.templatetags.baton_tags import get_ai_models
+
+        config = {
+            "SUMMARIZATIONS_MODEL": AIModels.BATON_GPT_3_5_TURBO,
+            "CORRECTIONS_MODEL": AIModels.BATON_GPT_4_TURBO,
+            "TRANSLATIONS_MODEL": AIModels.BATON_GPT_4O,
+        }
+
+        with self.assertWarnsRegex(UserWarning, "gpt-3.5-turbo was retired"):
+            models = get_ai_models(config)
+
+        self.assertEqual(models["SUMMARIZATIONS_MODEL"], AIModels.BATON_GPT_4O_MINI)
+        self.assertEqual(models["CORRECTIONS_MODEL"], AIModels.BATON_GPT_4O_MINI)
+        self.assertEqual(models["TRANSLATIONS_MODEL"], AIModels.BATON_GPT_4O)
+        self.assertNotIn(AIModels.BATON_GPT_3_5_TURBO, AIModels.text_models)

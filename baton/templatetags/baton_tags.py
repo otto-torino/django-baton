@@ -5,6 +5,7 @@ import time
 import hmac
 import base64
 import hashlib
+import warnings
 from typing import Any
 
 import requests
@@ -43,7 +44,7 @@ def get_ai_models(ai_config: dict[str, Any]) -> dict[str, Any]:
         vision_model = ai_config.get('VISION_MODEL', AIModels.BATON_GPT_4O_MINI)
         tag_suggestions_model = ai_config.get('TAG_SUGGESTIONS_MODEL', AIModels.BATON_GPT_4O_MINI)
 
-    return {
+    models = {
         'TRANSLATIONS_MODEL': translations_model,
         'SUMMARIZATIONS_MODEL': summarizations_model,
         'CORRECTIONS_MODEL': corrections_model,
@@ -51,6 +52,19 @@ def get_ai_models(ai_config: dict[str, Any]) -> dict[str, Any]:
         'VISION_MODEL': vision_model,
         'TAG_SUGGESTIONS_MODEL': tag_suggestions_model,
     }
+    return {name: replace_retired_model(name, model) for name, model in models.items()}
+
+
+def replace_retired_model(name: str, model: str) -> str:
+    """The model to use instead of one the provider retired, with a warning."""
+    replacement = AIModels.retired_models.get(model)
+    if replacement is None:
+        return model
+    warnings.warn(
+        f"Baton AI: {name} {model} was retired by its provider, {replacement} is used instead",
+        stacklevel=2,
+    )
+    return replacement
 
 @register.simple_tag
 def baton_config() -> dict[str, Any]:

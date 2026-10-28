@@ -50,7 +50,7 @@ This is an example of configuration::
             'ENABLE_CORRECTIONS': True,
             'ENABLE_IMAGE_GENERATION': True,
             'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
-            'CORRECTIONS_MODEL': AIModels.BATON_GPT_3_5_TURBO,
+            'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O,
         },
         'MENU': (
             { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
@@ -274,11 +274,12 @@ Available models
 You can configure your preferred model for each functionality, you may choose between the following:::
 
     class AIModels:
-        BATON_GPT_3_5_TURBO = "gpt-3.5-turbo" # translations, summarizations and corrections
-        BATON_GPT_4_TURBO = 'gpt-4-turbo' # translations, summarizations and corrections
         BATON_GPT_4O = 'gpt-4o' # translations, summarizations and corrections
         BATON_GPT_4O_MINI = 'gpt-4o-mini' # translations, summarizations, corrections and image vision
+        BATON_GPT_5_4 = 'gpt-5.4' # translations, summarizations, corrections and image vision
         BATON_GPT_IMAGE_1_5 = 'gpt-image-1.5' # images
+
+``BATON_GPT_3_5_TURBO`` and ``BATON_GPT_4_TURBO`` were retired by the provider: a configuration that still asks for them gets ``BATON_GPT_4O_MINI``, with a warning.
 
 We currently use ``gpt-image-1.5`` as the default model for image generation.
 
@@ -335,7 +336,7 @@ In order to use this feature, you need to set the ``BATON_CLIENT_ID`` and ``BATO
     'BATON_CLIENT_SECRET': 'xxxxxxxxxxxxxxxxxx',
     'AI': {
         'ENABLE_TRANSLATIONS': True,
-        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
+        'TRANSLATIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_4O_MINI
     },
     # ...
 
@@ -348,7 +349,7 @@ You can also enable the AI corrections feature:::
     # ...
     'AI': {
         'ENABLE_CORRECTIONS': True,
-        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_3_5_TURBO
+        'CORRECTIONS_MODEL': AIModels.BATON_GPT_4O, # default AIModels.BATON_GPT_4O_MINI
         'CORRECTION_SELECTORS': ["textarea", "input[type=text]:not(.vDateField):not([name=username]):not([name*=subject_location])"],
     },
     # ...
