@@ -1,10 +1,14 @@
 """The AI summaries: the button sits under the target field, and needs a source."""
 
+from django.conf import settings
+from django.test import override_settings
 from playwright.sync_api import expect
 
 from .utils import PlaywrightTestCase
 
 
+# the buttons show up only with the credentials, which the CI does not have: none of these tests reaches the API
+@override_settings(BATON={**settings.BATON, "BATON_CLIENT_ID": "e2e", "BATON_CLIENT_SECRET": "e2e"})
 class TestBatonAiSummary(PlaywrightTestCase):
     viewport = {"width": 1400, "height": 900}
 
