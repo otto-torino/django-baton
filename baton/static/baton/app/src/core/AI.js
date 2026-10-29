@@ -233,8 +233,8 @@ const AI = {
       } else {
         target = $('#id_' + conf.target)
       }
-      const targetLabel = $(`label[for="${target.attr('id')}"]`)
-      targetLabel.find('.material-symbols-outlined').remove()
+      // the icons of the label stay: they are the buttons of the other AI features, e.g. the correction
+      const targetText = self.labelText(target.attr('id'))
       let visionButton
       if (!onlyEvents) {
         visionButton = $('<a />', {
@@ -245,7 +245,7 @@ const AI = {
           .prepend($('<span class="material-symbols-outlined">eyeglasses</span>'))
           .append(
             $('<span />').text(
-              ` ${self.t.get('generateAltText')}${targetLabel ? ': ' + targetLabel.text().replace(':', '') : ''}`,
+              ` ${self.t.get('generateAltText')}${targetText ? ': ' + targetText : ''}`,
             ),
           )
       } else {
@@ -348,11 +348,9 @@ const AI = {
   addSummarization(fieldName, conf) {
     const self = this
     const field = $(`#id_${fieldName}`)
-    const targetLabel = $(`label[for="id_${conf.target}"]`)
-    targetLabel.find('.material-symbols-outlined').remove()
     const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: '#', role: 'button', 'data-baton-button': '' })
       .on('click', function () {
-        self.handleSummarization(field, targetLabel, conf)
+        self.handleSummarization(field, conf)
       })
       .prepend($('<span class="material-symbols-outlined">summarize</span>'))
       .append($('<span />').text(` ${this.t.get('summarizeFrom')}: ${this.labelText(`id_${fieldName}`)}`))
@@ -366,7 +364,7 @@ const AI = {
     label.find('.material-symbols-outlined').remove()
     return label.text().replace(':', '').trim()
   },
-  handleSummarization(field, targetLabel, conf) {
+  handleSummarization(field, conf) {
     const self = this
     // editors may return markup even when empty, so the text is what counts
     const source = new DOMParser().parseFromString(this.fieldText(field.attr('id')), 'text/html')
@@ -392,7 +390,7 @@ const AI = {
 </div>
 `
     const myModal = new Baton.Modal({
-      title: this.t.get('generateSummary') + ' - ' + targetLabel.text(),
+      title: this.t.get('generateSummary') + ' - ' + this.labelText(`id_${conf.target}`),
       size: 'md',
       actionBtnLabel: this.t.get('generate'),
       actionBtnCb: function () {

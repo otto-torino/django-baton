@@ -23,11 +23,17 @@ class TestBatonAiSummary(PlaywrightTestCase):
         expect(button).to_contain_text("Body [en]")
         expect(self.page.locator(".field-body_summary").locator("a[data-baton-button]", has_text="Summarize from")).to_have_count(1)
 
+    def test_the_target_keeps_its_correction_button(self):
+        self.login("/admin/news/news/2/change/")
+        self.wait_baton_ready()
+        expect(self.page.locator('label[for="id_body_summary"] a[data-baton-button]', has_text="spellcheck")).to_have_count(1)
+
     def test_a_source_opens_the_dialog(self):
         self.login("/admin/news/news/2/change/")
         self.wait_baton_ready()
         self.summary_button().click()
         expect(self.page.locator(".modal.show")).to_be_visible()
+        expect(self.page.locator(".modal.show .modal-title")).to_have_text("Summarize in - Body summary")
 
     def test_an_empty_source_alerts_instead(self):
         self.login("/admin/news/news/1/change/")
