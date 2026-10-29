@@ -208,6 +208,12 @@ const ChangeForm = {
       .addClass('entry-collapsed entry-collapse-full-toggler')
       .append('<span />') // just to have the toggler right aligned
       .append('<span class="entry-collapse-toggler" />')
+    // the forms of new entries stay open, as the rows added with the "add another" button;
+    // the first one of expand-first is already open, with the inverse logic
+    $('.collapse-entry .inline-related:not(.has_original):not(.empty-form)')
+      .not('.expand-first .inline-related[id$="-0"]')
+      .children('h3')
+      .removeClass('entry-collapsed')
     $('.collapse-entry').click(function (e) {
       const target = $(e.target)
       if (target.hasClass('entry-collapse-full-toggler')) {

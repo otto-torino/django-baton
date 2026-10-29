@@ -1185,6 +1185,8 @@ class VideoInline(admin.StackedInline):
     classes = ('collapse-entry', ) # Can be combined with Django's 'collapse'
 ```
 
+The forms of the new entries (the `extra` ones and the ones added with the "Add another" button) stay expanded, the existing entries are collapsed.
+
 To have the first entry expanded by default:
 
 ```python

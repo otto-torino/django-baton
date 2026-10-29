@@ -80,3 +80,4 @@ jobs:
         app.tests.test_e2e_ai_image
         app.tests.test_e2e_ai_summary
         app.tests.test_e2e_textarea_counter
+        app.tests.test_e2e_collapse_entry
