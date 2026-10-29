@@ -610,7 +610,7 @@ const AI = {
       .prepend($('<span class="material-symbols-outlined">sell</span>'))
       .append($('<span />').text(` ${this.t.get('suggestTags')}`))
 
-    field.after($('<div />').append(suggestButton))
+    field.after($('<div />', { class: 'baton-tag-suggestions' }).append(suggestButton))
   },
   getTagSuggestionSourceFieldId: function (sourceField, conf) {
     const languages = [
