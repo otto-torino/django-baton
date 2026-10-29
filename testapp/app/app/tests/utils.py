@@ -51,11 +51,14 @@ class PlaywrightTestCase(StaticLiveServerTestCase):
         # timeout keeps CI stable without per-call waits.
         self.page.set_default_timeout(15000)
         # uncaught JS errors fail the test, with the page they happened on:
-        # they would otherwise go unnoticed while the assertions still pass
+        # they would otherwise go unnoticed while the assertions still pass.
+        # The stack tells the script, also when the error comes from an iframe
         self.page_errors: list[str] = []
         self.page.on(
             "pageerror",
-            lambda error: self.page_errors.append(f"{self.page.url}: {error.message}"),
+            lambda error: self.page_errors.append(
+                f"{self.page.url}: {error.message}\n{error.stack}"
+            ),
         )
 
     def tearDown(self) -> None:
