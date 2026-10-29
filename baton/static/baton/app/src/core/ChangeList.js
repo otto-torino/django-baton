@@ -119,13 +119,33 @@ const ChangeList = {
       return
     }
 
+    // the user's choices, column key -> hidden. The columns without a choice follow the
+    // ModelAdmin, which can hide some by default (baton_cl_hidden_columns)
     const storageKey = 'baton-hidden-columns:' + location.pathname
-    let hidden
+    let choices
     try {
-      hidden = JSON.parse(localStorage.getItem(storageKey)) || []
+      choices = JSON.parse(localStorage.getItem(storageKey)) || {}
     } catch (e) {
-      hidden = []
+      choices = {}
     }
+    if (Array.isArray(choices)) {
+      // the old format, the list of the hidden columns
+      choices = choices.reduce((acc, key) => Object.assign(acc, { [key]: true }), {})
+    }
+
+    let defaultHidden = []
+    const defaultHiddenEl = document.getElementById('baton-hidden-columns')
+    if (defaultHiddenEl) {
+      try {
+        defaultHidden = JSON.parse(defaultHiddenEl.textContent)
+      } catch (e) {
+        defaultHidden = []
+      }
+    }
+
+    const isDefaultHidden = (key) => defaultHidden.indexOf(key) !== -1
+    const isHidden = (key) =>
+      Object.prototype.hasOwnProperty.call(choices, key) ? choices[key] : isDefaultHidden(key)
 
     const applyHidden = function (key, isHidden) {
       $('#result_list .column-' + key + ', #result_list .field-' + key).toggleClass('col-hidden', isHidden)
@@ -149,18 +169,23 @@ const ChangeList = {
       return
     }
 
-    hidden.forEach((key) => applyHidden(key, true))
+    columns.forEach((col) => applyHidden(col.key, isHidden(col.key)))
 
     const list = $('<div />', { class: 'columns-toggle-list' })
     columns.forEach((col) => {
       const id = 'column-toggle-' + col.key
       const checkbox = $('<input />', { type: 'checkbox', id: id })
-        .prop('checked', hidden.indexOf(col.key) === -1)
+        .prop('checked', !isHidden(col.key))
         .on('change', function () {
-          const isHidden = !this.checked
-          applyHidden(col.key, isHidden)
-          hidden = isHidden ? hidden.concat(col.key) : hidden.filter((k) => k !== col.key)
-          localStorage.setItem(storageKey, JSON.stringify(hidden))
+          const hide = !this.checked
+          applyHidden(col.key, hide)
+          // a choice equal to the default is dropped, so that the column follows the default if it changes
+          if (hide === isDefaultHidden(col.key)) {
+            delete choices[col.key]
+          } else {
+            choices[col.key] = hide
+          }
+          localStorage.setItem(storageKey, JSON.stringify(choices))
         })
       list.append(
         $('<label />', { class: 'columns-toggle-item', for: id }).append(checkbox).append($('<span />').text(col.label))

@@ -104,10 +104,12 @@ class NewsAdmin(BatonListPerPageMixin, ImportExportModelAdmin, TranslationAdmin)
     list_display = (
         "title",
         "date",
+        "datetime",
         "get_category",
         "status",
         "published",
     )
+    baton_cl_hidden_columns = ("datetime",)
     list_filter = (
         TitleFilter,
         ("category", admin.RelatedOnlyFieldListFilter),

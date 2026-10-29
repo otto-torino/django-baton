@@ -9,6 +9,10 @@
     {{ cl.show_all|json_script:"baton-page-size-show-all" }}
 {% endif %}
 
+{% if cl.model_admin.baton_cl_hidden_columns %}
+    {{ cl.model_admin.baton_cl_hidden_columns|json_script:"baton-hidden-columns" }}
+{% endif %}
+
 {% for template, position in cl.model_admin.baton_cl_includes %}
     <template data-type="include" data-position="{{ position }}">
         <div class="baton-cl-include baton-cl-include-{{ position }}">
