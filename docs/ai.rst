@@ -231,6 +231,16 @@ An adapter is a plain object implementing the following contract:::
         Baton.jQuery(`#${fieldId}`).after(icon)
         return true
       },
+      // Optional: the element wrapping the editor, or null if not owned.
+      // The AI buttons of the field (e.g. "Summarize from") go after it
+      getWidget(fieldId) {
+        return window.MyEditor.instances[fieldId]?.container || null
+      },
+      // Optional: a row under the editor, or null if not owned.
+      // The AI buttons of the field go at its start, e.g. beside a counter
+      getFooter(fieldId) {
+        return window.MyEditor.instances[fieldId]?.footer || null
+      },
     }
 
 Register it in your ``admin/base_site.html``, **after** ``baton.min.js`` and **before** ``init_baton.js``:::

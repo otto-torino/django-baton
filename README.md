@@ -96,6 +96,7 @@ Baton is designed with a core principle: **minimize overriding Django templates*
   * Fixed submit row for better usability on long forms.
   * Collapsable entries for stacked inlines.
   * Lazy loading for uploaded images and image previews.
+  * Live count of words and characters (spaces included) under every textarea.
 * **Flexible Includes:** Easily inject custom templates into changelist and change form pages.
 * **Dynamic Row Attributes:** Add custom HTML attributes (classes, data-attributes, titles) to changelist rows or cells.
 * **User Experience Enhancements:**
@@ -588,6 +589,16 @@ const MyEditorAdapter = {
     if (!inst) return false
     Baton.jQuery(`#${fieldId}`).after(icon)
     return true
+  },
+  // Optional: the element wrapping the editor, or null if not owned.
+  // The AI buttons of the field (e.g. "Summarize from") go after it
+  getWidget(fieldId) {
+    return window.MyEditor.instances[fieldId]?.container || null
+  },
+  // Optional: a row under the editor, or null if not owned.
+  // The AI buttons of the field go at its start, e.g. beside a counter
+  getFooter(fieldId) {
+    return window.MyEditor.instances[fieldId]?.footer || null
   },
 }
 ```

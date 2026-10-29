@@ -39,6 +39,7 @@ const ChangeForm = {
     this.activateEntryCollapsing()
     this.changeFieldsetCollapseStyle()
     this.fixExpandFirstErrorCollapsing()
+    this.initTextareaCounters()
     this.initTemplates()
   },
   activate: function () {
@@ -111,6 +112,61 @@ const ChangeForm = {
       }
     })
     // this.form.find('.wrapped-fields-container > .fieldBox:first-child').children().unwrap()
+  },
+  // the number of words and characters under every textarea, updated while writing
+  initTextareaCounters: function () {
+    const self = this
+    this.counterT = new Translator($('html').attr('lang'))
+    // the row under the textarea follows its width, also when resized or shown in a tab
+    this.counterObserver = new ResizeObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.target.offsetWidth) {
+          $(`#${entry.target.id}_baton_footer`).css('width', entry.target.offsetWidth)
+        }
+      })
+    })
+    // the empty form of the inlines too: new rows clone its counter
+    this.form.find('textarea').each(function (_, textarea) {
+      // rich text editors hide their textarea, and count by themselves if they want
+      if (!textarea.id || textarea.style.display === 'none' || $(textarea).closest('.django-ckeditor-widget').length) {
+        return
+      }
+      // the counter on the right, the room on the left for the buttons of the field
+      $(textarea).after(
+        $('<div />', { id: `${textarea.id}_baton_footer`, class: 'baton-field-footer' }).append(
+          $('<div />', { id: `${textarea.id}_baton_counter`, class: 'baton-textarea-counter' }),
+        ),
+      )
+      self.updateTextareaCounter(textarea)
+      self.counterObserver.observe(textarea)
+    })
+    this.form.on('input', 'textarea', function () {
+      self.updateTextareaCounter(this)
+    })
+    // the counter of a new inline row is there, cloned, but its textarea is not observed
+    document.addEventListener('formset:added', function (event) {
+      $(event.target)
+        .find('textarea')
+        .each(function (_, textarea) {
+          if ($(`#${textarea.id}_baton_footer`).length) {
+            self.counterObserver.observe(textarea)
+          }
+        })
+    })
+  },
+  updateTextareaCounter: function (textarea) {
+    const counter = $(`#${textarea.id}_baton_counter`)
+    if (!counter.length) {
+      return
+    }
+    // a dash or another sign alone is not a word; the characters are code points, spaces included
+    const words = textarea.value.split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length
+    const characters = Array.from(textarea.value).length
+    const lang = $('html').attr('lang') || undefined
+    counter.text(
+      `${words.toLocaleString(lang)} ${this.counterT.get(words === 1 ? 'countWord' : 'countWords')} · ` +
+        `${characters.toLocaleString(lang)} ${this.counterT.get(characters === 1 ? 'countCharacter' : 'countCharacters')}`,
+    )
   },
   fixNewlines: function () {
     $('.form-row br').replaceWith('<span class="newline"></span>')

@@ -54,6 +54,26 @@ export const messages = {
     it: 'Costo',
     es: 'Costo',
   },
+  countCharacter: {
+    en: 'character',
+    it: 'carattere',
+    es: 'carácter',
+  },
+  countCharacters: {
+    en: 'characters',
+    it: 'caratteri',
+    es: 'caracteres',
+  },
+  countWord: {
+    en: 'word',
+    it: 'parola',
+    es: 'palabra',
+  },
+  countWords: {
+    en: 'words',
+    it: 'parole',
+    es: 'palabras',
+  },
   Count: {
     en: 'Count',
     it: 'Conteggio',

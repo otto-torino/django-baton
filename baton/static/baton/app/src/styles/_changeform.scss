@@ -38,6 +38,33 @@
     display: none !important;
   }
 
+  // the row under a field: its buttons on the left, the counter on the right
+  // (django-editor-js lends its own row to the buttons)
+  .baton-field-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px 8px;
+    max-width: 100%;
+    margin-top: 4px;
+  }
+
+  .baton-field-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-right: auto;
+  }
+
+  // as the counter of django-editor-js
+  .baton-textarea-counter {
+    margin-left: auto;
+    color: var(--bs-secondary-color);
+    font-size: 0.8125rem;
+    text-align: right;
+  }
+
   .baton-image-preview {
     height: 100px;
 

@@ -16,6 +16,10 @@ const Diff = require('diff')
  *   getValue(fieldId)        -> field value, or undefined if not owned
  *   setValue(fieldId, value) -> true if handled, false if not owned
  *   setCorrect(fieldId, icon)-> true if handled, false if not owned
+ *   getWidget(fieldId)       -> optional, the element wrapping the editor, or null if not owned:
+ *                               the buttons of the field go after it
+ *   getFooter(fieldId)       -> optional, a row under the editor, or null if not owned: the buttons
+ *                               of the field go at its start, before getWidget is asked
  */
 const CKEditorAdapter = {
   name: 'ckeditor',
@@ -38,6 +42,9 @@ const CKEditorAdapter = {
       return true
     }
     return false
+  },
+  getWidget: function (fieldId) {
+    return window.CKEDITOR?.instances[fieldId] ? $(`#${fieldId}`).parent('.django-ckeditor-widget')[0] || null : null
   },
 }
 
@@ -196,7 +203,10 @@ const AI = {
               return
             }
             if (!self.setEditorFieldValue(key, item.translation)) {
-              $('#' + key).val(item.translation)
+              // the input event updates the counter of a textarea
+              $('#' + key)
+                .val(item.translation)
+                .trigger('input')
             }
           })
           overlay.remove()
@@ -331,7 +341,9 @@ const AI = {
             alert(self.t.get('aiEmptyAnswer'))
             return
           }
-          $('#' + targetId).val(data.data.description)
+          $('#' + targetId)
+            .val(data.data.description)
+            .trigger('input')
         } catch (err) {
           console.log(err)
           alert(self.t.get('error') + ': ' + err)
@@ -348,15 +360,28 @@ const AI = {
   addSummarization(fieldName, conf) {
     const self = this
     const field = $(`#id_${fieldName}`)
-    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary mb-2', href: '#', role: 'button', 'data-baton-button': '' })
+    const summarizeButton = $('<a />', { class: 'btn btn-sm btn-primary', href: '#', role: 'button', 'data-baton-button': '' })
       .on('click', function () {
         self.handleSummarization(field, conf)
       })
       .prepend($('<span class="material-symbols-outlined">summarize</span>'))
       .append($('<span />').text(` ${this.t.get('summarizeFrom')}: ${this.labelText(`id_${fieldName}`)}`))
 
-    // the button sits under the field it fills, which may live in another tab than the summarized one
-    $(`#id_${conf.target}`).after($('<div />').append(summarizeButton))
+    // the button sits under the field it fills, which may live in another tab than the summarized one:
+    // on the left of the counter of the editor or of the textarea, else under the whole editor
+    this.addFieldButton(`id_${conf.target}`, summarizeButton)
+  },
+  addFieldButton(fieldId, button) {
+    const footer = $(this.getEditorFieldFooter(fieldId) || `#${fieldId}_baton_footer`)
+    if (footer.length) {
+      let actions = footer.children('.baton-field-actions')
+      if (!actions.length) {
+        actions = $('<div />', { class: 'baton-field-actions' }).prependTo(footer)
+      }
+      actions.append(button)
+    } else {
+      $(this.getEditorFieldWidget(fieldId) || `#${fieldId}`).after($('<div />', { class: 'mb-2' }).append(button))
+    }
   },
   // label text of a field, without the icons other AI features may have put in it
   labelText(fieldId) {
@@ -440,7 +465,9 @@ const AI = {
           if (!data.data?.summary?.trim()) {
             alert(self.t.get('aiEmptyAnswer'))
           } else if (!self.setEditorFieldValue(targetId, data.data.summary)) {
-            $('#' + targetId).val(data.data.summary)
+            $('#' + targetId)
+              .val(data.data.summary)
+              .trigger('input')
           }
         } catch (err) {
           console.log(err)
@@ -976,7 +1003,7 @@ const AI = {
             actionBtnCb: function () {
               const fieldId = $(field).attr('id')
               if (!self.setEditorFieldValue(fieldId, data.data.text)) {
-                $(field).val(data.data.text)
+                $(field).val(data.data.text).trigger('input')
               }
               myModal.close()
               myModal.destroy()
@@ -1151,6 +1178,26 @@ const AI = {
       }
     }
     return false
+  },
+  // Given a field id return the element wrapping its editor, null if not an editor field or the adapter does not tell
+  getEditorFieldWidget: function (fieldId) {
+    for (const adapter of this.getEditorAdapters()) {
+      const widget = adapter.getWidget ? adapter.getWidget(fieldId) : null
+      if (widget) {
+        return widget
+      }
+    }
+    return null
+  },
+  // Given a field id return the row under its editor, null if not an editor field or the adapter does not tell
+  getEditorFieldFooter: function (fieldId) {
+    for (const adapter of this.getEditorAdapters()) {
+      const footer = adapter.getFooter ? adapter.getFooter(fieldId) : null
+      if (footer) {
+        return footer
+      }
+    }
+    return null
   },
 }
 

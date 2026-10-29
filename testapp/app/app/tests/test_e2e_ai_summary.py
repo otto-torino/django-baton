@@ -22,6 +22,8 @@ class TestBatonAiSummary(PlaywrightTestCase):
         expect(button).to_have_count(1)
         expect(button).to_contain_text("Body [en]")
         expect(self.page.locator(".field-body_summary").locator("a[data-baton-button]", has_text="Summarize from")).to_have_count(1)
+        # beside the counter of django-editor-js, under the editor
+        expect(self.page.locator("#id_body_summary_footer .baton-field-actions").locator("a[data-baton-button]", has_text="Summarize from")).to_have_count(1)
 
     def test_the_target_keeps_its_correction_button(self):
         self.login("/admin/news/news/2/change/")
