@@ -449,7 +449,7 @@ class MyModelAdmin(admin.ModelAdmin):
     }
 ```
 
-Buttons appear near the source field to generate summaries for target fields. Parameters (`words`, `useBulletedList`) can be edited in the UI. Supports default fields and CKEditor. See [AI Hooks](#ai-hooks).
+A button appears under each target field (even in another tab than the source) to generate its summary; with an empty source field it shows an alert instead. Parameters (`words`, `useBulletedList`) can be edited in the UI. Supports default fields and CKEditor. See [AI Hooks](#ai-hooks).
 
 ### Tag Suggestions
 

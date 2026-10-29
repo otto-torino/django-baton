@@ -79,6 +79,11 @@ export const messages = {
     it: 'Diff',
     es: 'Diff',
   },
+  emptySummarySource: {
+    en: 'To generate “{target}”, fill in the field “{source}” first',
+    it: 'Per generare «{target}» bisogna prima compilare il campo «{source}»',
+    es: 'Para generar «{target}», primero hay que rellenar el campo «{source}»',
+  },
   error: {
     en: 'Error',
     it: 'Errore',
@@ -198,6 +203,11 @@ export const messages = {
     en: 'Summ API cost',
     it: 'Costo riassunto',
     es: 'Costo de resumen',
+  },
+  summarizeFrom: {
+    en: 'Summarize from',
+    it: 'Riassumi da',
+    es: 'Resumir desde',
   },
   suggestTags: {
     en: 'Suggest tags',

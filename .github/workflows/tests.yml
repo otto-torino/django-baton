@@ -77,3 +77,4 @@ jobs:
         app.tests.test_e2e_layout
         app.tests.test_e2e_csp
         app.tests.test_e2e_ai_image
+        app.tests.test_e2e_ai_summary

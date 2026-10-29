@@ -74,8 +74,9 @@ You have to specify the target field name. You can also optionally specify the f
 
 The ``words`` and ``useBulletedList`` parameters can be edited int the UI when actually summarizing the text.
 
-With this configuration, two (the number of targets) buttons will appear near the ``text_it`` field, each one opening a modal dialog with the configuration for the target field.
+With this configuration, a button will appear under each target field (``abstract_it`` and ``meta_description_it``), also when the target lives in another tab than the source, each one opening a modal dialog with the configuration for that target field.
 In this modal you can edit the ``words`` and ``useBulletedList`` parameters and perform the summarization that will be inserted in the target field.
+If the source field is empty, the button shows an alert instead of the modal.
 
 All default fields and CKEditor fields are supported out of the box. Other rich-text editors (e.g. Editor.js via ``dj-editor-js``) plug in through editor adapters, see the Editor Adapters section below.
 

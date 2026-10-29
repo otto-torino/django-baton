@@ -355,12 +355,30 @@ const AI = {
         self.handleSummarization(field, targetLabel, conf)
       })
       .prepend($('<span class="material-symbols-outlined">summarize</span>'))
-      .append($('<span />').text(` ${this.t.get('generateSummary')}: ${targetLabel.text().replace(':', '')}`))
+      .append($('<span />').text(` ${this.t.get('summarizeFrom')}: ${this.labelText(`id_${fieldName}`)}`))
 
-    field.after($('<div />').append(summarizeButton))
+    // the button sits under the field it fills, which may live in another tab than the summarized one
+    $(`#id_${conf.target}`).after($('<div />').append(summarizeButton))
+  },
+  // label text of a field, without the icons other AI features may have put in it
+  labelText(fieldId) {
+    const label = $(`label[for="${fieldId}"]`).clone()
+    label.find('.material-symbols-outlined').remove()
+    return label.text().replace(':', '').trim()
   },
   handleSummarization(field, targetLabel, conf) {
     const self = this
+    // editors may return markup even when empty, so the text is what counts
+    const source = new DOMParser().parseFromString(this.fieldText(field.attr('id')), 'text/html')
+    if (!source.body.textContent.trim()) {
+      alert(
+        this.t
+          .get('emptySummarySource')
+          .replace('{target}', this.labelText(`id_${conf.target}`))
+          .replace('{source}', this.labelText(field.attr('id'))),
+      )
+      return
+    }
     const content = `
 <div>
 <label for="words" class="mb-2" style="font-weight: 700">${this.t.get('words')}</label>
