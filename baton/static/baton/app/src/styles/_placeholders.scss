@@ -801,9 +801,16 @@
     margin-bottom: 0;
     padding: 0.5rem;
 
-    + .form-row {
-      margin-top: 15px;
+    // the space before the rows is of the fieldset, not of its first row:
+    // rows set side by side by a project stay aligned
+    &:has(+ .form-row) {
+      margin-bottom: 15px;
     }
+  }
+
+  // the tabs hide the title: the space stays, at the top of the fieldset
+  fieldset:has(> h2.baton-tab-title + .form-row) {
+    padding-top: 15px;
   }
 
   fieldset fieldset > h2 {

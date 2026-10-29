@@ -47,7 +47,7 @@ const Tabs = {
                     'data-bs-toggle': 'tab',
                     'data-bs-target': '#main-tab',
                     // href: '#main-tab'
-                }).text(this.main.children('h2').hide().text()),
+                }).text(this.main.children('h2').addClass('baton-tab-title').hide().text()),
             )
             .appendTo(this.nav)
 
@@ -79,7 +79,7 @@ const Tabs = {
                         'data-bs-toggle': 'tab',
                         'data-bs-target': '#' + el,
                         // href: '#' + el
-                    }).text(domEl.find('h2:first-child').first().hide().text()),
+                    }).text(domEl.find('h2:first-child').first().addClass('baton-tab-title').hide().text()),
                 )
                 .appendTo(this.nav)
             currentOrder += 1
