@@ -25,14 +25,31 @@
   left: 0;
 }
 
+// the page behind the open menu stays still
+body.menu-open {
+  @include media-breakpoint-down(lg) {
+    overflow: hidden;
+  }
+
+  &.menu-mobile {
+    overflow: hidden;
+  }
+}
+
 body:not(.menu-mobile) {
   @include media-breakpoint-up(lg) {
     .sidebar-menu {
-      height: auto;
+      // sticks to the viewport and scrolls on its own, so that a long menu
+      // neither stretches the page nor scrolls the content
+      align-self: flex-start;
+      height: 100vh;
       left: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
       // room for the collapse toggle fixed at the bottom
       padding-bottom: 73px;
-      position: static;
+      position: sticky;
 
       h1 {
         i {
@@ -595,8 +612,6 @@ body.menu-collapsed:not(.menu-mobile) {
     .sidebar-menu {
       flex: 0 0 $menu-collapsed-width;
       max-width: $menu-collapsed-width;
-      // let the language dropdown overflow the sidebar
-      overflow: visible;
       width: $menu-collapsed-width;
 
       #branding {
