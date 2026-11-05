@@ -21,6 +21,35 @@
   }
 }
 
+// thin scrollbar without track, its thumb shows up only hovering the menu
+@mixin menu-scrollbar {
+  --baton-menu-scrollbar-thumb: transparent;
+
+  &:hover {
+    --baton-menu-scrollbar-thumb: color-mix(in srgb, var(--bs-baton-menu-link-color) 45%, transparent);
+  }
+
+  // chrome and safari
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--baton-menu-scrollbar-thumb);
+    border-radius: 3px;
+  }
+
+  // firefox
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--baton-menu-scrollbar-thumb) transparent;
+    scrollbar-width: thin;
+  }
+}
+
 .menu-open .sidebar-menu {
   left: 0;
 }
@@ -50,6 +79,7 @@ body:not(.menu-mobile) {
       // room for the collapse toggle fixed at the bottom
       padding-bottom: 73px;
       position: sticky;
+      @include menu-scrollbar;
 
       h1 {
         i {
