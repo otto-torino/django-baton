@@ -1,25 +1,46 @@
-Compact stacked inlines
-=======================
+Collapsable StackedInline entries
+=================================
 
-Baton displays every stacked inline as a compact row with its object name,
-model label, a plain-text summary and controls to open the form and delete
-or restore the entry. Tabular inlines keep their table. No inline classes
-are needed to enable this presentation.
+.. image:: images/collapsable_stackedinline.png
 
-Saved entries start collapsed; new entries and entries with validation
-errors start expanded. ``expand-first`` still opens the first entry.
-The existing form widgets and Django permissions are preserved.
+Every stacked inline entry has a header with its name, a plain-text summary of
+its fields, a toggle to open and close its form and a menu of actions to
+delete or restore it. Tabular inlines keep their table. The form widgets and
+Django permissions are preserved, and every change is saved with the parent
+form.
+
+To have the existing entries collapsed when the page opens, add a
+``collapse-entry`` class to the inline, with or without the entire collapse
+class ::
+
+    class VideosInline(admin.StackedInline):
+        model = Video
+        extra = 1
+        classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+
+Without it, all the entries start expanded. The forms of the new entries (the
+``extra`` ones and the ones added with the "Add another" button) and the
+entries with validation errors always start expanded.
+
+And if you want the first entry to be initially expanded, add also the
+``expand-first`` class ::
+
+    class VideosInline(admin.StackedInline):
+        model = Video
+        extra = 1
+        classes = ('collapse-entry', 'expand-first', )
+
+Ordering
+--------
 
 When an inline has an editable numeric ``position``, ``sort_order`` or
 ``order`` field, its handle lets users drag it or use the Up/Down arrow keys.
 The menu also offers Move up and Move down. The model must use that field
-in its ordering for the order to persist across visits. All changes,
-including ordering and deletion, are saved with the parent form.
+in its ordering for the order to persist across visits.
 Untouched extra forms are excluded from ordering to avoid empty records.
 
-To keep the previous presentation for a project::
-
-    BATON = {"COMPACT_INLINES": False}
-
-In that mode, ``collapse-entry`` and ``expand-first`` retain their original
-behaviour for stacked inlines.
+Rows are dragged with SortableJS and move in the page, as the keyboard and
+the menu move them. A moved row reloads the widgets it holds in iframes, such
+as rich text editors: an editor that keeps its value in the form field as it
+changes, as django-editor-js does since 0.9.1, loses nothing; one that writes
+it only when the form is submitted loses the unsaved text of that row.

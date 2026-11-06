@@ -37,10 +37,9 @@ const ChangeForm = {
       this.lazyLoadImages()
     }
     this.fixCollapseDetails() // with Django 5.1 a collapse-entry class causes details/summary markup to appear
-    if (opts.compactInlines !== false) StackedInline.init(opts)
+    StackedInline.init(opts)
     this.activateEntryCollapsing()
     this.changeFieldsetCollapseStyle()
-    this.fixExpandFirstErrorCollapsing()
     this.initTextareaCounters()
     this.initTemplates()
   },
@@ -206,41 +205,11 @@ const ChangeForm = {
     $('fieldset.collapsed > details').removeAttr('open')
   },
   activateEntryCollapsing: function () {
-    $('.collapse-entry h3, .collapse-entry h2').filter(function () { return !$(this).closest('.baton-stacked').length })
-      .addClass('entry-collapsed entry-collapse-full-toggler')
+    // the stacked inlines are compact rows; the title of a tabular one, in the
+    // details that Django draws for a collapse-entry class, gets the icon
+    $('.collapse-entry h2').filter(function () { return !$(this).closest('.baton-stacked').length })
       .append('<span />') // just to have the toggler right aligned
       .append('<span class="entry-collapse-toggler" />')
-    // the forms of new entries stay open, as the rows added with the "add another" button;
-    // the first one of expand-first is already open, with the inverse logic
-    $('.collapse-entry .inline-related:not(.has_original):not(.empty-form)')
-      .not('.expand-first .inline-related[id$="-0"]')
-      .children('h3')
-      .removeClass('entry-collapsed')
-    $('.collapse-entry').filter(function () { return !$(this).closest('.baton-stacked').length }).click(function (e) {
-      const target = $(e.target)
-      if (target.hasClass('entry-collapse-full-toggler')) {
-        target.toggleClass('entry-collapsed')
-      } else if (target.parent('.entry-collapse-full-toggler').length > 0) {
-        target.parent('.entry-collapse-full-toggler').toggleClass('entry-collapsed')
-      }
-    })
-    $('.form-row.errors').each(function (index, el) {
-      if ($(el).parent('fieldset').siblings('h3.entry-collapsed')) {
-        $(el).parent('fieldset').siblings('h3.entry-collapsed').removeClass('entry-collapsed')
-      }
-    })
-  },
-  fixExpandFirstErrorCollapsing: function () {
-    $('.expand-first').each(function (_, el) {
-      if ($(el).find('.inline-related[id$=0] .form-row.errors').length) {
-        // inverse logic
-        $(el)
-          .find('.inline-related[id$=0] .form-row.errors')
-          .parent('fieldset')
-          .siblings('h3')
-          .addClass('entry-collapsed')
-      }
-    })
   },
   changeFieldsetCollapseStyle: function () {
     $(window).on('load', function () {

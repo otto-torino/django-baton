@@ -25,7 +25,6 @@ default_config: dict[str, Any] = {
     "CHANGELIST_FILTERS_ALWAYS_OPEN": False,
     "CHANGELIST_FILTERS_FORM": False,
     "CHANGEFORM_FIXED_SUBMIT_ROW": True,
-    "COMPACT_INLINES": True,
     "MENU_ALWAYS_COLLAPSED": False,
     "MESSAGES_TOASTS": False,
     "GRAVATAR_DEFAULT_IMG": "retro",

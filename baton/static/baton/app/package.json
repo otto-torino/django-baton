@@ -33,6 +33,7 @@
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.106.1",
     "sass-loader": "^17.1.0",
+    "sortablejs": "^1.15.7",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.112.2",

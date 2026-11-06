@@ -112,68 +112,6 @@
     details:not([open]) h2 .entry-collapse-toggler::before {
       content: 'visibility';
     }
-
-    h3 {
-      /* django 5.1 uses a h2 */
-      cursor: pointer;
-      margin: 0.5rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .entry-collapse-toggler {
-        order: 1;
-
-        &::before {
-          color: var(--bs-baton-changeform-collapse-entry-icon-color);
-          @extend %material;
-          content: 'visibility_off';
-        }
-
-        & + span {
-          margin-left: auto;
-        }
-      }
-
-      &.entry-collapsed {
-        ~ fieldset {
-          display: none !important;
-        }
-
-        .entry-collapse-toggler {
-          &::before {
-            content: 'visibility';
-          }
-        }
-      }
-    }
-  }
-
-  .collapse-entry .last-related, // do not collapse the newly added row
-  .expand-first .inline-related[id$="-0"] {
-    h3 {
-      .entry-collapse-toggler {
-        &::before {
-          content: 'visibility';
-        }
-      }
-
-      ~ fieldset {
-        display: none !important;
-      }
-
-      &.entry-collapsed {
-        .entry-collapse-toggler {
-          &::before {
-            content: 'visibility_off';
-          }
-        }
-
-        ~ fieldset {
-          display: block !important;
-        }
-      }
-    }
   }
 }
 

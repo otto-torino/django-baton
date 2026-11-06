@@ -1,3 +1,4 @@
+import Sortable from 'sortablejs'
 import Translator from './i18n'
 
 const element = (tag, className, text) => {
@@ -33,39 +34,46 @@ class InlineGroup {
     this.options = options
     this.t = new Translator(document.documentElement.lang)
     this.rows = []
-    this.dragged = null
+    this.sortable = null
+    // collapse-entry closes the saved rows, as it always did; without it they
+    // start open
+    this.collapsible = Boolean(group.querySelector('.collapse-entry'))
     group.classList.add('baton-stacked')
     this.refresh()
     for (const event of ['input', 'change']) group.addEventListener(event, (event) => this.update(event.target.closest('.baton-stacked-row')))
-    group.addEventListener('dragover', (event) => {
-      const target = event.target.closest('.baton-stacked-row')
-      if (!this.dragged || !this.rows.includes(target) || target === this.dragged) return
-      event.preventDefault()
-      event.dataTransfer.dropEffect = 'move'
-      this.rows.forEach((row) => row.classList.toggle('is-drop-target', row === target))
-    })
-    group.addEventListener('drop', (event) => {
-      const target = event.target.closest('.baton-stacked-row')
-      if (!this.dragged || !this.rows.includes(target)) return
-      event.preventDefault()
-      this.move(this.dragged, this.rows.indexOf(target))
-      this.endDrag()
-    })
     group.closest('form')?.addEventListener('submit', () => this.saveOrder())
   }
 
   refresh () {
-    this.rows = this.rows.filter((row) => row.isConnected)
-    this.group.querySelectorAll('.inline-related:not(.empty-form)').forEach((row) => {
-      if (row.closest('.js-inline-admin-formset') !== this.group || this.rows.includes(row)) return
-      this.rows.push(row)
-      this.decorate(row)
-    })
-    this.rows.forEach((row, index) => {
-      // Moving iframe nodes reloads editors and can lose unsaved text. CSS
-      // order changes their visual position without detaching any widget.
-      row.style.order = index
+    // the rows in the order of the page, which a drag changes
+    this.rows = [...this.group.querySelectorAll('.inline-related:not(.empty-form)')]
+      .filter((row) => row.closest('.js-inline-admin-formset') === this.group)
+    this.rows.forEach((row) => {
+      if (!row.classList.contains('baton-stacked-row')) this.decorate(row)
       this.update(row)
+    })
+    this.initSortable()
+  }
+
+  // Dragged with SortableJS, from the handle: the row moves in the page, so
+  // its widgets in iframes reload, see the docs.
+  initSortable () {
+    const list = this.rows.find((row) => row.batonInline?.order)?.parentElement
+    if (this.sortable || !list) return
+    this.sortable = new Sortable(list, {
+      handle: '.baton-inline-handle',
+      draggable: '.baton-stacked-row',
+      animation: 150,
+      swapThreshold: 0.65,
+      easing: 'cubic-bezier(1, 0, 0, 1)',
+      // the editors in iframes would take the drag events while a row passes
+      onStart: () => this.group.classList.add('is-sorting'),
+      onEnd: (event) => {
+        this.group.classList.remove('is-sorting')
+        this.refresh()
+        this.saveOrder()
+        event.item.querySelector('.baton-inline-handle')?.focus()
+      },
     })
   }
 
@@ -83,7 +91,6 @@ class InlineGroup {
     row.classList.add('baton-stacked-row')
     row.parentElement.classList.add('baton-inline-list')
     original.classList.add('baton-inline-original-heading')
-    original.classList.remove('entry-collapsed')
     const label = original.querySelector('.inline_label')?.cloneNode(true)
     label?.querySelectorAll('a').forEach((link) => link.remove())
     const order = row.querySelector('input[type="number"][name$="-position"], input[type="number"][name$="-sort_order"], input[type="number"][name$="-order"]')
@@ -97,7 +104,8 @@ class InlineGroup {
     const main = element('button', 'baton-inline-main')
     main.type = 'button'
     const title = element('span', 'baton-inline-title')
-    title.append(element('strong', 'baton-inline-name'), element('span', 'baton-inline-badge', row.batonInline.type))
+    // no badge of the model: every row of an inline is one, named by its tab
+    title.append(element('strong', 'baton-inline-name'))
     main.append(title, element('span', 'baton-inline-summary'))
     main.addEventListener('click', () => this.expand(row, row.classList.contains('is-collapsed')))
     const glyph = icon('view_agenda')
@@ -105,14 +113,6 @@ class InlineGroup {
     header.append(glyph, main)
     if (row.batonInline.order) {
       const handle = this.button('drag_indicator', 'inlineMove', 'baton-inline-handle')
-      handle.draggable = true
-      handle.addEventListener('dragstart', (event) => {
-        this.dragged = row
-        row.classList.add('is-dragging')
-        event.dataTransfer.effectAllowed = 'move'
-        event.dataTransfer.setData('text/plain', row.id)
-      })
-      handle.addEventListener('dragend', () => this.endDrag())
       handle.addEventListener('keydown', (event) => {
         if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return
         event.preventDefault()
@@ -170,7 +170,7 @@ class InlineGroup {
     }
     row.prepend(header)
     const firstExpanded = this.group.querySelector('.expand-first') && this.rows.indexOf(row) === 0
-    this.expand(row, Boolean(row.querySelector('.errors, .errorlist') || firstExpanded || !row.classList.contains('has_original')))
+    this.expand(row, Boolean(!this.collapsible || row.querySelector('.errors, .errorlist') || firstExpanded || !row.classList.contains('has_original')))
   }
 
   expand (row, expanded) {
@@ -203,9 +203,11 @@ class InlineGroup {
   }
 
   move (row, index) {
-    if (index < 0 || index >= this.rows.length || this.rows.indexOf(row) === index) return
-    this.rows.splice(this.rows.indexOf(row), 1)
-    this.rows.splice(index, 0, row)
+    const from = this.rows.indexOf(row)
+    if (index < 0 || index >= this.rows.length || from === index) return
+    const target = this.rows[index]
+    if (index > from) target.after(row)
+    else target.before(row)
     this.refresh()
     this.saveOrder()
     row.querySelector('.baton-inline-handle')?.focus()
@@ -223,11 +225,6 @@ class InlineGroup {
       })
       field.value = changed ? position++ : row.batonInline.initial.get(field)
     })
-  }
-
-  endDrag () {
-    this.dragged = null
-    this.rows.forEach((row) => row.classList.remove('is-dragging', 'is-drop-target'))
   }
 }
 

@@ -80,12 +80,25 @@ class TestBatonCollapseEntry(PlaywrightTestCase):
         expect(self.page.locator(f"{prefix}-1 > fieldset").first).to_be_hidden()
         expect(self.page.locator(f"{prefix}-2 > fieldset").first).to_be_visible()
 
-    def test_the_new_first_entry_of_expand_first_stays_open(self):
-        self.login("/admin/news/news/add/")
+    def test_without_collapse_entry_the_saved_entries_are_open(self):
+        # news 1 has a saved video, the inline has no classes
+        self.login("/admin/news/news/1/change/")
         self.wait_baton_ready()
         self.open_tab(4)  # Videos
 
-        expect(self.page.locator("#videos-0 > fieldset").first).to_be_visible()
+        row = self.page.locator("#videos-0")
+        expect(row.locator("fieldset").first).to_be_visible()
+        # it closes and opens as the others
+        row.locator(".baton-inline-toggle").click()
+        expect(row.locator("fieldset").first).to_be_hidden()
+
+    def test_the_new_first_entry_of_expand_first_stays_open(self):
+        self.login("/admin/news/news/add/")
+        self.wait_baton_ready()
+        self.open_tab(5)  # Activities
+
+        prefix = "#news-activity-content_type-object_id"
+        expect(self.page.locator(f"{prefix}-0 > fieldset").first).to_be_visible()
 
     def test_the_entry_added_with_the_button_is_open(self):
         self.login("/admin/news/news/1/change/")

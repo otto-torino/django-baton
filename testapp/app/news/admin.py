@@ -56,10 +56,6 @@ class AttachmentsInline(admin.TabularInline):
 class VideosInline(admin.StackedInline):
     model = Video
     extra = 1
-    classes = (
-        "collapse-entry",
-        "expand-first",
-    )
     fieldsets = (
         (
             "Code",

@@ -822,9 +822,13 @@
     background: var(--bs-baton-changeform-fieldset-nested-title-bg);
   }
 
-  .inline-related {
+  // the tables of the tabular inlines scroll sideways (#114); the rows of the
+  // stacked ones do not, or they would clip their menus
+  .tabular.inline-related {
     overflow-x: auto;
+  }
 
+  .inline-related {
     .form-row {
       td {
         background: var(--bs-baton-changeform-field-bg);
