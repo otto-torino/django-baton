@@ -1,3 +1,4 @@
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 import Sortable from 'sortablejs'
 import Translator from './i18n'
 
@@ -22,6 +23,11 @@ const text = (value) => {
     if (Array.isArray(data.blocks)) value = data.blocks.map((block) => block.data?.text || block.data?.caption || '').filter(Boolean).join(' · ')
   } catch (_) { /* ordinary text */ }
   return new DOMParser().parseFromString(value, 'text/html').body.textContent.replace(/\s+/g, ' ').trim()
+}
+// the submit row fixed at the bottom of the window covers the end of the page
+const coveredBottom = () => {
+  const bar = [...document.querySelectorAll('.submit-row')].find((row) => getComputedStyle(row).position === 'fixed')
+  return bar ? bar.getBoundingClientRect().height : 0
 }
 const value = (field) => {
   if (field.type === 'checkbox' || field.type === 'radio') return field.checked
@@ -188,8 +194,6 @@ class InlineGroup {
     const trigger = this.button('more_vert', 'inlineActions', 'baton-inline-menu')
     trigger.setAttribute('data-bs-toggle', 'dropdown')
     trigger.setAttribute('aria-expanded', 'false')
-    // a tabular inline scrolls sideways, and would clip it
-    if (this.tabular) trigger.setAttribute('data-bs-popper-config', JSON.stringify({ strategy: 'fixed' }))
     const menu = element('ul', 'dropdown-menu dropdown-menu-end')
     const action = (label, callback) => {
       const item = element('li', '')
@@ -226,6 +230,19 @@ class InlineGroup {
       button.classList.add('baton-inline-delete', 'text-danger')
     }
     dropdown.append(trigger, menu)
+    bootstrap.Dropdown.getOrCreateInstance(trigger, {
+      // measured at each opening: the menu opens upwards rather than under
+      // the submit row
+      popperConfig: (config) => {
+        const padding = { top: 8, bottom: coveredBottom() + 8 }
+        return {
+          ...config,
+          // a tabular inline scrolls sideways, and would clip it
+          ...(this.tabular ? { strategy: 'fixed' } : {}),
+          modifiers: [...config.modifiers, { name: 'flip', options: { padding } }, { name: 'preventOverflow', options: { padding } }],
+        }
+      },
+    })
     // the state of the remove button may have changed since the last update
     dropdown.addEventListener('show.bs.dropdown', () => this.update(row))
     return dropdown
