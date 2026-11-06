@@ -1,0 +1,164 @@
+// Stacked and tabular inlines, as lists on the background of the form: a thin
+// line between the rows, the same handle and menu of actions.
+
+// what both share
+#content .baton-stacked,
+#content .baton-tabular {
+  .baton-inline-action {
+    flex-shrink: 0;
+    padding: 6px;
+    color: var(--bs-secondary-color);
+    border: 0;
+    --bs-btn-active-bg: transparent;
+    --bs-btn-hover-bg: var(--bs-secondary-bg);
+    .material-symbols-outlined { font-size: 22px; line-height: 1; }
+    &:focus-visible { outline: 2px solid var(--bs-primary); outline-offset: 3px; }
+  }
+  .baton-inline-handle { cursor: grab; }
+  .baton-inline-handle:active { cursor: grabbing; }
+  // the field of the order, set by the handle and the menu
+  .baton-inline-order-cell { display: none !important; }
+  // the remove button of Django, replaced by the menu
+  .baton-inline-row .inline-deletelink { display: none !important; }
+  // the place the row is dragged to
+  .baton-inline-row.sortable-ghost { opacity: 0.4; }
+  // the editors in iframes would take the drag events while a row passes
+  &.is-sorting iframe { pointer-events: none; }
+}
+
+#content .baton-stacked {
+  .baton-inline-list {
+    display: flex;
+    flex-direction: column;
+    > :not(.baton-stacked-row):not(.add-row) { order: -1; }
+    > .add-row { order: 2147483647; }
+  }
+  // a bar on the side of the open rows, so that their fields read as theirs
+  .baton-stacked-row {
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid var(--bs-border-color);
+    border-radius: 0;
+    background: transparent;
+    &:not(.is-collapsed) { box-shadow: inset 3px 0 0 var(--bs-primary); }
+    > .baton-inline-original-heading { display: none !important; }
+    > fieldset { display: block !important; padding: 12px; background: transparent; }
+    > fieldset .form-row { background: transparent; }
+    &.is-collapsed > fieldset { display: none !important; }
+    &.is-deleted .baton-inline-main { opacity: 0.5; text-decoration: line-through; }
+  }
+  .baton-inline-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    min-height: 62px;
+    &:hover { background: var(--bs-tertiary-bg); }
+    .baton-inline-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+      height: 38px;
+      border-radius: 7px;
+      background: var(--bs-secondary-bg);
+      font-size: 21px;
+      line-height: 1;
+    }
+    .baton-inline-main {
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      text-align: left;
+      color: var(--bs-body-color);
+      background: transparent;
+    }
+    .baton-inline-title { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .baton-inline-name { font-size: 0.95rem; overflow-wrap: anywhere; }
+    .baton-inline-summary {
+      display: block;
+      margin-top: 3px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 0.85rem;
+      color: var(--bs-secondary-color);
+    }
+    .baton-inline-summary[hidden] { display: none; }
+    .baton-inline-main:focus-visible { outline: 2px solid var(--bs-primary); outline-offset: 3px; }
+  }
+  @media (max-width: 575px) {
+    .baton-inline-header { gap: 5px; padding: 8px; }
+    .baton-inline-header .baton-inline-icon { display: none; }
+  }
+}
+
+// The table stays, its rows as the stacked ones: the name of a saved row on
+// top of its cells, the handle in the first column, the menu in the last one.
+// As specific as the rules of the change form on the inline tables.
+.change-form #content .baton-tabular.inline-group {
+  table {
+    margin-bottom: 0;
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--bs-body-color);
+  }
+  thead th {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--bs-border-color);
+    background: transparent;
+    color: var(--bs-secondary-color);
+    font-size: 0.85rem;
+    &.required { color: var(--bs-body-color); }
+  }
+  .baton-tabular-row {
+    > td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--bs-border-color);
+      background: transparent;
+      vertical-align: top;
+    }
+    &.has_original > td { padding-top: 36px; }
+    &:hover > td { background: var(--bs-tertiary-bg); }
+    > td.original {
+      position: relative;
+      width: 1%;
+      padding-right: 0;
+      white-space: nowrap;
+      > p { display: none; }
+    }
+    .baton-inline-name {
+      position: absolute;
+      top: 10px;
+      left: calc(100% + 12px);
+      max-width: 60vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    > td.baton-inline-actions {
+      width: 1%;
+      white-space: nowrap;
+      text-align: right;
+      // the "Delete?" checkbox, ticked from the menu
+      > input { display: none; }
+    }
+    &.is-deleted {
+      > td:not(.baton-inline-actions):not(.original) { opacity: 0.5; }
+      .baton-inline-name { opacity: 0.5; text-decoration: line-through; }
+    }
+  }
+  // the errors of a field, above it
+  .baton-tabular-row .errorlist {
+    margin: 0 0 6px;
+    padding: 0;
+    list-style: none;
+    background: transparent;
+    color: var(--bs-danger-text-emphasis);
+    font-size: 0.85rem;
+  }
+  .row-form-errors > td { border-bottom: 0; padding: 10px 12px 0; }
+  .add-row > td { border-bottom: 0; }
+}

@@ -48,6 +48,14 @@ class TestBatonCollapseEntry(PlaywrightTestCase):
         expect(total).to_have_value(str(before))
         expect(group.locator(".baton-stacked-row")).to_have_count(before)
 
+    def test_the_extra_rows_have_the_menu_instead_of_the_remove_button(self):
+        self.login("/admin/news/news/1/change/")
+        self.wait_baton_ready()
+        self.open_tab(4)
+        row = self.page.locator("#videos-1")
+        expect(row.locator(".baton-inline-menu")).to_be_visible()
+        expect(row.locator(".inline-deletelink")).to_be_hidden()
+
     def test_invalid_rows_reopen_after_submission(self):
         self.login("/admin/news/news/1/change/")
         self.wait_baton_ready()

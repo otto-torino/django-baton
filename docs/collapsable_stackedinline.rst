@@ -5,7 +5,7 @@ Collapsable StackedInline entries
 
 Every stacked inline entry has a header with its name, a plain-text summary of
 its fields, a toggle to open and close its form and a menu of actions to
-delete or restore it. Tabular inlines keep their table. The form widgets and
+delete or restore it. The form widgets and
 Django permissions are preserved, and every change is saved with the parent
 form.
 
@@ -30,11 +30,20 @@ And if you want the first entry to be initially expanded, add also the
         extra = 1
         classes = ('collapse-entry', 'expand-first', )
 
+Tabular inlines
+---------------
+
+Tabular inlines keep their table, with the same look and the same actions:
+the name of a saved entry is shown on top of its cells, and a menu at the end
+of the row deletes or restores it, in place of the "Delete?" column and of the
+remove button of the new entries.
+
 Ordering
 --------
 
-When an inline has an editable numeric ``position``, ``sort_order`` or
-``order`` field, its handle lets users drag it or use the Up/Down arrow keys.
+When a stacked or tabular inline has an editable numeric ``position``,
+``sort_order`` or ``order`` field, that field is hidden and a handle lets users
+drag the entries or move them with the Up/Down arrow keys.
 The menu also offers Move up and Move down. The model must use that field
 in its ordering for the order to persist across visits.
 Untouched extra forms are excluded from ordering to avoid empty records.

@@ -107,10 +107,12 @@ class Attachment(models.Model):
     )
     file = models.FileField(upload_to='news/img')
     caption = models.TextField()
+    position = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = "attachment"
         verbose_name_plural = "attachments"
+        ordering = ("position",)
 
     def __str__(self):
         return '{0}'.format(self.caption)

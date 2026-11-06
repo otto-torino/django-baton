@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import Translator from './i18n'
-import StackedInline from './StackedInline'
+import Inlines from './Inlines'
 
 const ChangeForm = {
   /**
@@ -37,7 +37,7 @@ const ChangeForm = {
       this.lazyLoadImages()
     }
     this.fixCollapseDetails() // with Django 5.1 a collapse-entry class causes details/summary markup to appear
-    StackedInline.init(opts)
+    Inlines.init(opts)
     this.activateEntryCollapsing()
     this.changeFieldsetCollapseStyle()
     this.initTextareaCounters()

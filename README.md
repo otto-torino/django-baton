@@ -94,7 +94,7 @@ Baton is designed with a core principle: **minimize overriding Django templates*
 * **Improved Forms:**
   * Out-of-the-box tabbed interface for fieldsets and inlines.
   * Fixed submit row for better usability on long forms.
-  * Stacked inlines with summaries, collapsable entries and ordering controls.
+  * Stacked and tabular inlines with a menu of actions and drag-and-drop ordering; collapsable stacked entries with summaries.
   * Lazy loading for uploaded images and image previews.
   * Live count of words and characters (spaces included) under every textarea.
 * **Flexible Includes:** Easily inject custom templates into changelist and change form pages.
@@ -1175,7 +1175,8 @@ class NewsAdmin(admin.ModelAdmin):
 ![Collapsable Stacked Inlines Screenshot](docs/images/collapsable_stackedinline.png)
 Every `StackedInline` entry has a header with its name, a plain-text summary
 of its fields, a toggle for its form and a menu to delete or restore it.
-Tabular inlines keep their table. Changes are saved with the parent form.
+Tabular inlines keep their table, with the same menu at the end of each row in
+place of the "Delete?" column. Changes are saved with the parent form.
 
 Add `collapse-entry` to the inline's `classes` to have the existing entries
 collapsed when the page opens; without it, they start expanded:
@@ -1200,7 +1201,8 @@ class VideoInline(admin.StackedInline):
     classes = ('collapse-entry', 'expand-first')
 ```
 
-An editable numeric `position`, `sort_order` or `order` field enables dragging,
+In stacked and tabular inlines alike, an editable numeric `position`,
+`sort_order` or `order` field is hidden and enables dragging,
 arrow-key movement and Move up/Move down actions. The model must order by that
 field.
 
