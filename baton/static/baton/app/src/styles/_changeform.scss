@@ -57,6 +57,13 @@
     margin-right: auto;
   }
 
+  // Django gives every textarea 10 rows: those left at that default have 3,
+  // the rows a project sets stay. As specific as the minimum height of
+  // Bootstrap on the textareas of the form
+  #content form textarea[rows='10'] {
+    height: calc(3lh + 2 * var(--bs-border-width) + 0.75rem);
+  }
+
   // as the counter of django-editor-js
   .baton-textarea-counter {
     margin-left: auto;
