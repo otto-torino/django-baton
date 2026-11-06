@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Translator from './i18n'
+import StackedInline from './StackedInline'
 
 const ChangeForm = {
   /**
@@ -36,6 +37,7 @@ const ChangeForm = {
       this.lazyLoadImages()
     }
     this.fixCollapseDetails() // with Django 5.1 a collapse-entry class causes details/summary markup to appear
+    if (opts.compactInlines !== false) StackedInline.init(opts)
     this.activateEntryCollapsing()
     this.changeFieldsetCollapseStyle()
     this.fixExpandFirstErrorCollapsing()
@@ -204,7 +206,7 @@ const ChangeForm = {
     $('fieldset.collapsed > details').removeAttr('open')
   },
   activateEntryCollapsing: function () {
-    $('.collapse-entry h3, .collapse-entry h2')
+    $('.collapse-entry h3, .collapse-entry h2').filter(function () { return !$(this).closest('.baton-stacked').length })
       .addClass('entry-collapsed entry-collapse-full-toggler')
       .append('<span />') // just to have the toggler right aligned
       .append('<span class="entry-collapse-toggler" />')
@@ -214,7 +216,7 @@ const ChangeForm = {
       .not('.expand-first .inline-related[id$="-0"]')
       .children('h3')
       .removeClass('entry-collapsed')
-    $('.collapse-entry').click(function (e) {
+    $('.collapse-entry').filter(function () { return !$(this).closest('.baton-stacked').length }).click(function (e) {
       const target = $(e.target)
       if (target.hasClass('entry-collapse-full-toggler')) {
         target.toggleClass('entry-collapsed')

@@ -1,22 +1,25 @@
-Collapsable StackedInline entries
-=========
+Compact stacked inlines
+=======================
 
-.. image:: images/collapsable_stackedinline.png
+Baton displays every stacked inline as a compact row with its object name,
+model label, a plain-text summary and controls to open the form and delete
+or restore the entry. Tabular inlines keep their table. No inline classes
+are needed to enable this presentation.
 
+Saved entries start collapsed; new entries and entries with validation
+errors start expanded. ``expand-first`` still opens the first entry.
+The existing form widgets and Django permissions are preserved.
 
-Baton lets you collapse single stacked inline entries, just add a `collapse-entry` class to the inline, with or without the entire collapse class ::
+When an inline has an editable numeric ``position``, ``sort_order`` or
+``order`` field, its handle lets users drag it or use the Up/Down arrow keys.
+The menu also offers Move up and Move down. The model must use that field
+in its ordering for the order to persist across visits. All changes,
+including ordering and deletion, are saved with the parent form.
+Untouched extra forms are excluded from ordering to avoid empty records.
 
-    class VideosInline(admin.StackedInline):
-        model = Video
-        extra = 1
-        classes = ('collapse-entry', )  # or ('collapse', 'collapse-entry', )
+To keep the previous presentation for a project::
 
-The forms of the new entries (the ``extra`` ones and the ones added with the "Add another" button) stay expanded, the existing entries are collapsed.
+    BATON = {"COMPACT_INLINES": False}
 
-
-And if you want the first entry to be initially expanded, add also the `expand-first` class ::
-
-    class VideosInline(admin.StackedInline):
-        model = Video
-        extra = 1
-        classes = ('collapse-entry', 'expand-first', )
+In that mode, ``collapse-entry`` and ``expand-first`` retain their original
+behaviour for stacked inlines.

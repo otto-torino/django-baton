@@ -1,4 +1,11 @@
 export const messages = {
+  inlineMove: { en: 'Drag to reorder; use arrow keys to move', it: 'Trascina per riordinare; usa i tasti freccia per spostare', es: 'Arrastrar para ordenar; usar las flechas para mover' },
+  inlineEdit: { en: 'Open or close the form', it: 'Apri o chiudi il modulo', es: 'Abrir o cerrar el formulario' },
+  inlineActions: { en: 'Other actions', it: 'Altre azioni', es: 'Otras acciones' },
+  inlineMoveUp: { en: 'Move up', it: 'Sposta su', es: 'Subir' },
+  inlineMoveDown: { en: 'Move down', it: 'Sposta giù', es: 'Bajar' },
+  inlineDelete: { en: 'Delete', it: 'Elimina', es: 'Eliminar' },
+  inlineRestore: { en: 'Undo deletion', it: 'Annulla eliminazione', es: 'Deshacer eliminación' },
   aiApiError: {
     en: 'There was an error while generating the AI response',
     it: 'Si è verificato un errore durante la generazione della risposta AI',

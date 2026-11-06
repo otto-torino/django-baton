@@ -94,7 +94,7 @@ Baton is designed with a core principle: **minimize overriding Django templates*
 * **Improved Forms:**
   * Out-of-the-box tabbed interface for fieldsets and inlines.
   * Fixed submit row for better usability on long forms.
-  * Collapsable entries for stacked inlines.
+  * Compact stacked inlines with summaries, expandable forms and ordering controls.
   * Lazy loading for uploaded images and image previews.
   * Live count of words and characters (spaces included) under every textarea.
 * **Flexible Includes:** Easily inject custom templates into changelist and change form pages.
@@ -193,6 +193,7 @@ BATON = {
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
     'CHANGELIST_FILTERS_FORM': False,
     'CHANGEFORM_FIXED_SUBMIT_ROW': True,
+    'COMPACT_INLINES': True,
     'COLLAPSABLE_USER_AREA': True,
     'MENU_ALWAYS_COLLAPSED': False,
     'MENU_TITLE': 'Main Menu',
@@ -259,6 +260,7 @@ BATON = {
 * `CHANGELIST_FILTERS_ALWAYS_OPEN` (Default: `False`): If `True` (and modal filters `False`), filters are open by default.
 * `CHANGELIST_FILTERS_FORM` (Default: `False`): If `True`, treats filters as a form.
 * `CHANGEFORM_FIXED_SUBMIT_ROW` (Default: `True`): Fixes submit row at the bottom.
+* `COMPACT_INLINES` (Default: `True`): Displays all stacked inlines as compact rows with summaries, expandable forms and ordering controls. Tabular inlines keep their table. Set to `False` for the previous presentation.
 * `COLLAPSABLE_USER_AREA`: If `True`, user area in sidebar is initially collapsed. (Check docs for default).
 * `MENU_ALWAYS_COLLAPSED` (Default: `False`): If `True`, menu is collapsed by default.
 * `MENU_TITLE` (Default: `'Menu'`): Sidebar menu title.
@@ -1173,29 +1175,18 @@ class NewsAdmin(admin.ModelAdmin):
 ## 🤏 <a name="collapsable-stacked-inlines">Collapsable Stacked Inlines</a>
 
 ![Collapsable Stacked Inlines Screenshot](docs/images/collapsable_stackedinline.png)
-Make individual entries in `admin.StackedInline` collapsable.
+All `StackedInline` entries have a compact header showing their name, model label,
+plain-text summary and form toggle. The action menu preserves Django's deletion
+permissions and allows undoing deletion before saving. New entries and rows with
+errors stay open; `expand-first` still opens the first entry.
 
-Add `collapse-entry` to the inline's `classes`:
+An editable numeric `position`, `sort_order` or `order` field enables dragging,
+arrow-key movement and Move up/Move down actions. The model must order by that
+field. Changes are saved with the parent form, including the new order.
+Tabular inlines keep their table.
 
-```python
-# admin.py
-class VideoInline(admin.StackedInline):
-    # model = Video # Your model
-    extra = 1
-    classes = ('collapse-entry', ) # Can be combined with Django's 'collapse'
-```
-
-The forms of the new entries (the `extra` ones and the ones added with the "Add another" button) stay expanded, the existing entries are collapsed.
-
-To have the first entry expanded by default:
-
-```python
-# admin.py
-class VideoInline(admin.StackedInline):
-    # model = Video # Your model
-    extra = 1
-    classes = ('collapse-entry', 'expand-first')
-```
+Set `BATON['COMPACT_INLINES'] = False` to retain the previous presentation,
+where `collapse-entry` enables collapsible rows explicitly.
 
 ## 🎨 <a name="themes-customization">Themes & Customization</a>
 
