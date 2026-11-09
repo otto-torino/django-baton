@@ -282,13 +282,27 @@ const ChangeList = {
       $('#changelist-form .results').css('padding-top', '78px')
     }
   },
-  getDropdownValue: function (dropdown) {
-    // parse with URLSearchParams: values are url-encoded and an option can carry several params
+  getDropdownParams: function (dropdown) {
+    // every option url carries all the active filters. The param names whose value differs between
+    // the options are the ones this dropdown controls, the others belong to other filters.
+    // Parsed with URLSearchParams: an option can carry several params
     // (e.g. date filters set both __gte and __lt)
-    const parse = (query) => [...new URLSearchParams(query.replace(/^\?/, '')).entries()]
-    const base = parse($(dropdown).find('option').first().attr('value')).map(([k, v]) => k + '=' + v)
-    const pairs = parse($(dropdown).val()).filter(([k, v]) => base.indexOf(k + '=' + v) === -1)
-    return pairs.length ? pairs : null
+    const parse = (query) => new URLSearchParams(query.replace(/^\?/, ''))
+    const optionsParams = $(dropdown)
+      .find('option')
+      .toArray()
+      .map((o) => parse($(o).attr('value')))
+    const allParamNames = new Set(optionsParams.flatMap((params) => [...params.keys()]))
+    const controlledParamNames = [...allParamNames].filter(
+      (name) => new Set(optionsParams.map((params) => params.get(name))).size > 1
+    )
+    const selectedOptionParams = parse($(dropdown).val())
+    return {
+      controlledParamNames,
+      selectedParams: controlledParamNames
+        .filter((name) => selectedOptionParams.has(name))
+        .map((name) => [name, selectedOptionParams.get(name)]),
+    }
   },
   filter: function (wrapper) {
     const self = this
@@ -300,11 +314,13 @@ const ChangeList = {
     const dropdowns = wrapper.find('select')
     const textInputs = wrapper.find('input').not('[type=hidden]')
 
-    const dropdownValues = dropdowns
-      .toArray()
-      .map((el) => self.getDropdownValue(el))
-      .filter((v) => v !== null)
-      .flat()
+    // the default option (e.g. "All") is a value too: remove the current value of every filter
+    // dropdown first, then set the selected one
+    const dropdownParams = dropdowns.toArray().map((el) => self.getDropdownParams(el))
+    dropdownParams.forEach(({ controlledParamNames }) =>
+      controlledParamNames.forEach((name) => newUrl.searchParams.delete(name))
+    )
+    const dropdownValues = dropdownParams.flatMap(({ selectedParams }) => selectedParams)
 
     const textInputValues = textInputs.toArray().map((el) => [el.name, el.value])
 
