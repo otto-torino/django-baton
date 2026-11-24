@@ -77,3 +77,22 @@ class TestBatonLayout(PlaywrightTestCase):
         expect(actions).to_be_visible()
         tabs = page.locator(".nav-tabs").bounding_box()
         self.assertLess(actions.bounding_box()["y"], tabs["y"])
+
+    def test_messages_stay_below_the_title(self):
+        # Django >= 6.1 wraps the title in .titles-and-tools: the messages
+        # leave the top of the page for the content all the same
+        page = self.login("/admin/news/news/1/change/")
+        self.wait_baton_ready()
+        page.locator("input[name=_continue]").first.click()
+        self.wait_baton_ready()
+
+        messages = page.locator(".messagelist")
+        expect(messages).to_be_visible()
+        # right below the title, as before Django 6.1
+        self.assertTrue(messages.evaluate("ul => ul.previousElementSibling.matches('#content h1')"))
+        content = page.locator("#content").bounding_box()
+        box = messages.bounding_box()
+        self.assertGreaterEqual(box["x"], content["x"])
+        # and above the object tools, not under them
+        tools = page.locator(".object-tools").first.bounding_box()
+        self.assertGreaterEqual(tools["y"], box["y"] + box["height"])

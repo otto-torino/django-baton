@@ -45,7 +45,8 @@ const Menu = {
     this.menu = $('<nav/>', { class: 'col-lg-3 col-xl-2 sidebar-menu' }).appendTo(row)
     $('#content').addClass('col-lg-9 col-xl-10').prepend($('.breadcrumbs')).appendTo(row)
 
-    $('#content > h1').after($('.messagelist'))
+    // Django >= 6.1 wraps the title in .titles-and-tools > .titles
+    $('#content > h1, #content > .titles-and-tools > .titles > h1').first().after($('.messagelist'))
 
     const title = $('<h1 />', { class: 'd-flex align-items-center justify-content-between d-lg-none' }).text(
       this.menuTitle ? this.menuTitle : 'Menu',
