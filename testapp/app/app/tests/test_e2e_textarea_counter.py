@@ -1,5 +1,7 @@
 """The count of words and characters under the textareas of the change form."""
 
+import re
+
 from playwright.sync_api import expect
 
 from .utils import PlaywrightTestCase
@@ -27,6 +29,9 @@ class TestBatonTextareaCounter(PlaywrightTestCase):
         textarea = self.page.locator("#id_attachments_summary_en")
         footer = self.page.locator("#id_attachments_summary_en_baton_footer")
         expect(footer).to_be_visible()
+        # the ResizeObserver sets the width asynchronously once the tab shows the
+        # textarea: on a busy machine the row can be measured before that
+        expect(footer).to_have_attribute("style", re.compile(r"\bwidth:"))
         self.assertEqual(
             round(footer.bounding_box()["width"]), round(textarea.bounding_box()["width"])
         )
