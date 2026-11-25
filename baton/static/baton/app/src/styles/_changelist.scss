@@ -4,6 +4,25 @@
     @extend .container-fluid;
   }
 
+  // Django 6.1 puts the title and object tools in a shared wrapper.
+  #content > .titles-and-tools {
+    align-items: center;
+    background: var(--bs-baton-content-title-bg);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .titles {
+      flex: 1 1 18rem;
+      min-width: 0;
+    }
+
+    .object-tools {
+      float: none;
+      margin: 0.5rem 1rem !important;
+    }
+  }
+
   .object-tools {
     .addlink {
       &::before {
@@ -17,7 +36,7 @@
   }
 
   #changelist {
-    background: var(--bs-baton-changelist-toolbar-bg);
+    background: var(--bs-baton-changelist-bg);
     border: 1px solid var(--bs-baton-changelist-border-color);
     border-radius: var(--bs-baton-changelist-border-radius);
     clear: both;
@@ -48,27 +67,53 @@
     }
 
     .toplinks {
-      margin-bottom: 0;
-      padding-left: 0;
+      border-bottom: 1px solid var(--bs-border-color);
+      display: block;
+      margin: 0;
+      min-width: max-content;
+      padding: 0;
+      white-space: nowrap;
 
       > a,
       > li {
-        background: rgba(0, 0, 0, 0.1);
+        background: var(--bs-tertiary-bg);
+        border: 1px solid var(--bs-border-color);
+        border-radius: 0.5rem 0.5rem 0 0;
         display: inline-block;
-        padding: 0.2rem 1rem;
+        margin-bottom: -1px;
+        padding: 0.5rem 1rem;
+        position: relative;
+        vertical-align: bottom;
+      }
 
-        &.date-back,
-        &.date-back a {
-          background: $primary;
-          color: $white;
+      a {
+        color: var(--bs-link-color);
+
+        &:hover {
+          background: color-mix(in srgb, var(--bs-body-color) 16%, transparent);
+          text-decoration: none;
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--bs-primary);
+          outline-offset: -2px;
         }
       }
 
-      // the label Django >= 6.1 gives to the date hierarchy
+      .date-back,
+      .date-back a {
+        background: $primary;
+        border-color: var(--bs-primary);
+        color: $white;
+        font-weight: 500;
+      }
+
       > #date-hierarchy-label {
         color: var(--bs-secondary-color);
-        display: inline-block;
-        margin-right: 0.5rem;
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
       }
 
       + br {
@@ -77,12 +122,11 @@
     }
 
     .xfull {
-      overflow: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.75rem 1rem 0.25rem;
       width: 100%;
-
-      .toplinks {
-        white-space: nowrap;
-      }
+      @include thin-scrollbar(var(--bs-body-color));
     }
 
     .date-icon {
@@ -114,116 +158,139 @@
   }
 
   #toolbar {
-    @extend .mb-0;
-    @extend .p-3;
     @include make-col(12);
-    background: var(--bs-baton-changelist-toolbar-bg);
+    background: var(--bs-baton-changelist-bg);
+    border-bottom: 1px solid var(--bs-baton-changelist-rl-border-color);
+    margin-bottom: 0;
     order: 1;
+    padding: 0.75rem 1rem;
   }
 
   #changelist-search {
-    label,
-    input {
-      display: inline-block !important;
+    > div {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
-    label {
-      @extend .pe-2;
+    .baton-search-input {
+      flex: 1 1 10rem;
+      max-width: 24rem;
+      min-width: 0;
       position: relative;
-      top: -2px;
-      text-align: right;
+
+      label {
+        align-items: center;
+        color: var(--bs-secondary-color);
+        display: flex;
+        inset-inline-start: 0.75rem;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      input[type='text'] {
+        padding-inline-start: 2.25rem;
+        width: 100%;
+      }
+    }
+
+    .baton-search-info {
+      align-items: center;
+      background: transparent;
+      border: 0;
+      border-radius: var(--bs-border-radius);
+      color: var(--bs-secondary-color);
+      display: inline-flex;
+      height: 2.375rem;
+      justify-content: center;
+      width: 2rem;
+
+      &:hover {
+        background: var(--bs-tertiary-bg);
+        color: var(--bs-emphasis-color);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--bs-primary);
+        outline-offset: 2px;
+      }
     }
 
     input[type='text'] {
       @extend .form-control;
-      max-width: 160px;
+      flex: 1 1 10rem;
+      max-width: 24rem;
+      min-width: 0;
+      width: auto;
     }
 
     input[type='submit'] {
       @extend .btn;
       @extend .btn-primary;
-      @extend .btn-sm;
-      @extend .ms-2;
-      margin-top: -3px;
-      max-width: 100px;
     }
   }
 
-  .action-counter {
-    display: block;
-
-    @include media-breakpoint-up(sm) {
-      display: inline;
-    }
-  }
-
-  .changelist-filter-toggler {
-    @extend .btn;
-    @extend .btn-secondary;
-    align-items: center;
-    cursor: pointer;
-    display: inline;
-    float: right;
-    font-size: 1rem;
+  .changelist-controls {
+    align-items: flex-end;
+    border-bottom: 1px solid var(--bs-baton-changelist-rl-border-color);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    justify-content: flex-end;
     margin-bottom: 1rem;
-    min-height: 39px;
+    padding-bottom: 1rem;
 
-    &.active {
-      background: var(--bs-baton-accent-color);
-      border-color: var(--bs-baton-accent-color) !important;
-    }
-
-    &.with-actions {
-      display: flex;
-      flex-direction: row;
-      float: none;
-      margin-bottom: 0;
-      position: absolute;
-      right: 16px;
-      top: 32px;
-    }
-
-    > span {
+    &:not(:has(.actions, button)) {
       display: none;
-
-      @include media-breakpoint-up(sm) {
-        display: inline-block;
-        margin-left: 0.5rem;
-      }
     }
   }
 
+  .changelist-tools {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .changelist-filter-toggler,
   .changelist-columns-toggler {
     @extend .btn;
-    @extend .btn-secondary;
-    @extend .me-2;
-    align-items: center;
-    cursor: pointer;
-    display: inline;
-    float: right;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    min-height: 39px;
+    // Keep Bootstrap's pressed state from inheriting a filled button background
+    // while the toolbar uses an outline-style foreground.
+    --bs-btn-active-bg: var(--bs-baton-changelist-toolbar-btn-bg);
+    --bs-btn-active-border-color: var(--bs-primary);
+    --bs-btn-active-color: var(--bs-primary);
 
-    // when the bulk actions bar switches the filter toggler to absolute
-    // positioning (see .changelist-filter-toggler.with-actions), mirror it
-    // here so the two buttons sit side by side instead of overlapping
-    &.with-actions {
-      display: flex;
-      flex-direction: row;
-      float: none;
-      margin-bottom: 0;
-      position: absolute;
-      right: 114px;
-      top: 32px;
+    align-items: center;
+    background: var(--bs-baton-changelist-toolbar-btn-bg);
+    border: 1px solid var(--bs-border-color);
+    color: var(--bs-baton-changelist-toolbar-btn-color);
+    display: inline-flex;
+    gap: 0.5rem;
+    justify-content: center;
+    min-height: 2.375rem;
+
+    &:hover {
+      background: var(--bs-baton-changelist-toolbar-btn-hover-bg);
+      border-color: var(--bs-secondary-color);
+      color: var(--bs-baton-changelist-toolbar-btn-color);
     }
 
-    > span {
-      display: none;
+    &:focus-visible {
+      outline: 2px solid var(--bs-primary);
+      outline-offset: 2px;
+    }
 
-      @include media-breakpoint-up(sm) {
-        display: inline-block;
-        margin-left: 0.5rem;
+    &.active {
+      background: var(--bs-baton-changelist-toolbar-btn-bg);
+      border-color: var(--bs-primary);
+      color: var(--bs-primary);
+
+      &:hover {
+        background: var(--bs-baton-changelist-toolbar-btn-hover-bg);
       }
     }
   }
@@ -387,7 +454,6 @@
     border-radius: var(--bs-baton-changelist-form-border-radius);
     order: 2;
     padding: 1rem !important;
-    position: relative; // filter icon
 
     @include media-breakpoint-up(lg) {
       @include make-col(12);
@@ -395,6 +461,13 @@
 
     .actions {
       @extend %admin-actions;
+    }
+
+    .changelist-controls .actions {
+      background: transparent;
+      flex: 1 1 30rem;
+      margin: 0;
+      padding: 0;
     }
 
     select {
@@ -535,14 +608,6 @@
 
     .sortoptions a.descending::before {
       content: 'arrow_downward';
-    }
-  }
-
-  .baton-cl-include-top {
-    padding-right: 50px;
-
-    @include media-breakpoint-up(sm) {
-      padding-right: 100px;
     }
   }
 

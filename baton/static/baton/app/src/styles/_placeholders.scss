@@ -1,4 +1,41 @@
 // scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule SelectorFormat
+
+// thin scrollbar without track, vertical or horizontal, its thumb shows up
+// only hovering the scrolling element
+@mixin thin-scrollbar($color) {
+  --baton-scrollbar-thumb: transparent;
+
+  &:hover {
+    --baton-scrollbar-thumb: color-mix(in srgb, #{$color} 45%, transparent);
+  }
+
+  // chrome and safari
+  &::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--baton-scrollbar-thumb);
+    border-radius: 3px;
+  }
+
+  // no arrows at the ends
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  // firefox
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--baton-scrollbar-thumb) transparent;
+    scrollbar-width: thin;
+  }
+}
+
 %material {
   font-family: 'Material Symbols Outlined';
   font-size: 22px;
@@ -11,55 +48,53 @@
 
 // the bar of the admin actions: change list, and with Django >= 6.1 change form
 %admin-actions {
-  @extend .mb-4;
-  // the <label> stacks "Azione:" above the select, so it's taller than the
-  // field: anchor siblings to the bottom, then nudge each up with a
-  // margin-bottom to optically center it on the select row (~2.375rem)
   align-items: flex-end;
   background: var(--bs-baton-changelist-toolbar-bg);
   border-radius: 6px;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.5rem 0.75rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
 
   label {
-    @extend .pe-2;
-    margin-bottom: 0;
+    align-items: flex-start;
+    color: var(--bs-secondary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0;
   }
 
   select {
+    @extend .form-select;
     max-width: 220px;
+    width: auto;
   }
 
   button {
     @extend .btn;
     @extend .btn-primary;
-    @extend .btn-sm;
-    @extend .ms-2;
-    @extend .me-2;
-    margin-bottom: 0.2rem;
   }
 
   .action-counter {
+    align-items: center;
+    align-self: flex-end;
     background: var(--bs-baton-accent-color);
     border-radius: 1rem;
     color: $white;
+    display: inline-flex;
     font-size: 0.8rem;
-    margin-bottom: 0.45rem;
+    line-height: 1.5;
+    margin-block: 0.4rem;
     padding: 0.15rem 0.6rem;
-  }
-
-  .all,
-  .question,
-  .clear {
-    margin-bottom: 0.55rem;
   }
 
   .question a,
   .clear a {
-    color: var(--bs-baton-accent-color);
-    font-size: 0.85rem;
+    font-size: 0.875rem;
   }
 
   .all.hidden,

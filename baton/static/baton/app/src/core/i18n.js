@@ -1,4 +1,5 @@
 export const messages = {
+  searchFields: { en: 'Search in', it: 'Ricerca in', es: 'Buscar en' },
   inlineMove: { en: 'Drag to reorder; use arrow keys to move', it: 'Trascina per riordinare; usa i tasti freccia per spostare', es: 'Arrastrar para ordenar; usar las flechas para mover' },
   inlineEdit: { en: 'Open or close the form', it: 'Apri o chiudi il modulo', es: 'Abrir o cerrar el formulario' },
   inlineActions: { en: 'Other actions', it: 'Altre azioni', es: 'Otras acciones' },

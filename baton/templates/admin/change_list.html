@@ -2,6 +2,11 @@
 {% load baton_tags %}
 {% block content %}{{ block.super }}
 
+{% if cl.search_fields %}
+    {% baton_search_fields cl as search_field_labels %}
+    {{ search_field_labels|json_script:"baton-search-fields" }}
+{% endif %}
+
 {% if cl.model_admin.list_per_page_choices %}
     {{ cl.model_admin.list_per_page_choices|json_script:"baton-page-size-choices" }}
     {{ cl.list_per_page|json_script:"baton-page-size-current" }}

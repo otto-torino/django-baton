@@ -14,8 +14,9 @@ from django.urls import reverse
 from django import template
 from django.template import Context
 from django.utils.html import escapejs
+from django.utils.text import capfirst
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.utils.module_loading import import_string
 
 from baton.models import BatonTheme
@@ -65,6 +66,30 @@ def replace_retired_model(name: str, model: str) -> str:
         stacklevel=2,
     )
     return replacement
+
+@register.simple_tag
+def baton_search_fields(cl: Any) -> list[str]:
+    """Readable labels for the effective (possibly request-specific) search fields."""
+    labels = []
+    for search_field in cl.search_fields:
+        path = search_field.removeprefix("^").removeprefix("=").removeprefix("@")
+        model = cl.model
+        parts = []
+        for name in path.split("__"):
+            try:
+                field = model._meta.pk if name == "pk" else model._meta.get_field(name)
+            except FieldDoesNotExist:
+                # A lookup/transform suffix is not part of the field's label.
+                break
+            parts.append(str(capfirst(getattr(field, "verbose_name", field.name))))
+            if not field.is_relation:
+                break
+            model = field.related_model
+        label = " → ".join(parts) if parts else str(capfirst(path.replace("__", " → ").replace("_", " ")))
+        if label not in labels:
+            labels.append(label)
+    return labels
+
 
 @register.simple_tag
 def baton_config() -> dict[str, Any]:

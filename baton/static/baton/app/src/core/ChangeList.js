@@ -21,8 +21,10 @@ const ChangeList = {
       window.location = window.location.pathname + $(this).val()
     })
     this.initTemplates()
+    this.initSearch()
     this.wrapToplinks()
     this.enhancePagination()
+    this.initControls()
     this.initColumnsVisibility()
     this.initPageSize()
     if (this._filtersDiv.length) {
@@ -32,6 +34,38 @@ const ChangeList = {
       }, 200) // select2
       this.fixRangeFilter()
     }
+  },
+  initSearch: function () {
+    const input = $('#changelist-search #searchbar')
+    if (!input.length) return
+
+    const label = $('#changelist-search label[for="searchbar"]')
+    const wrapper = $('<div />', { class: 'baton-search-input' }).insertBefore(input)
+    // Preserve Django's accessible label and make the existing lens part of the field.
+    wrapper.append(label, input)
+
+    const fieldsEl = document.getElementById('baton-search-fields')
+    if (!fieldsEl) return
+    let fields
+    try {
+      fields = JSON.parse(fieldsEl.textContent)
+    } catch (e) {
+      return
+    }
+    if (!Array.isArray(fields) || !fields.length) return
+
+    const description = this.t.get('searchFields') + ': ' + fields.join(', ')
+    const descriptionId = 'baton-search-fields-description'
+    const help = $('<span />', { id: descriptionId, class: 'visually-hidden' }).text(description)
+    const describedBy = (input.attr('aria-describedby') || '').split(/\s+/).filter(Boolean)
+    input.attr('aria-describedby', [...describedBy, descriptionId].join(' '))
+    const info = $('<button />', {
+      type: 'button',
+      class: 'baton-search-info',
+      title: description,
+      'aria-label': description,
+    }).html('<i class="material-symbols-outlined" aria-hidden="true">info</i>')
+    input.closest('form').find('[type=submit]').first().after(info, help)
   },
   enhancePagination: function () {
     const paginator = $('.paginator')
@@ -112,6 +146,16 @@ const ChangeList = {
       .append(select)
 
     paginator.prepend(wrapper)
+  },
+  initControls: function () {
+    const form = $('#changelist-form')
+    if (!form.length) return
+
+    const controls = $('<div />', { class: 'changelist-controls' }).prependTo(form)
+    // Keep the action form and its inputs intact: Django binds the selection counter
+    // and bulk actions to them. Only the first (top) action bar belongs here.
+    form.children('.actions').first().appendTo(controls)
+    controls.append($('<div />', { class: 'changelist-tools' }))
   },
   initColumnsVisibility: function () {
     const table = $('#result_list')
@@ -199,14 +243,14 @@ const ChangeList = {
       hideFooter: true,
     })
 
-    const activeActions = $('#changelist-form > .actions').length !== 0
-    const toggler = $('<a />', {
-      class: 'changelist-columns-toggler' + (activeActions ? ' with-actions' : ''),
+    const toggler = $('<button />', {
+      class: 'changelist-columns-toggler',
+      type: 'button',
     })
       .html('<i class="material-symbols-outlined">view_column</i> <span>' + this.t.get('columns') + '</span>')
       .on('click', () => modal.open())
 
-    $('#changelist-form').prepend(toggler)
+    $('#changelist-form .changelist-tools').append(toggler)
   },
   wrapToplinks: function () {
     const toplinks = $('.changelist-form-container .toplinks')
@@ -225,12 +269,9 @@ const ChangeList = {
     } else {
       // filters active?
       const _activeFilters = /__[^=]+=/.test(location.search)
-      // actions ?
-      const _activeActions = $('#changelist-form > .actions').length !== 0
-      const _changelistForm = $('#changelist-form')
-      const _filtersToggler = $('<a />', {
-        class:
-          'changelist-filter-toggler' + (_activeFilters ? ' active' : '') + (_activeActions ? ' with-actions' : ''),
+      const _filtersToggler = $('<button />', {
+        type: 'button',
+        class: 'changelist-filter-toggler' + (_activeFilters ? ' active' : ''),
       }).html('<i class="material-symbols-outlined">filter_alt</i> <span>' + this.t.get('filter') + '</span>')
 
       if (this.filtersInModal || parseInt($(window).width()) < breakpoints.lg) {
@@ -267,7 +308,7 @@ const ChangeList = {
           }
         })
       }
-      _changelistForm.prepend(_filtersToggler)
+      $('#changelist-form .changelist-tools').append(_filtersToggler)
     }
 
     if (!isModal && this.filtersForm) {
@@ -276,10 +317,6 @@ const ChangeList = {
         .html(this.t.get('filter'))
         .on('click', () => this.filter($('#changelist-filter')))
       $('#changelist-filter').append($('<div />', { class: 'text-center mb-3' }).append(btn))
-    }
-
-    if (/_popup=1/.test(location.href)) {
-      $('#changelist-form .results').css('padding-top', '78px')
     }
   },
   getDropdownValue: function (dropdown) {
