@@ -110,3 +110,35 @@ msgstr "Sviluppato da %(powered_by)s"
 
 #~ msgid "Remove"
 #~ msgstr "Rimuovi"
+
+# Django admin confirmations: avoid articles and gender-dependent participles.
+#, python-brace-format
+msgid "The {name} “{obj}” was added successfully."
+msgstr "Creazione completata: {name} “{obj}”."
+
+msgid "You may edit it again below."
+msgstr "Puoi continuare a modificare qui sotto."
+
+#, python-brace-format
+msgid "The {name} “{obj}” was added successfully. You may edit it again below."
+msgstr "Creazione completata: {name} “{obj}”. Puoi continuare a modificare qui sotto."
+
+#, python-brace-format
+msgid "The {name} “{obj}” was added successfully. You may add another {name} below."
+msgstr "Creazione completata: {name} “{obj}”. Puoi aggiungere un nuovo elemento qui sotto."
+
+#, python-brace-format
+msgid "The {name} “{obj}” was changed successfully."
+msgstr "Modifiche salvate: {name} “{obj}”."
+
+#, python-brace-format
+msgid "The {name} “{obj}” was changed successfully. You may edit it again below."
+msgstr "Modifiche salvate: {name} “{obj}”. Puoi continuare a modificare qui sotto."
+
+#, python-brace-format
+msgid "The {name} “{obj}” was changed successfully. You may add another {name} below."
+msgstr "Modifiche salvate: {name} “{obj}”. Puoi aggiungere un nuovo elemento qui sotto."
+
+#, python-format
+msgid "The %(name)s “%(obj)s” was deleted successfully."
+msgstr "Eliminazione completata: %(name)s “%(obj)s”."

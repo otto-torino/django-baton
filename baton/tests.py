@@ -48,3 +48,37 @@ class BatonSearchFieldsTests(SimpleTestCase):
 
     def test_no_search_fields(self) -> None:
         self.assertEqual(self.labels([]), [])
+
+
+class BatonItalianAdminMessagesTests(SimpleTestCase):
+    def test_save_confirmations_work_with_different_model_names(self) -> None:
+        from django.utils.translation import gettext, override
+
+        with override("it"):
+            for name in ("articolo", "evento", "pubblicazione"):
+                for action, prefix in (("added", "Creazione completata"), ("changed", "Modifiche salvate")):
+                    with self.subTest(name=name, action=action):
+                        original = "The {name} “{obj}” was " + action + " successfully."
+                        message = gettext(original).format(name=name, obj="Titolo")
+                        self.assertEqual(message, f"{prefix}: {name} “Titolo”.")
+
+    def test_continue_and_add_another_confirmations_use_neutral_wording(self) -> None:
+        from django.utils.translation import gettext, override
+
+        with override("it"):
+            for action in ("added", "changed"):
+                for tail in ("You may edit it again below.", "You may add another {name} below."):
+                    with self.subTest(action=action, tail=tail):
+                        original = "The {name} “{obj}” was " + action + " successfully. " + tail
+                        message = gettext(original).format(name="pubblicazione", obj="Titolo")
+                        self.assertIn("pubblicazione “Titolo”.", message)
+                        self.assertNotIn("Il pubblicazione", message)
+                        self.assertNotIn("altro pubblicazione", message)
+                        self.assertIn("qui sotto.", message)
+
+    def test_delete_confirmation_works_with_feminine_model_names(self) -> None:
+        from django.utils.translation import gettext, override
+
+        with override("it"):
+            message = gettext("The %(name)s “%(obj)s” was deleted successfully.") % {"name": "pubblicazione", "obj": "Titolo"}
+        self.assertEqual(message, "Eliminazione completata: pubblicazione “Titolo”.")
