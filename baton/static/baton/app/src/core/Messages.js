@@ -1,74 +1,71 @@
-/* eslint-disable max-len */
 import $ from 'jquery'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import Translator from './i18n'
 
 const Messages = {
-  /**
-   * Messages
-   *
-   * If toast are enabled, moves messages ul lis in toasts
-   */
+  /** Move the enabled message levels into persistent, dismissible toasts. */
   init: function (opts) {
+    this.t = new Translator($('html').attr('lang'))
     if (opts.messagesToasts) {
       const toasts = []
-      let all = true
-      $('.messagelist li').each((_, el) => {
-        const lv = $(el).attr('class')
-        if (opts.messagesToasts === true || opts.messagesToasts.indexOf(lv) !== -1) {
-          toasts.push(this.createToast($(el).attr('class'), $(el).html()))
+      $('.messagelist > li').each((_, el) => {
+        // Django's extra_tags can add classes before or after the severity.
+        const tags = (el.getAttribute('class') || '').split(/\s+/)
+        const level = tags.find((tag) => Object.prototype.hasOwnProperty.call(this.levelsMap, tag)) || 'info'
+        if (opts.messagesToasts === true ||
+            (Array.isArray(opts.messagesToasts) && opts.messagesToasts.includes(level))) {
+          toasts.push(this.createToast(level, $(el).html()))
           $(el).remove()
-        } else {
-          all = false
         }
       })
       if (toasts.length) {
-        $('<div />', { class: 'toast-container position-absolute top-0 end-0 p-3' })
-          .append(toasts)
-          .appendTo($(document.body))
+        let container = $('.baton-toast-container').first()
+        if (!container.length) {
+          container = $('<div />', { class: 'toast-container baton-toast-container' }).appendTo(document.body)
+        }
+        container.append(toasts)
       }
-      if (all) {
-        $('.messagelist').remove()
-      }
+      $('.messagelist').filter((_, el) => !el.children.length).remove()
     }
-    const toastElList = [].slice.call(document.querySelectorAll('.toast'))
-    // eslint-disable-next-line array-callback-return
-    toastElList.map(function (toastEl) {
-      new bootstrap.Toast(toastEl, { autohide: false }).show()
+
+    document.querySelectorAll('.toast').forEach((el) => {
+      bootstrap.Toast.getOrCreateInstance(el, { autohide: false }).show()
     })
   },
   levelsMap: {
-    info: {
-      bg: 'info',
-      icon: 'info',
-      iconColor: '#fff',
-    },
-    success: {
-      bg: 'success',
-      icon: 'check_circle',
-      iconColor: '#fff',
-    },
-    warning: {
-      bg: 'warning',
-      icon: 'warning',
-      iconColor: '#fff',
-    },
-    error: {
-      bg: 'danger',
-      icon: 'error',
-      iconColor: '#fff',
-    },
+    debug: { variant: 'secondary', icon: 'bug_report' },
+    info: { variant: 'info', icon: 'info' },
+    success: { variant: 'success', icon: 'check_circle' },
+    warning: { variant: 'warning', icon: 'warning' },
+    error: { variant: 'danger', icon: 'error' },
   },
   createToast(level, content) {
-    const toast = `
-      <div class="toast d-flex align-items-center text-white bg-${this.levelsMap[level].bg} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-body">
-          <i class="material-symbols-outlined" style="color: ${this.levelsMap[level].iconColor}; margin-right: .5rem">${this.levelsMap[level].icon}</i>
-          ${content}
-        </div>
-        <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    `
-    return $(toast)
+    const appearance = this.levelsMap[level] || this.levelsMap.info
+    const urgent = level === 'error' || level === 'warning'
+    const toast = $('<div />', {
+      class: 'toast baton-toast baton-toast-' + appearance.variant,
+      role: urgent ? 'alert' : 'status',
+      'aria-live': urgent ? 'assertive' : 'polite',
+      'aria-atomic': 'true',
+    })
+    const body = $('<div />', { class: 'toast-body' }).appendTo(toast)
+    $('<i />', { class: 'material-symbols-outlined baton-toast-icon', 'aria-hidden': 'true' })
+      .text(appearance.icon).appendTo(body)
+    // Preserve the markup Django already rendered, including admin object links.
+    $('<div />', { class: 'baton-toast-content' }).html(content).appendTo(body)
+    $('<button />', {
+      type: 'button',
+      class: 'btn-close',
+      'data-bs-dismiss': 'toast',
+      'aria-label': this.t.get('close'),
+    }).appendTo(toast)
+    toast[0].addEventListener('hidden.bs.toast', () => {
+      const container = toast[0].closest('.baton-toast-container')
+      bootstrap.Toast.getInstance(toast[0])?.dispose()
+      toast.remove()
+      if (container && !container.children.length) container.remove()
+    }, { once: true })
+    return toast
   },
 }
 

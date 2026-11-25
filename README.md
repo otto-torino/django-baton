@@ -262,7 +262,7 @@ BATON = {
 * `COLLAPSABLE_USER_AREA`: If `True`, user area in sidebar is initially collapsed. (Check docs for default).
 * `MENU_ALWAYS_COLLAPSED` (Default: `False`): If `True`, menu is collapsed by default.
 * `MENU_TITLE` (Default: `'Menu'`): Sidebar menu title.
-* `MESSAGES_TOASTS` (Default: `False`): Use toasts for admin messages (`True` for all, or list like `['warning', 'error']`).
+* `MESSAGES_TOASTS` (Default: `False`): Use toasts for admin messages (`True` for all, or list like `['warning', 'error']`). Toasts slide in from the top right, remain visible until dismissed with the close button, and stay in view when scrolling.
 * `GRAVATAR_DEFAULT_IMG` (Default: `'retro'`): Fallback Gravatar image.
 * `GRAVATAR_ENABLED` (Default: `True`): Show user Gravatar.
 * `LOGIN_SPLASH`: Path to login page background image.
