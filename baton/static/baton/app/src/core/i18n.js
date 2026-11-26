@@ -1,6 +1,10 @@
 export const messages = {
   searchFields: { en: 'Search in', it: 'Ricerca in', es: 'Buscar en' },
   inlineMove: { en: 'Drag to reorder; use arrow keys to move', it: 'Trascina per riordinare; usa i tasti freccia per spostare', es: 'Arrastrar para ordenar; usar las flechas para mover' },
+  sortNotOrdered: { en: 'Rows can be dragged only when the list is ordered by', it: 'Le righe si trascinano solo con la lista ordinata per', es: 'Las filas se arrastran solo con la lista ordenada por' },
+  sortReset: { en: 'Order by it', it: 'Ordina così', es: 'Ordenar así' },
+  sortUnsaved: { en: 'Save the changes in the list before reordering it', it: 'Salva le modifiche della lista prima di riordinarla', es: 'Guarde los cambios de la lista antes de reordenarla' },
+  sortError: { en: 'The order could not be saved', it: "Non è stato possibile salvare l'ordine", es: 'No se pudo guardar el orden' },
   inlineEdit: { en: 'Open or close the form', it: 'Apri o chiudi il modulo', es: 'Abrir o cerrar el formulario' },
   inlineActions: { en: 'Other actions', it: 'Altre azioni', es: 'Otras acciones' },
   inlineMoveUp: { en: 'Move up', it: 'Sposta su', es: 'Subir' },

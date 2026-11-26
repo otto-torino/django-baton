@@ -50,6 +50,7 @@ Getting started
    changelist_row_attributes
    changelist_page_size
    changelist_columns
+   changelist_sortable
    form_tabs
    form_includes
    collapsable_stackedinline

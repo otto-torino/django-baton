@@ -37,8 +37,10 @@ class Activity(models.Model):
 
 class Category(models.Model):
     name = models.CharField('name', max_length=50)
+    position = models.PositiveIntegerField('position', default=1)
 
     class Meta:
+        ordering = ('position', 'pk')
         verbose_name = "category"
         verbose_name_plural = "categories"
 

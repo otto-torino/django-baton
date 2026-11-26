@@ -142,3 +142,15 @@ msgstr "Modifiche salvate: {name} “{obj}”. Puoi aggiungere un nuovo elemento
 #, python-format
 msgid "The %(name)s “%(obj)s” was deleted successfully."
 msgstr "Eliminazione completata: %(name)s “%(obj)s”."
+
+msgid "Drag to reorder; use arrow keys to move"
+msgstr "Trascina per riordinare; usa i tasti freccia per spostare"
+
+msgid "The order is not valid."
+msgstr "L'ordine non è valido."
+
+msgid "The list has changed in the meantime: reload the page."
+msgstr "Nel frattempo la lista è cambiata: ricarica la pagina."
+
+msgid "The order has been saved."
+msgstr "Ordine salvato."

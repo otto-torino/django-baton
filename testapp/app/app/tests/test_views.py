@@ -120,3 +120,106 @@ class TestBatonViews(TestCase):
                 self.assertRedirects(
                     response, f"/en/admin/login/?next={url}", fetch_redirect_response=False
                 )
+
+
+class TestBatonSortable(TestCase):
+    """The changelist of the categories, ordered by dragging (BatonSortableMixin)."""
+
+    def setUp(self):
+        from django.utils import translation
+        from news.models import Category
+
+        # the admin is under the language prefix: the URLs without a request take
+        # LANGUAGE_CODE, which is not one of the languages
+        translation.activate("en")
+        self.addCleanup(translation.deactivate)
+        self.Category = Category
+        self.admin = User.objects.create_user(
+            "admin", password="admin", is_staff=True, is_superuser=True
+        )
+        self.client.login(username="admin", password="admin")
+        self.url = reverse("admin:news_category_baton_reorder")
+        self.a, self.b, self.c, self.d = (
+            Category.objects.create(name=name, position=i)
+            for i, name in enumerate("abcd", start=1)
+        )
+
+    def names(self):
+        return "".join(self.Category.objects.values_list("name", flat=True))
+
+    def reorder(self, *objects):
+        return self.client.post(
+            self.url,
+            json.dumps({"order": [obj.pk for obj in objects]}),
+            content_type="application/json",
+        )
+
+    def test_reorder_all(self):
+        response = self.reorder(self.c, self.a, self.d, self.b)
+        self.assertEqual(response.json(), {"ok": True})
+        self.assertEqual(self.names(), "cadb")
+        self.assertEqual(
+            list(self.Category.objects.values_list("position", flat=True)), [1, 2, 3, 4]
+        )
+
+    def test_reorder_subset_keeps_the_other_rows(self):
+        # a filtered list or a page: b and d swap their places, a and c stay
+        self.reorder(self.d, self.b)
+        self.assertEqual(self.names(), "adcb")
+
+    def test_duplicated_positions_are_renumbered(self):
+        self.Category.objects.update(position=1)
+        self.reorder(self.b, self.a)
+        self.assertEqual(self.names(), "bacd")
+        self.assertEqual(
+            list(self.Category.objects.values_list("position", flat=True)), [1, 2, 3, 4]
+        )
+
+    def test_invalid_orders(self):
+        for body in ("nope", '{"order": "1"}', '{"order": []}', '{"other": [1]}'):
+            with self.subTest(body=body):
+                response = self.client.post(self.url, body, content_type="application/json")
+                self.assertEqual(response.status_code, 400)
+        self.assertEqual(self.reorder(self.a, self.a).status_code, 400)
+        response = self.client.post(
+            self.url, json.dumps({"order": [self.a.pk, 999]}), content_type="application/json"
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(self.names(), "abcd")
+
+    def test_only_post(self):
+        self.assertEqual(self.client.get(self.url).status_code, 405)
+
+    def test_permission(self):
+        staff = User.objects.create_user("staff", password="staff", is_staff=True)
+        staff.user_permissions.add(Permission.objects.get(codename="view_category"))
+        self.client.login(username="staff", password="staff")
+        self.assertEqual(self.reorder(self.b, self.a).status_code, 403)
+        self.assertEqual(self.names(), "abcd")
+
+    def test_changelist_config(self):
+        changelist = reverse("admin:news_category_changelist")
+        response = self.client.get(changelist)
+        config = json.loads(
+            response.content.decode().split('id="baton-sortable" type="application/json">')[1]
+            .split("</script>")[0]
+        )
+        self.assertEqual(config["url"], self.url)
+        self.assertTrue(config["ordered"])
+        self.assertTrue(config["can_change"])
+        self.assertContains(response, 'class="btn baton-cl-sort-handle" data-pk="%d"' % self.a.pk)
+        self.assertNotContains(response, 'name="form-0-position"')
+        # ordered by name, then descending by position: no dragging
+        for order in ("1", "-2"):
+            with self.subTest(order=order):
+                response = self.client.get(changelist, {"o": order})
+                self.assertContains(response, '"ordered": false')
+        response = self.client.get(changelist, {"o": "2"})
+        self.assertContains(response, '"ordered": true')
+
+    def test_position_is_read_only_and_new_objects_go_last(self):
+        response = self.client.get(reverse("admin:news_category_add"))
+        self.assertNotContains(response, 'name="position"')
+        self.client.post(reverse("admin:news_category_add"), {"name": "e"})
+        self.assertEqual(self.Category.objects.get(name="e").position, 5)
+        self.assertEqual(self.names(), "abcde")

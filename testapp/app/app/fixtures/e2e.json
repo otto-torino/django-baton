@@ -111,21 +111,24 @@
   "model": "news.category",
   "pk": 1,
   "fields": {
-    "name": "Music"
+    "name": "Music",
+    "position": 1
   }
 },
 {
   "model": "news.category",
   "pk": 2,
   "fields": {
-    "name": "Sports"
+    "name": "Sports",
+    "position": 2
   }
 },
 {
   "model": "news.category",
   "pk": 3,
   "fields": {
-    "name": "Culture"
+    "name": "Culture",
+    "position": 3
   }
 },
 {

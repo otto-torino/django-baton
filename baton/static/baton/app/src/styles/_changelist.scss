@@ -701,3 +701,46 @@
     @extend .btn-primary;
   }
 }
+
+// Rows ordered by dragging, see BatonSortableMixin: the handle and the value
+// beside it, read only
+#result_list {
+  td.field-baton_sortable_handle {
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .baton-cl-sort-handle {
+    --bs-btn-active-bg: transparent;
+    --bs-btn-hover-bg: var(--bs-secondary-bg);
+    border: 0;
+    color: var(--bs-secondary-color);
+    cursor: grab;
+    margin: -4px 4px -4px -4px;
+    padding: 4px;
+
+    .material-symbols-outlined {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    &:active { cursor: grabbing; }
+    &:focus-visible { outline: 2px solid var(--bs-primary); outline-offset: 2px; }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.35;
+      pointer-events: auto;
+    }
+  }
+
+  // the place the row is dragged to
+  tr.sortable-ghost { opacity: 0.4; }
+}
+
+.baton-cl-sort-notice {
+  color: var(--bs-secondary-color);
+  font-size: 0.875rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}

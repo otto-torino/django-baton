@@ -59,6 +59,7 @@ Experience the features of Django Baton firsthand. Login with user `demo` and pa
 * [Changelist Includes](#changelist-includes)
 * [Changelist Filters Includes](#changelist-filters-includes)
 * [Changelist Row Attributes](#changelist-row-attributes)
+* [Sortable Changelist](#sortable-changelist)
 * [Form Tabs](#form-tabs)
 * [Form Includes](#form-includes)
 * [Collapsable Stacked Inlines](#collapsable-stacked-inlines)
@@ -1055,6 +1056,36 @@ class NewsAdmin(admin.ModelAdmin):
   * You can specify another selector (e.g., `'td'`, `'.field-my_field'`) to find a parent of the element matched by `selector`.
   * Set to `false` (boolean, not string) or an empty string to apply attributes directly to the element matched by `selector`.
 * **Other keys:** Treated as HTML attributes to be added to the target element.
+
+## ↕️ <a name="sortable-changelist">Sortable Changelist</a>
+
+Order the rows of a changelist by dragging them, for models ordered by an integer field such as `position`.
+
+```python
+# admin.py
+from baton.admin import BatonSortableMixin
+
+class CategoryAdmin(BatonSortableMixin, admin.ModelAdmin):  # the mixin comes first
+    list_display = ('name', 'position')
+    sortable_field = 'position'
+
+# models.py
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    position = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        ordering = ('position', 'pk')
+```
+
+* The column of the field becomes a handle with the value beside it, read only (the column is added first when the field is not in `list_display`). Clicking its header orders the list by the field.
+* The order is saved as soon as a row is dropped, then the page reloads with the new values and a confirmation message. On the handle, the up and down arrow keys move the row; the order is saved when they stop.
+* The rows can be dragged only while the changelist is ordered by the field, ascending. Ordered by another column, the handles are disabled and a notice links back to the order by the field.
+* With filters, a search or pagination, the visible rows swap the places they already had: the others keep theirs. Then all the rows, also the ones the queryset of the admin hides, are numbered from 1.
+* The field is read only in the change form, and new objects go to the end of the list. It cannot be in `list_editable` (check `baton.E002`); if there are unsaved changes in the `list_editable` fields, a drop is undone and asks to save them first.
+* Users without the change permission see the values without the handles.
+
+The order is saved with `bulk_update`: `save()` and the `pre_save`/`post_save` signals are not called for the reordered objects.
 
 ## 📑 <a name="form-tabs">Form Tabs</a>
 

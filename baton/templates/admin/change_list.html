@@ -38,6 +38,11 @@
     </template>
 {% endif %}
 
+{% call_model_admin_method model_admin=cl.model_admin method='baton_cl_sortable' cl=cl as sortable %}
+{% if sortable %}
+    {{ sortable|json_script:"baton-sortable" }}
+{% endif %}
+
 {% call_model_admin_method model_admin=cl.model_admin method='baton_cl_rows_attributes' cl=cl as data %}
 {% if data %}
     <template data-type="attributes">

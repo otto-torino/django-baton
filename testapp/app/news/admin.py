@@ -3,7 +3,7 @@ import json
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.admin import GenericStackedInline
-from baton.admin import InputFilter, MultipleChoiceListFilter, BatonListPerPageMixin
+from baton.admin import InputFilter, MultipleChoiceListFilter, BatonListPerPageMixin, BatonSortableMixin
 from rangefilter.filters import DateRangeFilter
 from modeltranslation.admin import TranslationAdmin
 
@@ -37,8 +37,9 @@ class TitleFilter(InputFilter):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+class CategoryAdmin(BatonSortableMixin, admin.ModelAdmin):
+    list_display = ("name", "position")
+    sortable_field = "position"
     search_fields = ("name",)
 
 

@@ -2,6 +2,7 @@ import $ from 'jquery'
 import Translator from './i18n'
 import Modal from './Modal'
 import breakpoints from './Breakpoints'
+import ChangeListSortable from './ChangeListSortable'
 
 const ChangeList = {
   /**
@@ -27,6 +28,7 @@ const ChangeList = {
     this.initControls()
     this.initColumnsVisibility()
     this.initPageSize()
+    ChangeListSortable.init()
     if (this._filtersDiv.length) {
       const self = this
       setTimeout(function () {
