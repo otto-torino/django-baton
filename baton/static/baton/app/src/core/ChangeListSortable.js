@@ -1,4 +1,3 @@
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 import Sortable from 'sortablejs'
 import Translator from './i18n'
 import Messages from './Messages'
@@ -105,16 +104,7 @@ const ChangeListSortable = {
   },
 
   notify (level, message) {
-    let container = document.querySelector('.baton-toast-container')
-    if (!container) {
-      container = document.createElement('div')
-      container.className = 'toast-container baton-toast-container'
-      document.body.append(container)
-    }
-    const toast = Messages.createToast(level, '')
-    toast.find('.baton-toast-content').text(message)
-    container.append(toast[0])
-    bootstrap.Toast.getOrCreateInstance(toast[0], { autohide: false }).show()
+    Messages.notify(level, message)
   },
 
   save (row) {

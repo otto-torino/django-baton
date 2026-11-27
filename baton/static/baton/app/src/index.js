@@ -121,6 +121,10 @@ window.Baton = {
   },
   Dispatcher: Dispatcher,
   Modal: Modal,
+  // a toast for the outcome of a request, as the ones of the admin messages
+  notify: function (level, message) {
+    return Messages.notify(level, message)
+  },
   jQuery: jQuery,
   AI: AI,
   T: new Translator(jQuery('html').attr('lang')),

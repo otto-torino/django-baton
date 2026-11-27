@@ -32,6 +32,24 @@ const Messages = {
       bootstrap.Toast.getOrCreateInstance(el, { autohide: false }).show()
     })
   },
+  /**
+   * A toast for a message that comes after the page has loaded, as the
+   * outcome of a request: the same as the ones of the admin messages.
+   * Returns its element, so that the caller can dismiss it.
+   */
+  notify (level, message) {
+    let container = document.querySelector('.baton-toast-container')
+    if (!container) {
+      container = document.createElement('div')
+      container.className = 'toast-container baton-toast-container'
+      document.body.append(container)
+    }
+    const toast = this.createToast(level, '')
+    toast.find('.baton-toast-content').text(message)
+    container.append(toast[0])
+    bootstrap.Toast.getOrCreateInstance(toast[0], { autohide: false }).show()
+    return toast[0]
+  },
   levelsMap: {
     debug: { variant: 'secondary', icon: 'bug_report' },
     info: { variant: 'info', icon: 'info' },
@@ -40,6 +58,7 @@ const Messages = {
     error: { variant: 'danger', icon: 'error' },
   },
   createToast(level, content) {
+    if (!this.t) this.t = new Translator($('html').attr('lang'))
     const appearance = this.levelsMap[level] || this.levelsMap.info
     const urgent = level === 'error' || level === 'warning'
     const toast = $('<div />', {

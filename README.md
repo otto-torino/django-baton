@@ -808,6 +808,16 @@ myModal.open();
 // myModal.update({ title: 'New Modal Title', content: '<p>Updated content here.</p>' });
 ```
 
+### Notify
+
+`Baton.notify(level, message)` shows a toast for something that happens after the page has loaded, as the outcome of a request: the same toast as the admin messages, which stays until dismissed. `level` is one of `debug`, `info`, `success`, `warning` or `error`; the message is plain text. It returns the element of the toast, to dismiss it from the code.
+
+```javascript
+const toast = Baton.notify('success', 'Order saved');
+// dismiss it, for example before showing the next outcome
+toast.querySelector('.btn-close').click();
+```
+
 ## 🌐 <a name="js-translations">JS Translations</a>
 
 Baton includes `en` and `it` translations for its JS messages. It detects user locale from `<html>` tag's `lang` attribute. Add/override translations by defining `Baton.translations` **before** `Baton.init()`:

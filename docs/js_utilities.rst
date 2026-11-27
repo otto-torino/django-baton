@@ -60,3 +60,14 @@ Usage: ::
     })
     myModal.toggle();
     ```
+
+Notify
+------
+
+``Baton.notify(level, message)`` shows a toast for something that happens after the page has loaded, as the outcome of a request: the same toast as the admin messages, which stays until dismissed. ``level`` is one of ``debug``, ``info``, ``success``, ``warning`` or ``error``; the message is plain text. It returns the element of the toast, to dismiss it from the code.
+
+Usage: ::
+
+    const toast = Baton.notify('success', 'Order saved')
+    // dismiss it, for example before showing the next outcome
+    toast.querySelector('.btn-close').click()
