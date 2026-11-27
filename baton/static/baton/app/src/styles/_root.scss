@@ -130,6 +130,14 @@
   // scss-docs-end root-form-validation-variables
 }
 
+// The light theme tells the browser so: the admin of Django declares both
+// schemes and, with the system in dark mode, its dark_mode.css sets
+// `color-scheme: dark` on :root, which would draw the scrollbars and the native
+// controls dark under the light theme. The element outweighs its :root.
+html[data-bs-theme='light'] {
+  color-scheme: light;
+}
+
 @if $enable-dark-mode {
   @include color-mode(dark, true) {
     color-scheme: dark;
